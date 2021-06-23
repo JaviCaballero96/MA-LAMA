@@ -1,4 +1,5 @@
-from . import actions
+#from . import actions
+from . import durative_actions
 from . import axioms
 from . import conditions
 from . import predicates
@@ -133,22 +134,38 @@ def parse_domain(domain_pddl):
         for function in the_functions:
             Task.FUNCTION_SYMBOLS[function.name] = function.type
         yield the_functions
-        first_action = next(iterator)
+        first_durative_action = next(iterator)
+        #first_action = next(iterator)
     else:
         yield []
-        first_action = opt_functions
-    entries = [first_action] + [entry for entry in iterator]
+        first_durative_action = opt_functions
+        #first_action = opt_functions
+
+    entries = [first_durative_action] + [entry for entry in iterator]
     the_axioms = []
-    the_actions = []
+    the_durative_actions = []
     for entry in entries:
         if entry[0] == ":derived":
             axiom = axioms.Axiom.parse(entry)
             the_axioms.append(axiom)
         else:
-            action = actions.Action.parse(entry)
-            the_actions.append(action)
-    yield the_actions
+            durative_action = durative_actions.DurativeAction.parse(entry)
+            the_durative_actions.append(durative_action)
+    yield the_durative_actions
     yield the_axioms
+
+    #entries = [first_action] + [entry for entry in iterator]
+    #the_axioms = []
+    #the_actions = []
+    #for entry in entries:
+    #    if entry[0] == ":derived":
+    #        axiom = axioms.Axiom.parse(entry)
+    #        the_axioms.append(axiom)
+    #    else:
+    #        action = actions.Action.parse(entry)
+    #        the_actions.append(action)
+    #yield the_actions
+    #yield the_axioms
 
 def parse_task(task_pddl):
     iterator = iter(task_pddl)
