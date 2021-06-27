@@ -1,5 +1,6 @@
 from . import pddl_types
-from . import tasks # for Task.FUNCTION_SYMBOLS, needed in parse_term()
+from . import tasks  # for Task.FUNCTION_SYMBOLS, needed in parse_term()
+
 
 def parse_condition(alist):
     condition = parse_condition_aux(alist, False)
@@ -11,6 +12,14 @@ def parse_condition(alist):
     condition.uniquify_variables({})
     return condition
 
+
+def parse_durative_condition(alist):
+    condition = parse_condition_aux(alist, False)
+    condition.parse_temp_info(alist)
+    condition.uniquify_variables({})
+    return condition
+
+
 def parse_condition_aux(alist, negated):
     """Parse a PDDL condition. The condition is translated into NNF on the fly."""
     tag = alist[0]
@@ -21,6 +30,8 @@ def parse_condition_aux(alist, negated):
         if tag == "not":
             assert len(args) == 1
             return parse_condition_aux(args[0], not negated)
+    elif tag in ("over", "at"):
+        return Atom(alist[2][0], alist[2][1:])
     elif tag in ("forall", "exists"):
         parameters = pddl_types.parse_typed_list(alist[1])
         args = alist[2:]
@@ -45,6 +56,7 @@ def parse_condition_aux(alist, negated):
     elif tag == "exists" and not negated or tag == "forall" and negated:
         return ExistentialCondition(parameters, parts)
 
+
 def parse_literal(alist):
     if alist[0] == "not":
         assert len(alist) == 2
@@ -53,42 +65,54 @@ def parse_literal(alist):
     else:
         return Atom(alist[0], alist[1:])
 
+
 # Conditions (of any type) are immutable, because they need to
 # be hashed occasionally. Immutability also allows more efficient comparison
 # based on a precomputed hash value.
 #
 # Careful: Most other classes (e.g. Effects, Axioms, Actions) are not!
 
+
 class Condition(object):
     def __init__(self, parts):
         self.parts = tuple(parts)
         self.hash = hash((self.__class__, self.parts))
+
     def __hash__(self):
         return self.hash
 
     def __lt__(self, other):
         return self.hash < other.hash
+
     def __le__(self, other):
-         return self.hash <= other.hash
+        return self.hash <= other.hash
+
     def __ne__(self, other):
         return not self == other
+
     def dump(self, indent="  "):
         print("%s%s" % (indent, self._dump()))
         for part in self.parts:
             part.dump(indent + "  ")
+
     def _dump(self):
         return self.__class__.__name__
+
     def _postorder_visit(self, method_name, *args):
         part_results = [part._postorder_visit(method_name, *args)
                         for part in self.parts]
         method = getattr(self, method_name, self._propagate)
         return method(part_results, *args)
+
     def _propagate(self, parts, *args):
         return self.change_parts(parts)
+
     def simplified(self):
         return self._postorder_visit("_simplified")
+
     def relaxed(self):
         return self._postorder_visit("_relaxed")
+
     def untyped(self):
         return self._postorder_visit("_untyped")
 
@@ -100,59 +124,79 @@ class Condition(object):
         else:
             return self.__class__([part.uniquify_variables(type_map, renamings)
                                    for part in self.parts])
+
     def to_untyped_strips(self):
         raise ValueError("Not a STRIPS condition: %s" % self.__class__.__name__)
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         raise ValueError("Cannot instantiate condition: not normalized")
+
     def free_variables(self):
         result = set()
         for part in self.parts:
             result |= part.free_variables()
         return result
+
     def has_disjunction(self):
         for part in self.parts:
             if part.has_disjunction():
                 return True
         return False
+
     def has_existential_part(self):
         for part in self.parts:
             if part.has_existential_part():
                 return True
         return False
+
     def has_universal_part(self):
         for part in self.parts:
             if part.has_universal_part():
                 return True
         return False
 
+    def parse_temp_info(self, alist):
+        print("Hola buenas")
+
+
 class ConstantCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
     __hash__ = Condition.__hash__
 
     parts = ()
+
     def __init__(self):
         self.hash = hash(self.__class__)
+
     def change_parts(self, parts):
         return self
+
     def __eq__(self, other):
         return self.__class__ is other.__class__
+
 
 class Impossible(Exception):
     pass
 
+
 class Falsity(ConstantCondition):
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         raise Impossible()
+
     def negate(self):
         return Truth()
+
 
 class Truth(ConstantCondition):
     def to_untyped_strips(self):
         return []
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         pass
+
     def negate(self):
         return Falsity()
+
 
 class JunctorCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -163,8 +207,10 @@ class JunctorCondition(Condition):
         return (self.hash == other.hash and
                 self.__class__ is other.__class__ and
                 self.parts == other.parts)
+
     def change_parts(self, parts):
         return self.__class__(parts)
+
 
 class Conjunction(JunctorCondition):
     def _simplified(self, parts):
@@ -181,17 +227,21 @@ class Conjunction(JunctorCondition):
         if len(result_parts) == 1:
             return result_parts[0]
         return Conjunction(result_parts)
+
     def to_untyped_strips(self):
         result = []
         for part in self.parts:
             result += part.to_untyped_strips()
         return result
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         assert not result, "Condition not simplified"
         for part in self.parts:
             part.instantiate(var_mapping, init_facts, fluent_facts, result)
+
     def negate(self):
         return Disjunction([p.negate() for p in self.parts])
+
 
 class Disjunction(JunctorCondition):
     def _simplified(self, parts):
@@ -208,10 +258,13 @@ class Disjunction(JunctorCondition):
         if len(result_parts) == 1:
             return result_parts[0]
         return Disjunction(result_parts)
+
     def negate(self):
         return Conjunction([p.negate() for p in self.parts])
+
     def has_disjunction(self):
         return True
+
 
 class QuantifiedCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -221,15 +274,18 @@ class QuantifiedCondition(Condition):
         self.parameters = tuple(parameters)
         self.parts = tuple(parts)
         self.hash = hash((self.__class__, self.parameters, self.parts))
+
     def __eq__(self, other):
         # Compare hash first for speed reasons.
         return (self.hash == other.hash and
                 self.__class__ is other.__class__ and
                 self.parameters == other.parameters and
                 self.parts == other.parts)
+
     def _dump(self, indent="  "):
         arglist = ", ".join(map(str, self.parameters))
         return "%s %s" % (self.__class__.__name__, arglist)
+
     def _simplified(self, parts):
         if isinstance(parts[0], ConstantCondition):
             return parts[0]
@@ -237,7 +293,7 @@ class QuantifiedCondition(Condition):
             return self._propagate(parts)
 
     def uniquify_variables(self, type_map, renamings={}):
-        renamings = dict(renamings) # Create a copy.
+        renamings = dict(renamings)  # Create a copy.
         new_parameters = [par.uniquify_name(type_map, renamings)
                           for par in self.parameters]
         new_parts = (self.parts[0].uniquify_variables(type_map, renamings),)
@@ -248,61 +304,79 @@ class QuantifiedCondition(Condition):
         for par in self.parameters:
             result.discard(par.name)
         return result
+
     def change_parts(self, parts):
         return self.__class__(self.parameters, parts)
+
 
 class UniversalCondition(QuantifiedCondition):
     def _untyped(self, parts):
         type_literals = [NegatedAtom(par.type, [par.name]) for par in self.parameters]
         return UniversalCondition(self.parameters,
                                   [Disjunction(type_literals + parts)])
+
     def negate(self):
         return ExistentialCondition(self.parameters, [p.negate() for p in self.parts])
+
     def has_universal_part(self):
         return True
+
 
 class ExistentialCondition(QuantifiedCondition):
     def _untyped(self, parts):
         type_literals = [Atom(par.type, [par.name]) for par in self.parameters]
         return ExistentialCondition(self.parameters,
                                     [Conjunction(type_literals + parts)])
+
     def negate(self):
         return UniversalCondition(self.parameters, [p.negate() for p in self.parts])
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         assert not result, "Condition not simplified"
         self.parts[0].instantiate(var_mapping, init_facts, fluent_facts, result)
+
     def has_existential_part(self):
         return True
+
 
 class Literal(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
     __hash__ = Condition.__hash__
 
     parts = []
+
     def __eq__(self, other):
         # Compare hash first for speed reasons.
         return (self.hash == other.hash and
                 self.__class__ is other.__class__ and
                 self.predicate == other.predicate and
                 self.args == other.args)
+
     def __init__(self, predicate, args):
         self.predicate = predicate
         self.args = tuple(args)
         self.hash = hash((self.__class__, self.predicate, self.args))
+
     def __str__(self):
         return "%s %s(%s)" % (self.__class__.__name__, self.predicate,
                               ", ".join(map(str, self.args)))
+
     def _dump(self):
         return str(self)
+
     def change_parts(self, parts):
         return self
+
     def uniquify_variables(self, type_map, renamings={}):
         return self.rename_variables(renamings)
+
     def rename_variables(self, renamings):
         new_args = [renamings.get(arg, arg) for arg in self.args]
         return self.__class__(self.predicate, new_args)
+
     def free_variables(self):
         return set(arg for arg in self.args if arg[0] == "?")
+
 
 class Atom(Literal):
     negated = False
@@ -312,6 +386,7 @@ class Atom(Literal):
 
     def to_untyped_strips(self):
         return [self]
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         args = [var_mapping.get(arg, arg) for arg in self.args]
         atom = Atom(self.predicate, args)
@@ -319,15 +394,20 @@ class Atom(Literal):
             result.append(atom)
         elif atom not in init_facts:
             raise Impossible()
+
     def negate(self):
         return NegatedAtom(self.predicate, self.args)
+
     def positive(self):
         return self
 
+
 class NegatedAtom(Literal):
     negated = True
+
     def _relaxed(self, parts):
         return Truth()
+
     def instantiate(self, var_mapping, init_facts, fluent_facts, result):
         args = [var_mapping.get(arg, arg) for arg in self.args]
         atom = Atom(self.predicate, args)
@@ -335,8 +415,10 @@ class NegatedAtom(Literal):
             result.append(NegatedAtom(self.predicate, args))
         elif atom in init_facts:
             raise Impossible()
+
     def negate(self):
         return Atom(self.predicate, self.args)
+
     positive = negate
 
 
@@ -353,43 +435,54 @@ class NegatedAtom(Literal):
 # reachability analysis and invariant synthesis.
 
 def parse_term(term):
-    if isinstance(term, list): # when can this happen?
-        return FunctionTerm(term[0],[parse_term(t) for t in term[1:]])
+    if isinstance(term, list):  # when can this happen?
+        return FunctionTerm(term[0], [parse_term(t) for t in term[1:]])
     elif term.startswith("?"):
         return Variable(term)
     elif term in tasks.Task.FUNCTION_SYMBOLS:
-        return FunctionTerm(term,[])
+        return FunctionTerm(term, [])
     else:
         return ObjectTerm(term)
+
 
 class Term(object):
     def __eq__(self, other):
         return (self.__class__ == other.__class__ and self.name == other.name)
+
     def dump(self, indent="  "):
         print("%s%s %s" % (indent, self._dump(), self.name))
         for arg in self.args:
             arg.dump(indent + "  ")
+
     def _dump(self):
         return self.__class__.__name__
+
 
 class FunctionTerm(Term):
     def __init__(self, name, args=[]):
         self.name = name
         self.args = args
+
     def __eq__(self, other):
         return (self.__class__ == other.__class__ and self.name == other.name
                 and self.args == other.args)
 
+
 class Variable(Term):
     args = []
+
     def __init__(self, name):
         self.name = name
+
     def __str__(self):
         return self.name
 
+
 class ObjectTerm(Term):
     args = []
+
     def __init__(self, name):
         self.name = name
+
     def __str__(self):
         return self.name

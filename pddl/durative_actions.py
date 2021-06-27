@@ -5,12 +5,13 @@ import copy
 from . import conditions
 from . import effects
 from . import pddl_types
+from . import f_expression
 
 
 class DurativeAction(object):
-    def __init__(self, name, duration, parameters, condition, effects, cost):
+    def __init__(self, name, duration_t, parameters, condition, effects, cost):
         self.name = name
-        self.duration = duration
+        self.duration_t = duration_t
         self.parameters = parameters
         self.condition = condition
         self.effects = effects
@@ -34,9 +35,11 @@ class DurativeAction(object):
             duration_tag_opt = parameters_tag_opt
         if duration_tag_opt == ":duration":
             print("Reading duration")
+            duration_list = next(iterator)
+            duration_t = parse_duration(duration_list)
             precondition_tag_opt = next(iterator)
-        if precondition_tag_opt == ":precondition":
-            precondition = conditions.parse_condition(next(iterator))
+        if precondition_tag_opt == ":condition":
+            precondition = conditions.parse_durative_condition(next(iterator))
             precondition = precondition.simplified()
             effect_tag = next(iterator)
         else:
@@ -51,6 +54,14 @@ class DurativeAction(object):
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
-        return DurativeAction(name, parameters, precondition, eff, cost)
+        return DurativeAction(name, duration_t, parameters, precondition, eff, cost)
 
     parse = staticmethod(parse)
+
+
+def parse_duration(alist):
+    equal = alist[0]
+    duration_name = alist[1]
+    assert equal == "="
+    assert duration_name == "?duration"
+    return f_expression.parse_assignment(alist)
