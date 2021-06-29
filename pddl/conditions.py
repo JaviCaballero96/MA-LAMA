@@ -15,7 +15,7 @@ def parse_condition(alist):
 
 def parse_durative_condition(alist):
     condition = parse_condition_aux(alist, False)
-    condition.parse_temp_info(alist)
+    condition.temp_info = condition.parse_temp_info(alist)
     condition.uniquify_variables({})
     return condition
 
@@ -156,7 +156,19 @@ class Condition(object):
         return False
 
     def parse_temp_info(self, alist):
-        print("Hola buenas")
+        """Parse PDDL time identificators: over all, at start and at end """
+        tag = alist[0]
+        if tag in ("and", "or", "not", "imply"):
+            args = alist[1:]
+        elif tag == "over":
+            return "all"
+        elif tag == "at":
+            return alist[1]
+        else:
+            args = alist
+
+        parts = [self.parse_temp_info(part) for part in args]
+        return parts
 
 
 class ConstantCondition(Condition):
