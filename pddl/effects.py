@@ -12,18 +12,38 @@ def cartesian_product(*sequences):
             for item in sequences[0]:
                 yield (item,) + tup
 
+
+def parse_temp_info(alist):
+    """Parse PDDL time identificators: over all, at start and at end """
+    tag = alist[0]
+    if tag in ("and", "or", "not", "imply"):
+        args = alist[1:]
+    elif tag == "over":
+        return "all"
+    elif tag == "at":
+        return alist[1]
+    else:
+        args = alist
+
+    parts = [parse_temp_info(part) for part in args]
+    return parts
+
+
 def parse_effects(alist, result):
     """Parse a PDDL effect (any combination of simple, conjunctive, conditional, and universal)."""
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
+    tmp_info = parse_temp_info(alist)
     cost_eff, rest_effect = normalized.extract_cost()
-    add_effect(rest_effect, result)
+
+    #TODO Take into account temporal information when adding effect to an action
+    add_effect(rest_effect, result, tmp_info)
     if cost_eff:
-        return cost_eff.effect
+        return cost_eff
     else:
         return None
 
-def add_effect(tmp_effect, result):
+def add_effect(tmp_effect, result, tmp_info):
     """tmp_effect has the following structure:
        [ConjunctiveEffect] [UniversalEffect] [ConditionalEffect] SimpleEffect."""
 
@@ -65,6 +85,11 @@ def add_effect(tmp_effect, result):
 
 def parse_effect(alist):
     tag = alist[0]
+
+    if tag in ("over", "at"):
+        alist = alist[2]
+        tag = alist[0]
+
     if tag == "and":
         return ConjunctiveEffect([parse_effect(eff) for eff in alist[1:]])
     elif tag == "forall":
@@ -79,7 +104,7 @@ def parse_effect(alist):
         return ConditionalEffect(condition, effect)
     elif tag == "increase":
         assert len(alist) == 3
-        assert alist[1] == ['total-cost']
+        #assert alist[1] == ['total-cost']
         assignment = f_expression.parse_assignment(alist)
         return CostEffect(assignment)
     else:
@@ -222,13 +247,13 @@ class ConjunctiveEffect(object):
         return ConjunctiveEffect(new_effects)
     def extract_cost(self):
         new_effects = []
-        cost_effect = None
+        cost_effects = []
         for effect in self.effects:
             if isinstance(effect, CostEffect):
-                cost_effect = effect
+                cost_effects.append(effect)
             else:
                 new_effects.append(effect)
-        return cost_effect, ConjunctiveEffect(new_effects)
+        return cost_effects, ConjunctiveEffect(new_effects)
 
 class SimpleEffect(object):
     def __init__(self, effect):
