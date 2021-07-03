@@ -58,6 +58,12 @@ class DurativeAction(object):
 
     parse = staticmethod(parse)
 
+    def uniquify_variables(self):
+        self.type_map = dict([(par.name, par.type) for par in self.parameters])
+        self.condition = self.condition.uniquify_variables(self.type_map)
+        for effect in self.effects:
+            effect.uniquify_variables(self.type_map)
+
 
 def parse_duration(alist):
     equal = alist[0]

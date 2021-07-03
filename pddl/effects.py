@@ -34,16 +34,16 @@ def parse_effects(alist, result):
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
     tmp_info = parse_temp_info(alist)
-    cost_eff, rest_effect = normalized.extract_cost()
+    cost_eff, rest_effect = normalized.extract_cost(tmp_info)
 
     #TODO Take into account temporal information when adding effect to an action
-    add_effect(rest_effect, result, tmp_info)
+    add_effect(rest_effect, result)
     if cost_eff:
         return cost_eff
     else:
         return None
 
-def add_effect(tmp_effect, result, tmp_info):
+def add_effect(tmp_effect, result):
     """tmp_effect has the following structure:
        [ConjunctiveEffect] [UniversalEffect] [ConditionalEffect] SimpleEffect."""
 
@@ -74,13 +74,16 @@ def add_effect(tmp_effect, result, tmp_info):
         # Check for contradictory effects
         condition = condition.simplified()
         new_effect = Effect(parameters, condition, effect)
+        new_effect.tmp = tmp_effect.tmp
         contradiction = Effect(parameters, condition, effect.negate())
         if not contradiction in result:
             result.append(new_effect)
         else:
             # We use add-after-delete semantics, keep positive effect
             if isinstance(contradiction.literal, conditions.NegatedAtom):
-                result.remove(contradiction)
+                index = result.index(contradiction)
+                if result[index].tmp == new_effect.tmp:
+                    result.remove(contradiction)
                 result.append(new_effect)
 
 def parse_effect(alist):
@@ -245,14 +248,17 @@ class ConjunctiveEffect(object):
         for effect in self.effects:
             new_effects.append(effect.normalize())
         return ConjunctiveEffect(new_effects)
-    def extract_cost(self):
+    def extract_cost(self, tmp_info):
         new_effects = []
         cost_effects = []
+        index = 0
         for effect in self.effects:
+            effect.tmp = tmp_info[index]
             if isinstance(effect, CostEffect):
                 cost_effects.append(effect)
             else:
                 new_effects.append(effect)
+            index = index + 1
         return cost_effects, ConjunctiveEffect(new_effects)
 
 class SimpleEffect(object):

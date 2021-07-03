@@ -16,6 +16,7 @@ def parse_condition(alist):
 def parse_durative_condition(alist):
     condition = parse_condition_aux(alist, False)
     condition.temp_info = condition.parse_temp_info(alist)
+    condition.include_temp_info()
     condition.uniquify_variables({})
     return condition
 
@@ -170,6 +171,10 @@ class Condition(object):
         parts = [self.parse_temp_info(part) for part in args]
         return parts
 
+    def include_temp_info(self):
+        index = 0
+        for cond in self.parts:
+            cond.tmp = self.temp_info[index]
 
 class ConstantCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
