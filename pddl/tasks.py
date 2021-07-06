@@ -203,14 +203,18 @@ def parse_task(task_pddl):
     assert goal[0] == ":goal" and len(goal) == 2
     yield conditions.parse_condition(goal[1])
 
-    use_metric = False
+    metric = []
     for entry in iterator:
         if entry[0] == ":metric":
-            if entry[1]=="minimize" and entry[2][0] == "total-cost":
-                use_metric = True
+            metric.append(entry[1])
+            if entry[2][0] == "total-cost":
+                metric = "total-cost"
+            elif entry[2][0] == "+":
+                for pne in entry[2][1:]:
+                    metric.append(f_expression.parse_expression(pne))
             else:
-                assert False, "Unknown metric."
-    yield use_metric
+                metric.append(entry[2][0])
+    yield metric
 
     for entry in iterator:
         assert False, entry

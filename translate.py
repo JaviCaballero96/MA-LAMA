@@ -13,6 +13,7 @@ import pddl
 import sas_tasks
 import simplify
 import timers
+import snap_actions
 
 # TODO: The translator may generate trivial derived variables which are always true,
 # for example if there ia a derived predicate in the input that only depends on
@@ -586,11 +587,14 @@ if __name__ == "__main__":
 
     timer = timers.Timer()
     with timers.timing("Parsing"):
-        task = pddl.open_pddl_file()
+        durative_task = pddl.open_pddl_file()
 
     # EXPERIMENTAL!
     # import psyco
     # psyco.full()
+
+    # Translate durative task to snap actions task
+    task = snap_actions.task_snap_translate(durative_task)
 
     sas_task = pddl_to_sas(task)
     with timers.timing("Writing output"):
