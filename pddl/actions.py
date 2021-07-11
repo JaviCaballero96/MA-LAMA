@@ -62,7 +62,8 @@ class Action(object):
         self.type_map = dict([(par.name, par.type) for par in self.parameters])
         self.precondition = self.precondition.uniquify_variables(self.type_map)
         for effect in self.effects:
-            effect.uniquify_variables(self.type_map)
+            if not isinstance(effect, effects.CostEffect):
+                effect.uniquify_variables(self.type_map)
     def unary_actions(self):
         # TODO: An neue Effect-Repräsentation anpassen.
         result = []

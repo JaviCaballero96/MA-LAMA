@@ -66,6 +66,6 @@ def obtain_end_snap_actions(all_actions):
             if effect.tmp == "end":
                 effects_list.append(effect)
 
-        end_actions.append(act.Action(action.name + "_start", action.parameters, preconditions, effects_list,
+        end_actions.append(act.Action(action.name + "_end", action.parameters, preconditions, effects_list,
                                       action.cost))
     return end_actions
