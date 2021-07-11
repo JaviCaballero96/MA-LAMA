@@ -594,9 +594,9 @@ if __name__ == "__main__":
     # psyco.full()
 
     # Translate durative task to snap actions task
-    task = snap_actions.task_snap_translate(durative_task)
+    snap_task = snap_actions.task_snap_translate(durative_task)
 
-    sas_task = pddl_to_sas(task)
+    sas_task = pddl_to_sas(snap_task)
     with timers.timing("Writing output"):
         sas_task.output(open("output.sas", "w"))
     print("Done! %s" % timer)

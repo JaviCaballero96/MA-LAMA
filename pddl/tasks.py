@@ -10,7 +10,7 @@ from . import f_expression
 class Task(object):
     FUNCTION_SYMBOLS = dict()
     def __init__(self, domain_name, task_name, requirements,
-                 types, objects, predicates, functions, init, goal, actions, axioms, use_metric):
+                 types, objects, predicates, functions, init, goal, actions, axioms, metric):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -23,7 +23,7 @@ class Task(object):
         self.actions = actions
         self.axioms = axioms
         self.axiom_counter = 0
-        self.use_min_cost_metric = use_metric
+        self.metric = metric
 
     def add_axiom(self, parameters, condition):
         name = "new-axiom@%d" % self.axiom_counter

@@ -36,7 +36,6 @@ def parse_effects(alist, result):
     tmp_info = parse_temp_info(alist)
     cost_eff, rest_effect = normalized.extract_cost(tmp_info)
 
-    #TODO Take into account temporal information when adding effect to an action
     add_effect(rest_effect, result)
     if cost_eff:
         return cost_eff

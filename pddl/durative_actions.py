@@ -2,21 +2,23 @@
 
 import copy
 
-from . import conditions
-from . import effects
+from . import conditions as cond
+from . import effects as eff
 from . import pddl_types
 from . import f_expression
 
 
 class DurativeAction(object):
-    def __init__(self, name, duration_t, parameters, condition, effects, cost):
+    def __init__(self, name, duration_t, parameters, conditions, effects, cost):
         self.name = name
         self.duration_t = duration_t
         self.parameters = parameters
-        self.condition = condition
+        self.conditions = conditions
+        cond_tmp_info = conditions.temp_info
         self.effects = effects
         self.cost = cost
         self.uniquify_variables()  # TODO: uniquify variables in cost?
+        self.conditions.include_temp_info(cond_tmp_info)
 
     def __repr__(self):
         return "<Durative-Action %r at %#x>" % (self.name, id(self))
@@ -39,30 +41,36 @@ class DurativeAction(object):
             duration_t = parse_duration(duration_list)
             precondition_tag_opt = next(iterator)
         if precondition_tag_opt == ":condition":
-            precondition = conditions.parse_durative_condition(next(iterator))
+            raw = next(iterator)
+            precondition = cond.parse_durative_condition(raw)
             precondition = precondition.simplified()
+            precondition.temp_info = precondition.parse_temp_info(raw)
             effect_tag = next(iterator)
         else:
-            precondition = conditions.Conjunction([])
+            precondition = cond.Conjunction([])
             effect_tag = precondition_tag_opt
         assert effect_tag == ":effect"
         effect_list = next(iterator)
-        eff = []
+        effects = []
         try:
-            cost = effects.parse_effects(effect_list, eff)
+            cost = eff.parse_effects(effect_list, effects)
         except ValueError as e:
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
-        return DurativeAction(name, duration_t, parameters, precondition, eff, cost)
+        if cost:
+            return DurativeAction(name, duration_t, parameters, precondition, effects + cost, cost)
+        else:
+            return DurativeAction(name, duration_t, parameters, precondition, effects, cost)
 
     parse = staticmethod(parse)
 
     def uniquify_variables(self):
         self.type_map = dict([(par.name, par.type) for par in self.parameters])
-        self.condition = self.condition.uniquify_variables(self.type_map)
+        self.conditions = self.conditions.uniquify_variables(self.type_map)
         for effect in self.effects:
-            effect.uniquify_variables(self.type_map)
+            if not isinstance(effect, eff.CostEffect):
+                effect.uniquify_variables(self.type_map)
 
 
 def parse_duration(alist):
