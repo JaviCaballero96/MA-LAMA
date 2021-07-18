@@ -33,6 +33,7 @@ def obtain_start_snap_actions(all_actions):
     for action in all_actions:
         effects_list = []
         preconditions_list = []
+        cost_list = []
 
         for condition in action.conditions.parts:
             if condition.tmp == "start" or condition.tmp == "all":
@@ -49,8 +50,13 @@ def obtain_start_snap_actions(all_actions):
         elif isinstance(action.conditions, cond.Disjunction):
             preconditions = cond.Disjunction(preconditions_list)
 
+        if action.cost:
+            for cost_effect in action.cost:
+                if cost_effect.tmp == "start":
+                    cost_list.append(cost_effect)
+
         new_action = act.Action(action.name + "_start", action.parameters, preconditions, effects_list,
-                                action.cost)
+                                cost_list)
 
         start_actions.append(new_action)
     return start_actions
@@ -63,6 +69,7 @@ def obtain_end_snap_actions(all_actions):
     for action in all_actions:
         effects_list = []
         preconditions_list = []
+        cost_list = []
 
         for condition in action.conditions.parts:
             if condition.tmp == "end" or condition.tmp == "all":
@@ -79,8 +86,13 @@ def obtain_end_snap_actions(all_actions):
         elif isinstance(action.conditions, cond.Disjunction):
             preconditions = cond.Disjunction(preconditions_list)
 
+        if action.cost:
+            for cost_effect in action.cost:
+                if cost_effect.tmp == "end":
+                    cost_list.append(cost_effect)
+
         new_action = act.Action(action.name + "_end", action.parameters, preconditions, effects_list,
-                                action.cost)
+                                cost_list)
         end_actions.append(new_action)
     return end_actions
 

@@ -58,10 +58,7 @@ class DurativeAction(object):
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
-        if cost:
-            return DurativeAction(name, duration_t, parameters, precondition, effects + cost, cost)
-        else:
-            return DurativeAction(name, duration_t, parameters, precondition, effects, cost)
+        return DurativeAction(name, duration_t, parameters, precondition, effects, cost)
 
     parse = staticmethod(parse)
 
