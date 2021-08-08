@@ -75,6 +75,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
         assert not self.symbol == "total-cost"
         # We know this expression is constant. Substitute it by corresponding
         # initialization from task.
+        # TODO: Currently, complex metric operations are no permited
         for fact in init_facts:
             if isinstance(fact, FunctionAssignment):
                 if fact.fluent == pne:
@@ -100,7 +101,7 @@ class FunctionAssignment(object):
         # We know that this assignment is a cost effect of an action (for initial state
         # assignments, "instantiate" is not called). Hence, we know that the fluent is
         # the 0-ary "total-cost" which does not need to be instantiated
-        assert self.fluent.symbol == "total-cost"
+        # assert self.fluent.symbol == "total-cost"
         fluent = self.fluent
         expression = self.expression.instantiate(var_mapping, init_facts)
         return self.__class__(fluent, expression)
