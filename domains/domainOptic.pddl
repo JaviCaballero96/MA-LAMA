@@ -5,12 +5,13 @@
    )
    (:predicates
 		 (modeTransition ?n1 - NavMode ?n2 - NavMode)
-     (Navigation_Mode ?a - Agent ?n - NavMode)
+	     (Navigation_Mode ?a - Agent ?n - NavMode)
 		 (Communication_transmittedP ?p - Loc)
 		 (RobotBase_NotOnDock ?a - Agent)
 		 (RobotBase_OnDock ?a - Agent)
 		 (RobotBase_At ?a - Agent ?p - Loc)
 		 (Cameras_Picture ?a - Agent ?p - Loc)
+		 (traversable ?p1 - Loc ?p2 - Loc)
 		 (inside ?i - ICam ?a - Agent)
 		 (visited ?p - Loc)
 		 (dockPos ?p - Loc)
@@ -19,7 +20,7 @@
 
 	 (:functions
 		 (batperdis ?a - Agent ?n - NavMode)
-     (distance_to_move ?p1 ?p2 - Loc)
+         (distance_to_move ?p1 ?p2 - Loc)
 		 (speed ?a - Agent ?n - NavMode)
 		 (metricPercentage ?a - Agent)
 		 (battery ?a - Agent)
@@ -39,8 +40,9 @@
      :duration (= ?duration (/ (distance_to_move ?p1 ?p)(speed ?a ?n)))
      :condition (and
 				(over all (Navigation_Mode ?a ?n))
+				(over all (traversable ?p1 ?p))
 				(at start (RobotBase_NotOnDock ?a))
-      	(at start (RobotBase_At ?a ?p1))
+      	        (at start (RobotBase_At ?a ?p1))
 				(at start (free ?a))
       )
      :effect (and

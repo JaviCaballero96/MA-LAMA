@@ -5,6 +5,8 @@ import copy
 from . import conditions
 from . import effects
 from . import pddl_types
+from . import f_expression
+
 
 class Action(object):
     def __init__(self, name, parameters, precondition, effects, cost):
@@ -13,9 +15,11 @@ class Action(object):
         self.precondition = precondition
         self.effects = effects
         self.cost = cost
-        self.uniquify_variables() # TODO: uniquify variables in cost?
+        self.uniquify_variables()  # TODO: uniquify variables in cost?
+
     def __repr__(self):
         return "<Action %r at %#x>" % (self.name, id(self))
+
     def parse(alist):
         iterator = iter(alist)
         assert next(iterator) == ":action"
@@ -45,7 +49,9 @@ class Action(object):
         for rest in iterator:
             assert False, rest
         return Action(name, parameters, precondition, eff, cost)
+
     parse = staticmethod(parse)
+
     def dump(self):
         print("%s(%s)" % (self.name, ", ".join(map(str, self.parameters))))
         print("Precondition:")
@@ -54,16 +60,18 @@ class Action(object):
         for eff in self.effects:
             eff.dump()
         print("Cost:")
-        if(self.cost):
+        if (self.cost):
             self.cost.dump()
         else:
             print("  None")
+
     def uniquify_variables(self):
         self.type_map = dict([(par.name, par.type) for par in self.parameters])
         self.precondition = self.precondition.uniquify_variables(self.type_map)
         for effect in self.effects:
             if not isinstance(effect, effects.CostEffect):
                 effect.uniquify_variables(self.type_map)
+
     def unary_actions(self):
         # TODO: An neue Effect-Repräsentation anpassen.
         result = []
@@ -81,6 +89,7 @@ class Action(object):
             unary_action.effects = [effect]
             result.append(unary_action)
         return result
+
     def relaxed(self):
         new_effects = []
         for eff in self.effects:
@@ -90,6 +99,7 @@ class Action(object):
         return Action(self.name, self.parameters,
                       self.precondition.relaxed().simplified(),
                       new_effects)
+
     def untyped(self):
         # We do not actually remove the types from the parameter lists,
         # just additionally incorporate them into the conditions.
@@ -100,6 +110,7 @@ class Action(object):
         result.precondition = conditions.Conjunction(parameter_atoms + [new_precondition])
         result.effects = [eff.untyped() for eff in self.effects]
         return result
+
     def untyped_strips_preconditions(self):
         # Used in instantiator for converting unary actions into prolog rules.
         return [par.to_untyped_strips() for par in self.parameters] + \
@@ -132,11 +143,56 @@ class Action(object):
                 cost = 0
             else:
                 for cost_eff in self.cost:
-                    cost = cost + int(cost_eff.effect.instantiate(var_mapping, init_facts).expression.value)
-                #cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
+                    # cost = cost + int(cost_eff.effect.instantiate(var_mapping, init_facts).expression.value)
+                    cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+
+                # cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
             return PropositionalAction(name, precondition, effects, cost)
         else:
             return None
+
+    def calculateCost(self, cost_eff, var_mapping, init_facts):
+        new_effect_1 = f_expression.Increase("", "")
+        new_effect_2 = f_expression.Increase("", "")
+        if cost_eff.expression.symbol == "*":
+            new_effect_1.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[0].name,
+                                                                              cost_eff.expression.args[0].args)
+            new_effect_2.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[1].name,
+                                                                              cost_eff.expression.args[1].args)
+            new_effect_1.fluent = ""
+            new_effect_2.fluent = ""
+            return self.calculateCost(new_effect_1, var_mapping, init_facts) * self.calculateCost(
+                new_effect_2, var_mapping, init_facts)
+        elif cost_eff.expression.symbol == "/":
+            new_effect_1.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[0].name,
+                                                                              cost_eff.expression.args[0].args)
+            new_effect_2.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[1].name,
+                                                                              cost_eff.expression.args[1].args)
+            new_effect_1.fluent = ""
+            new_effect_2.fluent = ""
+            return self.calculateCost(new_effect_1, var_mapping, init_facts) / self.calculateCost(
+                new_effect_2, var_mapping, init_facts)
+        elif cost_eff.expression.symbol == "-":
+            new_effect_1.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[0].name,
+                                                                              cost_eff.expression.args[0].args)
+            new_effect_2.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[1].name,
+                                                                              cost_eff.expression.args[1].args)
+            new_effect_1.fluent = ""
+            new_effect_2.fluent = ""
+            return self.calculateCost(new_effect_1, var_mapping, init_facts) - self.calculateCost(
+                new_effect_2, var_mapping, init_facts)
+        elif cost_eff.expression.symbol == "+":
+            new_effect_1.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[0].name,
+                                                                              cost_eff.expression.args[0].args)
+            new_effect_2.expression = f_expression.PrimitiveNumericExpression(cost_eff.expression.args[1].name,
+                                                                              cost_eff.expression.args[1].args)
+            new_effect_1.fluent = ""
+            new_effect_2.fluent = ""
+            return self.calculateCost(new_effect_1, var_mapping, init_facts) + self.calculateCost(
+                new_effect_2, var_mapping, init_facts)
+        else:
+            return cost_eff.instantiate(var_mapping, init_facts).expression.value
+
 
 class PropositionalAction:
     def __init__(self, name, precondition, effects, cost):
@@ -155,6 +211,7 @@ class PropositionalAction:
             if effect.negated and (condition, effect.negate()) not in self.add_effects:
                 self.del_effects.append((condition, effect.negate()))
         self.cost = cost
+
     def dump(self):
         print(self.name)
         for fact in self.precondition:
