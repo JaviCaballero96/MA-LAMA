@@ -37,6 +37,12 @@ def parse_effects(alist, result):
     cost_eff, rest_effect = normalized.extract_cost(tmp_info)
 
     add_effect(rest_effect, result)
+
+    # Add cost effects
+    for cost_effect in cost_eff:
+        cost_effect.condition = conditions.Truth()
+        result.append(cost_effect)
+
     if cost_eff:
         return cost_eff
     else:

@@ -8,7 +8,7 @@ class SASTask:
         self.metric = metric
     def output(self, stream):
         print("begin_metric", file=stream)
-        print(int(self.metric), file=stream)
+        print(self.metric, file=stream)
         print("end_metric", file=stream)
         self.variables.output(stream)
         self.init.output(stream)

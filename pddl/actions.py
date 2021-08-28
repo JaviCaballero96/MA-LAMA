@@ -137,10 +137,10 @@ class Action(object):
         for eff in self.effects:
             eff.instantiate(var_mapping, init_facts, fluent_facts,
                             objects_by_type, effects)
-        cost = 0
+        cost = float(0)
         if effects:
             if not self.cost:
-                cost = 0
+                cost = float(0)
             else:
                 for cost_eff in self.cost:
                     # cost = cost + int(cost_eff.effect.instantiate(var_mapping, init_facts).expression.value)

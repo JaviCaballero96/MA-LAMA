@@ -460,7 +460,7 @@ def pddl_to_sas(task):
     with timers.timing("Translating task", block=True):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
-            task.init, goal_list, actions, axioms, task.use_min_cost_metric,
+            task.init, goal_list, actions, axioms, task.metric,
             implied_facts)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
