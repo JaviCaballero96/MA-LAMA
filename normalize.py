@@ -42,12 +42,18 @@ class EffectConditionProxy(ConditionProxy):
     def delete_owner(self, task):
         self.action.effects.remove(self.owner)
     def build_rules(self, rules):
-        effect = self.owner
-        rule_head = effect.literal
-        if not rule_head.negated:
+        if isinstance(self.owner, pddl.effects.CostEffect):
+            rule_head = self.owner.effect
             rule_body = [get_action_predicate(self.action)]
             rule_body += condition_to_rule_body([], self.condition)
             rules.append((rule_body, rule_head))
+        else:
+            effect = self.owner
+            rule_head = effect.literal
+            if not rule_head.negated:
+                rule_body = [get_action_predicate(self.action)]
+                rule_body += condition_to_rule_body([], self.condition)
+                rules.append((rule_body, rule_head))
     def get_type_map(self):
         return self.action.type_map
 
