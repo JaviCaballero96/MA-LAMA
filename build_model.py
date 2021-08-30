@@ -34,7 +34,19 @@ def variables_to_numbers(effect, conditions):
         if arg[0] == "?":
             rename_map[arg] = i
             new_effect_args[i] = i
-    new_effect = pddl.Atom(effect.predicate, new_effect_args)
+
+    if isinstance(effect, pddl.f_expression.Increase):
+        fluent_args = []
+        for arg in effect.fluent.args:
+            new_arg = pddl.conditions.Variable(rename_map[arg.name])
+            fluent_args.append(new_arg)
+        new_fluent = pddl.f_expression.PrimitiveNumericExpression(effect.fluent.symbol, fluent_args)
+        new_expression = create_new_expression(effect.expression, rename_map)
+
+        new_effect = pddl.f_expression.Increase(new_fluent, new_expression)
+        new_effect.args = new_effect_args
+    else:
+        new_effect = pddl.Atom(effect.predicate, new_effect_args)
 
     # There are three possibilities for arguments in conditions:
     # 1. They are variables that occur in the effect. In that case,
@@ -52,6 +64,23 @@ def variables_to_numbers(effect, conditions):
         new_cond_args = [rename_map.get(arg, arg) for arg in cond.args]
         new_conditions.append(pddl.Atom(cond.predicate, new_cond_args))
     return new_effect, new_conditions
+
+
+def create_new_expression(pred, rename_map):
+    expression_args = []
+    for arg in pred.args:
+        if isinstance(arg, pddl.conditions.Variable):
+            new_arg = pddl.conditions.Variable(rename_map[arg.name])
+        else:
+            new_arg = create_new_expression(arg, rename_map)
+        expression_args.append(new_arg)
+
+    if isinstance(pred, pddl.f_expression.PrimitiveNumericExpression):
+        new_expression = pddl.f_expression.PrimitiveNumericExpression(pred.symbol, expression_args)
+    else:
+        new_expression = pddl.conditions.FunctionTerm(pred.name, expression_args)
+    return new_expression
+
 
 class BuildRule:
     def prepare_effect(self, new_atom, cond_index):

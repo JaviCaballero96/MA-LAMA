@@ -117,6 +117,7 @@ def get_variables(symbolic_atoms):
                     variables |= set([arg.name])
             var_aux = get_variables_func_aux(sym_atom.expression.args)
             variables |= set([arg for arg in var_aux if arg[0] == "?"])
+            sym_atom.args = variables
         else:
             variables |= set([arg for arg in sym_atom.args if arg[0] == "?"])
     return variables
