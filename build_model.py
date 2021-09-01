@@ -200,8 +200,12 @@ class ProjectRule(BuildRule):
     def update_index(self, new_atom, cond_index):
         pass
     def fire(self, new_atom, cond_index, enqueue_func):
-        effect_args = self.prepare_effect(new_atom, cond_index)
-        enqueue_func(self.effect.predicate, effect_args)
+        if isinstance(self.effect, pddl.f_expression.Increase):
+            effect_args = self.prepare_effect(new_atom, cond_index)
+            enqueue_func(self.effect, effect_args)
+        else:
+            effect_args = self.prepare_effect(new_atom, cond_index)
+            enqueue_func(self.effect.predicate, effect_args)
 
 class Unifier:
     def __init__(self, rules):
