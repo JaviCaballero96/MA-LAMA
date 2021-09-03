@@ -3,7 +3,7 @@
 import copy
 
 from . import conditions
-from . import effects
+from . import effects as Effects
 from . import pddl_types
 from . import f_expression
 
@@ -43,7 +43,7 @@ class Action(object):
         effect_list = next(iterator)
         eff = []
         try:
-            cost = effects.parse_effects(effect_list, eff)
+            cost = Effects.parse_effects(effect_list, eff)
         except ValueError as e:
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
@@ -69,7 +69,7 @@ class Action(object):
         self.type_map = dict([(par.name, par.type) for par in self.parameters])
         self.precondition = self.precondition.uniquify_variables(self.type_map)
         for effect in self.effects:
-            if not isinstance(effect, effects.CostEffect):
+            if not isinstance(effect, Effects.CostEffect):
                 effect.uniquify_variables(self.type_map)
 
     def unary_actions(self):
@@ -78,11 +78,11 @@ class Action(object):
         for i, effect in enumerate(self.effects):
             unary_action = copy.copy(self)
             unary_action.name += "@%d" % i
-            if isinstance(effect, effects.UniversalEffect):
+            if isinstance(effect, Effects.UniversalEffect):
                 # Careful: Create a new parameter list, the old one might be shared.
                 unary_action.parameters = unary_action.parameters + effect.parameters
                 effect = effect.effect
-            if isinstance(effect, effects.ConditionalEffect):
+            if isinstance(effect, Effects.ConditionalEffect):
                 unary_action.precondition = conditions.Conjunction([unary_action.precondition,
                                                                     effect.condition]).simplified()
                 effect = effect.effect
@@ -135,8 +135,15 @@ class Action(object):
             return None
         effects = []
         for eff in self.effects:
-            eff.instantiate(var_mapping, init_facts, fluent_facts,
-                            objects_by_type, effects)
+            if isinstance(eff, Effects.CostEffect):
+                eff_aux = f_expression.Increase("", "")
+                eff_aux.fluent = eff.effect.fluent.instantiate(var_mapping, init_facts)
+                eff_aux.expression = eff.inst_cost_effect(eff.effect.expression, var_mapping, init_facts)
+                eff_aux.negated = False
+                effects.append(([], eff_aux))
+            else:
+                eff.instantiate(var_mapping, init_facts, fluent_facts,
+                                objects_by_type, effects)
         cost = float(0)
         if effects:
             if not self.cost:
@@ -191,7 +198,7 @@ class Action(object):
             return self.calculateCost(new_effect_1, var_mapping, init_facts) + self.calculateCost(
                 new_effect_2, var_mapping, init_facts)
         else:
-            return cost_eff.instantiate(var_mapping, init_facts).expression.value
+            return cost_eff.expression.instantiate(var_mapping, init_facts).expression.value
 
 
 class PropositionalAction:
@@ -200,9 +207,13 @@ class PropositionalAction:
         self.precondition = precondition
         self.add_effects = []
         self.del_effects = []
+        self.func_effects = []
         for condition, effect in effects:
             if not effect.negated:
-                self.add_effects.append((condition, effect))
+                if isinstance(effect, f_expression.Increase):
+                    self.func_effects.append((condition, effect))
+                else:
+                    self.add_effects.append((condition, effect))
         # Warning: This is O(N^2), could be turned into O(N).
         # But that might actually harm performance, since there are
         # usually few effects.

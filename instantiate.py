@@ -11,13 +11,24 @@ import timers
 
 def get_fluent_facts(task, model):
     fluent_predicates = set()
+    fluent_functions = set()
+    fluent_functions_aux = set()
     for action in task.actions:
         for effect in action.effects:
-            fluent_predicates.add(effect.literal.predicate)
+            if isinstance(effect, pddl.effects.CostEffect):
+                fluent_functions_aux.add(effect.effect.fluent.symbol)
+            else:
+                fluent_predicates.add(effect.literal.predicate)
     for axiom in task.axioms:
         fluent_predicates.add(axiom.name)
+
+    for function in model:
+        if isinstance(function.predicate, pddl.f_expression.Increase):
+            if function.predicate.fluent.symbol in fluent_functions_aux:
+                fluent_functions.add(function)
+
     return set([fact for fact in model
-                if fact.predicate in fluent_predicates])
+                if fact.predicate in fluent_predicates]), fluent_functions
 
 def get_objects_by_type(typed_objects, types):
     result = defaultdict(list)
@@ -32,7 +43,7 @@ def get_objects_by_type(typed_objects, types):
 
 def instantiate(task, model):
     relaxed_reachable = False
-    fluent_facts = get_fluent_facts(task, model)
+    fluent_facts, fluents_functions = get_fluent_facts(task, model)
     init_facts = set(task.init)
 
     type_to_objects = get_objects_by_type(task.objects, task.types)

@@ -79,7 +79,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
         for fact in init_facts:
             if isinstance(fact, FunctionAssignment):
                 if fact.fluent == pne:
-                    return fact.expression
+                    return fact
         assert False, "Could not find instantiation for PNE!"
 
 class FunctionAssignment(object):
@@ -102,9 +102,14 @@ class FunctionAssignment(object):
         # assignments, "instantiate" is not called). Hence, we know that the fluent is
         # the 0-ary "total-cost" which does not need to be instantiated
         # assert self.fluent.symbol == "total-cost"
-        fluent = self.fluent
+        # The comment above is no longer true
+        if isinstance(self.fluent, str):
+            fluent = ''
+        else:
+            fluent = self.fluent.instantiate(var_mapping, init_facts)
         expression = self.expression.instantiate(var_mapping, init_facts)
-        return self.__class__(fluent, expression)
+        inst_function = self.__class__(fluent, expression)
+        return inst_function
 
 class Assign(FunctionAssignment):
     def __str__(self):
