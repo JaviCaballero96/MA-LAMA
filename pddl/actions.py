@@ -2,6 +2,7 @@
 
 import copy
 
+import pddl.f_expression
 from . import conditions
 from . import effects as Effects
 from . import pddl_types
@@ -116,7 +117,7 @@ class Action(object):
         return [par.to_untyped_strips() for par in self.parameters] + \
                self.precondition.to_untyped_strips()
 
-    def instantiate(self, var_mapping, init_facts, fluent_facts, objects_by_type):
+    def instantiate(self, var_mapping, init_facts, fluent_facts, objects_by_type, metric):
         """Return a PropositionalAction which corresponds to the instantiation of
         this action with the arguments in var_mapping. Only fluent parts of the
         conditions (those in fluent_facts) are included. init_facts are evaluated
@@ -149,9 +150,20 @@ class Action(object):
             if not self.cost:
                 cost = float(0)
             else:
-                for cost_eff in self.cost:
-                    # cost = cost + int(cost_eff.effect.instantiate(var_mapping, init_facts).expression.value)
-                    cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+                for cond, cost_eff in effects:
+                    if isinstance(cost_eff, pddl.f_expression.Increase):
+                        for m_elem in metric:
+                            if not isinstance(m_elem, str):
+                                if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
+                                        [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in cost_eff.fluent.
+                                                                                fluent.args]:
+                                    if isinstance(cost_eff.expression, pddl.f_expression.PrimitiveNumericExpression):
+                                        cost = cost + cost_eff.expression.value
+                                    else:
+                                        cost = cost + cost_eff.expression.expression.value
+                                    # cost = cost + int(cost_eff.effect.instantiate(var_mapping,
+                                    # init_facts).expression.value)
+                                    #cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
 
                 # cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
             return PropositionalAction(name, precondition, effects, cost)

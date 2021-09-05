@@ -42,6 +42,10 @@ def get_objects_by_type(typed_objects, types):
     return result
 
 def instantiate(task, model):
+    #TODO interactions between functions are still working a basic level
+    # In order for it to work in a domain such as the rechargable
+    # battery one, deeper analysis have to be carreid out
+
     relaxed_reachable = False
     fluent_facts, fluents_functions = get_fluent_facts(task, model)
     init_facts = set(task.init)
@@ -63,7 +67,7 @@ def instantiate(task, model):
             variable_mapping = dict([(par.name, arg)
                                      for par, arg in zip(parameters, atom.args)])
             inst_action = action.instantiate(variable_mapping, init_facts,
-                                             fluent_facts, type_to_objects)
+                                             fluent_facts, type_to_objects, task.metric)
             if inst_action:
                 instantiated_actions.append(inst_action)
         elif isinstance(atom.predicate, pddl.Axiom):
