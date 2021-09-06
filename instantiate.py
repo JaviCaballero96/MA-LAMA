@@ -9,6 +9,7 @@ import pddl_to_prolog
 import pddl
 import timers
 
+
 def get_fluent_facts(task, model):
     fluent_predicates = set()
     fluent_functions = set()
@@ -30,6 +31,7 @@ def get_fluent_facts(task, model):
     return set([fact for fact in model
                 if fact.predicate in fluent_predicates]), fluent_functions
 
+
 def get_objects_by_type(typed_objects, types):
     result = defaultdict(list)
     supertypes = {}
@@ -41,14 +43,16 @@ def get_objects_by_type(typed_objects, types):
             result[type].append(obj.name)
     return result
 
+
 def instantiate(task, model):
-    #TODO interactions between functions are still working a basic level
+    # TODO interactions between functions are still working a basic level
     # In order for it to work in a domain such as the rechargable
     # battery one, deeper analysis have to be carreid out
 
     relaxed_reachable = False
-    fluent_facts, fluents_functions = get_fluent_facts(task, model)
+    fluent_facts, fluents_functions_aux = get_fluent_facts(task, model)
     init_facts = set(task.init)
+    fluents_functions = intantiate_func_args(fluents_functions_aux)
 
     type_to_objects = get_objects_by_type(task.objects, task.types)
 
@@ -84,14 +88,51 @@ def instantiate(task, model):
         elif atom.predicate == "@goal-reachable":
             relaxed_reachable = True
 
-    return (relaxed_reachable, fluent_facts, instantiated_actions,
-           instantiated_axioms, reachable_action_parameters)
+    return (relaxed_reachable, fluent_facts, fluents_functions, instantiated_actions,
+            instantiated_axioms, reachable_action_parameters)
+
+
+def intantiate_func_args(functions):
+    new_functions = set()
+    for func in functions:
+        fluent = func.predicate.fluent
+        expression = func.predicate.expression
+
+        new_fluent = pddl.f_expression.PrimitiveNumericExpression(fluent.symbol,
+                                                                  [pddl.conditions.Variable(func.args[int(arg.name)])
+                                                                   for arg in fluent.args])
+        new_expression = get_new_expression(expression, func.args)
+
+        new_functions.add(pddl.Atom(pddl.f_expression.Increase(new_fluent, new_expression), func.args))
+    return new_functions
+
+
+def get_new_expression(old_expression, atom_args):
+    if old_expression.symbol == "*" or old_expression.symbol == "/" or old_expression.symbol == "-" or old_expression.\
+            symbol == "+":
+        func_term_1 = get_new_expression(pddl.f_expression.PrimitiveNumericExpression(old_expression.args[0].name,
+                                                                                      old_expression.args[0].args),
+                                         atom_args)
+        func_term_2 = get_new_expression(pddl.f_expression.PrimitiveNumericExpression(old_expression.args[1].name,
+                                                                                      old_expression.args[1].args),
+                                         atom_args)
+        return pddl.f_expression.PrimitiveNumericExpression(
+            old_expression.symbol,
+            [func_term_1, func_term_2])
+
+    else:
+        return pddl.f_expression.PrimitiveNumericExpression(
+            old_expression.symbol,
+            [pddl.conditions.Variable(atom_args[int(arg.name)])
+             for arg in old_expression.args])
+
 
 def explore(task):
     prog = pddl_to_prolog.translate(task)
     model = build_model.compute_model(prog)
     with timers.timing("Completing instantiation"):
         return instantiate(task, model)
+
 
 if __name__ == "__main__":
     import pddl
