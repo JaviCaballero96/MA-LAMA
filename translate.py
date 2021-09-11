@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 from collections import defaultdict
 from copy import deepcopy
 
@@ -27,7 +26,7 @@ import snap_actions
 
 ALLOW_CONFLICTING_EFFECTS = True
 USE_PARTIAL_ENCODING = True
-DETECT_UNREACHABLE = True
+DETECT_UNREACHABLE = False
 
 ## Setting the following variable to True can cause a severe
 ## performance penalty due to weaker relevance analysis (see issue7).
@@ -37,15 +36,21 @@ removed_implied_effect_counter = 0
 simplified_effect_condition_counter = 0
 added_implied_precondition_counter = 0
 
+
 def strips_to_sas_dictionary(groups, assert_partial):
     dictionary = {}
+    func_aux_dictionary = {}
     for var_no, group in enumerate(groups):
         for val_no, atom in enumerate(group):
             dictionary.setdefault(atom, []).append((var_no, val_no))
+            if isinstance(atom.predicate, pddl.f_expression.Increase):
+                func_aux_dictionary[atom.predicate.__class__.__name__ + " " + str(atom.predicate.fluent)
+                                    + " " + str(atom.predicate.expression)] = atom
     if assert_partial:
         assert all(len(sas_pairs) == 1
                    for sas_pairs in dictionary.values())
-    return [len(group) + 1 for group in groups], dictionary
+    return [len(group) + 1 for group in groups], dictionary, func_aux_dictionary
+
 
 def translate_strips_conditions_aux(conditions, dictionary, ranges):
     condition = {}
@@ -66,7 +71,7 @@ def translate_strips_conditions_aux(conditions, dictionary, ranges):
             # where static facts disappear during grounding. So change
             # this when the goal code is refactored (also below). (**)
             if (condition.get(var) is not None and
-                val not in condition.get(var)):
+                    val not in condition.get(var)):
                 # Conflicting conditions on this variable: Operator invalid.
                 return None
             condition[var] = set([val])
@@ -77,22 +82,22 @@ def translate_strips_conditions_aux(conditions, dictionary, ranges):
 
     for fact in conditions:
         if fact.negated:
-           ## Note  Here we use a different solution than in Sec. 10.6.4
-           ##       of the thesis. Compare the last sentences of the third
-           ##       paragraph of the section.
-           ##       We could do what is written there. As a test case,
-           ##       consider Airport ADL tasks with only one airport, where
-           ##       (occupied ?x) variables are encoded in a single variable,
-           ##       and conditions like (not (occupied ?x)) do occur in
-           ##       preconditions.
-           ##       However, here we avoid introducing new derived predicates
-           ##       by treat the negative precondition as a disjunctive precondition
-           ##       and expanding it by "multiplying out" the possibilities.
-           ##       This can lead to an exponential blow-up so it would be nice
-           ##       to choose the behaviour as an option.
+            ## Note  Here we use a different solution than in Sec. 10.6.4
+            ##       of the thesis. Compare the last sentences of the third
+            ##       paragraph of the section.
+            ##       We could do what is written there. As a test case,
+            ##       consider Airport ADL tasks with only one airport, where
+            ##       (occupied ?x) variables are encoded in a single variable,
+            ##       and conditions like (not (occupied ?x)) do occur in
+            ##       preconditions.
+            ##       However, here we avoid introducing new derived predicates
+            ##       by treat the negative precondition as a disjunctive precondition
+            ##       and expanding it by "multiplying out" the possibilities.
+            ##       This can lead to an exponential blow-up so it would be nice
+            ##       to choose the behaviour as an option.
             done = False
             new_condition = {}
-            atom = pddl.Atom(fact.predicate, fact.args) # force positive
+            atom = pddl.Atom(fact.predicate, fact.args)  # force positive
             for var, val in dictionary.get(atom, ()):
                 # see comment (**) above
                 poss_vals = set(range(ranges[var]))
@@ -121,14 +126,14 @@ def translate_strips_conditions_aux(conditions, dictionary, ranges):
                 var, vals = candidates[0]
                 condition[var] = vals
 
-        def multiply_out(condition): # destroys the input
+        def multiply_out(condition):  # destroys the input
             sorted_conds = sorted(condition.items(), key=number_of_values)
 
             flat_conds = [{}]
             for var, vals in sorted_conds:
                 if len(vals) == 1:
                     for cond in flat_conds:
-                        cond[var] = vals.pop() # destroys the input here
+                        cond[var] = vals.pop()  # destroys the input here
                 else:
                     new_conds = []
                     for cond in flat_conds:
@@ -141,20 +146,22 @@ def translate_strips_conditions_aux(conditions, dictionary, ranges):
 
     return multiply_out(condition)
 
+
 def translate_strips_conditions(conditions, dictionary, ranges,
                                 mutex_dict, mutex_ranges):
     if not conditions:
-        return [{}] # Quick exit for common case.
+        return [{}]  # Quick exit for common case.
 
     # Check if the condition violates any mutexes.
     if translate_strips_conditions_aux(
-        conditions, mutex_dict, mutex_ranges) is None:
+            conditions, mutex_dict, mutex_ranges) is None:
         return None
 
     return translate_strips_conditions_aux(conditions, dictionary, ranges)
 
-def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ranges, implied_facts):
 
+def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ranges, implied_facts,
+                              aux_func_strips_to_sas):
     conditions = translate_strips_conditions(operator.precondition, dictionary, ranges, mutex_dict, mutex_ranges)
     if conditions is None:
         return []
@@ -162,12 +169,13 @@ def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ra
     for condition in conditions:
         op = translate_strips_operator_aux(operator, dictionary, ranges,
                                            mutex_dict, mutex_ranges,
-                                           implied_facts, condition)
+                                           implied_facts, condition, aux_func_strips_to_sas)
         sas_operators.append(op)
     return sas_operators
 
+
 def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
-    mutex_ranges, implied_facts, condition):
+                                  mutex_ranges, implied_facts, condition, aux_func_strips_to_sas):
     # NOTE: This function does not really deal with the intricacies of properly
     # encoding delete effects for grouped propositions in the presence of
     # conditional effects. It should work ok but will bail out in more
@@ -180,7 +188,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         eff_condition_list = translate_strips_conditions(conditions, dictionary,
                                                          ranges, mutex_dict,
                                                          mutex_ranges)
-        if eff_condition_list is None: # Impossible condition for this effect.
+        if eff_condition_list is None:  # Impossible condition for this effect.
             continue
         eff_condition = [list(eff_cond.items())
                          for eff_cond in eff_condition_list]
@@ -202,6 +210,43 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                     possible_add_conflict = True
                 eff_conditions.extend(eff_condition)
 
+    for conditions, fact in operator.func_effects:
+        eff_condition_list = translate_strips_conditions(conditions, dictionary,
+                                                         ranges, mutex_dict,
+                                                         mutex_ranges)
+        if eff_condition_list is None:  # Impossible condition for this effect.
+            continue
+        eff_condition = [list(eff_cond.items())
+                         for eff_cond in eff_condition_list]
+        if isinstance(fact.expression, pddl.f_expression.PrimitiveNumericExpression):
+            fact_exp = str(get_new_expresison(fact.expression))
+            value = fact.expression.value
+        else:
+            fact_exp = str(fact.expression.fluent)
+            value = fact.expression.expression.value
+        fact_fluent = str(fact.fluent.fluent)
+        fact_str = fact.__class__.__name__ + " " + fact_fluent + " " + fact_exp
+        new_atom = aux_func_strips_to_sas[fact_str]
+        # new_fluent = pddl.f_expression.PrimitiveNumericExpression(fact.fluent.fluent.symbol,
+        #                                                          [pddl.conditions.Variable(arg.name) for arg in
+        #                                                           fact.fluent.fluent.args])
+        # new_expression = get_new_expresison(fact.expression)
+        # new_increase = pddl.f_expression.Increase(new_fluent, new_expression)
+        # new_atom = pddl.Atom(new_increase, fact.parameters)
+        # bool1 = new_atom.args == func_bat_lit[0].args
+        # bool2 = new_atom.predicate == func_bat_lit[0].predicate
+        # bool4 = new_atom.__class__ == func_bat_lit[0].__class__
+        # bool5 = new_atom.args == func_bat_lit[1].args
+        # bool6 = new_atom.predicate == func_bat_lit[1].predicate
+        # bool8 = new_atom.__class__ == func_bat_lit[1].__class__
+        for var, val in dictionary[new_atom]:
+            effect_pair = effect.get(var)
+            if not effect_pair:
+                effect[var] = ([value], eff_condition)
+            else:
+                if isinstance(effect_pair[0], list):
+                    effect_pair[0].append(fact.expression.expression.value)
+
     for conditions, fact in operator.del_effects:
         eff_condition_list = translate_strips_conditions(conditions, dictionary, ranges, mutex_dict, mutex_ranges)
         if eff_condition_list is None:
@@ -217,7 +262,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                 # Look for matching add effect; ignore this del effect if found.
                 for cond in eff_condition:
                     assert cond in eff_conditions or [] in eff_conditions, \
-                                  "Add effect with uncertain del effect partner?"
+                        "Add effect with uncertain del effect partner?"
                 if other_val == val:
                     if ALLOW_CONFLICTING_EFFECTS:
                         # Conflicting ADD and DEL effect. This is *only* allowed if
@@ -256,7 +301,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                     else:
                         assert not eff_condition[0] and not eff_conditions[0], "Uncertain conflict"
                         return None  # Definite conflict otherwise.
-            else: # no add effect on this variable
+            else:  # no add effect on this variable
                 if condition.get(var) != val:
                     if var in condition:
                         ## HACK HACK HACK! There is a precondition on the variable for
@@ -275,7 +320,6 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
     if possible_add_conflict:
         operator.dump()
 
-
     assert not possible_add_conflict, "Conflicting add effects?"
 
     # assert eff_condition != other_condition, "Duplicate effect"
@@ -289,23 +333,55 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
     pre_post = []
     for var, (post, eff_condition_lists) in effect.items():
         pre = condition.pop(var, -1)
-        if ranges[var] == 2:
-            # Apply simplifications for binary variables.
-            if prune_stupid_effect_conditions(var, post, eff_condition_lists):
-                global simplified_effect_condition_counter
-                simplified_effect_condition_counter += 1
-            if (ADD_IMPLIED_PRECONDITIONS and
-                pre == -1 and (var, 1 - post) in implied_precondition):
-                global added_implied_precondition_counter
-                added_implied_precondition_counter += 1
-                pre = 1 - post
-                # print "Added precondition (%d = %d) to %s" % (
-                #     var, pre, operator.name)
+        if isinstance(post, list):
+            pre = -2
+            post = post[0]
+        else:
+            if ranges[var] == 2:
+                # Apply simplifications for binary variables.
+                if prune_stupid_effect_conditions(var, post, eff_condition_lists):
+                    global simplified_effect_condition_counter
+                    simplified_effect_condition_counter += 1
+                if (ADD_IMPLIED_PRECONDITIONS and
+                        pre == -1 and (var, 1 - post) in implied_precondition):
+                    global added_implied_precondition_counter
+                    added_implied_precondition_counter += 1
+                    pre = 1 - post
+                    # print "Added precondition (%d = %d) to %s" % (
+                    #     var, pre, operator.name)
         for eff_condition in eff_condition_lists:
             pre_post.append((var, pre, post, eff_condition))
     prevail = list(condition.items())
 
     return sas_tasks.SASOperator(operator.name, prevail, pre_post, operator.cost)
+
+
+def get_new_expresison(expression):
+    if isinstance(expression, pddl.f_expression.Assign):
+        if expression.fluent.symbol == "*" or expression.fluent.symbol == "/" or expression.fluent.symbol == "/" \
+                or expression.fluent.symbol == "/":
+            param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].name,
+                                                                                     expression.fluent.args[0].args))
+            param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].name,
+                                                                                     expression.fluent.args[1].args))
+            return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol, [param1, param2])
+        else:
+            return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol,
+                                                                expression.fluent.args)
+    elif isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
+        if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "/" \
+                or expression.symbol == "/":
+            param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
+                                                                                     expression.args[0].fluent.args))
+            param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
+                                                                                     expression.args[1].fluent.args))
+            return pddl.f_expression.PrimitiveNumericExpression(expression.symbol, [param1, param2])
+        else:
+            return pddl.f_expression.PrimitiveNumericExpression(expression.symbol,
+                                                                expression.args)
+    else:
+        return expression
+
 
 def prune_stupid_effect_conditions(var, val, conditions):
     ## (IF <conditions> THEN <var> := <val>) is a conditional effect.
@@ -322,7 +398,7 @@ def prune_stupid_effect_conditions(var, val, conditions):
     ##
     ## returns True when anything was changed
     if conditions == [[]]:
-        return False ## Quick exit for common case.
+        return False  ## Quick exit for common case.
     assert val in [0, 1]
     dual_fact = (var, 1 - val)
     simplified = False
@@ -339,6 +415,7 @@ def prune_stupid_effect_conditions(var, val, conditions):
             break
     return simplified
 
+
 def translate_strips_axiom(axiom, dictionary, ranges, mutex_dict, mutex_ranges):
     conditions = translate_strips_conditions(axiom.condition, dictionary, ranges, mutex_dict, mutex_ranges)
     if conditions is None:
@@ -353,12 +430,16 @@ def translate_strips_axiom(axiom, dictionary, ranges, mutex_dict, mutex_ranges):
         axioms.append(sas_tasks.SASAxiom(list(condition.items()), effect))
     return axioms
 
-def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts):
+
+def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
+                               aux_func_strips_to_sas):
     result = []
     for action in actions:
-        sas_ops = translate_strips_operator(action, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts)
+        sas_ops = translate_strips_operator(action, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
+                                            aux_func_strips_to_sas)
         result.extend(sas_ops)
     return result
+
 
 def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges):
     result = []
@@ -367,14 +448,15 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
         result.extend(sas_axioms)
     return result
 
+
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
-                   actions, axioms, metric, implied_facts):
+                   actions, axioms, metric, implied_facts, aux_func_strips_to_sas):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
     init = init + axiom_init
-    #axioms.sort(key=lambda axiom: axiom.name)
-    #for axiom in axioms:
+    # axioms.sort(key=lambda axiom: axiom.name)
+    # for axiom in axioms:
     #  axiom.dump()
 
     init_values = [rang - 1 for rang in ranges]
@@ -398,7 +480,8 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     goal_pairs = list(goal_dict_list[0].items())
     goal = sas_tasks.SASGoal(goal_pairs)
 
-    operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts)
+    operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
+                                           aux_func_strips_to_sas)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
     axiom_layers = [-1] * len(ranges)
@@ -409,6 +492,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
+
 
 def unsolvable_sas_task(msg):
     print("%s! Generating unsolvable task..." % msg)
@@ -421,6 +505,7 @@ def unsolvable_sas_task(msg):
     axioms = []
     metric = True
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
+
 
 def pddl_to_sas(task):
     with timers.timing("Instantiating", block=True):
@@ -443,12 +528,15 @@ def pddl_to_sas(task):
             task, atoms, functions, reachable_action_params,
             partial_encoding=USE_PARTIAL_ENCODING)
 
+    func_bat_lit = [func[0] for func in groups if isinstance(func[0].predicate, pddl.f_expression.Increase) and func[
+        0].predicate.fluent.symbol == "battery" and func[0].predicate.expression.symbol == "photoenergy"]
+
     with timers.timing("Building STRIPS to SAS dictionary"):
-        ranges, strips_to_sas = strips_to_sas_dictionary(
+        ranges, strips_to_sas, aux_func_strips_to_sas = strips_to_sas_dictionary(
             groups, assert_partial=USE_PARTIAL_ENCODING)
 
     with timers.timing("Building dictionary for full mutex groups"):
-        mutex_ranges, mutex_dict = strips_to_sas_dictionary(
+        mutex_ranges, mutex_dict, aux_func_mutex_dict = strips_to_sas_dictionary(
             mutex_groups, assert_partial=False)
 
     if ADD_IMPLIED_PRECONDITIONS:
@@ -461,7 +549,7 @@ def pddl_to_sas(task):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
-            implied_facts)
+            implied_facts, aux_func_strips_to_sas)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
@@ -474,7 +562,7 @@ def pddl_to_sas(task):
         with timers.timing("Detecting unreachable propositions", block=True):
             try:
                 simplify.filter_unreachable_propositions(
-                    sas_task, mutex_key, translation_key)
+                   sas_task, mutex_key, translation_key)
             except simplify.Impossible:
                 return unsolvable_sas_task("Simplified to trivially false goal")
 
@@ -497,6 +585,7 @@ def build_mutex_key(strips_to_sas, groups):
                 print("not in strips_to_sas, left out:", fact)
         group_keys.append(group_key)
     return group_keys
+
 
 def build_implied_facts(strips_to_sas, groups, mutex_groups):
     ## Compute a dictionary mapping facts (FDR pairs) to lists of FDR
@@ -552,32 +641,33 @@ def write_translation_key(translation_key):
             print("  %d: %s" % (value, value_name), file=groups_file)
     groups_file.close()
 
+
 def write_mutex_key(mutex_key):
     invariants_file = open("all.groups", "w")
     print("begin_groups", file=invariants_file)
     print(len(mutex_key), file=invariants_file)
     for group in mutex_key:
-        #print map(str, group)
+        # print map(str, group)
         no_facts = len(group)
         print("group", file=invariants_file)
         print(no_facts, file=invariants_file)
         for var, val, fact in group:
-            #print fact
+            # print fact
             assert str(fact).startswith("Atom ")
             predicate = str(fact)[5:].split("(")[0]
-            #print predicate
+            # print predicate
             rest = str(fact).split("(")[1]
             rest = rest.strip(")").strip()
             if not rest == "":
-                #print "there are args" , rest
+                # print "there are args" , rest
                 args = rest.split(",")
             else:
                 args = []
             print_line = "%d %d %s %d " % (var, val, predicate, len(args))
             for arg in args:
                 print_line += str(arg).strip() + " "
-            #print fact
-            #print print_line
+            # print fact
+            # print print_line
             print(print_line, file=invariants_file)
     print("end_groups", file=invariants_file)
     invariants_file.close()

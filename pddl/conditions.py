@@ -1,3 +1,4 @@
+import pddl
 from . import pddl_types
 from . import tasks  # for Task.FUNCTION_SYMBOLS, needed in parse_term()
 
@@ -374,7 +375,10 @@ class Literal(Condition):
         self.hash = hash((self.__class__, self.predicate, self.args))
 
     def __str__(self):
-        return "%s %s(%s)" % (self.__class__.__name__, self.predicate,
+        if isinstance(self, pddl.f_expression.Increase):
+            return "%s %s" % (self.__class__.__name__, self.predicate)
+        else:
+            return "%s %s(%s)" % (self.__class__.__name__, self.predicate,
                               ", ".join(map(str, self.args)))
 
     def _dump(self):

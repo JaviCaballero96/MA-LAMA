@@ -139,8 +139,11 @@ class Action(object):
             if isinstance(eff, Effects.CostEffect):
                 eff_aux = f_expression.Increase("", "")
                 eff_aux.fluent = eff.effect.fluent.instantiate(var_mapping, init_facts)
-                eff_aux.expression = eff.inst_cost_effect(eff.effect.expression, var_mapping, init_facts)
+                arg_used = [var_mapping.get(arg.name, arg.name) for arg in eff.effect.fluent.args]
+                eff_aux.expression = eff.inst_cost_effect(eff.effect.expression, var_mapping, init_facts, arg_used)
+                args_ordered = [arg for arg in arg_list if arg in arg_used]
                 eff_aux.negated = False
+                eff_aux.parameters = args_ordered
                 effects.append(([], eff_aux))
             else:
                 eff.instantiate(var_mapping, init_facts, fluent_facts,

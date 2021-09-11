@@ -91,10 +91,6 @@ def choose_groups(groups, reachable_facts, functions, partial_encoding=True):
 def build_translation_key(groups):
     group_keys = []
     for group in groups:
-        for fact in group:
-            if not isinstance(fact.predicate, str):
-                print("a")
-
         group_key = [str(fact) for fact in group]
         group_key.append("<none of those>")
         group_keys.append(group_key)
