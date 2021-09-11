@@ -28,11 +28,12 @@
 		 (dist ?a - Agent)
 		 (risk ?a - Agent)
 		 (energyTransPhoto)
+		 (timeChangeMode)
 		 (timeTransPhoto)
 		 (photoEnergy)
 		 (timePhoto)
+		 (timeDock)
 		 (total_dist)
-		 (total_time)
    )
 
    (:durative-action RobotBase_GoingTo
@@ -60,7 +61,7 @@
 
 	 (:durative-action Navigation_ChangeMode
 		 :parameters (?a - Agent ?n1 - NavMode ?n2 - NavMode)
-		 :duration (= ?duration 1)
+		 :duration (= ?duration (timeChangeMode))
 		 :condition (and
 			 (at start (Navigation_Mode ?a ?n1))
 			 (at start (RobotBase_OnDock ?a))
@@ -108,7 +109,7 @@
 
 		(:durative-action RobotBase_Docking
       :parameters (?a - Agent ?p - Loc)
-      :duration (= ?duration 1)
+      :duration (= ?duration (timeDock))
       :condition (and
 				         (at start (free ?a))
 				         (at start (dockPos ?p))
@@ -125,7 +126,7 @@
 
 		(:durative-action RobotBase_Undocking
 			:parameters (?a - Agent ?p - Loc)
-			:duration (= ?duration 1)
+			:duration (= ?duration (timeDock))
 			:condition (and
 								 (at start (free ?a))
 								 (at start (dockPos ?p))

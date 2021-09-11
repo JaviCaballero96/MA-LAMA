@@ -1,4 +1,6 @@
 import string
+
+import pddl.f_expression
 from . import conditions
 
 def parse_expression(exp):
@@ -17,7 +19,12 @@ def parse_assignment(alist):
     assert len(alist) == 3
     op = alist[0]
     head = parse_expression(alist[1])
-    exp = parse_expression(alist[2])
+    if isinstance(alist[2], pddl.f_expression.PrimitiveNumericExpression):
+        exp = alist[2]
+    elif isinstance(alist[2], pddl.f_expression.NumericConstant):
+        exp = parse_expression(str(alist[2].value))
+    else:
+        exp = parse_expression(alist[2])
     if op == "=":
         return Assign(head, exp)
     elif op == "increase":

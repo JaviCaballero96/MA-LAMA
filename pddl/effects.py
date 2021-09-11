@@ -31,12 +31,18 @@ def parse_temp_info(alist):
     return parts
 
 
-def parse_effects(alist, result):
+def parse_effects(alist, result, duration):
     """Parse a PDDL effect (any combination of simple, conjunctive, conditional, and universal)."""
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
     tmp_info = parse_temp_info(alist)
     cost_eff, rest_effect = normalized.extract_cost(tmp_info)
+    # Add total time effect
+    time_effect = pddl.effects.CostEffect(pddl.f_expression.parse_assignment(["increase", "total-time",
+                                                                              duration.expression]))
+    time_effect.tmp = "end"
+
+    cost_eff.append(time_effect)
 
     add_effect(rest_effect, result)
 

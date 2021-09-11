@@ -53,7 +53,7 @@ class DurativeAction(object):
         effect_list = next(iterator)
         effects = []
         try:
-            cost = eff.parse_effects(effect_list, effects)
+            cost = eff.parse_effects(effect_list, effects, duration_t)
         except ValueError as e:
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:

@@ -131,6 +131,9 @@ def parse_domain(domain_pddl):
     if opt_functions[0] == ":functions":
         the_functions = pddl_types.parse_typed_list(opt_functions[1:],
                                                     constructor=functions.Function.parse_typed, functions=True)
+        # add total-time function
+        total_time_func = functions.Function.parse_typed(["total-time"], "number")
+        the_functions.append(total_time_func)
         for function in the_functions:
             Task.FUNCTION_SYMBOLS[function.name] = function.type
         yield the_functions
@@ -197,6 +200,8 @@ def parse_task(task_pddl):
                                  "Reason: %s." %  e)
         else:
             initial.append(conditions.Atom(fact[0], fact[1:]))
+
+    initial.append(f_expression.parse_assignment(["=", "total-time", "0"]))
     yield initial
 
     goal = next(iterator)
