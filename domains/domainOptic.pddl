@@ -20,7 +20,7 @@
 
 	 (:functions
 		 (batperdis ?a - Agent ?n - NavMode)
-         (distance_to_move ?p1 ?p2 - Loc)
+     (distance_to_move ?p1 ?p2 - Loc)
 		 (speed ?a - Agent ?n - NavMode)
 		 (metricPercentage ?a - Agent)
 		 (battery ?a - Agent)

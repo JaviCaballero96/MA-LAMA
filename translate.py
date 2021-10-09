@@ -13,6 +13,7 @@ import sas_tasks
 import simplify
 import timers
 import snap_actions
+import graphs
 
 # TODO: The translator may generate trivial derived variables which are always true,
 # for example if there ia a derived predicate in the input that only depends on
@@ -570,6 +571,11 @@ def pddl_to_sas(task):
         write_translation_key(translation_key)
     with timers.timing("Writing mutex key"):
         write_mutex_key(mutex_key)
+
+    agents_pred = graphs.get_agent_elements(sas_task, task, strips_to_sas, aux_func_strips_to_sas)
+
+
+
     return sas_task
 
 
