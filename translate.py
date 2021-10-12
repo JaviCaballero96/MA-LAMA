@@ -572,9 +572,8 @@ def pddl_to_sas(task):
     with timers.timing("Writing mutex key"):
         write_mutex_key(mutex_key)
 
-    agents_pred = graphs.get_agent_elements(sas_task, task, strips_to_sas, aux_func_strips_to_sas)
-
-
+    agents_pred = graphs.get_agent_elements(task, strips_to_sas)
+    agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
 
     return sas_task
 

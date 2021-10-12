@@ -1,7 +1,7 @@
 import pddl
 
 
-def get_agent_elements(sas_task, task, strips_to_sas, aux_func_strips_to_sas):
+def get_agent_elements(task, strips_to_sas):
     agents = [agent for agent in task.objects if agent.type == "agent"]
     agent_predicates = [agents]
     for agent in agents:
@@ -12,3 +12,13 @@ def get_agent_elements(sas_task, task, strips_to_sas, aux_func_strips_to_sas):
                     agent_preds.append(pred)
         agent_predicates.append(agent_preds)
     return agent_predicates
+
+
+def get_agents_pred_dicts(agents_pred, strips_to_sas):
+    agents_pred_dict = [agents_pred[0]]
+    for pred_list in agents_pred[1:]:
+        dist_list_aux = []
+        for atom in pred_list:
+            dist_list_aux.append(strips_to_sas[atom])
+        agents_pred_dict.append(dist_list_aux)
+    return agents_pred_dict
