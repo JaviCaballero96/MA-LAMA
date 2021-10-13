@@ -574,6 +574,7 @@ def pddl_to_sas(task):
 
     agents_pred = graphs.get_agent_elements(task, strips_to_sas)
     agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
+    agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
 
     return sas_task
 
