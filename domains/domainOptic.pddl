@@ -43,12 +43,12 @@
 				(over all (Navigation_Mode ?a ?n))
 				(over all (traversable ?p1 ?p))
 				(at start (RobotBase_NotOnDock ?a))
-      	        (at start (RobotBase_At ?a ?p1))
+      	(at start (RobotBase_At ?a ?p1))
 				(at start (free ?a))
       )
      :effect (and
 				(at start (not (free ?a)))
-				(at start (not (RobotBase_At ?a ?p1)))
+				(at end (not (RobotBase_At ?a ?p1)))
 				(at end (free ?a))
 				(at end (visited ?p))
         (at end (RobotBase_At ?a ?p))
@@ -70,7 +70,7 @@
 			 )
 		 :effect (and
 			 (at start (not (free ?a)))
-			 (at start (not (Navigation_Mode ?a ?n1)))
+			 (at end (not (Navigation_Mode ?a ?n1)))
 			 (at end (free ?a))
 			 (at end (Navigation_Mode ?a ?n2))
 			 )

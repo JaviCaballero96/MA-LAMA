@@ -135,6 +135,7 @@ def find_invariants(task, reachable_action_params):
             return
         if candidate.check_balance(balance_checker, enqueue_func):
             yield candidate
+    print("Invariants search end")
 
 
 def useful_groups(invariants, initial_facts):

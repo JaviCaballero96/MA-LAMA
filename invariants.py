@@ -235,7 +235,7 @@ class Invariant:
 
     def operator_too_heavy(self, h_action):
         add_effects = [eff for eff in h_action.effects
-                       if not isinstance(eff, pddl.effects.CostEffect) and eff.literal.negated and
+                       if (not isinstance(eff, pddl.effects.CostEffect)) and (not eff.literal.negated) and
                           self.predicate_to_part.get(eff.literal.predicate)]
         inv_vars = find_unique_variables(h_action, self)
 

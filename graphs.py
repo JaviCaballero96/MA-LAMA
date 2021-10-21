@@ -1,5 +1,20 @@
 import pddl
 
+class DomainNode:
+  def __init__(self, state, arcs):
+    self.state = state
+    self.arcs = arcs
+
+class DomainArc:
+  def __init__(self, origin_state, end_state, action):
+    self.origin_state = origin_state
+    self.end_state = end_state
+    self.action = action
+
+class DomainArc:
+    def __init__(self, var_group, node_list):
+        self.node_list = node_list
+        self.var_group = var_group
 
 def get_agent_elements(task, strips_to_sas):
     agents = [agent for agent in task.objects if agent.type == "agent"]
@@ -28,10 +43,28 @@ def get_agents_minimal_variables(agents_pred):
     agent_minimal_vars = [agents_pred[0]]
     agent = 0
     for pred_list in agents_pred[1:]:
+        agent_min_var_dict = {}
         agent_min_var_list = []
         for atom in pred_list:
+            if "_curr" in atom.predicate:
+                continue
             if not (atom.predicate in agent_min_var_list):
+                agent_min_var_dict[atom.predicate] = [atom]
                 agent_min_var_list.append(atom.predicate)
+            else:
+                agent_min_var_dict[atom.predicate].append(atom)
         agent = agent + 1
-        agent_minimal_vars.append(agent_min_var_list)
+        agent_minimal_vars.append(agent_min_var_dict)
     return agent_minimal_vars
+
+def creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics, agent_minimal_vars, sas_task, strips_to_sas):
+    first_order_graphs = []
+    for minimal_var_group in agent_minimal_vars[1:]:
+        for operator in sas_task.operators:
+            for minimal_var in minimal_var_group.keys():
+                atom_list = minimal_var_group[minimal_var]
+                for literal_atom in atom_list:
+                    dict_atom = strips_to_sas[literal_atom]
+                    print("a")
+
+

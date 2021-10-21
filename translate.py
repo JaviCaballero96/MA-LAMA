@@ -575,6 +575,9 @@ def pddl_to_sas(task):
     agents_pred = graphs.get_agent_elements(task, strips_to_sas)
     agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
     agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
+    first_order_domain_graphs = graphs.creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics,
+                                                                         agent_minimal_vars, sas_task, strips_to_sas)
+
 
     return sas_task
 
