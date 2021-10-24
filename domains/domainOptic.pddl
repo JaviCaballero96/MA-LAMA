@@ -5,7 +5,7 @@
    )
    (:predicates
 		 (modeTransition ?n1 - NavMode ?n2 - NavMode)
-	     (Navigation_Mode ?a - Agent ?n - NavMode)
+	   (Navigation_Mode ?a - Agent ?n - NavMode)
 		 (Communication_transmittedP ?p - Loc)
 		 (RobotBase_NotOnDock ?a - Agent)
 		 (RobotBase_OnDock ?a - Agent)
