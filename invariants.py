@@ -7,6 +7,7 @@ import constraints
 import pddl
 import tools
 
+
 # Notes:
 # All parts of an invariant always use all non-counted variables
 # -> the arity of all predicates covered by an invariant is either the
@@ -62,7 +63,7 @@ def ensure_conjunction_sat(system, *parts):
     pos = defaultdict(set)
     neg = defaultdict(set)
     for literal in itertools.chain(*parts):
-        if literal.predicate == "=": # use (in)equalities in conditions
+        if literal.predicate == "=":  # use (in)equalities in conditions
             if literal.negated:
                 n = constraints.NegativeClause([literal.args])
                 system.add_negative_clause(n)
@@ -97,7 +98,7 @@ def ensure_inequality(system, literal1, literal2):
        literal instantiations are not equal (ignoring whether one is negated and
        the other is not)"""
     if (literal1.predicate == literal2.predicate and
-        literal1.parts):
+            literal1.parts):
         parts = list(zip(literal1.parts, literal2.parts))
         system.add_negative_clause(constraints.NegativeClause(parts))
 
@@ -236,7 +237,7 @@ class Invariant:
     def operator_too_heavy(self, h_action):
         add_effects = [eff for eff in h_action.effects
                        if (not isinstance(eff, pddl.effects.CostEffect)) and (not eff.literal.negated) and
-                          self.predicate_to_part.get(eff.literal.predicate)]
+                       self.predicate_to_part.get(eff.literal.predicate)]
         inv_vars = find_unique_variables(h_action, self)
 
         if len(add_effects) <= 1:
@@ -309,7 +310,7 @@ class Invariant:
 
         for del_effect in del_effects:
             minimal_renamings = self.unbalanced_renamings(del_effect, add_effect,
-                inv_vars, lhs_by_pred, minimal_renamings)
+                                                          inv_vars, lhs_by_pred, minimal_renamings)
             if not minimal_renamings:
                 return False
 
@@ -322,14 +323,14 @@ class Invariant:
            action and adds the refined one to the queue"""
         part = self.predicate_to_part[add_effect.literal.predicate]
         for del_eff in [eff for eff in action.effects if not isinstance(eff, pddl.effects.CostEffect) and
-                                                         not eff.literal.negated]:
+                                                         eff.literal.negated]:
             if del_eff.literal.predicate not in self.predicate_to_part:
                 for match in part.possible_matches(add_effect.literal,
                                                    del_eff.literal):
                     enqueue_func(Invariant(self.parts.union((match,))))
 
     def unbalanced_renamings(self, del_effect, add_effect,
-        inv_vars, lhs_by_pred, unbalanced_renamings):
+                             inv_vars, lhs_by_pred, unbalanced_renamings):
         """returns the renamings from unbalanced renamings for which
            the del_effect does not balance the add_effect."""
         system = constraints.ConstraintSystem()
