@@ -138,15 +138,19 @@ class InvariantPart:
         return [literal.args[pos] for pos in self.order]
 
     def instantiate(self, parameters):
-        args = ["?X"] * (len(self.order) + (self.omitted_pos != -1))
+        if isinstance(self.omitted_pos, list):
+            args = ["?X"] * (len(self.order) + len(self.omitted_pos))
+        else:
+            args = ["?X"] * (len(self.order) + (self.omitted_pos != -1))
         for arg, argpos in zip(parameters, self.order):
             args[argpos] = arg
         return pddl.Atom(self.predicate, args)
 
     def possible_mappings(self, own_literal, other_literal):
         allowed_omissions = len(other_literal.args) - len(self.order)
-        if allowed_omissions not in (0, 1):
-            return []
+        if "_curr" != other_literal.predicate[-5:]:
+            if allowed_omissions not in (0, 1):
+                return []
         own_parameters = self.get_parameters(own_literal)
         arg_to_ordered_pos = invert_list(own_parameters)
         other_arg_to_pos = invert_list(other_literal.args)
@@ -159,7 +163,10 @@ class InvariantPart:
                 return []
             if len_diff:
                 own_positions.append(-1)
-                allowed_omissions = 0
+                if "_curr" != other_literal.predicate[-5:]:
+                    allowed_omissions = 0
+                else:
+                    allowed_omissions = allowed_omissions - 1
             factored_mapping.append((other_positions, own_positions))
         return instantiate_factored_mapping(factored_mapping)
 
@@ -168,10 +175,10 @@ class InvariantPart:
         result = []
         for mapping in self.possible_mappings(own_literal, other_literal):
             new_order = [None] * len(self.order)
-            omitted = -1
+            omitted = []
             for (key, value) in mapping:
                 if value == -1:
-                    omitted = key
+                    omitted.append(key)
                 else:
                     new_order[value] = key
             result.append(InvariantPart(other_literal.predicate, new_order, omitted))

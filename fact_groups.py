@@ -1,5 +1,5 @@
 # -*- coding: latin-1 -*-
-
+import itertools
 
 import invariant_finder
 import pddl
@@ -18,12 +18,39 @@ def expand_group(group, task, reachable_facts):
             #       type, or by using a unifier which directly generates the
             #       applicable objects. It is not worth optimizing this at this stage,
             #       though.
-            for obj in task.objects:
-                newargs = list(fact.args)
-                newargs[pos] = obj.name
-                atom = pddl.Atom(fact.predicate, newargs)
-                if atom in reachable_facts:
-                    result.append(atom)
+
+            if len([a for a in fact.args if a == "?X"]) > 1:
+                for pred in task.predicates:
+                    if fact.predicate == pred.name:
+                        predicate = pred
+                        break
+
+                arg_instanciated_obj = []
+                index = 0
+                for arg in fact.args:
+                    arg_instanciated_obj.append([])
+                    if arg == "?X":
+                        for obj in task.objects:
+                            if obj.type == predicate.arguments[index].type:
+                                arg_instanciated_obj[index].append(obj.name)
+                    else:
+                        arg_instanciated_obj[index].append(arg)
+                    index = index + 1
+
+                all_possible_args = list(itertools.product(*arg_instanciated_obj))
+
+                for newargs in all_possible_args:
+                    atom = pddl.Atom(fact.predicate, newargs)
+                    if atom in reachable_facts:
+                        result.append(atom)
+
+            else:
+                for obj in task.objects:
+                    newargs = list(fact.args)
+                    newargs[pos] = obj.name
+                    atom = pddl.Atom(fact.predicate, newargs)
+                    if atom in reachable_facts:
+                        result.append(atom)
     return result
 
 

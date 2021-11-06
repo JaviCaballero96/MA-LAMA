@@ -48,7 +48,7 @@
       )
      :effect (and
 				(at start (not (free ?a)))
-				(at end (not (RobotBase_At ?a ?p1)))
+				(at start (not (RobotBase_At ?a ?p1)))
 				(at end (free ?a))
 				(at end (visited ?p))
         (at end (RobotBase_At ?a ?p))
