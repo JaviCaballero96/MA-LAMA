@@ -27,7 +27,7 @@ import graphs
 
 ALLOW_CONFLICTING_EFFECTS = True
 USE_PARTIAL_ENCODING = True
-DETECT_UNREACHABLE = False
+DETECT_UNREACHABLE = True
 
 ## Setting the following variable to True can cause a severe
 ## performance penalty due to weaker relevance analysis (see issue7).
@@ -575,6 +575,7 @@ def pddl_to_sas(task):
     agents_pred = graphs.get_agent_elements(task, strips_to_sas)
     agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
     agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
+    dtgs = graphs.create_groups_dtgs(sas_task)
     first_order_domain_graphs = graphs.creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics,
                                                                          agent_minimal_vars, sas_task, strips_to_sas)
 

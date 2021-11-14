@@ -70,7 +70,7 @@
 			 )
 		 :effect (and
 			 (at start (not (free ?a)))
-			 (at end (not (Navigation_Mode ?a ?n1)))
+			 (at start (not (Navigation_Mode ?a ?n1)))
 			 (at end (free ?a))
 			 (at end (Navigation_Mode ?a ?n2))
 			 )

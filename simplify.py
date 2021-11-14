@@ -301,10 +301,10 @@ def filter_unreachable_propositions(sas_task, mutex_key, translation_key):
 
     # dump_translation_key(translation_key)
     dtgs = build_dtgs(sas_task)
-    renaming = build_renaming(dtgs)
+    #renaming = build_renaming(dtgs)
     # apply_to_task may propagate up Impossible if the goal is simplified
     # to False.
-    renaming.apply_to_task(sas_task)
-    renaming.apply_to_translation_key(translation_key)
-    renaming.apply_to_mutex_key(mutex_key)
-    print("%d propositions removed" % renaming.num_removed_values)
+    #renaming.apply_to_task(sas_task)
+    #renaming.apply_to_translation_key(translation_key)
+    #renaming.apply_to_mutex_key(mutex_key)
+    #print("%d propositions removed" % renaming.num_removed_values)

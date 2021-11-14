@@ -1,20 +1,25 @@
 import pddl
+from simplify import DomainTransitionGraph
+
 
 class DomainNode:
-  def __init__(self, state, arcs):
-    self.state = state
-    self.arcs = arcs
+    def __init__(self, state, arcs):
+        self.state = state
+        self.arcs = arcs
+
 
 class DomainArc:
-  def __init__(self, origin_state, end_state, action):
-    self.origin_state = origin_state
-    self.end_state = end_state
-    self.action = action
+    def __init__(self, origin_state, end_state, action):
+        self.origin_state = origin_state
+        self.end_state = end_state
+        self.action = action
+
 
 class DomainArc:
     def __init__(self, var_group, node_list):
         self.node_list = node_list
         self.var_group = var_group
+
 
 def get_agent_elements(task, strips_to_sas):
     agents = [agent for agent in task.objects if agent.type == "agent"]
@@ -57,6 +62,31 @@ def get_agents_minimal_variables(agents_pred):
         agent_minimal_vars.append(agent_min_var_dict)
     return agent_minimal_vars
 
+
+def create_groups_dtgs(task):
+    init_vals = task.init.values
+    sizes = task.variables.ranges
+    dtgs = [DomainTransitionGraph(init, size)
+            for (init, size) in zip(init_vals, sizes)]
+
+    def add_arc(var_no, pre_spec, post):
+        if pre_spec == -1:
+            pre_values = set(range(sizes[var_no])).difference([post])
+        else:
+            pre_values = [pre_spec]
+        for pre in pre_values:
+            dtgs[var_no].add_arc(pre, post)
+
+    for op in task.operators:
+        for var_no, pre_spec, post, cond in op.pre_post:
+            add_arc(var_no, pre_spec, post)
+    for axiom in task.axioms:
+        var_no, val = axiom.effect
+        add_arc(var_no, -1, val)
+
+    return dtgs
+
+
 def creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics, agent_minimal_vars, sas_task, strips_to_sas):
     first_order_graphs = []
     for minimal_var_group in agent_minimal_vars[1:]:
@@ -66,5 +96,3 @@ def creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics, agent_minim
                 for literal_atom in atom_list:
                     dict_atom = strips_to_sas[literal_atom]
                     print("a")
-
-
