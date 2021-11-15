@@ -98,7 +98,9 @@ class GroupCoverQueue:
             self.max_size -= 1
 
 
-def choose_groups(groups, reachable_facts, functions, partial_encoding=True):
+# I don't want to remove facts that have already been covered
+# Thus, partial encoding is set to false for all cases
+def choose_groups(groups, reachable_facts, functions, partial_encoding=False):
     queue = GroupCoverQueue(groups, partial_encoding=partial_encoding)
     uncovered_facts = reachable_facts.copy()
     uncovered_funcs = functions.copy()
@@ -140,7 +142,7 @@ def collect_all_mutex_groups(groups, atoms, functions):
     return all_groups
 
 
-def compute_groups(task, atoms, functions, reachable_action_params, partial_encoding=True):
+def compute_groups(task, atoms, functions, reachable_action_params, partial_encoding=False):
     groups = invariant_finder.get_groups(task, reachable_action_params)
     with timers.timing("Instantiating groups"):
         groups = instantiate_groups(groups, task, atoms)

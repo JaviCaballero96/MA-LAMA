@@ -15,10 +15,12 @@ class DomainArc:
         self.action = action
 
 
-class DomainArc:
-    def __init__(self, var_group, node_list):
-        self.node_list = node_list
+class DomainGraph:
+    def __init__(self, init, var_group, node_list):
+        self.init = init
         self.var_group = var_group
+        self.node_list = node_list
+
 
 
 def get_agent_elements(task, strips_to_sas):
@@ -87,12 +89,19 @@ def create_groups_dtgs(task):
     return dtgs
 
 
-def creatae_frist_order_domain_graphs(agents_pred, agents_pred_dics, agent_minimal_vars, sas_task, strips_to_sas):
-    first_order_graphs = []
-    for minimal_var_group in agent_minimal_vars[1:]:
-        for operator in sas_task.operators:
-            for minimal_var in minimal_var_group.keys():
-                atom_list = minimal_var_group[minimal_var]
-                for literal_atom in atom_list:
-                    dict_atom = strips_to_sas[literal_atom]
-                    print("a")
+def translate_groups_dtgs(dtgs, translation_key):
+    translated_dtgs = []
+    index = 0
+    for dtg in dtgs:
+        graph = DomainGraph(translation_key[index][dtg.init], translation_key[index], [])
+        var_index = 0
+        for var in translation_key[index]:
+            node = DomainNode(var, [])
+            for arc in dtg.arcs[var_index]:
+                node.arcs.append(DomainArc(translation_key[index][var_index], translation_key[index][arc], ""))
+            var_index = var_index + 1
+            graph.node_list.append(node)
+        translated_dtgs.append(graph)
+        index = index + 1
+
+    return translated_dtgs
