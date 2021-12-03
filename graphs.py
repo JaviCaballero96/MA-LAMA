@@ -1,4 +1,6 @@
 import pddl
+import os
+import glob
 from simplify import DomainTransitionGraph
 
 
@@ -105,3 +107,26 @@ def translate_groups_dtgs(dtgs, translation_key):
         index = index + 1
 
     return translated_dtgs
+
+def create_graphs_files(dtgs):
+    index = 0
+    save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+
+    filelist = glob.glob(os.path.join(save_path, "*.txt"))
+    for f in filelist:
+        os.remove(f)
+
+    for graph in dtgs:
+        if len(graph.var_group) > 2:
+            file_name = "graph_" + str(index) + ".csv"
+            full_name = os.path.join(save_path, file_name)
+            f = open(full_name, "w")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    f.write(node.state)
+                    for arc in node.arcs:
+                        f.write(";")
+                        f.write(arc.end_state)
+                    f.write("\n")
+            f.close()
+            index = index + 1

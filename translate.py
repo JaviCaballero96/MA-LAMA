@@ -577,6 +577,7 @@ def pddl_to_sas(task):
     agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+    graphs.create_graphs_files(translated_dtgs)
 
 
     return sas_task
