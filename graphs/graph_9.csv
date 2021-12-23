@@ -1,4 +1,4 @@
-Atom navigation_changemode_curr(leader, n_1, n_0);Atom navigation_mode(leader, n_0)
 Atom navigation_mode(leader, n_0);Atom navigation_changemode_curr(leader, n_0, n_1)
 Atom navigation_mode(leader, n_1);Atom navigation_changemode_curr(leader, n_1, n_0)
+Atom navigation_changemode_curr(leader, n_1, n_0);Atom navigation_mode(leader, n_0)
 Atom navigation_changemode_curr(leader, n_0, n_1);Atom navigation_mode(leader, n_1)

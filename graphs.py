@@ -10,6 +10,15 @@ class DomainNode:
         self.arcs = arcs
 
 
+class DomainCasualNode:
+    def __init__(self, arcs, name, number, type1_arcs, type2_arcs):
+        self.name = name
+        self.number = number
+        self.arcs = arcs
+        self.type1_arcs = type1_arcs
+        self.type2_arcs = type2_arcs
+
+
 class DomainArc:
     def __init__(self, origin_state, end_state, action):
         self.origin_state = origin_state
@@ -17,12 +26,27 @@ class DomainArc:
         self.action = action
 
 
-class DomainGraph:
+class DomainCasualArc:
+    def __init__(self, origin_state, end_state, origin_state_name, end_state_name, action, arc_type, arc_id):
+        self.origin_state = origin_state
+        self.end_state = end_state
+        self.origin_state_name = origin_state_name
+        self.end_state_name = end_state_name
+        self.action = action
+        self.arc_type = arc_type
+        self.arc_id = arc_id
+
+
+class DomainTransGraph:
     def __init__(self, init, var_group, node_list):
         self.init = init
         self.var_group = var_group
         self.node_list = node_list
 
+
+class DomainCasualGraph:
+    def __init__(self, node_list):
+        self.node_list = node_list
 
 
 def get_agent_elements(task, strips_to_sas):
@@ -95,7 +119,7 @@ def translate_groups_dtgs(dtgs, translation_key):
     translated_dtgs = []
     index = 0
     for dtg in dtgs:
-        graph = DomainGraph(translation_key[index][dtg.init], translation_key[index], [])
+        graph = DomainTransGraph(translation_key[index][dtg.init], translation_key[index], [])
         var_index = 0
         for var in translation_key[index]:
             node = DomainNode(var, [])
@@ -107,6 +131,7 @@ def translate_groups_dtgs(dtgs, translation_key):
         index = index + 1
 
     return translated_dtgs
+
 
 def create_graphs_files(dtgs):
     index = 0
@@ -130,3 +155,104 @@ def create_graphs_files(dtgs):
                     f.write("\n")
             f.close()
             index = index + 1
+
+
+def create_casual_graph(sas_task, groups, simplify):
+    node_groups_list = []
+    node_groups_list_type1 = []
+    node_groups_list_type2 = []
+    group_number = 0
+
+    for group in groups:
+        name = ""
+        atoms_included = []
+
+        for state in group:
+            if state.predicate not in atoms_included:
+                if not isinstance(state.predicate, pddl.f_expression.Increase):
+                    atoms_included.append(state.predicate)
+                    name = name + state.predicate + "_"
+                else:
+                    atoms_included.append("increase-" + state.predicate.fluent.symbol)
+                    name = name + "increase-" + state.predicate.fluent.symbol + "_"
+
+        name = name[:-1]
+        node_groups_list.append(DomainCasualNode([], name, group_number, [], []))
+        node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], []))
+        node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], []))
+        group_number = group_number + 1
+
+    # Ahora mismo solo se están metiendo los arcos entre efectos con precondiciones y efectos,
+    # falta añadir los arcos de los prevail
+    for op in sas_task.operators:
+        operator_index1 = 0
+        for var_no1, pre_spec1, post1, cond1 in op.pre_post:
+            # We will deal with funcion information later
+            if pre_spec1 != -2:
+                operator_index2 = 0
+                # Check for arcs of type 2 (effect - effect) and type 1 (precondition)
+                for var_no2, pre_spec2, post2, cond2 in op.pre_post:
+                    # Type 2 (only if it is a different effect)
+                    if operator_index2 != operator_index1:
+                        if simplify:
+                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                            if arc_id not in node_groups_list[var_no1].type2_arcs:
+                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                          2, arc_id)
+                                node_groups_list[var_no1].arcs.append(new_arc)
+                                node_groups_list_type2[var_no1].arcs.append(new_arc)
+                                node_groups_list[var_no1].type2_arcs.append(arc_id)
+                                node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
+                        else:
+                            new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                      node_groups_list[var_no2].name,
+                                                      (op.name.split(' ')[0])[1:], 2, arc_id)
+                            node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list_type2[var_no1].arcs.append(new_arc)
+
+                    # Type 1 (only if a precondition exists)
+                    if pre_spec1 != -1:
+                        if simplify:
+                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                            if arc_id not in node_groups_list[var_no1].type1_arcs:
+                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                          1, arc_id)
+                                node_groups_list[var_no1].arcs.append(new_arc)
+                                node_groups_list_type1[var_no1].arcs.append(new_arc)
+                                node_groups_list[var_no1].type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
+                        else:
+                            new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                      node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                      1, arc_id)
+                            node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list_type1[var_no1].arcs.append(new_arc)
+
+                    operator_index2 = operator_index2 + 1
+
+                # Check for arcs of type 1 from prevail array (precondition - effect)
+                for var_no2, pre_spec2 in op.prevail:
+                    if simplify:
+                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
+                        if arc_id not in node_groups_list[var_no2].type1_arcs:
+                            new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
+                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
+                                                      1, arc_id)
+                            node_groups_list[var_no2].arcs.append(new_arc)
+                            node_groups_list_type1[var_no2].arcs.append(new_arc)
+                            node_groups_list[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
+                    else:
+                        new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
+                                                  node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
+                                                  arc_id)
+                        node_groups_list[var_no2].arcs.append(new_arc)
+                        node_groups_list_type1[var_no2].arcs.append(new_arc)
+
+            operator_index1 = operator_index1 + 1
+
+    return (DomainCasualGraph(node_groups_list),
+            DomainCasualGraph(node_groups_list_type1),
+            DomainCasualGraph(node_groups_list_type2))

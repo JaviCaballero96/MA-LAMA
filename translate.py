@@ -28,6 +28,7 @@ import graphs
 ALLOW_CONFLICTING_EFFECTS = True
 USE_PARTIAL_ENCODING = False
 DETECT_UNREACHABLE = True
+SIMPLIFIED_CASUAL_GRAPH = True
 
 ## Setting the following variable to True can cause a severe
 ## performance penalty due to weaker relevance analysis (see issue7).
@@ -578,7 +579,8 @@ def pddl_to_sas(task):
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
     graphs.create_graphs_files(translated_dtgs)
-
+    (casual_graph, casual_graph_type1, casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
+                                                                                        SIMPLIFIED_CASUAL_GRAPH)
 
     return sas_task
 
