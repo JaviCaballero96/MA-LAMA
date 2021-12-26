@@ -2,6 +2,9 @@ import pddl
 import os
 import glob
 from simplify import DomainTransitionGraph
+from datetime import date
+
+WINDOWS = True
 
 
 class DomainNode:
@@ -133,11 +136,15 @@ def translate_groups_dtgs(dtgs, translation_key):
     return translated_dtgs
 
 
-def create_graphs_files(dtgs):
+def create_csv_transition_graphs_files(dtgs):
     index = 0
-    save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
 
-    filelist = glob.glob(os.path.join(save_path, "*.txt"))
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+
+    filelist = glob.glob(os.path.join(save_path, "*.csv"))
     for f in filelist:
         os.remove(f)
 
@@ -153,6 +160,52 @@ def create_graphs_files(dtgs):
                         f.write(";")
                         f.write(arc.end_state)
                     f.write("\n")
+            f.close()
+            index = index + 1
+
+
+def create_gexf_transition_graphs_files(dtgs):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+
+    filelist = glob.glob(os.path.join(save_path, "*.gexf"))
+    for f in filelist:
+        os.remove(f)
+
+    for graph in dtgs:
+        if len(graph.var_group) > 2:
+            file_name = "graph_" + str(index) + ".gexf"
+            full_name = os.path.join(save_path, file_name)
+            f = open(full_name, "w")
+            f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+            f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+            f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+            f.write("\t\t<creator>Javier Caballero</creator>\n")
+            f.write("\t\t<description>graph_" + str(index) + "</description>\n")
+            f.write("\t</meta>\n")
+            f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+            f.write("\t\t<nodes>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    f.write("\t\t\t<node id=\"" + node.state + "\" label=\"" + node.state + "\" />\n")
+            f.write("\t\t</nodes>\n")
+
+            f.write("\t\t<edges>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    for arc in node.arcs:
+                        f.write("\t\t\t<edge id=\"" + arc.action + "\" source=\"" + node.state + "\" target=\""
+                                + arc.end_state + "\" />\n")
+            f.write("\t\t</edges>\n")
+            f.write("\t</graph>\n")
+            f.write("</gexf>\n")
+
             f.close()
             index = index + 1
 
@@ -256,3 +309,40 @@ def create_casual_graph(sas_task, groups, simplify):
     return (DomainCasualGraph(node_groups_list),
             DomainCasualGraph(node_groups_list_type1),
             DomainCasualGraph(node_groups_list_type2))
+
+
+def create_gexf_casual_graph_files(casual_graph):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+
+    file_name = "casual_graph.gexf"
+    full_name = os.path.join(save_path, file_name)
+    f = open(full_name, "w")
+    f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+    f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+    f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+    f.write("\t\t<creator>Javier Caballero</creator>\n")
+    f.write("\t\t<description>graph_" + str(index) + "</description>\n")
+    f.write("\t</meta>\n")
+    f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+    f.write("\t\t<nodes>\n")
+    for node in casual_graph.node_list:
+        if node.name != '<none of those>':
+            f.write("\t\t\t<node id=\"" + str(node.number) + "\" label=\"" + node.name + "\" />\n")
+    f.write("\t\t</nodes>\n")
+
+    f.write("\t\t<edges>\n")
+    for node in casual_graph.node_list:
+        for arc in node.arcs:
+            f.write("\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" source=\"" + str(arc.origin_state)
+                    + "\" target=\"" + str(arc.end_state) + "\" />\n")
+    f.write("\t\t</edges>\n")
+    f.write("\t</graph>\n")
+    f.write("</gexf>\n")
+    f.close()

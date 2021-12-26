@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
+	<meta lastmodifieddate="26/12/2021">
+		<creator>Javier Caballero</creator>
+		<description>graph_6</description>
+	</meta>
+	<graph mode="static" defaultedgetype="directed">
+		<nodes>
+			<node id="Atom robotbase_undocking_curr(leader, c5_9)" label="Atom robotbase_undocking_curr(leader, c5_9)" />
+			<node id="Atom robotbase_undocking_curr(leader, c10_14)" label="Atom robotbase_undocking_curr(leader, c10_14)" />
+			<node id="Atom robotbase_ondock(leader)" label="Atom robotbase_ondock(leader)" />
+			<node id="Atom robotbase_docking_curr(leader, c5_9)" label="Atom robotbase_docking_curr(leader, c5_9)" />
+			<node id="Atom robotbase_docking_curr(leader, c10_2)" label="Atom robotbase_docking_curr(leader, c10_2)" />
+			<node id="Atom robotbase_docking_curr(leader, c10_14)" label="Atom robotbase_docking_curr(leader, c10_14)" />
+			<node id="Atom robotbase_notondock(leader)" label="Atom robotbase_notondock(leader)" />
+			<node id="Atom robotbase_undocking_curr(leader, c10_2)" label="Atom robotbase_undocking_curr(leader, c10_2)" />
+		</nodes>
+		<edges>
+			<edge id="" source="Atom robotbase_undocking_curr(leader, c5_9)" target="Atom robotbase_notondock(leader)" />
+			<edge id="" source="Atom robotbase_undocking_curr(leader, c10_14)" target="Atom robotbase_notondock(leader)" />
+			<edge id="" source="Atom robotbase_ondock(leader)" target="Atom robotbase_undocking_curr(leader, c5_9)" />
+			<edge id="" source="Atom robotbase_ondock(leader)" target="Atom robotbase_undocking_curr(leader, c10_14)" />
+			<edge id="" source="Atom robotbase_ondock(leader)" target="Atom robotbase_undocking_curr(leader, c10_2)" />
+			<edge id="" source="Atom robotbase_docking_curr(leader, c5_9)" target="Atom robotbase_ondock(leader)" />
+			<edge id="" source="Atom robotbase_docking_curr(leader, c10_2)" target="Atom robotbase_ondock(leader)" />
+			<edge id="" source="Atom robotbase_docking_curr(leader, c10_14)" target="Atom robotbase_ondock(leader)" />
+			<edge id="" source="Atom robotbase_notondock(leader)" target="Atom robotbase_docking_curr(leader, c5_9)" />
+			<edge id="" source="Atom robotbase_notondock(leader)" target="Atom robotbase_docking_curr(leader, c10_2)" />
+			<edge id="" source="Atom robotbase_notondock(leader)" target="Atom robotbase_docking_curr(leader, c10_14)" />
+			<edge id="" source="Atom robotbase_undocking_curr(leader, c10_2)" target="Atom robotbase_notondock(leader)" />
+		</edges>
+	</graph>
+</gexf>

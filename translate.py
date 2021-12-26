@@ -578,9 +578,11 @@ def pddl_to_sas(task):
     agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
-    graphs.create_graphs_files(translated_dtgs)
+    graphs.create_csv_transition_graphs_files(translated_dtgs)
+    graphs.create_gexf_transition_graphs_files(translated_dtgs)
     (casual_graph, casual_graph_type1, casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
                                                                                         SIMPLIFIED_CASUAL_GRAPH)
+    graphs.create_gexf_casual_graph_files(casual_graph)
 
     return sas_task
 
