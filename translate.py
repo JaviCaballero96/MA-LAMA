@@ -582,7 +582,9 @@ def pddl_to_sas(task):
     graphs.create_gexf_transition_graphs_files(translated_dtgs)
     (casual_graph, casual_graph_type1, casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
                                                                                         SIMPLIFIED_CASUAL_GRAPH)
-    graphs.create_gexf_casual_graph_files(casual_graph)
+    graphs.create_gexf_casual_graph_files(casual_graph, 0)
+    graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
+    graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
 
     return sas_task
 

@@ -200,8 +200,8 @@ def create_gexf_transition_graphs_files(dtgs):
             for node in graph.node_list:
                 if node.state != '<none of those>':
                     for arc in node.arcs:
-                        f.write("\t\t\t<edge id=\"" + arc.action + "\" source=\"" + node.state + "\" target=\""
-                                + arc.end_state + "\" />\n")
+                        f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
+                                node.state + "\" target=\"" + arc.end_state + "\" />\n")
             f.write("\t\t</edges>\n")
             f.write("\t</graph>\n")
             f.write("</gexf>\n")
@@ -311,7 +311,7 @@ def create_casual_graph(sas_task, groups, simplify):
             DomainCasualGraph(node_groups_list_type2))
 
 
-def create_gexf_casual_graph_files(casual_graph):
+def create_gexf_casual_graph_files(casual_graph, type):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -321,14 +321,20 @@ def create_gexf_casual_graph_files(casual_graph):
     else:
         save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
 
-    file_name = "casual_graph.gexf"
+    if type == 0:
+        file_name = "casual_graph.gexf"
+    elif type == 1:
+        file_name = "casual_graph_type1.gexf"
+    if type == 2:
+        file_name = "casual_graph_type2.gexf"
+
     full_name = os.path.join(save_path, file_name)
     f = open(full_name, "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
     f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
     f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
     f.write("\t\t<creator>Javier Caballero</creator>\n")
-    f.write("\t\t<description>graph_" + str(index) + "</description>\n")
+    f.write("\t\t<description>" + file_name + "</description>\n")
     f.write("\t</meta>\n")
     f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
     f.write("\t\t<nodes>\n")
@@ -340,8 +346,9 @@ def create_gexf_casual_graph_files(casual_graph):
     f.write("\t\t<edges>\n")
     for node in casual_graph.node_list:
         for arc in node.arcs:
-            f.write("\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" source=\"" + str(arc.origin_state)
-                    + "\" target=\"" + str(arc.end_state) + "\" />\n")
+            f.write("\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" label=\"" + arc.arc_id + "--" +
+                    str(arc.arc_type) + "\" source=\"" + str(arc.origin_state) + "\" target=\"" +
+                    str(arc.end_state) + "\" />\n")
     f.write("\t\t</edges>\n")
     f.write("\t</graph>\n")
     f.write("</gexf>\n")
