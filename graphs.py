@@ -214,11 +214,15 @@ def create_casual_graph(sas_task, groups, simplify):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
+    propositional_node_groups = []
+    propositional_node_groups_type1 = []
+    propositional_node_groups_type2 = []
     group_number = 0
 
     for group in groups:
         name = ""
         atoms_included = []
+        is_there_function_states = False
 
         for state in group:
             if state.predicate not in atoms_included:
@@ -228,11 +232,17 @@ def create_casual_graph(sas_task, groups, simplify):
                 else:
                     atoms_included.append("increase-" + state.predicate.fluent.symbol)
                     name = name + "increase-" + state.predicate.fluent.symbol + "_"
+                    is_there_function_states = True
 
         name = name[:-1]
         node_groups_list.append(DomainCasualNode([], name, group_number, [], []))
         node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], []))
         node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], []))
+        if not is_there_function_states:
+            propositional_node_groups.append(DomainCasualNode([], name, group_number, [], []))
+            propositional_node_groups_type1.append(DomainCasualNode([], name, group_number, [], []))
+            propositional_node_groups_type2.append(DomainCasualNode([], name, group_number, [], []))
+
         group_number = group_number + 1
 
     # Ahora mismo solo se están metiendo los arcos entre efectos con precondiciones y efectos,
@@ -254,15 +264,26 @@ def create_casual_graph(sas_task, groups, simplify):
                                                           node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                           2, arc_id)
                                 node_groups_list[var_no1].arcs.append(new_arc)
-                                node_groups_list_type2[var_no1].arcs.append(new_arc)
                                 node_groups_list[var_no1].type2_arcs.append(arc_id)
+                                node_groups_list_type2[var_no1].arcs.append(new_arc)
                                 node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
+                                if var_no2 < len(propositional_node_groups)\
+                                        and var_no1 < len(propositional_node_groups):
+                                    propositional_node_groups[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups[var_no1].type2_arcs.append(arc_id)
+                                    propositional_node_groups_type2[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
+
                         else:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name,
                                                       (op.name.split(' ')[0])[1:], 2, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
+                            if var_no2 < len(propositional_node_groups) \
+                                    and var_no1 < len(propositional_node_groups):
+                                propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type2[var_no1].arcs.append(new_arc)
 
                     # Type 1 (only if a precondition exists)
                     if pre_spec1 != -1:
@@ -273,15 +294,25 @@ def create_casual_graph(sas_task, groups, simplify):
                                                           node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                           1, arc_id)
                                 node_groups_list[var_no1].arcs.append(new_arc)
-                                node_groups_list_type1[var_no1].arcs.append(new_arc)
                                 node_groups_list[var_no1].type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no1].arcs.append(new_arc)
                                 node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
+                                if var_no2 < len(propositional_node_groups)\
+                                        and var_no1 < len(propositional_node_groups):
+                                    propositional_node_groups[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups[var_no1].type1_arcs.append(arc_id)
+                                    propositional_node_groups_type1[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
                         else:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
                             node_groups_list_type1[var_no1].arcs.append(new_arc)
+                            if var_no2 < len(propositional_node_groups) \
+                                    and var_no1 < len(propositional_node_groups):
+                                propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no1].arcs.append(new_arc)
 
                     operator_index2 = operator_index2 + 1
 
@@ -294,21 +325,34 @@ def create_casual_graph(sas_task, groups, simplify):
                                                       node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
                             node_groups_list[var_no2].arcs.append(new_arc)
-                            node_groups_list_type1[var_no2].arcs.append(new_arc)
                             node_groups_list[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no2].arcs.append(new_arc)
                             node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
+                            if var_no2 < len(propositional_node_groups) \
+                                    and var_no1 < len(propositional_node_groups):
+                                propositional_node_groups[var_no2].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no2].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
                     else:
                         new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
                                                   node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
                                                   arc_id)
                         node_groups_list[var_no2].arcs.append(new_arc)
                         node_groups_list_type1[var_no2].arcs.append(new_arc)
+                        if var_no2 < len(propositional_node_groups) \
+                                and var_no1 < len(propositional_node_groups):
+                            propositional_node_groups[var_no1].arcs.append(new_arc)
+                            propositional_node_groups_type1[var_no2].arcs.append(new_arc)
 
             operator_index1 = operator_index1 + 1
 
     return (DomainCasualGraph(node_groups_list),
             DomainCasualGraph(node_groups_list_type1),
-            DomainCasualGraph(node_groups_list_type2))
+            DomainCasualGraph(node_groups_list_type2),
+            DomainCasualGraph(propositional_node_groups),
+            DomainCasualGraph(propositional_node_groups_type1),
+            DomainCasualGraph(propositional_node_groups_type2))
 
 
 def create_gexf_casual_graph_files(casual_graph, type):
@@ -327,6 +371,12 @@ def create_gexf_casual_graph_files(casual_graph, type):
         file_name = "casual_graph_type1.gexf"
     if type == 2:
         file_name = "casual_graph_type2.gexf"
+    if type == 3:
+        file_name = "propositional_casual_graph.gexf"
+    if type == 4:
+        file_name = "propositional_casual_graph_type1.gexf"
+    if type == 5:
+        file_name = "propositional_casual_graph_type2.gexf"
 
     full_name = os.path.join(save_path, file_name)
     f = open(full_name, "w")

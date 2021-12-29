@@ -88,6 +88,8 @@ def instantiate(task, model):
         elif atom.predicate == "@goal-reachable":
             relaxed_reachable = True
 
+
+# TODO carry the cost and function value information from instantiaded_actions to fluent_functions, will be useful later
     return (relaxed_reachable, fluent_facts, fluents_functions, instantiated_actions,
             instantiated_axioms, reachable_action_parameters)
 
