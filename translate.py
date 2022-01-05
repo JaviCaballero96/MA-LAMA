@@ -496,6 +496,15 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
 
 
+def set_function_values(operators, groups, mutex_groups):
+    for operator in operators:
+        for effect in operator.pre_post:
+            if effect[1] == -2:
+                groups[effect[0]][0].value= effect[2]
+                mutex_groups[effect[0]][0].value = effect[2]
+    return
+
+
 def unsolvable_sas_task(msg):
     print("%s! Generating unsolvable task..." % msg)
     write_translation_key([])
@@ -556,6 +565,8 @@ def pddl_to_sas(task):
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
     print("%d implied preconditions added" % added_implied_precondition_counter)
+
+    set_function_values(sas_task.operators, groups, mutex_groups)
 
     with timers.timing("Building mutex information", block=True):
         mutex_key = build_mutex_key(strips_to_sas, mutex_groups)

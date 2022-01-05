@@ -4,7 +4,7 @@ import glob
 from simplify import DomainTransitionGraph
 from datetime import date
 
-WINDOWS = True
+WINDOWS = False
 
 
 class DomainNode:
