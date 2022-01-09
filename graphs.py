@@ -100,20 +100,21 @@ def create_groups_dtgs(task):
     dtgs = [DomainTransitionGraph(init, size)
             for (init, size) in zip(init_vals, sizes)]
 
-    def add_arc(var_no, pre_spec, post):
+    def add_arc(var_no, pre_spec, post, op):
         if pre_spec == -1:
             pre_values = set(range(sizes[var_no])).difference([post])
         else:
             pre_values = [pre_spec]
         for pre in pre_values:
             dtgs[var_no].add_arc(pre, post)
+            dtgs[var_no].add_named_arc(pre, post, op)
 
     for op in task.operators:
         for var_no, pre_spec, post, cond in op.pre_post:
-            add_arc(var_no, pre_spec, post)
+            add_arc(var_no, pre_spec, post, op)
     for axiom in task.axioms:
         var_no, val = axiom.effect
-        add_arc(var_no, -1, val)
+        add_arc(var_no, -1, val, op)
 
     return dtgs
 
@@ -126,8 +127,9 @@ def translate_groups_dtgs(dtgs, translation_key):
         var_index = 0
         for var in translation_key[index]:
             node = DomainNode(var, [])
-            for arc in dtg.arcs[var_index]:
-                node.arcs.append(DomainArc(translation_key[index][var_index], translation_key[index][arc], ""))
+            for arc in dtg.named_arcs[var_index]:
+                node.arcs.append(DomainArc(translation_key[index][var_index], translation_key[index][arc.end_state],
+                                           arc.action.name))
             var_index = var_index + 1
             graph.node_list.append(node)
         translated_dtgs.append(graph)

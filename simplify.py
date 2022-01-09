@@ -13,14 +13,25 @@ DEBUG = False
 # working with int pairs is awkward.
 
 
+class NamedArc:
+    def __init__(self, origin_state, end_state, action):
+        self.origin_state = origin_state
+        self.end_state = end_state
+        self.action = action
+
+
 class DomainTransitionGraph(object):
     def __init__(self, init, size):
         self.init = init
         self.size = size
         self.arcs = defaultdict(set)
+        self.named_arcs = defaultdict(set)
 
     def add_arc(self, u, v):
         self.arcs[u].add(v)
+
+    def add_named_arc(self, u, v, op):
+        self.named_arcs[u].add(NamedArc(u, v, op))
 
     def reachable(self):
         queue = [self.init]

@@ -1,4 +1,4 @@
-Atom navigation_changemode_curr(follower1, n_0, n_1);Atom navigation_mode(follower1, n_1)
-Atom navigation_changemode_curr(follower1, n_1, n_0);Atom navigation_mode(follower1, n_0)
-Atom navigation_mode(follower1, n_0);Atom navigation_changemode_curr(follower1, n_0, n_1)
-Atom navigation_mode(follower1, n_1);Atom navigation_changemode_curr(follower1, n_1, n_0)
+Atom navigation_mode(follower0, n_0);Atom navigation_changemode_curr(follower0, n_0, n_1)
+Atom navigation_changemode_curr(follower0, n_0, n_1);Atom navigation_mode(follower0, n_1)
+Atom navigation_mode(follower0, n_1);Atom navigation_changemode_curr(follower0, n_1, n_0)
+Atom navigation_changemode_curr(follower0, n_1, n_0);Atom navigation_mode(follower0, n_0)
