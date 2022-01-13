@@ -106,8 +106,12 @@ def create_groups_dtgs(task):
         else:
             pre_values = [pre_spec]
         for pre in pre_values:
-            dtgs[var_no].add_arc(pre, post)
-            dtgs[var_no].add_named_arc(pre, post, op)
+            if isinstance(post, list):
+                dtgs[var_no].add_arc(pre, post[2])
+                dtgs[var_no].add_named_arc(pre, post[2], op)
+            else:
+                dtgs[var_no].add_arc(pre, post)
+                dtgs[var_no].add_named_arc(pre, post, op)
 
     for op in task.operators:
         for var_no, pre_spec, post, cond in op.pre_post:
@@ -138,7 +142,86 @@ def translate_groups_dtgs(dtgs, translation_key):
     return translated_dtgs
 
 
-def create_csv_transition_graphs_files(dtgs):
+def create_functional_dtgs(sas_task, translation_key, groups):
+    fdtgs = []
+    index = 0
+    for group in groups:
+
+        # Check if the group is functional
+        if not isinstance(group[0].predicate, pddl.f_expression.Increase):
+            index = index + 1
+            continue
+
+        node_dict = {}
+        node_names = []
+        for op in sas_task.operators:
+            eff_index_1 = 0
+            for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+                if n_pre_spec == -2 and n_var_no == index:
+                    eff_index_2 = 0
+                    for var_no, pre_spec, post, cond in op.pre_post:
+                        if eff_index_1 != eff_index_2 and pre_spec != -2:
+                            if translation_key[var_no][pre_spec] != '<none of those>':
+                                if translation_key[var_no][pre_spec] not in node_names:
+                                    node_dict[translation_key[var_no][pre_spec]] = []
+                                    node_names.append(translation_key[var_no][pre_spec])
+                                if translation_key[var_no][post] not in node_names:
+                                    node_dict[translation_key[var_no][post]] = []
+                                    node_names.append(translation_key[var_no][post])
+                                node_dict[translation_key[var_no][pre_spec]].append(
+                                    DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
+                                              translation_key[n_var_no][n_post[2]]))
+                        eff_index_2 = eff_index_2 + 1
+                eff_index_1 = eff_index_1 + 1
+
+        fdtgs.append(DomainTransGraph(0, index, node_dict))
+        index = index + 1
+
+    return fdtgs
+
+
+def create_gexf_transition_functional_graphs_files(fdtgs):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+
+    for graph in fdtgs:
+        file_name = "functional_graph_" + str(index) + ".gexf"
+        full_name = os.path.join(save_path, file_name)
+        f = open(full_name, "w")
+        f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+        f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+        f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+        f.write("\t\t<creator>Javier Caballero</creator>\n")
+        f.write("\t\t<description>functional_graph_" + str(index) + "</description>\n")
+        f.write("\t</meta>\n")
+        f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+        f.write("\t\t<nodes>\n")
+        for key, arcs in graph.node_list.items():
+            if key != '<none of those>':
+                f.write("\t\t\t<node id=\"" + key + "\" label=\"" + key + "\" />\n")
+        f.write("\t\t</nodes>\n")
+
+        f.write("\t\t<edges>\n")
+        for key, arcs in graph.node_list.items():
+            if key != '<none of those>':
+                for arc in arcs:
+                    f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                            arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+        f.write("\t\t</edges>\n")
+        f.write("\t</graph>\n")
+        f.write("</gexf>\n")
+
+        f.close()
+        index = index + 1
+
+
+def create_csv_transition_graphs_files(dtgs, groups):
     index = 0
 
     if WINDOWS:
@@ -151,6 +234,12 @@ def create_csv_transition_graphs_files(dtgs):
         os.remove(f)
 
     for graph in dtgs:
+
+        # Check if the group is functional
+        if isinstance(groups[index][0].predicate, pddl.f_expression.Increase):
+            index = index + 1
+            continue
+
         if len(graph.var_group) > 2:
             file_name = "graph_" + str(index) + ".csv"
             full_name = os.path.join(save_path, file_name)
@@ -166,7 +255,7 @@ def create_csv_transition_graphs_files(dtgs):
             index = index + 1
 
 
-def create_gexf_transition_graphs_files(dtgs):
+def create_gexf_transition_graphs_files(dtgs, groups):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -181,6 +270,12 @@ def create_gexf_transition_graphs_files(dtgs):
         os.remove(f)
 
     for graph in dtgs:
+
+        # Check if the group is functional
+        if isinstance(groups[index][0].predicate, pddl.f_expression.Increase):
+            index = index + 1
+            continue
+
         if len(graph.var_group) > 2:
             file_name = "graph_" + str(index) + ".gexf"
             full_name = os.path.join(save_path, file_name)
@@ -216,9 +311,10 @@ def create_casual_graph(sas_task, groups, simplify):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
-    propositional_node_groups = []
-    propositional_node_groups_type1 = []
-    propositional_node_groups_type2 = []
+    propositional_node_groups_list = []
+    propositional_node_groups = {}
+    propositional_node_groups_type1 = {}
+    propositional_node_groups_type2 = {}
     group_number = 0
 
     for group in groups:
@@ -227,11 +323,12 @@ def create_casual_graph(sas_task, groups, simplify):
         is_there_function_states = False
 
         for state in group:
-            if state.predicate not in atoms_included:
-                if not isinstance(state.predicate, pddl.f_expression.Increase):
+            if not isinstance(state.predicate, pddl.f_expression.Increase):
+                if state.predicate not in atoms_included:
                     atoms_included.append(state.predicate)
                     name = name + state.predicate + "_"
-                else:
+            else:
+                if "increase-" + state.predicate.fluent.symbol not in atoms_included:
                     atoms_included.append("increase-" + state.predicate.fluent.symbol)
                     name = name + "increase-" + state.predicate.fluent.symbol + "_"
                     is_there_function_states = True
@@ -241,9 +338,10 @@ def create_casual_graph(sas_task, groups, simplify):
         node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], []))
         node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], []))
         if not is_there_function_states:
-            propositional_node_groups.append(DomainCasualNode([], name, group_number, [], []))
-            propositional_node_groups_type1.append(DomainCasualNode([], name, group_number, [], []))
-            propositional_node_groups_type2.append(DomainCasualNode([], name, group_number, [], []))
+            propositional_node_groups_list.append(group_number)
+            propositional_node_groups[group_number] = DomainCasualNode([], name, group_number, [], [])
+            propositional_node_groups_type1[group_number] = DomainCasualNode([], name, group_number, [], [])
+            propositional_node_groups_type2[group_number] = DomainCasualNode([], name, group_number, [], [])
 
         group_number = group_number + 1
 
@@ -269,8 +367,8 @@ def create_casual_graph(sas_task, groups, simplify):
                                 node_groups_list[var_no1].type2_arcs.append(arc_id)
                                 node_groups_list_type2[var_no1].arcs.append(new_arc)
                                 node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
-                                if var_no2 < len(propositional_node_groups)\
-                                        and var_no1 < len(propositional_node_groups):
+                                if var_no2 in propositional_node_groups_list\
+                                        and var_no1 in propositional_node_groups_list:
                                     propositional_node_groups[var_no1].arcs.append(new_arc)
                                     propositional_node_groups[var_no1].type2_arcs.append(arc_id)
                                     propositional_node_groups_type2[var_no1].arcs.append(new_arc)
@@ -282,8 +380,8 @@ def create_casual_graph(sas_task, groups, simplify):
                                                       (op.name.split(' ')[0])[1:], 2, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
-                            if var_no2 < len(propositional_node_groups) \
-                                    and var_no1 < len(propositional_node_groups):
+                            if var_no2 in propositional_node_groups_list \
+                                    and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
                                 propositional_node_groups_type2[var_no1].arcs.append(new_arc)
 
@@ -299,8 +397,8 @@ def create_casual_graph(sas_task, groups, simplify):
                                 node_groups_list[var_no1].type1_arcs.append(arc_id)
                                 node_groups_list_type1[var_no1].arcs.append(new_arc)
                                 node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
-                                if var_no2 < len(propositional_node_groups)\
-                                        and var_no1 < len(propositional_node_groups):
+                                if var_no2 in propositional_node_groups_list \
+                                        and var_no1 in propositional_node_groups_list:
                                     propositional_node_groups[var_no1].arcs.append(new_arc)
                                     propositional_node_groups[var_no1].type1_arcs.append(arc_id)
                                     propositional_node_groups_type1[var_no1].arcs.append(new_arc)
@@ -311,8 +409,8 @@ def create_casual_graph(sas_task, groups, simplify):
                                                       1, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
                             node_groups_list_type1[var_no1].arcs.append(new_arc)
-                            if var_no2 < len(propositional_node_groups) \
-                                    and var_no1 < len(propositional_node_groups):
+                            if var_no2 in propositional_node_groups_list \
+                                    and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
                                 propositional_node_groups_type1[var_no1].arcs.append(new_arc)
 
@@ -330,8 +428,8 @@ def create_casual_graph(sas_task, groups, simplify):
                             node_groups_list[var_no2].type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no2].arcs.append(new_arc)
                             node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
-                            if var_no2 < len(propositional_node_groups) \
-                                    and var_no1 < len(propositional_node_groups):
+                            if var_no2 in propositional_node_groups_list \
+                                    and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no2].arcs.append(new_arc)
                                 propositional_node_groups[var_no2].type1_arcs.append(arc_id)
                                 propositional_node_groups_type1[var_no2].arcs.append(new_arc)
@@ -342,8 +440,8 @@ def create_casual_graph(sas_task, groups, simplify):
                                                   arc_id)
                         node_groups_list[var_no2].arcs.append(new_arc)
                         node_groups_list_type1[var_no2].arcs.append(new_arc)
-                        if var_no2 < len(propositional_node_groups) \
-                                and var_no1 < len(propositional_node_groups):
+                        if var_no2 in propositional_node_groups_list \
+                                and var_no1 in propositional_node_groups_list:
                             propositional_node_groups[var_no1].arcs.append(new_arc)
                             propositional_node_groups_type1[var_no2].arcs.append(new_arc)
 
@@ -367,6 +465,7 @@ def create_gexf_casual_graph_files(casual_graph, type):
     else:
         save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
 
+    propo = False
     if type == 0:
         file_name = "casual_graph.gexf"
     elif type == 1:
@@ -374,10 +473,13 @@ def create_gexf_casual_graph_files(casual_graph, type):
     if type == 2:
         file_name = "casual_graph_type2.gexf"
     if type == 3:
+        propo = True
         file_name = "propositional_casual_graph.gexf"
     if type == 4:
+        propo = True
         file_name = "propositional_casual_graph_type1.gexf"
     if type == 5:
+        propo = True
         file_name = "propositional_casual_graph_type2.gexf"
 
     full_name = os.path.join(save_path, file_name)
@@ -391,12 +493,16 @@ def create_gexf_casual_graph_files(casual_graph, type):
     f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
     f.write("\t\t<nodes>\n")
     for node in casual_graph.node_list:
+        if propo:
+            node = casual_graph.node_list[node]
         if node.name != '<none of those>':
             f.write("\t\t\t<node id=\"" + str(node.number) + "\" label=\"" + node.name + "\" />\n")
     f.write("\t\t</nodes>\n")
 
     f.write("\t\t<edges>\n")
     for node in casual_graph.node_list:
+        if propo:
+            node = casual_graph.node_list[node]
         for arc in node.arcs:
             f.write("\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" label=\"" + arc.arc_id + "--" +
                     str(arc.arc_type) + "\" source=\"" + str(arc.origin_state) + "\" target=\"" +

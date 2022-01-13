@@ -64,7 +64,10 @@ def build_dtgs(task):
         else:
             pre_values = [pre_spec]
         for pre in pre_values:
-            dtgs[var_no].add_arc(pre, post)
+            if isinstance(post, list):
+                dtgs[var_no].add_arc(pre, post[2])
+            else:
+                dtgs[var_no].add_arc(pre, post)
 
     for op in task.operators:
         for var_no, pre_spec, post, cond in op.pre_post:

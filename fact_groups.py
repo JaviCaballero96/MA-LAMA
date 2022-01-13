@@ -58,6 +58,18 @@ def instantiate_groups(groups, task, reachable_facts):
     return [expand_group(group, task, reachable_facts) for group in groups]
 
 
+def instantiate_function_groups(groups, task, functions):
+    function_group_names = {}
+    for func in functions:
+        key = func.predicate.fluent.symbol + str(*func.predicate.fluent.args)
+        if key not in function_group_names:
+            function_group_names[key] = len(groups)
+            groups.append([])
+        if func not in groups[function_group_names[key]]:
+            groups[function_group_names[key]].append(func)
+    return groups
+
+
 class GroupCoverQueue:
     def __init__(self, groups, partial_encoding):
         self.partial_encoding = partial_encoding
@@ -103,7 +115,7 @@ class GroupCoverQueue:
 def choose_groups(groups, reachable_facts, functions, partial_encoding=False):
     queue = GroupCoverQueue(groups, partial_encoding=partial_encoding)
     uncovered_facts = reachable_facts.copy()
-    uncovered_funcs = functions.copy()
+    # uncovered_funcs = functions.copy()
     result = []
     while queue:
         group = queue.pop()
@@ -113,7 +125,7 @@ def choose_groups(groups, reachable_facts, functions, partial_encoding=False):
     # for fact in uncovered_facts:
     #  print fact
     result += [[fact] for fact in uncovered_facts]
-    result += [[func] for func in uncovered_funcs]
+    # result += [[func] for func in uncovered_funcs]
     return result
 
 
@@ -146,7 +158,8 @@ def compute_groups(task, atoms, functions, reachable_action_params, partial_enco
     groups = invariant_finder.get_groups(task, reachable_action_params)
     with timers.timing("Instantiating groups"):
         groups = instantiate_groups(groups, task, atoms)
-
+    with timers.timing("Instantiating function groups"):
+        groups = instantiate_function_groups(groups, task, functions)
     # TODO: I think that collect_all_mutex_groups should do the same thing
     #       as choose_groups with partial_encoding=False, so these two should
     #       be unified.

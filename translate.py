@@ -244,7 +244,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         for var, val in dictionary[new_atom]:
             effect_pair = effect.get(var)
             if not effect_pair:
-                effect[var] = ([value], eff_condition)
+                effect[var] = ([value, var, val], eff_condition)
             else:
                 if isinstance(effect_pair[0], list):
                     effect_pair[0].append(fact.expression.expression.value)
@@ -337,7 +337,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         pre = condition.pop(var, -1)
         if isinstance(post, list):
             pre = -2
-            post = post[0]
+            # post = post[0]
         else:
             if ranges[var] == 2:
                 # Apply simplifications for binary variables.
@@ -443,6 +443,19 @@ def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex
     return result
 
 
+def duplicate_funct_effects(operators):
+    for op in operators:
+        if op.name.split(" ")[0][-3:] == "end":
+            name1 = op.name.split(" ")[0].split("_")[:-1][1:] + op.name.split(" ")[1:]
+            for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+                if n_pre_spec == -2:
+                    for op2 in operators:
+                        if op2.name.split(" ")[0][-5:] == "start":
+                            name2 = op2.name.split(" ")[0].split("_")[:-1][1:] + op2.name.split(" ")[1:]
+                            if name1 == name2:
+                                op2.pre_post.append([n_var_no, n_pre_spec, n_post, n_cond])
+
+
 def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges):
     result = []
     for axiom in axioms:
@@ -484,6 +497,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
 
     operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
                                            aux_func_strips_to_sas)
+    duplicate_funct_effects(operators)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
     axiom_layers = [-1] * len(ranges)
@@ -500,7 +514,7 @@ def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
         for effect in operator.pre_post:
             if effect[1] == -2:
-                groups[effect[0]][0].value= effect[2]
+                groups[effect[0]][0].value = effect[2]
                 mutex_groups[effect[0]][0].value = effect[2]
     return
 
@@ -584,17 +598,20 @@ def pddl_to_sas(task):
     with timers.timing("Writing mutex key"):
         write_mutex_key(mutex_key)
 
-    agents_pred = graphs.get_agent_elements(task, strips_to_sas)
-    agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
-    agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
+    # agents_pred = graphs.get_agent_elements(task, strips_to_sas)
+    # agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
+    # agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
-    graphs.create_csv_transition_graphs_files(translated_dtgs)
-    graphs.create_gexf_transition_graphs_files(translated_dtgs)
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
+    fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+
+    graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
+    graphs.create_gexf_transition_functional_graphs_files(fdtgs)
     graphs.create_gexf_casual_graph_files(casual_graph, 0)
     graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
     graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)

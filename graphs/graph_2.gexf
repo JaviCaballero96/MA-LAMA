@@ -1,422 +1,422 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
-	<meta lastmodifieddate="09/01/2022">
+	<meta lastmodifieddate="13/01/2022">
 		<creator>Javier Caballero</creator>
 		<description>graph_2</description>
 	</meta>
 	<graph mode="static" defaultedgetype="directed">
 		<nodes>
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" />
-			<node id="Atom robotbase_docking_curr(leader, c5_9)" label="Atom robotbase_docking_curr(leader, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" />
-			<node id="Atom robotbase_docking_curr(leader, c10_2)" label="Atom robotbase_docking_curr(leader, c10_2)" />
-			<node id="Atom robotbase_docking_curr(leader, c10_14)" label="Atom robotbase_docking_curr(leader, c10_14)" />
-			<node id="Atom navigation_changemode_curr(leader, n_1, n_0)" label="Atom navigation_changemode_curr(leader, n_1, n_0)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c6_10)" label="Atom communication_transmittingpicture_curr(leader, c6_10)" />
-			<node id="Atom free(leader)" label="Atom free(leader)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" />
-			<node id="Atom navigation_changemode_curr(leader, n_0, n_1)" label="Atom navigation_changemode_curr(leader, n_0, n_1)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c6_10, i_0)" label="Atom cameras_takingpicture_curr(leader, c6_10, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c16_13, i_0)" label="Atom cameras_takingpicture_curr(leader, c16_13, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c5_9, i_0)" label="Atom cameras_takingpicture_curr(leader, c5_9, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c10_2, i_0)" label="Atom cameras_takingpicture_curr(leader, c10_2, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c10_14, i_0)" label="Atom cameras_takingpicture_curr(leader, c10_14, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c1_2, i_0)" label="Atom cameras_takingpicture_curr(leader, c1_2, i_0)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c2_2, i_0)" label="Atom cameras_takingpicture_curr(leader, c2_2, i_0)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" />
-			<node id="Atom cameras_takingpicture_curr(leader, c2_3, i_0)" label="Atom cameras_takingpicture_curr(leader, c2_3, i_0)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" />
-			<node id="Atom robotbase_undocking_curr(leader, c5_9)" label="Atom robotbase_undocking_curr(leader, c5_9)" />
-			<node id="Atom robotbase_undocking_curr(leader, c10_2)" label="Atom robotbase_undocking_curr(leader, c10_2)" />
-			<node id="Atom robotbase_undocking_curr(leader, c10_14)" label="Atom robotbase_undocking_curr(leader, c10_14)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c5_9)" label="Atom communication_transmittingpicture_curr(leader, c5_9)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c10_14)" label="Atom communication_transmittingpicture_curr(leader, c10_14)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c16_13)" label="Atom communication_transmittingpicture_curr(leader, c16_13)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c10_2)" label="Atom communication_transmittingpicture_curr(leader, c10_2)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c1_2)" label="Atom communication_transmittingpicture_curr(leader, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c2_2)" label="Atom communication_transmittingpicture_curr(leader, c2_2)" />
-			<node id="Atom communication_transmittingpicture_curr(leader, c2_3)" label="Atom communication_transmittingpicture_curr(leader, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" label="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" label="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" />
-			<node id="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" label="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" />
+			<node id="Atom robotbase_docking_curr(follower1, c5_9)" label="Atom robotbase_docking_curr(follower1, c5_9)" />
+			<node id="Atom robotbase_docking_curr(follower1, c10_2)" label="Atom robotbase_docking_curr(follower1, c10_2)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c6_10)" label="Atom communication_transmittingpicture_curr(follower1, c6_10)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c16_13)" label="Atom communication_transmittingpicture_curr(follower1, c16_13)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c5_9)" label="Atom communication_transmittingpicture_curr(follower1, c5_9)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c10_2)" label="Atom communication_transmittingpicture_curr(follower1, c10_2)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c10_14)" label="Atom communication_transmittingpicture_curr(follower1, c10_14)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c1_2)" label="Atom communication_transmittingpicture_curr(follower1, c1_2)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c2_2)" label="Atom communication_transmittingpicture_curr(follower1, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c10_2)" />
+			<node id="Atom communication_transmittingpicture_curr(follower1, c2_3)" label="Atom communication_transmittingpicture_curr(follower1, c2_3)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c6_10, i_2)" label="Atom cameras_takingpicture_curr(follower1, c6_10, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c16_13, i_2)" label="Atom cameras_takingpicture_curr(follower1, c16_13, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c5_9, i_2)" label="Atom cameras_takingpicture_curr(follower1, c5_9, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c10_2, i_2)" label="Atom cameras_takingpicture_curr(follower1, c10_2, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c10_14, i_2)" label="Atom cameras_takingpicture_curr(follower1, c10_14, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c1_2, i_2)" label="Atom cameras_takingpicture_curr(follower1, c1_2, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c2_2, i_2)" label="Atom cameras_takingpicture_curr(follower1, c2_2, i_2)" />
+			<node id="Atom cameras_takingpicture_curr(follower1, c2_3, i_2)" label="Atom cameras_takingpicture_curr(follower1, c2_3, i_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c2_2)" />
+			<node id="Atom robotbase_undocking_curr(follower1, c5_9)" label="Atom robotbase_undocking_curr(follower1, c5_9)" />
+			<node id="Atom robotbase_undocking_curr(follower1, c10_2)" label="Atom robotbase_undocking_curr(follower1, c10_2)" />
+			<node id="Atom robotbase_undocking_curr(follower1, c10_14)" label="Atom robotbase_undocking_curr(follower1, c10_14)" />
+			<node id="Atom free(follower1)" label="Atom free(follower1)" />
+			<node id="Atom navigation_changemode_curr(follower1, n_0, n_1)" label="Atom navigation_changemode_curr(follower1, n_0, n_1)" />
+			<node id="Atom navigation_changemode_curr(follower1, n_1, n_0)" label="Atom navigation_changemode_curr(follower1, n_1, n_0)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_2)" />
+			<node id="Atom robotbase_docking_curr(follower1, c10_14)" label="Atom robotbase_docking_curr(follower1, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c6_10)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c16_13)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c16_13)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c5_9)" label="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c5_9)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_14)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_14)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c1_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c1_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_2)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_2)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_3)" label="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_3)" />
+			<node id="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c6_10)" label="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c6_10)" />
 		</nodes>
 		<edges>
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c10_14)" label="(robotbase_goingto_end leader n_1 c6_10 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_docking_end leader c5_9)" label="(robotbase_docking_end leader c5_9)" source="Atom robotbase_docking_curr(leader, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c2_3)" label="(robotbase_goingto_end leader n_0 c16_13 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c6_10)" label="(robotbase_goingto_end leader n_0 c5_9 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c16_13)" label="(robotbase_goingto_end leader n_0 c5_9 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c10_2)" label="(robotbase_goingto_end leader n_0 c5_9 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c10_14)" label="(robotbase_goingto_end leader n_0 c5_9 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c1_2)" label="(robotbase_goingto_end leader n_0 c5_9 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c2_2)" label="(robotbase_goingto_end leader n_0 c5_9 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c5_9 c2_3)" label="(robotbase_goingto_end leader n_0 c5_9 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c6_10)" label="(robotbase_goingto_end leader n_0 c10_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c16_13)" label="(robotbase_goingto_end leader n_0 c10_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c2_3)" label="(robotbase_goingto_end leader n_0 c1_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c6_10)" label="(robotbase_goingto_end leader n_0 c2_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c16_13)" label="(robotbase_goingto_end leader n_0 c2_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c5_9)" label="(robotbase_goingto_end leader n_0 c2_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c10_2)" label="(robotbase_goingto_end leader n_0 c2_2 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c1_2)" label="(robotbase_goingto_end leader n_1 c6_10 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c2_2)" label="(robotbase_goingto_end leader n_1 c6_10 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c2_3)" label="(robotbase_goingto_end leader n_1 c6_10 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c6_10)" label="(robotbase_goingto_end leader n_1 c16_13 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c5_9)" label="(robotbase_goingto_end leader n_1 c16_13 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_docking_end leader c10_2)" label="(robotbase_docking_end leader c10_2)" source="Atom robotbase_docking_curr(leader, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_docking_end leader c10_14)" label="(robotbase_docking_end leader c10_14)" source="Atom robotbase_docking_curr(leader, c10_14)" target="Atom free(leader)" />
-			<edge id="(navigation_changemode_end leader n_1 n_0)" label="(navigation_changemode_end leader n_1 n_0)" source="Atom navigation_changemode_curr(leader, n_1, n_0)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c6_10)" label="(communication_transmittingpicture_end leader c6_10)" source="Atom communication_transmittingpicture_curr(leader, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c1_2)" label="(robotbase_goingto_start leader n_0 c2_3 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c16_13)" label="(robotbase_goingto_start leader n_0 c5_9 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c6_10)" label="(robotbase_goingto_start leader n_1 c1_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c2_2)" label="(robotbase_goingto_start leader n_0 c2_3 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c6_10)" label="(robotbase_goingto_start leader n_0 c10_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c10_2)" label="(robotbase_goingto_start leader n_0 c5_9 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c16_13)" label="(robotbase_goingto_start leader n_1 c1_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" />
-			<edge id="(cameras_takingpicture_start leader c2_3 i_0)" label="(cameras_takingpicture_start leader c2_3 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c2_3, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c16_13)" label="(robotbase_goingto_start leader n_0 c10_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c10_14)" label="(robotbase_goingto_start leader n_0 c5_9 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c5_9)" label="(robotbase_goingto_start leader n_1 c1_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c5_9)" label="(robotbase_goingto_start leader n_0 c10_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c1_2)" label="(robotbase_goingto_start leader n_0 c5_9 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c10_2)" label="(robotbase_goingto_start leader n_1 c1_2 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c10_14)" label="(robotbase_goingto_start leader n_0 c10_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c2_2)" label="(robotbase_goingto_start leader n_1 c10_2 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" />
-			<edge id="(communication_transmittingpicture_start leader c10_2)" label="(communication_transmittingpicture_start leader c10_2)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c2_2)" label="(robotbase_goingto_start leader n_0 c5_9 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c10_14)" label="(robotbase_goingto_start leader n_1 c1_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c1_2)" label="(robotbase_goingto_start leader n_0 c10_2 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c2_3)" label="(robotbase_goingto_start leader n_0 c5_9 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c2_2)" label="(robotbase_goingto_start leader n_1 c1_2 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c2_2)" label="(robotbase_goingto_start leader n_0 c10_2 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" />
-			<edge id="(cameras_takingpicture_start leader c5_9 i_0)" label="(cameras_takingpicture_start leader c5_9 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c5_9, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_1 c1_2 c2_3)" label="(robotbase_goingto_start leader n_1 c1_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_2 c2_3)" label="(robotbase_goingto_start leader n_0 c10_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c6_10)" label="(robotbase_goingto_start leader n_1 c10_14 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c6_10)" label="(robotbase_goingto_start leader n_0 c1_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" />
-			<edge id="(navigation_changemode_start leader n_0 n_1)" label="(navigation_changemode_start leader n_0 n_1)" source="Atom free(leader)" target="Atom navigation_changemode_curr(leader, n_0, n_1)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c16_13)" label="(robotbase_goingto_start leader n_1 c10_14 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c16_13)" label="(robotbase_goingto_start leader n_0 c1_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c5_9)" label="(robotbase_goingto_start leader n_1 c10_14 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c5_9)" label="(robotbase_goingto_start leader n_0 c1_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c10_2)" label="(robotbase_goingto_start leader n_1 c10_14 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" />
-			<edge id="(robotbase_docking_start leader c5_9)" label="(robotbase_docking_start leader c5_9)" source="Atom free(leader)" target="Atom robotbase_docking_curr(leader, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c10_2)" label="(robotbase_goingto_start leader n_0 c1_2 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" />
-			<edge id="(robotbase_undocking_start leader c5_9)" label="(robotbase_undocking_start leader c5_9)" source="Atom free(leader)" target="Atom robotbase_undocking_curr(leader, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c1_2)" label="(robotbase_goingto_start leader n_1 c10_14 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" />
-			<edge id="(robotbase_undocking_start leader c10_2)" label="(robotbase_undocking_start leader c10_2)" source="Atom free(leader)" target="Atom robotbase_undocking_curr(leader, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c10_14)" label="(robotbase_goingto_start leader n_0 c1_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" />
-			<edge id="(robotbase_docking_start leader c10_14)" label="(robotbase_docking_start leader c10_14)" source="Atom free(leader)" target="Atom robotbase_docking_curr(leader, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c2_2)" label="(robotbase_goingto_start leader n_1 c10_14 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c2_2)" label="(robotbase_goingto_start leader n_0 c1_2 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" />
-			<edge id="(robotbase_undocking_start leader c10_14)" label="(robotbase_undocking_start leader c10_14)" source="Atom free(leader)" target="Atom robotbase_undocking_curr(leader, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_14 c2_3)" label="(robotbase_goingto_start leader n_1 c10_14 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c1_2 c2_3)" label="(robotbase_goingto_start leader n_0 c1_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c6_10)" label="(robotbase_goingto_start leader n_0 c10_14 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" />
-			<edge id="(cameras_takingpicture_start leader c10_2 i_0)" label="(cameras_takingpicture_start leader c10_2 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c10_2, i_0)" />
-			<edge id="(cameras_takingpicture_start leader c1_2 i_0)" label="(cameras_takingpicture_start leader c1_2 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c1_2, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c16_13)" label="(robotbase_goingto_start leader n_0 c10_14 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c6_10)" label="(robotbase_goingto_start leader n_1 c2_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" />
-			<edge id="(navigation_changemode_start leader n_1 n_0)" label="(navigation_changemode_start leader n_1 n_0)" source="Atom free(leader)" target="Atom navigation_changemode_curr(leader, n_1, n_0)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c5_9)" label="(robotbase_goingto_start leader n_0 c10_14 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c16_13)" label="(robotbase_goingto_start leader n_1 c2_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c10_2)" label="(robotbase_goingto_start leader n_0 c10_14 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c5_9)" label="(robotbase_goingto_start leader n_1 c2_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c1_2)" label="(robotbase_goingto_start leader n_0 c10_14 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c10_2)" label="(robotbase_goingto_start leader n_1 c2_2 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c2_2)" label="(robotbase_goingto_start leader n_0 c10_14 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c10_14)" label="(robotbase_goingto_start leader n_1 c2_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_0 c10_14 c2_3)" label="(robotbase_goingto_start leader n_0 c10_14 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c1_2)" label="(robotbase_goingto_start leader n_1 c2_2 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" />
-			<edge id="(cameras_takingpicture_start leader c10_14 i_0)" label="(cameras_takingpicture_start leader c10_14 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c10_14, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_2 c2_3)" label="(robotbase_goingto_start leader n_1 c2_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c2_3)" label="(robotbase_goingto_start leader n_1 c10_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c10_2)" label="(robotbase_goingto_start leader n_1 c16_13 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c6_10)" label="(robotbase_goingto_start leader n_0 c2_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c10_14)" label="(robotbase_goingto_start leader n_1 c16_13 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c16_13)" label="(robotbase_goingto_start leader n_0 c2_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" />
-			<edge id="(robotbase_docking_start leader c10_2)" label="(robotbase_docking_start leader c10_2)" source="Atom free(leader)" target="Atom robotbase_docking_curr(leader, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c1_2)" label="(robotbase_goingto_start leader n_1 c16_13 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c5_9)" label="(robotbase_goingto_start leader n_0 c2_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c2_2)" label="(robotbase_goingto_start leader n_1 c16_13 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c10_2)" label="(robotbase_goingto_start leader n_0 c2_2 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c2_3)" label="(robotbase_goingto_start leader n_1 c16_13 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c10_14)" label="(robotbase_goingto_start leader n_0 c2_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c16_13)" label="(robotbase_goingto_start leader n_1 c6_10 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c6_10)" label="(robotbase_goingto_start leader n_0 c16_13 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c1_2)" label="(robotbase_goingto_start leader n_0 c2_2 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c5_9)" label="(robotbase_goingto_start leader n_1 c6_10 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" />
-			<edge id="(communication_transmittingpicture_start leader c6_10)" label="(communication_transmittingpicture_start leader c6_10)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c5_9)" label="(robotbase_goingto_start leader n_0 c16_13 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_2 c2_3)" label="(robotbase_goingto_start leader n_0 c2_2 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" />
-			<edge id="(communication_transmittingpicture_start leader c16_13)" label="(communication_transmittingpicture_start leader c16_13)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c10_2)" label="(robotbase_goingto_start leader n_1 c6_10 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" />
-			<edge id="(communication_transmittingpicture_start leader c5_9)" label="(communication_transmittingpicture_start leader c5_9)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c10_2)" label="(robotbase_goingto_start leader n_0 c16_13 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" />
-			<edge id="(cameras_takingpicture_start leader c2_2 i_0)" label="(cameras_takingpicture_start leader c2_2 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c2_2, i_0)" />
-			<edge id="(communication_transmittingpicture_start leader c10_14)" label="(communication_transmittingpicture_start leader c10_14)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c10_14)" label="(robotbase_goingto_start leader n_1 c6_10 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c6_10)" label="(robotbase_goingto_start leader n_1 c2_3 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" />
-			<edge id="(communication_transmittingpicture_start leader c1_2)" label="(communication_transmittingpicture_start leader c1_2)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c10_14)" label="(robotbase_goingto_start leader n_0 c16_13 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" />
-			<edge id="(communication_transmittingpicture_start leader c2_2)" label="(communication_transmittingpicture_start leader c2_2)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c1_2)" label="(robotbase_goingto_start leader n_1 c6_10 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c16_13)" label="(robotbase_goingto_start leader n_1 c2_3 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" />
-			<edge id="(communication_transmittingpicture_start leader c2_3)" label="(communication_transmittingpicture_start leader c2_3)" source="Atom free(leader)" target="Atom communication_transmittingpicture_curr(leader, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c1_2)" label="(robotbase_goingto_start leader n_0 c16_13 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c2_2)" label="(robotbase_goingto_start leader n_1 c6_10 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c5_9)" label="(robotbase_goingto_start leader n_1 c2_3 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c2_2)" label="(robotbase_goingto_start leader n_0 c16_13 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c6_10 c2_3)" label="(robotbase_goingto_start leader n_1 c6_10 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c10_2)" label="(robotbase_goingto_start leader n_1 c2_3 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c16_13 c2_3)" label="(robotbase_goingto_start leader n_0 c16_13 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c16_13)" label="(robotbase_goingto_start leader n_0 c6_10 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c10_14)" label="(robotbase_goingto_start leader n_1 c2_3 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" />
-			<edge id="(cameras_takingpicture_start leader c16_13 i_0)" label="(cameras_takingpicture_start leader c16_13 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c16_13, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c5_9)" label="(robotbase_goingto_start leader n_0 c6_10 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c6_10)" label="(robotbase_goingto_start leader n_1 c5_9 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c1_2)" label="(robotbase_goingto_start leader n_1 c2_3 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c10_2)" label="(robotbase_goingto_start leader n_0 c6_10 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c16_13)" label="(robotbase_goingto_start leader n_1 c5_9 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c2_3 c2_2)" label="(robotbase_goingto_start leader n_1 c2_3 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c10_14)" label="(robotbase_goingto_start leader n_0 c6_10 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c10_2)" label="(robotbase_goingto_start leader n_1 c5_9 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c6_10)" label="(robotbase_goingto_start leader n_0 c2_3 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c6_10)" label="(robotbase_goingto_start leader n_1 c10_2 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c1_2)" label="(robotbase_goingto_start leader n_0 c6_10 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c10_14)" label="(robotbase_goingto_start leader n_1 c5_9 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c16_13)" label="(robotbase_goingto_start leader n_0 c2_3 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c16_13)" label="(robotbase_goingto_start leader n_1 c10_2 c16_13)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c2_2)" label="(robotbase_goingto_start leader n_0 c6_10 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c1_2)" label="(robotbase_goingto_start leader n_1 c5_9 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c5_9)" label="(robotbase_goingto_start leader n_0 c2_3 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c5_9)" label="(robotbase_goingto_start leader n_1 c10_2 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" />
-			<edge id="(robotbase_goingto_start leader n_0 c6_10 c2_3)" label="(robotbase_goingto_start leader n_0 c6_10 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c2_2)" label="(robotbase_goingto_start leader n_1 c5_9 c2_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c10_2)" label="(robotbase_goingto_start leader n_0 c2_3 c10_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c10_14)" label="(robotbase_goingto_start leader n_1 c10_2 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" />
-			<edge id="(cameras_takingpicture_start leader c6_10 i_0)" label="(cameras_takingpicture_start leader c6_10 i_0)" source="Atom free(leader)" target="Atom cameras_takingpicture_curr(leader, c6_10, i_0)" />
-			<edge id="(robotbase_goingto_start leader n_1 c5_9 c2_3)" label="(robotbase_goingto_start leader n_1 c5_9 c2_3)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" />
-			<edge id="(robotbase_goingto_start leader n_0 c2_3 c10_14)" label="(robotbase_goingto_start leader n_0 c2_3 c10_14)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" />
-			<edge id="(robotbase_goingto_start leader n_1 c10_2 c1_2)" label="(robotbase_goingto_start leader n_1 c10_2 c1_2)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c6_10)" label="(robotbase_goingto_start leader n_1 c16_13 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_0 c5_9 c6_10)" label="(robotbase_goingto_start leader n_0 c5_9 c6_10)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" />
-			<edge id="(robotbase_goingto_start leader n_1 c16_13 c5_9)" label="(robotbase_goingto_start leader n_1 c16_13 c5_9)" source="Atom free(leader)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c16_13)" label="(robotbase_goingto_end leader n_0 c6_10 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c5_9)" label="(robotbase_goingto_end leader n_0 c6_10 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" target="Atom free(leader)" />
-			<edge id="(navigation_changemode_end leader n_0 n_1)" label="(navigation_changemode_end leader n_0 n_1)" source="Atom navigation_changemode_curr(leader, n_0, n_1)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c10_2)" label="(robotbase_goingto_end leader n_0 c6_10 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c2_2)" label="(robotbase_goingto_end leader n_0 c1_2 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c2_3)" label="(robotbase_goingto_end leader n_0 c6_10 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c6_10)" label="(robotbase_goingto_end leader n_0 c16_13 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c5_9)" label="(robotbase_goingto_end leader n_0 c16_13 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c10_2)" label="(robotbase_goingto_end leader n_0 c16_13 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c10_14)" label="(robotbase_goingto_end leader n_0 c16_13 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c1_2)" label="(robotbase_goingto_end leader n_0 c16_13 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c16_13 c2_2)" label="(robotbase_goingto_end leader n_0 c16_13 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c5_9)" label="(robotbase_goingto_end leader n_0 c10_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c10_14)" label="(robotbase_goingto_end leader n_0 c10_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c1_2)" label="(robotbase_goingto_end leader n_0 c10_2 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c10_14)" label="(robotbase_goingto_end leader n_1 c2_3 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c1_2)" label="(robotbase_goingto_end leader n_1 c2_3 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c2_2)" label="(robotbase_goingto_end leader n_1 c2_3 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c6_10 i_0)" label="(cameras_takingpicture_end leader c6_10 i_0)" source="Atom cameras_takingpicture_curr(leader, c6_10, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c16_13 i_0)" label="(cameras_takingpicture_end leader c16_13 i_0)" source="Atom cameras_takingpicture_curr(leader, c16_13, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c5_9 i_0)" label="(cameras_takingpicture_end leader c5_9 i_0)" source="Atom cameras_takingpicture_curr(leader, c5_9, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c10_2 i_0)" label="(cameras_takingpicture_end leader c10_2 i_0)" source="Atom cameras_takingpicture_curr(leader, c10_2, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c10_14 i_0)" label="(cameras_takingpicture_end leader c10_14 i_0)" source="Atom cameras_takingpicture_curr(leader, c10_14, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c1_2 i_0)" label="(cameras_takingpicture_end leader c1_2 i_0)" source="Atom cameras_takingpicture_curr(leader, c1_2, i_0)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c2_2 i_0)" label="(cameras_takingpicture_end leader c2_2 i_0)" source="Atom cameras_takingpicture_curr(leader, c2_2, i_0)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c2_2)" label="(robotbase_goingto_end leader n_0 c10_2 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_2 c2_3)" label="(robotbase_goingto_end leader n_0 c10_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c6_10)" label="(robotbase_goingto_end leader n_0 c10_14 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c16_13)" label="(robotbase_goingto_end leader n_0 c10_14 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c5_9)" label="(robotbase_goingto_end leader n_0 c10_14 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c10_2)" label="(robotbase_goingto_end leader n_0 c10_14 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c1_2)" label="(robotbase_goingto_end leader n_0 c10_14 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c10_14)" label="(robotbase_goingto_end leader n_0 c2_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c1_2)" label="(robotbase_goingto_end leader n_0 c2_2 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_2 c2_3)" label="(robotbase_goingto_end leader n_0 c2_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c2_2)" label="(robotbase_goingto_end leader n_1 c5_9 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c2_3)" label="(robotbase_goingto_end leader n_1 c5_9 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c6_10)" label="(robotbase_goingto_end leader n_1 c10_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c16_13)" label="(robotbase_goingto_end leader n_1 c10_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c5_9)" label="(robotbase_goingto_end leader n_1 c10_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c10_14)" label="(robotbase_goingto_end leader n_1 c10_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c1_2)" label="(robotbase_goingto_end leader n_1 c10_2 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c2_2)" label="(robotbase_goingto_end leader n_1 c10_2 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_2 c2_3)" label="(robotbase_goingto_end leader n_1 c10_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c6_10)" label="(robotbase_goingto_end leader n_1 c10_14 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c10_14)" label="(robotbase_goingto_end leader n_1 c1_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c2_2)" label="(robotbase_goingto_end leader n_1 c1_2 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c2_3)" label="(robotbase_goingto_end leader n_1 c1_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c6_10)" label="(robotbase_goingto_end leader n_1 c2_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c16_13)" label="(robotbase_goingto_end leader n_1 c2_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c5_9)" label="(robotbase_goingto_end leader n_1 c2_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c10_2)" label="(robotbase_goingto_end leader n_1 c2_2 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c10_14)" label="(robotbase_goingto_end leader n_1 c2_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c1_2)" label="(robotbase_goingto_end leader n_1 c2_2 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_2 c2_3)" label="(robotbase_goingto_end leader n_1 c2_2 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c6_10)" label="(robotbase_goingto_end leader n_1 c2_3 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c16_13)" label="(robotbase_goingto_end leader n_1 c2_3 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c5_9)" label="(robotbase_goingto_end leader n_1 c2_3 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c2_3 c10_2)" label="(robotbase_goingto_end leader n_1 c2_3 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c10_2)" label="(robotbase_goingto_end leader n_1 c16_13 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c10_14)" label="(robotbase_goingto_end leader n_1 c16_13 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c1_2)" label="(robotbase_goingto_end leader n_1 c16_13 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c2_2)" label="(robotbase_goingto_end leader n_1 c16_13 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c16_13 c2_3)" label="(robotbase_goingto_end leader n_1 c16_13 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c6_10)" label="(robotbase_goingto_end leader n_1 c5_9 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c16_13)" label="(robotbase_goingto_end leader n_1 c5_9 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c10_2)" label="(robotbase_goingto_end leader n_1 c5_9 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c10_14)" label="(robotbase_goingto_end leader n_1 c5_9 c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c5_9 c1_2)" label="(robotbase_goingto_end leader n_1 c5_9 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" target="Atom free(leader)" />
-			<edge id="(cameras_takingpicture_end leader c2_3 i_0)" label="(cameras_takingpicture_end leader c2_3 i_0)" source="Atom cameras_takingpicture_curr(leader, c2_3, i_0)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c10_2)" label="(robotbase_goingto_end leader n_0 c1_2 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c10_14)" label="(robotbase_goingto_end leader n_0 c1_2 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_undocking_end leader c5_9)" label="(robotbase_undocking_end leader c5_9)" source="Atom robotbase_undocking_curr(leader, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_undocking_end leader c10_2)" label="(robotbase_undocking_end leader c10_2)" source="Atom robotbase_undocking_curr(leader, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_undocking_end leader c10_14)" label="(robotbase_undocking_end leader c10_14)" source="Atom robotbase_undocking_curr(leader, c10_14)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c5_9)" label="(communication_transmittingpicture_end leader c5_9)" source="Atom communication_transmittingpicture_curr(leader, c5_9)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c10_14)" label="(communication_transmittingpicture_end leader c10_14)" source="Atom communication_transmittingpicture_curr(leader, c10_14)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c16_13)" label="(communication_transmittingpicture_end leader c16_13)" source="Atom communication_transmittingpicture_curr(leader, c16_13)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c10_2)" label="(communication_transmittingpicture_end leader c10_2)" source="Atom communication_transmittingpicture_curr(leader, c10_2)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c1_2)" label="(communication_transmittingpicture_end leader c1_2)" source="Atom communication_transmittingpicture_curr(leader, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c6_10)" label="(robotbase_goingto_end leader n_0 c2_3 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c16_13)" label="(robotbase_goingto_end leader n_0 c2_3 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c5_9)" label="(robotbase_goingto_end leader n_0 c2_3 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c10_2)" label="(robotbase_goingto_end leader n_0 c2_3 c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c10_14)" label="(robotbase_goingto_end leader n_0 c2_3 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c1_2)" label="(robotbase_goingto_end leader n_0 c2_3 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c2_3 c2_2)" label="(robotbase_goingto_end leader n_0 c2_3 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c16_13)" label="(robotbase_goingto_end leader n_1 c6_10 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c5_9)" label="(robotbase_goingto_end leader n_1 c6_10 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c6_10 c10_2)" label="(robotbase_goingto_end leader n_1 c6_10 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c2_2)" label="(communication_transmittingpicture_end leader c2_2)" source="Atom communication_transmittingpicture_curr(leader, c2_2)" target="Atom free(leader)" />
-			<edge id="(communication_transmittingpicture_end leader c2_3)" label="(communication_transmittingpicture_end leader c2_3)" source="Atom communication_transmittingpicture_curr(leader, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c2_2)" label="(robotbase_goingto_end leader n_0 c10_14 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c10_14 c2_3)" label="(robotbase_goingto_end leader n_0 c10_14 c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c6_10)" label="(robotbase_goingto_end leader n_0 c1_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c16_13)" label="(robotbase_goingto_end leader n_0 c1_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c1_2 c5_9)" label="(robotbase_goingto_end leader n_0 c1_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c10_14)" label="(robotbase_goingto_end leader n_0 c6_10 c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c1_2)" label="(robotbase_goingto_end leader n_0 c6_10 c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_0 c6_10 c2_2)" label="(robotbase_goingto_end leader n_0 c6_10 c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c16_13)" label="(robotbase_goingto_end leader n_1 c10_14 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c5_9)" label="(robotbase_goingto_end leader n_1 c10_14 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c10_2)" label="(robotbase_goingto_end leader n_1 c10_14 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c1_2)" label="(robotbase_goingto_end leader n_1 c10_14 c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c2_2)" label="(robotbase_goingto_end leader n_1 c10_14 c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c10_14 c2_3)" label="(robotbase_goingto_end leader n_1 c10_14 c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c6_10)" label="(robotbase_goingto_end leader n_1 c1_2 c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c16_13)" label="(robotbase_goingto_end leader n_1 c1_2 c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c5_9)" label="(robotbase_goingto_end leader n_1 c1_2 c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" target="Atom free(leader)" />
-			<edge id="(robotbase_goingto_end leader n_1 c1_2 c10_2)" label="(robotbase_goingto_end leader n_1 c1_2 c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" target="Atom free(leader)" />
+			<edge id="(robotbase_docking_end follower1 c5_9)" label="(robotbase_docking_end follower1 c5_9)" source="Atom robotbase_docking_curr(follower1, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_docking_end follower1 c10_2)" label="(robotbase_docking_end follower1 c10_2)" source="Atom robotbase_docking_curr(follower1, c10_2)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c6_10)" label="(communication_transmittingpicture_end follower1 c6_10)" source="Atom communication_transmittingpicture_curr(follower1, c6_10)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c16_13)" label="(communication_transmittingpicture_end follower1 c16_13)" source="Atom communication_transmittingpicture_curr(follower1, c16_13)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c5_9)" label="(communication_transmittingpicture_end follower1 c5_9)" source="Atom communication_transmittingpicture_curr(follower1, c5_9)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c10_2)" label="(communication_transmittingpicture_end follower1 c10_2)" source="Atom communication_transmittingpicture_curr(follower1, c10_2)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c10_14)" label="(communication_transmittingpicture_end follower1 c10_14)" source="Atom communication_transmittingpicture_curr(follower1, c10_14)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c1_2)" label="(communication_transmittingpicture_end follower1 c1_2)" source="Atom communication_transmittingpicture_curr(follower1, c1_2)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c2_2)" label="(communication_transmittingpicture_end follower1 c2_2)" source="Atom communication_transmittingpicture_curr(follower1, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c5_9)" label="(robotbase_goingto_end follower1 n_0 c10_14 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c16_13)" label="(robotbase_goingto_end follower1 n_0 c10_14 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c1_2)" label="(robotbase_goingto_end follower1 n_0 c10_14 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c2_2)" label="(robotbase_goingto_end follower1 n_0 c10_14 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c2_3)" label="(robotbase_goingto_end follower1 n_0 c10_14 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c6_10)" label="(robotbase_goingto_end follower1 n_0 c1_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c16_13)" label="(robotbase_goingto_end follower1 n_0 c1_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c5_9)" label="(robotbase_goingto_end follower1 n_0 c1_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c10_2)" label="(robotbase_goingto_end follower1 n_1 c6_10 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c10_14)" label="(robotbase_goingto_end follower1 n_1 c6_10 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c1_2)" label="(robotbase_goingto_end follower1 n_1 c6_10 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c16_13)" label="(robotbase_goingto_end follower1 n_0 c2_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c2_3)" label="(robotbase_goingto_end follower1 n_0 c5_9 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c6_10)" label="(robotbase_goingto_end follower1 n_0 c10_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c16_13)" label="(robotbase_goingto_end follower1 n_0 c10_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c5_9)" label="(robotbase_goingto_end follower1 n_0 c10_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c10_14)" label="(robotbase_goingto_end follower1 n_0 c10_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c1_2)" label="(robotbase_goingto_end follower1 n_0 c10_2 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c2_2)" label="(robotbase_goingto_end follower1 n_0 c10_2 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_2 c2_3)" label="(robotbase_goingto_end follower1 n_0 c10_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c6_10)" label="(robotbase_goingto_end follower1 n_0 c10_14 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c1_2)" label="(robotbase_goingto_end follower1 n_1 c10_2 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c2_2)" label="(robotbase_goingto_end follower1 n_1 c10_2 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c2_3)" label="(robotbase_goingto_end follower1 n_1 c10_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c6_10)" label="(robotbase_goingto_end follower1 n_1 c10_14 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c16_13)" label="(robotbase_goingto_end follower1 n_1 c10_14 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c5_9)" label="(robotbase_goingto_end follower1 n_1 c10_14 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c10_2)" label="(robotbase_goingto_end follower1 n_1 c10_14 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c1_2)" label="(robotbase_goingto_end follower1 n_1 c10_14 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c2_2)" label="(robotbase_goingto_end follower1 n_1 c10_14 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_14 c2_3)" label="(robotbase_goingto_end follower1 n_1 c10_14 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c10_14 c10_2)" label="(robotbase_goingto_end follower1 n_0 c10_14 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c10_2)" target="Atom free(follower1)" />
+			<edge id="(communication_transmittingpicture_end follower1 c2_3)" label="(communication_transmittingpicture_end follower1 c2_3)" source="Atom communication_transmittingpicture_curr(follower1, c2_3)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c6_10 i_2)" label="(cameras_takingpicture_end follower1 c6_10 i_2)" source="Atom cameras_takingpicture_curr(follower1, c6_10, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c16_13 i_2)" label="(cameras_takingpicture_end follower1 c16_13 i_2)" source="Atom cameras_takingpicture_curr(follower1, c16_13, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c5_9 i_2)" label="(cameras_takingpicture_end follower1 c5_9 i_2)" source="Atom cameras_takingpicture_curr(follower1, c5_9, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c10_2 i_2)" label="(cameras_takingpicture_end follower1 c10_2 i_2)" source="Atom cameras_takingpicture_curr(follower1, c10_2, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c10_14 i_2)" label="(cameras_takingpicture_end follower1 c10_14 i_2)" source="Atom cameras_takingpicture_curr(follower1, c10_14, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c1_2 i_2)" label="(cameras_takingpicture_end follower1 c1_2 i_2)" source="Atom cameras_takingpicture_curr(follower1, c1_2, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c2_2 i_2)" label="(cameras_takingpicture_end follower1 c2_2 i_2)" source="Atom cameras_takingpicture_curr(follower1, c2_2, i_2)" target="Atom free(follower1)" />
+			<edge id="(cameras_takingpicture_end follower1 c2_3 i_2)" label="(cameras_takingpicture_end follower1 c2_3 i_2)" source="Atom cameras_takingpicture_curr(follower1, c2_3, i_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c2_2)" label="(robotbase_goingto_end follower1 n_1 c2_3 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_undocking_end follower1 c5_9)" label="(robotbase_undocking_end follower1 c5_9)" source="Atom robotbase_undocking_curr(follower1, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_undocking_end follower1 c10_2)" label="(robotbase_undocking_end follower1 c10_2)" source="Atom robotbase_undocking_curr(follower1, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_undocking_end follower1 c10_14)" label="(robotbase_undocking_end follower1 c10_14)" source="Atom robotbase_undocking_curr(follower1, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c10_2)" label="(robotbase_goingto_start follower1 n_1 c5_9 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c5_9)" label="(robotbase_goingto_start follower1 n_1 c6_10 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c16_13)" label="(robotbase_goingto_start follower1 n_0 c6_10 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c16_13)" />
+			<edge id="(communication_transmittingpicture_start follower1 c10_14)" label="(communication_transmittingpicture_start follower1 c10_14)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c2_3)" label="(robotbase_goingto_start follower1 n_0 c2_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c2_3)" />
+			<edge id="(navigation_changemode_start follower1 n_1 n_0)" label="(navigation_changemode_start follower1 n_1 n_0)" source="Atom free(follower1)" target="Atom navigation_changemode_curr(follower1, n_1, n_0)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c2_3)" label="(robotbase_goingto_start follower1 n_1 c10_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c2_2)" label="(robotbase_goingto_start follower1 n_0 c10_2 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c10_14)" label="(robotbase_goingto_start follower1 n_1 c1_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c10_14)" label="(robotbase_goingto_start follower1 n_1 c5_9 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c10_2)" label="(robotbase_goingto_start follower1 n_1 c6_10 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c5_9)" label="(robotbase_goingto_start follower1 n_0 c6_10 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c5_9)" />
+			<edge id="(cameras_takingpicture_start follower1 c2_2 i_2)" label="(cameras_takingpicture_start follower1 c2_2 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c2_2, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c6_10)" label="(robotbase_goingto_start follower1 n_0 c10_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c2_3)" label="(robotbase_goingto_start follower1 n_0 c10_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c6_10)" label="(robotbase_goingto_start follower1 n_1 c2_3 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c2_2)" label="(robotbase_goingto_start follower1 n_1 c1_2 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c1_2)" label="(robotbase_goingto_start follower1 n_1 c5_9 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c10_14)" label="(robotbase_goingto_start follower1 n_1 c6_10 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c10_2)" label="(robotbase_goingto_start follower1 n_0 c6_10 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c16_13)" label="(robotbase_goingto_start follower1 n_0 c10_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c16_13)" />
+			<edge id="(cameras_takingpicture_start follower1 c10_2 i_2)" label="(cameras_takingpicture_start follower1 c10_2 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c10_2, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c16_13)" label="(robotbase_goingto_start follower1 n_1 c2_3 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c6_10)" label="(robotbase_goingto_start follower1 n_1 c1_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c2_3)" label="(robotbase_goingto_start follower1 n_1 c1_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c2_2)" label="(robotbase_goingto_start follower1 n_1 c5_9 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c1_2)" label="(robotbase_goingto_start follower1 n_1 c6_10 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c10_14)" label="(robotbase_goingto_start follower1 n_0 c6_10 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_14)" />
+			<edge id="(communication_transmittingpicture_start follower1 c6_10)" label="(communication_transmittingpicture_start follower1 c6_10)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c5_9)" label="(robotbase_goingto_start follower1 n_0 c10_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c6_10)" label="(robotbase_goingto_start follower1 n_0 c10_14 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c5_9)" label="(robotbase_goingto_start follower1 n_1 c2_3 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c5_9)" />
+			<edge id="(communication_transmittingpicture_start follower1 c16_13)" label="(communication_transmittingpicture_start follower1 c16_13)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c16_13)" label="(robotbase_goingto_start follower1 n_1 c1_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c6_10)" label="(robotbase_goingto_start follower1 n_0 c1_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c6_10)" label="(robotbase_goingto_start follower1 n_1 c10_14 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c2_3)" label="(robotbase_goingto_start follower1 n_1 c5_9 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_3)" />
+			<edge id="(robotbase_docking_start follower1 c5_9)" label="(robotbase_docking_start follower1 c5_9)" source="Atom free(follower1)" target="Atom robotbase_docking_curr(follower1, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c2_2)" label="(robotbase_goingto_start follower1 n_1 c6_10 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c1_2)" label="(robotbase_goingto_start follower1 n_0 c6_10 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c1_2)" />
+			<edge id="(communication_transmittingpicture_start follower1 c5_9)" label="(communication_transmittingpicture_start follower1 c5_9)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c10_14)" label="(robotbase_goingto_start follower1 n_0 c10_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c16_13)" label="(robotbase_goingto_start follower1 n_0 c10_14 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c16_13)" />
+			<edge id="(robotbase_undocking_start follower1 c5_9)" label="(robotbase_undocking_start follower1 c5_9)" source="Atom free(follower1)" target="Atom robotbase_undocking_curr(follower1, c5_9)" />
+			<edge id="(communication_transmittingpicture_start follower1 c10_2)" label="(communication_transmittingpicture_start follower1 c10_2)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c10_2)" label="(robotbase_goingto_start follower1 n_1 c2_3 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c5_9)" label="(robotbase_goingto_start follower1 n_1 c1_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c16_13)" label="(robotbase_goingto_start follower1 n_0 c1_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c16_13)" label="(robotbase_goingto_start follower1 n_1 c10_14 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c16_13)" />
+			<edge id="(robotbase_docking_start follower1 c10_2)" label="(robotbase_docking_start follower1 c10_2)" source="Atom free(follower1)" target="Atom robotbase_docking_curr(follower1, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c6_10)" label="(robotbase_goingto_start follower1 n_0 c5_9 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c6_10)" />
+			<edge id="(communication_transmittingpicture_start follower1 c1_2)" label="(communication_transmittingpicture_start follower1 c1_2)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c16_13)" label="(robotbase_goingto_start follower1 n_1 c6_10 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c6_10 c2_3)" label="(robotbase_goingto_start follower1 n_1 c6_10 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c2_2)" label="(robotbase_goingto_start follower1 n_0 c6_10 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_2)" />
+			<edge id="(robotbase_undocking_start follower1 c10_2)" label="(robotbase_undocking_start follower1 c10_2)" source="Atom free(follower1)" target="Atom robotbase_undocking_curr(follower1, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_2 c1_2)" label="(robotbase_goingto_start follower1 n_0 c10_2 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_2, c1_2)" />
+			<edge id="(communication_transmittingpicture_start follower1 c2_2)" label="(communication_transmittingpicture_start follower1 c2_2)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c5_9)" label="(robotbase_goingto_start follower1 n_0 c10_14 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c10_14)" label="(robotbase_goingto_start follower1 n_1 c2_3 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c1_2 c10_2)" label="(robotbase_goingto_start follower1 n_1 c1_2 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c5_9)" label="(robotbase_goingto_start follower1 n_0 c1_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c5_9)" />
+			<edge id="(communication_transmittingpicture_start follower1 c2_3)" label="(communication_transmittingpicture_start follower1 c2_3)" source="Atom free(follower1)" target="Atom communication_transmittingpicture_curr(follower1, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c5_9)" label="(robotbase_goingto_start follower1 n_1 c10_14 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c16_13)" label="(robotbase_goingto_start follower1 n_0 c5_9 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c16_13)" />
+			<edge id="(cameras_takingpicture_start follower1 c5_9 i_2)" label="(cameras_takingpicture_start follower1 c5_9 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c5_9, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c6_10 c2_3)" label="(robotbase_goingto_start follower1 n_0 c6_10 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c16_13)" label="(robotbase_goingto_start follower1 n_1 c2_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c6_10)" label="(robotbase_goingto_start follower1 n_0 c2_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c6_10)" label="(robotbase_goingto_start follower1 n_1 c10_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c10_2)" label="(robotbase_goingto_start follower1 n_0 c10_14 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c2_2)" label="(robotbase_goingto_start follower1 n_1 c16_13 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c1_2)" label="(robotbase_goingto_start follower1 n_0 c16_13 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c1_2)" label="(robotbase_goingto_start follower1 n_1 c2_3 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c10_14)" label="(robotbase_goingto_start follower1 n_0 c2_3 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c10_2)" label="(robotbase_goingto_start follower1 n_0 c1_2 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c10_2)" label="(robotbase_goingto_start follower1 n_1 c10_14 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c10_2)" label="(robotbase_goingto_start follower1 n_0 c5_9 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_2)" />
+			<edge id="(cameras_takingpicture_start follower1 c6_10 i_2)" label="(cameras_takingpicture_start follower1 c6_10 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c6_10, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c5_9)" label="(robotbase_goingto_start follower1 n_1 c2_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c16_13)" label="(robotbase_goingto_start follower1 n_0 c2_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c16_13)" label="(robotbase_goingto_start follower1 n_1 c10_2 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c1_2)" label="(robotbase_goingto_start follower1 n_0 c10_14 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c6_10)" label="(robotbase_goingto_start follower1 n_1 c16_13 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c2_3)" label="(robotbase_goingto_start follower1 n_1 c16_13 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c2_2)" label="(robotbase_goingto_start follower1 n_0 c16_13 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_3 c2_2)" label="(robotbase_goingto_start follower1 n_1 c2_3 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c1_2)" label="(robotbase_goingto_start follower1 n_0 c2_3 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c10_14)" label="(robotbase_goingto_start follower1 n_0 c1_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c1_2)" label="(robotbase_goingto_start follower1 n_1 c10_14 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c10_14)" label="(robotbase_goingto_start follower1 n_0 c5_9 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c10_2)" label="(robotbase_goingto_start follower1 n_1 c2_2 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c5_9)" label="(robotbase_goingto_start follower1 n_0 c2_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c5_9)" label="(robotbase_goingto_start follower1 n_1 c10_2 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c2_2)" label="(robotbase_goingto_start follower1 n_0 c10_14 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c5_9)" label="(robotbase_goingto_start follower1 n_1 c16_13 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c5_9)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c6_10)" label="(robotbase_goingto_start follower1 n_0 c16_13 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c2_3)" label="(robotbase_goingto_start follower1 n_0 c16_13 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c6_10)" label="(robotbase_goingto_start follower1 n_0 c2_3 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c2_2)" label="(robotbase_goingto_start follower1 n_0 c2_3 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c2_2)" label="(robotbase_goingto_start follower1 n_0 c1_2 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_2)" />
+			<edge id="(cameras_takingpicture_start follower1 c10_14 i_2)" label="(cameras_takingpicture_start follower1 c10_14 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c10_14, i_2)" />
+			<edge id="(robotbase_docking_start follower1 c10_14)" label="(robotbase_docking_start follower1 c10_14)" source="Atom free(follower1)" target="Atom robotbase_docking_curr(follower1, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c2_2)" label="(robotbase_goingto_start follower1 n_1 c10_14 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c1_2)" label="(robotbase_goingto_start follower1 n_0 c5_9 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c10_14)" label="(robotbase_goingto_start follower1 n_1 c2_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c10_2)" label="(robotbase_goingto_start follower1 n_0 c2_2 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c10_14)" label="(robotbase_goingto_start follower1 n_1 c10_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c10_14 c2_3)" label="(robotbase_goingto_start follower1 n_0 c10_14 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c10_14, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c10_2)" label="(robotbase_goingto_start follower1 n_1 c16_13 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c5_9)" label="(robotbase_goingto_start follower1 n_0 c16_13 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c5_9)" />
+			<edge id="(cameras_takingpicture_start follower1 c16_13 i_2)" label="(cameras_takingpicture_start follower1 c16_13 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c16_13, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c16_13)" label="(robotbase_goingto_start follower1 n_0 c2_3 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c16_13)" />
+			<edge id="(cameras_takingpicture_start follower1 c2_3 i_2)" label="(cameras_takingpicture_start follower1 c2_3 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c2_3, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c1_2 c2_3)" label="(robotbase_goingto_start follower1 n_0 c1_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_14 c2_3)" label="(robotbase_goingto_start follower1 n_1 c10_14 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_14, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c6_10)" label="(robotbase_goingto_start follower1 n_1 c5_9 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c2_2)" label="(robotbase_goingto_start follower1 n_0 c5_9 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c1_2)" label="(robotbase_goingto_start follower1 n_1 c2_2 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c10_14)" label="(robotbase_goingto_start follower1 n_0 c2_2 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c1_2)" label="(robotbase_goingto_start follower1 n_1 c10_2 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c1_2)" />
+			<edge id="(navigation_changemode_start follower1 n_0 n_1)" label="(navigation_changemode_start follower1 n_0 n_1)" source="Atom free(follower1)" target="Atom navigation_changemode_curr(follower1, n_0, n_1)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c10_14)" label="(robotbase_goingto_start follower1 n_1 c16_13 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c10_2)" label="(robotbase_goingto_start follower1 n_0 c16_13 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c5_9)" label="(robotbase_goingto_start follower1 n_0 c2_3 c5_9)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c5_9)" />
+			<edge id="(cameras_takingpicture_start follower1 c1_2 i_2)" label="(cameras_takingpicture_start follower1 c1_2 i_2)" source="Atom free(follower1)" target="Atom cameras_takingpicture_curr(follower1, c1_2, i_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c5_9 c2_3)" label="(robotbase_goingto_start follower1 n_0 c5_9 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c5_9 c16_13)" label="(robotbase_goingto_start follower1 n_1 c5_9 c16_13)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c16_13)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c6_10)" label="(robotbase_goingto_start follower1 n_1 c2_2 c6_10)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c6_10)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c2_2 c2_3)" label="(robotbase_goingto_start follower1 n_1 c2_2 c2_3)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c2_3)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_2 c1_2)" label="(robotbase_goingto_start follower1 n_0 c2_2 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c10_2 c2_2)" label="(robotbase_goingto_start follower1 n_1 c10_2 c2_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c2_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_1 c16_13 c1_2)" label="(robotbase_goingto_start follower1 n_1 c16_13 c1_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c1_2)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c16_13 c10_14)" label="(robotbase_goingto_start follower1 n_0 c16_13 c10_14)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_14)" />
+			<edge id="(robotbase_undocking_start follower1 c10_14)" label="(robotbase_undocking_start follower1 c10_14)" source="Atom free(follower1)" target="Atom robotbase_undocking_curr(follower1, c10_14)" />
+			<edge id="(robotbase_goingto_start follower1 n_0 c2_3 c10_2)" label="(robotbase_goingto_start follower1 n_0 c2_3 c10_2)" source="Atom free(follower1)" target="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_2)" />
+			<edge id="(navigation_changemode_end follower1 n_0 n_1)" label="(navigation_changemode_end follower1 n_0 n_1)" source="Atom navigation_changemode_curr(follower1, n_0, n_1)" target="Atom free(follower1)" />
+			<edge id="(navigation_changemode_end follower1 n_1 n_0)" label="(navigation_changemode_end follower1 n_1 n_0)" source="Atom navigation_changemode_curr(follower1, n_1, n_0)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c5_9)" label="(robotbase_goingto_end follower1 n_0 c6_10 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c10_2)" label="(robotbase_goingto_end follower1 n_0 c6_10 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c10_14)" label="(robotbase_goingto_end follower1 n_0 c6_10 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c1_2)" label="(robotbase_goingto_end follower1 n_0 c6_10 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c2_2)" label="(robotbase_goingto_end follower1 n_0 c6_10 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c2_3)" label="(robotbase_goingto_end follower1 n_0 c6_10 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c6_10)" label="(robotbase_goingto_end follower1 n_0 c16_13 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c5_9)" label="(robotbase_goingto_end follower1 n_0 c16_13 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c10_2)" label="(robotbase_goingto_end follower1 n_0 c16_13 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_docking_end follower1 c10_14)" label="(robotbase_docking_end follower1 c10_14)" source="Atom robotbase_docking_curr(follower1, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c10_2)" label="(robotbase_goingto_end follower1 n_1 c2_2 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c10_14)" label="(robotbase_goingto_end follower1 n_1 c2_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c1_2)" label="(robotbase_goingto_end follower1 n_1 c2_2 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c2_3)" label="(robotbase_goingto_end follower1 n_1 c2_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c6_10)" label="(robotbase_goingto_end follower1 n_1 c2_3 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c16_13)" label="(robotbase_goingto_end follower1 n_1 c2_3 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c5_9)" label="(robotbase_goingto_end follower1 n_1 c2_3 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c10_2)" label="(robotbase_goingto_end follower1 n_1 c2_3 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c10_14)" label="(robotbase_goingto_end follower1 n_1 c2_3 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_3 c1_2)" label="(robotbase_goingto_end follower1 n_1 c2_3 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_3, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c6_10)" label="(robotbase_goingto_end follower1 n_1 c1_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c16_13)" label="(robotbase_goingto_end follower1 n_1 c1_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c5_9)" label="(robotbase_goingto_end follower1 n_1 c1_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c10_2)" label="(robotbase_goingto_end follower1 n_1 c1_2 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c10_14)" label="(robotbase_goingto_end follower1 n_1 c1_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c2_2)" label="(robotbase_goingto_end follower1 n_1 c1_2 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c1_2 c2_3)" label="(robotbase_goingto_end follower1 n_1 c1_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c1_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c6_10)" label="(robotbase_goingto_end follower1 n_1 c2_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c16_13)" label="(robotbase_goingto_end follower1 n_1 c2_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c2_2 c5_9)" label="(robotbase_goingto_end follower1 n_1 c2_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c2_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c2_2)" label="(robotbase_goingto_end follower1 n_1 c6_10 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c2_3)" label="(robotbase_goingto_end follower1 n_1 c6_10 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c6_10)" label="(robotbase_goingto_end follower1 n_1 c16_13 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c5_9)" label="(robotbase_goingto_end follower1 n_1 c16_13 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c10_2)" label="(robotbase_goingto_end follower1 n_1 c16_13 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c10_14)" label="(robotbase_goingto_end follower1 n_1 c16_13 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c1_2)" label="(robotbase_goingto_end follower1 n_1 c16_13 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c2_2)" label="(robotbase_goingto_end follower1 n_1 c16_13 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c16_13 c2_3)" label="(robotbase_goingto_end follower1 n_1 c16_13 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c16_13, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c6_10)" label="(robotbase_goingto_end follower1 n_1 c5_9 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c5_9)" label="(robotbase_goingto_end follower1 n_0 c2_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c10_2)" label="(robotbase_goingto_end follower1 n_0 c2_2 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c10_14)" label="(robotbase_goingto_end follower1 n_0 c2_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c1_2)" label="(robotbase_goingto_end follower1 n_0 c2_2 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c2_3)" label="(robotbase_goingto_end follower1 n_0 c2_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c6_10)" label="(robotbase_goingto_end follower1 n_0 c2_3 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c16_13)" label="(robotbase_goingto_end follower1 n_0 c2_3 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c5_9)" label="(robotbase_goingto_end follower1 n_0 c2_3 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c10_2)" label="(robotbase_goingto_end follower1 n_0 c2_3 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c10_14)" label="(robotbase_goingto_end follower1 n_0 c2_3 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c16_13)" label="(robotbase_goingto_end follower1 n_0 c5_9 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c10_2)" label="(robotbase_goingto_end follower1 n_0 c5_9 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c10_14)" label="(robotbase_goingto_end follower1 n_0 c5_9 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c1_2)" label="(robotbase_goingto_end follower1 n_0 c5_9 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c2_2)" label="(robotbase_goingto_end follower1 n_0 c5_9 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c10_2)" label="(robotbase_goingto_end follower1 n_0 c1_2 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c10_14)" label="(robotbase_goingto_end follower1 n_0 c1_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c2_2)" label="(robotbase_goingto_end follower1 n_0 c1_2 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c1_2 c2_3)" label="(robotbase_goingto_end follower1 n_0 c1_2 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c1_2, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_2 c6_10)" label="(robotbase_goingto_end follower1 n_0 c2_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c16_13)" label="(robotbase_goingto_end follower1 n_1 c5_9 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c10_2)" label="(robotbase_goingto_end follower1 n_1 c5_9 c10_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c10_14)" label="(robotbase_goingto_end follower1 n_1 c5_9 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c1_2)" label="(robotbase_goingto_end follower1 n_1 c5_9 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c2_2)" label="(robotbase_goingto_end follower1 n_1 c5_9 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c5_9 c2_3)" label="(robotbase_goingto_end follower1 n_1 c5_9 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_1, c5_9, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c6_10)" label="(robotbase_goingto_end follower1 n_1 c10_2 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c6_10)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c16_13)" label="(robotbase_goingto_end follower1 n_1 c10_2 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c5_9)" label="(robotbase_goingto_end follower1 n_1 c10_2 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c10_2 c10_14)" label="(robotbase_goingto_end follower1 n_1 c10_2 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_1, c10_2, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c6_10 c16_13)" label="(robotbase_goingto_end follower1 n_0 c6_10 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_0, c6_10, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c1_2)" label="(robotbase_goingto_end follower1 n_0 c2_3 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c2_3 c2_2)" label="(robotbase_goingto_end follower1 n_0 c2_3 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c2_3, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c16_13)" label="(robotbase_goingto_end follower1 n_1 c6_10 c16_13)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c16_13)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_1 c6_10 c5_9)" label="(robotbase_goingto_end follower1 n_1 c6_10 c5_9)" source="Atom robotbase_goingto_curr(follower1, n_1, c6_10, c5_9)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c10_14)" label="(robotbase_goingto_end follower1 n_0 c16_13 c10_14)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c10_14)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c1_2)" label="(robotbase_goingto_end follower1 n_0 c16_13 c1_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c1_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c2_2)" label="(robotbase_goingto_end follower1 n_0 c16_13 c2_2)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_2)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c16_13 c2_3)" label="(robotbase_goingto_end follower1 n_0 c16_13 c2_3)" source="Atom robotbase_goingto_curr(follower1, n_0, c16_13, c2_3)" target="Atom free(follower1)" />
+			<edge id="(robotbase_goingto_end follower1 n_0 c5_9 c6_10)" label="(robotbase_goingto_end follower1 n_0 c5_9 c6_10)" source="Atom robotbase_goingto_curr(follower1, n_0, c5_9, c6_10)" target="Atom free(follower1)" />
 		</edges>
 	</graph>
 </gexf>
