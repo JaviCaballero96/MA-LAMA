@@ -608,10 +608,12 @@ def pddl_to_sas(task):
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+    fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
 
     graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
     graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
     graphs.create_gexf_transition_functional_graphs_files(fdtgs)
+    graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
     graphs.create_gexf_casual_graph_files(casual_graph, 0)
     graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
     graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)

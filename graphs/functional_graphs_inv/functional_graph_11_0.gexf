@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
+	<meta lastmodifieddate="14/01/2022">
+		<creator>Javier Caballero</creator>
+		<description>functional_graph_11_0</description>
+	</meta>
+	<graph mode="static" defaultedgetype="directed">
+		<nodes>
+			<node id="Atom navigation_mode(leader, n_1)" label="Atom navigation_mode(leader, n_1)" />
+			<node id="Atom navigation_changemode_curr(leader, n_1, n_0)" label="Atom navigation_changemode_curr(leader, n_1, n_0)" />
+			<node id="Atom navigation_mode(leader, n_0)" label="Atom navigation_mode(leader, n_0)" />
+			<node id="Atom navigation_changemode_curr(leader, n_0, n_1)" label="Atom navigation_changemode_curr(leader, n_0, n_1)" />
+		</nodes>
+		<edges>
+			<edge label="Atom Increase PNE total-time() PNE timechangemode()()" source="Atom navigation_mode(leader, n_1)" target="Atom navigation_changemode_curr(leader, n_1, n_0)" />
+			<edge label="Atom Increase PNE total-time() PNE timechangemode()()" source="Atom navigation_changemode_curr(leader, n_1, n_0)" target="Atom navigation_mode(leader, n_0)" />
+			<edge label="Atom Increase PNE total-time() PNE timechangemode()()" source="Atom navigation_mode(leader, n_0)" target="Atom navigation_changemode_curr(leader, n_0, n_1)" />
+			<edge label="Atom Increase PNE total-time() PNE timechangemode()()" source="Atom navigation_changemode_curr(leader, n_0, n_1)" target="Atom navigation_mode(leader, n_1)" />
+		</edges>
+	</graph>
+</gexf>

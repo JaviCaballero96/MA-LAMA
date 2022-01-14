@@ -180,6 +180,58 @@ def create_functional_dtgs(sas_task, translation_key, groups):
     return fdtgs
 
 
+def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
+    fdtgs_per_invariant = []
+    index = 0
+    fdtg_index = 0
+    for invariant in groups:
+
+        # Check if the group is propositional
+        if isinstance(invariant[0].predicate, pddl.f_expression.Increase):
+            index = index + 1
+            continue
+
+        fdtgs_per_invariant.append([])
+        index2 = 0
+
+        for group in groups:
+
+            # Check if the group is functional
+            if not isinstance(group[0].predicate, pddl.f_expression.Increase):
+                index2 = index2 + 1
+                continue
+
+            node_dict = {}
+            node_names = []
+            for op in sas_task.operators:
+                eff_index_1 = 0
+                for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+                    if n_pre_spec == -2 and n_var_no == index2:
+                        eff_index_2 = 0
+                        for var_no, pre_spec, post, cond in op.pre_post:
+                            if eff_index_1 != eff_index_2 and pre_spec != -2 and var_no == index:
+                                if translation_key[var_no][pre_spec] != '<none of those>':
+                                    if translation_key[var_no][pre_spec] not in node_names:
+                                        node_dict[translation_key[var_no][pre_spec]] = []
+                                        node_names.append(translation_key[var_no][pre_spec])
+                                    if translation_key[var_no][post] not in node_names:
+                                        node_dict[translation_key[var_no][post]] = []
+                                        node_names.append(translation_key[var_no][post])
+                                    node_dict[translation_key[var_no][pre_spec]].append(
+                                        DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
+                                                  translation_key[n_var_no][n_post[2]]))
+                            eff_index_2 = eff_index_2 + 1
+                    eff_index_1 = eff_index_1 + 1
+            fdtgs_per_invariant[fdtg_index].append(DomainTransGraph(0, index2, node_dict))
+
+            index2 = index2 + 1
+
+        fdtg_index = fdtg_index + 1
+        index = index + 1
+
+    return fdtgs_per_invariant
+
+
 def create_gexf_transition_functional_graphs_files(fdtgs):
     index = 0
     today = date.today()
@@ -219,6 +271,53 @@ def create_gexf_transition_functional_graphs_files(fdtgs):
 
         f.close()
         index = index + 1
+
+
+def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\functional_graphs_inv"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/functional_graphs_inv"
+
+    n_invariant = 0
+    for invariant in fdtgs_per_invariant:
+
+        n_graph = 0
+        for graph in invariant:
+
+            if graph and graph.node_list:
+                file_name = "functional_graph_" + str(n_invariant) + "_" + str(n_graph) + ".gexf"
+                full_name = os.path.join(save_path, file_name)
+                f = open(full_name, "w")
+                f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+                f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+                f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+                f.write("\t\t<creator>Javier Caballero</creator>\n")
+                f.write("\t\t<description>functional_graph_" + str(n_invariant) + "_" + str(n_graph) + "</description>\n")
+                f.write("\t</meta>\n")
+                f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+                f.write("\t\t<nodes>\n")
+                for key, arcs in graph.node_list.items():
+                    if key != '<none of those>':
+                        f.write("\t\t\t<node id=\"" + key + "\" label=\"" + key + "\" />\n")
+                f.write("\t\t</nodes>\n")
+
+                f.write("\t\t<edges>\n")
+                for key, arcs in graph.node_list.items():
+                    if key != '<none of those>':
+                        for arc in arcs:
+                            f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                                    arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+                f.write("\t\t</edges>\n")
+                f.write("\t</graph>\n")
+                f.write("</gexf>\n")
+
+                f.close()
+                n_graph = n_graph + 1
+        n_invariant = n_invariant + 1
 
 
 def create_csv_transition_graphs_files(dtgs, groups):
