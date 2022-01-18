@@ -125,6 +125,16 @@ def parse_effect(alist):
         # assert alist[1] == ['total-cost']
         assignment = f_expression.parse_assignment(alist)
         return CostEffect(assignment)
+    elif tag == "decrease":
+        assert len(alist) == 3
+        # assert alist[1] == ['total-cost']
+        assignment = f_expression.parse_assignment(alist)
+        return CostEffect(assignment)
+    elif tag == "assign":
+        assert len(alist) == 3
+        # assert alist[1] == ['total-cost']
+        assignment = f_expression.parse_assignment(alist)
+        return CostEffect(assignment)
     else:
         return SimpleEffect(conditions.parse_literal(alist))
 

@@ -45,7 +45,9 @@ def strips_to_sas_dictionary(groups, assert_partial):
     for var_no, group in enumerate(groups):
         for val_no, atom in enumerate(group):
             dictionary.setdefault(atom, []).append((var_no, val_no))
-            if isinstance(atom.predicate, pddl.f_expression.Increase):
+            if isinstance(atom.predicate, pddl.f_expression.Increase) or \
+                    isinstance(atom.predicate, pddl.f_expression.Decrease) or \
+                    isinstance(atom.predicate, pddl.f_expression.Assign):
                 func_aux_dictionary[atom.predicate.__class__.__name__ + " " + str(atom.predicate.fluent)
                                     + " " + str(atom.predicate.expression)] = atom
     if assert_partial:
@@ -552,9 +554,6 @@ def pddl_to_sas(task):
         groups, mutex_groups, translation_key = fact_groups.compute_groups(
             task, atoms, functions, reachable_action_params,
             partial_encoding=USE_PARTIAL_ENCODING)
-
-    func_bat_lit = [func[0] for func in groups if isinstance(func[0].predicate, pddl.f_expression.Increase) and func[
-        0].predicate.fluent.symbol == "battery" and func[0].predicate.expression.symbol == "photoenergy"]
 
     with timers.timing("Building STRIPS to SAS dictionary"):
         ranges, strips_to_sas, aux_func_strips_to_sas = strips_to_sas_dictionary(

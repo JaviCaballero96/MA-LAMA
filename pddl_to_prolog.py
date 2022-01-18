@@ -118,6 +118,20 @@ def get_variables(symbolic_atoms):
             var_aux = get_variables_func_aux(sym_atom.expression.args)
             variables |= set([arg for arg in var_aux if arg[0] == "?"])
             sym_atom.args = variables
+        elif isinstance(sym_atom, pddl.f_expression.Decrease):
+            for arg in sym_atom.fluent.args:
+                if arg.name[0] == "?":
+                    variables |= set([arg.name])
+            var_aux = get_variables_func_aux(sym_atom.expression.args)
+            variables |= set([arg for arg in var_aux if arg[0] == "?"])
+            sym_atom.args = variables
+        elif isinstance(sym_atom, pddl.f_expression.Assign):
+            for arg in sym_atom.fluent.args:
+                if arg.name[0] == "?":
+                    variables |= set([arg.name])
+            var_aux = get_variables_func_aux(sym_atom.expression.args)
+            variables |= set([arg for arg in var_aux if arg[0] == "?"])
+            sym_atom.args = variables
         else:
             variables |= set([arg for arg in sym_atom.args if arg[0] == "?"])
     return variables

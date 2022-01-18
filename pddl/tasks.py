@@ -152,6 +152,7 @@ def parse_domain(domain_pddl):
             axiom = axioms.Axiom.parse(entry)
             the_axioms.append(axiom)
         else:
+
             durative_action = durative_actions.DurativeAction.parse(entry)
             the_durative_actions.append(durative_action)
     yield the_durative_actions

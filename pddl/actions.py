@@ -137,7 +137,13 @@ class Action(object):
         effects = []
         for eff in self.effects:
             if isinstance(eff, Effects.CostEffect):
-                eff_aux = f_expression.Increase("", "")
+                if isinstance(eff.effect, pddl.f_expression.Increase):
+                    eff_aux = f_expression.Increase("", "")
+                elif isinstance(eff.effect, pddl.f_expression.Decrease):
+                    eff_aux = f_expression.Decrease("", "")
+                elif isinstance(eff.effect, pddl.f_expression.Assign):
+                    eff_aux = f_expression.Assign("", "")
+
                 eff_aux.fluent = eff.effect.fluent.instantiate(var_mapping, init_facts)
                 arg_used = [var_mapping.get(arg.name, arg.name) for arg in eff.effect.fluent.args]
 
@@ -160,14 +166,26 @@ class Action(object):
                             if not isinstance(m_elem, str):
                                 if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
                                         [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in cost_eff.fluent.
-                                                                                fluent.args]:
+                                                                                                        fluent.args]:
                                     if isinstance(cost_eff.expression, pddl.f_expression.PrimitiveNumericExpression):
                                         cost = cost + cost_eff.expression.value
                                     else:
                                         cost = cost + cost_eff.expression.expression.value
-                                    # cost = cost + int(cost_eff.effect.instantiate(var_mapping,
-                                    # init_facts).expression.value)
-                                    #cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+                                        # cost = cost + int(cost_eff.effect.instantiate(var_mapping,
+                                        # init_facts).expression.value)
+                                        # cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+                    if isinstance(cost_eff, pddl.f_expression.Decrease):
+                        for m_elem in metric:
+                            if not isinstance(m_elem, str):
+                                if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
+                                        [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in
+                                                                                cost_eff.fluent.
+                                                                                        fluent.args]:
+                                    if isinstance(cost_eff.expression,
+                                                  pddl.f_expression.PrimitiveNumericExpression):
+                                        cost = cost - cost_eff.expression.value
+                                    else:
+                                        cost = cost - cost_eff.expression.expression.value
 
                 # cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
             return PropositionalAction(name, precondition, effects, cost)
@@ -227,6 +245,10 @@ class PropositionalAction:
         for condition, effect in effects:
             if not effect.negated:
                 if isinstance(effect, f_expression.Increase):
+                    self.func_effects.append((condition, effect))
+                elif isinstance(effect, f_expression.Decrease):
+                    self.func_effects.append((condition, effect))
+                elif isinstance(effect, f_expression.Assign):
                     self.func_effects.append((condition, effect))
                 else:
                     self.add_effects.append((condition, effect))

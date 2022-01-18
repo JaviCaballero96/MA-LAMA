@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
-	<meta lastmodifieddate="14/01/2022">
+	<meta lastmodifieddate="18/01/2022">
 		<creator>Javier Caballero</creator>
 		<description>functional_graph_4_4</description>
 	</meta>
@@ -128,230 +128,230 @@
 			<node id="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" label="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" />
 		</nodes>
 		<edges>
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_3)(c2_3, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c6_10)(c6_10, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c16_13)(c16_13, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c5_9)(c5_9, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_2)(c10_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c10_14)(c10_14, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c1_2)(c1_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
-			<edge label="Atom Increase PNE risk(leader) PNE posrisk(c2_2)(c2_2, leader)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c6_10)(leader, c10_2, c6_10)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c16_13)(leader, c10_2, c16_13)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c5_9)(leader, c10_2, c5_9)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c10_14)(leader, c10_2, c10_14)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c1_2)(leader, c10_2, c1_2)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_2)(leader, c10_2, c2_2)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_3)(leader, c10_2, c2_3)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c6_10)(leader, c10_2, c6_10)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c16_13)(leader, c10_2, c16_13)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c5_9)(leader, c10_2, c5_9)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c10_14)(leader, c10_2, c10_14)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c1_2)(leader, c10_2, c1_2)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_2)(leader, c10_2, c2_2)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_3)(leader, c10_2, c2_3)" source="Atom robotbase_at(leader, c10_2)" target="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c6_10)(leader, c10_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c16_13)(leader, c10_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c5_9)(leader, c10_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c10_14)(leader, c10_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c1_2)(leader, c10_2, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_2)(leader, c10_2, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_3)(leader, c10_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c10_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c6_10)(leader, c10_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c16_13)(leader, c10_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c5_9)(leader, c10_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c10_14)(leader, c10_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c1_2)(leader, c10_2, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_2)(leader, c10_2, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_2, c2_3)(leader, c10_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c10_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c16_13)(leader, c6_10, c16_13)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c5_9)(leader, c6_10, c5_9)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_2)(leader, c6_10, c10_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_14)(leader, c6_10, c10_14)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c1_2)(leader, c6_10, c1_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_2)(leader, c6_10, c2_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_3)(leader, c6_10, c2_3)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c16_13)(leader, c6_10, c16_13)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c5_9)(leader, c6_10, c5_9)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_2)(leader, c6_10, c10_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_14)(leader, c6_10, c10_14)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c1_2)(leader, c6_10, c1_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_2)(leader, c6_10, c2_2)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_3)(leader, c6_10, c2_3)" source="Atom robotbase_at(leader, c6_10)" target="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c6_10)(leader, c16_13, c6_10)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c5_9)(leader, c16_13, c5_9)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_2)(leader, c16_13, c10_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_14)(leader, c16_13, c10_14)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c1_2)(leader, c16_13, c1_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_2)(leader, c16_13, c2_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_3)(leader, c16_13, c2_3)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c6_10)(leader, c16_13, c6_10)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c5_9)(leader, c16_13, c5_9)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_2)(leader, c16_13, c10_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_14)(leader, c16_13, c10_14)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c1_2)(leader, c16_13, c1_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_2)(leader, c16_13, c2_2)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_3)(leader, c16_13, c2_3)" source="Atom robotbase_at(leader, c16_13)" target="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c6_10)(leader, c5_9, c6_10)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c16_13)(leader, c5_9, c16_13)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_2)(leader, c5_9, c10_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_14)(leader, c5_9, c10_14)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c1_2)(leader, c5_9, c1_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_2)(leader, c5_9, c2_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_3)(leader, c5_9, c2_3)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c6_10)(leader, c5_9, c6_10)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c16_13)(leader, c5_9, c16_13)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_2)(leader, c5_9, c10_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_14)(leader, c5_9, c10_14)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c1_2)(leader, c5_9, c1_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_2)(leader, c5_9, c2_2)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_3)(leader, c5_9, c2_3)" source="Atom robotbase_at(leader, c5_9)" target="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c6_10)(leader, c10_14, c6_10)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c16_13)(leader, c10_14, c16_13)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c5_9)(leader, c10_14, c5_9)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c10_2)(leader, c10_14, c10_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c1_2)(leader, c10_14, c1_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_2)(leader, c10_14, c2_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_3)(leader, c10_14, c2_3)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c6_10)(leader, c10_14, c6_10)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c16_13)(leader, c10_14, c16_13)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c5_9)(leader, c10_14, c5_9)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c10_2)(leader, c10_14, c10_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c1_2)(leader, c10_14, c1_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_2)(leader, c10_14, c2_2)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_3)(leader, c10_14, c2_3)" source="Atom robotbase_at(leader, c10_14)" target="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c6_10)(leader, c1_2, c6_10)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c16_13)(leader, c1_2, c16_13)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c5_9)(leader, c1_2, c5_9)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_2)(leader, c1_2, c10_2)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_14)(leader, c1_2, c10_14)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_2)(leader, c1_2, c2_2)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_3)(leader, c1_2, c2_3)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c6_10)(leader, c1_2, c6_10)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c16_13)(leader, c1_2, c16_13)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c5_9)(leader, c1_2, c5_9)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_2)(leader, c1_2, c10_2)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_14)(leader, c1_2, c10_14)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_2)(leader, c1_2, c2_2)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_3)(leader, c1_2, c2_3)" source="Atom robotbase_at(leader, c1_2)" target="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c6_10)(leader, c2_2, c6_10)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c16_13)(leader, c2_2, c16_13)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c5_9)(leader, c2_2, c5_9)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_2)(leader, c2_2, c10_2)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_14)(leader, c2_2, c10_14)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c1_2)(leader, c2_2, c1_2)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c2_3)(leader, c2_2, c2_3)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c6_10)(leader, c2_2, c6_10)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c16_13)(leader, c2_2, c16_13)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c5_9)(leader, c2_2, c5_9)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_2)(leader, c2_2, c10_2)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_14)(leader, c2_2, c10_14)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c1_2)(leader, c2_2, c1_2)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c2_3)(leader, c2_2, c2_3)" source="Atom robotbase_at(leader, c2_2)" target="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c6_10)(leader, c2_3, c6_10)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c16_13)(leader, c2_3, c16_13)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c5_9)(leader, c2_3, c5_9)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_2)(leader, c2_3, c10_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_14)(leader, c2_3, c10_14)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c1_2)(leader, c2_3, c1_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c2_2)(leader, c2_3, c2_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c6_10)(leader, c2_3, c6_10)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c16_13)(leader, c2_3, c16_13)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c5_9)(leader, c2_3, c5_9)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_2)(leader, c2_3, c10_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_14)(leader, c2_3, c10_14)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c1_2)(leader, c2_3, c1_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c2_2)(leader, c2_3, c2_2)" source="Atom robotbase_at(leader, c2_3)" target="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c16_13)(leader, c6_10, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c5_9)(leader, c6_10, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_2)(leader, c6_10, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_14)(leader, c6_10, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c1_2)(leader, c6_10, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_2)(leader, c6_10, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_3)(leader, c6_10, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c6_10, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c16_13)(leader, c6_10, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c5_9)(leader, c6_10, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_2)(leader, c6_10, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c10_14)(leader, c6_10, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c1_2)(leader, c6_10, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_2)(leader, c6_10, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c6_10, c2_3)(leader, c6_10, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c6_10, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c6_10)(leader, c16_13, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c5_9)(leader, c16_13, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_2)(leader, c16_13, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_14)(leader, c16_13, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c1_2)(leader, c16_13, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_2)(leader, c16_13, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_3)(leader, c16_13, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c16_13, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c6_10)(leader, c16_13, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c5_9)(leader, c16_13, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_2)(leader, c16_13, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c10_14)(leader, c16_13, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c1_2)(leader, c16_13, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_2)(leader, c16_13, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c16_13, c2_3)(leader, c16_13, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c16_13, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c6_10)(leader, c5_9, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c16_13)(leader, c5_9, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_2)(leader, c5_9, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_14)(leader, c5_9, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c1_2)(leader, c5_9, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_2)(leader, c5_9, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_3)(leader, c5_9, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c5_9, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c6_10)(leader, c5_9, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c16_13)(leader, c5_9, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_2)(leader, c5_9, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c10_14)(leader, c5_9, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c1_2)(leader, c5_9, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_2)(leader, c5_9, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c5_9, c2_3)(leader, c5_9, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c5_9, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c6_10)(leader, c10_14, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c16_13)(leader, c10_14, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c5_9)(leader, c10_14, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c10_2)(leader, c10_14, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c1_2)(leader, c10_14, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_2)(leader, c10_14, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_3)(leader, c10_14, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c10_14, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c6_10)(leader, c10_14, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c16_13)(leader, c10_14, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c5_9)(leader, c10_14, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c10_2)(leader, c10_14, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c1_2)(leader, c10_14, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_2)(leader, c10_14, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c10_14, c2_3)(leader, c10_14, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c10_14, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c6_10)(leader, c1_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c16_13)(leader, c1_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c5_9)(leader, c1_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_2)(leader, c1_2, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_14)(leader, c1_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_2)(leader, c1_2, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_3)(leader, c1_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c1_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c6_10)(leader, c1_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c16_13)(leader, c1_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c5_9)(leader, c1_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_2)(leader, c1_2, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c10_14)(leader, c1_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_2)(leader, c1_2, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c1_2, c2_3)(leader, c1_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c1_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c6_10)(leader, c2_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c16_13)(leader, c2_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c5_9)(leader, c2_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_2)(leader, c2_2, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_14)(leader, c2_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c1_2)(leader, c2_2, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c2_3)(leader, c2_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_1, c2_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c6_10)(leader, c2_2, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c16_13)(leader, c2_2, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c5_9)(leader, c2_2, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_2)(leader, c2_2, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c10_14)(leader, c2_2, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c1_2)(leader, c2_2, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_2, c2_3)(leader, c2_2, c2_3)" source="Atom robotbase_goingto_curr(leader, n_0, c2_2, c2_3)" target="Atom robotbase_at(leader, c2_3)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c6_10)(leader, c2_3, c6_10)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c16_13)(leader, c2_3, c16_13)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c5_9)(leader, c2_3, c5_9)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_2)(leader, c2_3, c10_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_14)(leader, c2_3, c10_14)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c1_2)(leader, c2_3, c1_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c2_2)(leader, c2_3, c2_2)" source="Atom robotbase_goingto_curr(leader, n_1, c2_3, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c6_10)(leader, c2_3, c6_10)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c6_10)" target="Atom robotbase_at(leader, c6_10)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c16_13)(leader, c2_3, c16_13)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c16_13)" target="Atom robotbase_at(leader, c16_13)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c5_9)(leader, c2_3, c5_9)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c5_9)" target="Atom robotbase_at(leader, c5_9)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_2)(leader, c2_3, c10_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_2)" target="Atom robotbase_at(leader, c10_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c10_14)(leader, c2_3, c10_14)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c10_14)" target="Atom robotbase_at(leader, c10_14)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c1_2)(leader, c2_3, c1_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c1_2)" target="Atom robotbase_at(leader, c1_2)" />
+			<edge label="Atom Increase PNE dist(leader) PNE distance_to_move(c2_3, c2_2)(leader, c2_3, c2_2)" source="Atom robotbase_goingto_curr(leader, n_0, c2_3, c2_2)" target="Atom robotbase_at(leader, c2_2)" />
 		</edges>
 	</graph>
 </gexf>

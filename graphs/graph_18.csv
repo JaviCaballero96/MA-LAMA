@@ -1,8 +1,0 @@
-Atom robotbase_undocking_curr(follower0, c10_2);Atom robotbase_notondock(follower0)
-Atom robotbase_notondock(follower0);Atom robotbase_docking_curr(follower0, c10_2);Atom robotbase_docking_curr(follower0, c10_14);Atom robotbase_docking_curr(follower0, c5_9)
-Atom robotbase_undocking_curr(follower0, c5_9);Atom robotbase_notondock(follower0)
-Atom robotbase_undocking_curr(follower0, c10_14);Atom robotbase_notondock(follower0)
-Atom robotbase_ondock(follower0);Atom robotbase_undocking_curr(follower0, c5_9);Atom robotbase_undocking_curr(follower0, c10_14);Atom robotbase_undocking_curr(follower0, c10_2)
-Atom robotbase_docking_curr(follower0, c5_9);Atom robotbase_ondock(follower0)
-Atom robotbase_docking_curr(follower0, c10_2);Atom robotbase_ondock(follower0)
-Atom robotbase_docking_curr(follower0, c10_14);Atom robotbase_ondock(follower0)

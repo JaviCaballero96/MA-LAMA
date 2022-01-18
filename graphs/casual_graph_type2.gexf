@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
-	<meta lastmodifieddate="13/01/2022">
+	<meta lastmodifieddate="18/01/2022">
 		<creator>Javier Caballero</creator>
 		<description>casual_graph_type2.gexf</description>
 	</meta>
 	<graph mode="static" defaultedgetype="directed">
 		<nodes>
 			<node id="0" label="increase-total-time" />
-			<node id="1" label="robotbase_docking_curr_communication_transmittingpicture_curr_robotbase_goingto_curr_cameras_takingpicture_curr_robotbase_undocking_curr_free_navigation_changemode_curr" />
-			<node id="2" label="robotbase_docking_curr_communication_transmittingpicture_curr_robotbase_goingto_curr_cameras_takingpicture_curr_robotbase_undocking_curr_free_navigation_changemode_curr" />
-			<node id="3" label="robotbase_docking_curr_communication_transmittingpicture_curr_robotbase_goingto_curr_cameras_takingpicture_curr_robotbase_undocking_curr_free_navigation_changemode_curr" />
-			<node id="4" label="robotbase_at_robotbase_goingto_curr" />
-			<node id="5" label="robotbase_at_robotbase_goingto_curr" />
-			<node id="6" label="robotbase_at_robotbase_goingto_curr" />
+			<node id="1" label="robotbase_goingto_curr_cameras_takingpicture_curr_navigation_changemode_curr_robotbase_recharge_curr_robotbase_undocking_curr_robotbase_docking_curr_free_communication_transmittingpicture_curr" />
+			<node id="2" label="robotbase_goingto_curr_cameras_takingpicture_curr_navigation_changemode_curr_robotbase_recharge_curr_robotbase_undocking_curr_robotbase_docking_curr_free_communication_transmittingpicture_curr" />
+			<node id="3" label="robotbase_goingto_curr_cameras_takingpicture_curr_navigation_changemode_curr_robotbase_recharge_curr_robotbase_undocking_curr_robotbase_docking_curr_free_communication_transmittingpicture_curr" />
+			<node id="4" label="robotbase_goingto_curr_robotbase_at" />
+			<node id="5" label="robotbase_goingto_curr_robotbase_at" />
+			<node id="6" label="robotbase_goingto_curr_robotbase_at" />
 			<node id="7" label="increase-battery" />
 			<node id="8" label="increase-battery" />
 			<node id="9" label="increase-battery" />
-			<node id="10" label="increase-dist" />
-			<node id="11" label="increase-dist" />
-			<node id="12" label="increase-total_dist" />
+			<node id="10" label="decrease-battery_avail_assign-battery_avail" />
+			<node id="11" label="decrease-battery_avail_assign-battery_avail" />
+			<node id="12" label="decrease-battery_avail_assign-battery_avail" />
 			<node id="13" label="increase-dist" />
-			<node id="14" label="increase-risk" />
-			<node id="15" label="increase-risk" />
-			<node id="16" label="increase-risk" />
-			<node id="17" label="robotbase_undocking_curr_robotbase_notondock_robotbase_ondock_robotbase_docking_curr" />
-			<node id="18" label="robotbase_undocking_curr_robotbase_notondock_robotbase_ondock_robotbase_docking_curr" />
-			<node id="19" label="robotbase_undocking_curr_robotbase_notondock_robotbase_ondock_robotbase_docking_curr" />
-			<node id="20" label="navigation_mode_navigation_changemode_curr" />
-			<node id="21" label="navigation_mode_navigation_changemode_curr" />
-			<node id="22" label="navigation_mode_navigation_changemode_curr" />
-			<node id="23" label="communication_transmittedp" />
-			<node id="24" label="communication_transmittedp" />
-			<node id="25" label="communication_transmittedp" />
-			<node id="26" label="cameras_picture" />
+			<node id="14" label="increase-total_dist" />
+			<node id="15" label="increase-dist" />
+			<node id="16" label="increase-dist" />
+			<node id="17" label="increase-risk" />
+			<node id="18" label="increase-risk" />
+			<node id="19" label="increase-risk" />
+			<node id="20" label="robotbase_undocking_curr_robotbase_docking_curr_robotbase_ondock_robotbase_notondock" />
+			<node id="21" label="robotbase_undocking_curr_robotbase_docking_curr_robotbase_ondock_robotbase_notondock" />
+			<node id="22" label="robotbase_undocking_curr_robotbase_docking_curr_robotbase_ondock_robotbase_notondock" />
+			<node id="23" label="navigation_changemode_curr_navigation_mode" />
+			<node id="24" label="navigation_changemode_curr_navigation_mode" />
+			<node id="25" label="navigation_changemode_curr_navigation_mode" />
+			<node id="26" label="visited" />
 			<node id="27" label="communication_transmittedp" />
 			<node id="28" label="communication_transmittedp" />
-			<node id="29" label="communication_transmittedp" />
-			<node id="30" label="communication_transmittedp" />
-			<node id="31" label="communication_transmittedp" />
+			<node id="29" label="visited" />
+			<node id="30" label="cameras_picture" />
+			<node id="31" label="cameras_picture" />
 			<node id="32" label="cameras_picture" />
-			<node id="33" label="cameras_picture" />
-			<node id="34" label="cameras_picture" />
-			<node id="35" label="cameras_picture" />
-			<node id="36" label="cameras_picture" />
-			<node id="37" label="cameras_picture" />
-			<node id="38" label="visited" />
-			<node id="39" label="visited" />
-			<node id="40" label="visited" />
+			<node id="33" label="visited" />
+			<node id="34" label="communication_transmittedp" />
+			<node id="35" label="communication_transmittedp" />
+			<node id="36" label="communication_transmittedp" />
+			<node id="37" label="visited" />
+			<node id="38" label="cameras_picture" />
+			<node id="39" label="cameras_picture" />
+			<node id="40" label="cameras_picture" />
 			<node id="41" label="cameras_picture" />
 			<node id="42" label="cameras_picture" />
 			<node id="43" label="cameras_picture" />
@@ -62,431 +62,1007 @@
 			<node id="53" label="cameras_picture" />
 			<node id="54" label="cameras_picture" />
 			<node id="55" label="cameras_picture" />
-			<node id="56" label="visited" />
-			<node id="57" label="visited" />
-			<node id="58" label="visited" />
-			<node id="59" label="visited" />
+			<node id="56" label="communication_transmittedp" />
+			<node id="57" label="communication_transmittedp" />
+			<node id="58" label="cameras_picture" />
+			<node id="59" label="cameras_picture" />
 			<node id="60" label="cameras_picture" />
-			<node id="61" label="cameras_picture" />
+			<node id="61" label="visited" />
 			<node id="62" label="visited" />
+			<node id="63" label="visited" />
+			<node id="64" label="visited" />
+			<node id="65" label="communication_transmittedp" />
 		</nodes>
 		<edges>
-			<edge id="robotbase_undocking_start-1_19--2" label="robotbase_undocking_start-1_19--2" source="1" target="19" />
+			<edge id="robotbase_undocking_start-0_3--2" label="robotbase_undocking_start-0_3--2" source="0" target="3" />
+			<edge id="robotbase_undocking_start-0_20--2" label="robotbase_undocking_start-0_20--2" source="0" target="20" />
+			<edge id="robotbase_recharge_start-0_3--2" label="robotbase_recharge_start-0_3--2" source="0" target="3" />
+			<edge id="robotbase_recharge_start-0_11--2" label="robotbase_recharge_start-0_11--2" source="0" target="11" />
+			<edge id="robotbase_undocking_start-0_2--2" label="robotbase_undocking_start-0_2--2" source="0" target="2" />
+			<edge id="robotbase_undocking_start-0_21--2" label="robotbase_undocking_start-0_21--2" source="0" target="21" />
+			<edge id="robotbase_recharge_start-0_2--2" label="robotbase_recharge_start-0_2--2" source="0" target="2" />
+			<edge id="robotbase_recharge_start-0_12--2" label="robotbase_recharge_start-0_12--2" source="0" target="12" />
+			<edge id="robotbase_undocking_start-0_1--2" label="robotbase_undocking_start-0_1--2" source="0" target="1" />
+			<edge id="robotbase_undocking_start-0_22--2" label="robotbase_undocking_start-0_22--2" source="0" target="22" />
+			<edge id="robotbase_recharge_start-0_1--2" label="robotbase_recharge_start-0_1--2" source="0" target="1" />
+			<edge id="robotbase_recharge_start-0_10--2" label="robotbase_recharge_start-0_10--2" source="0" target="10" />
+			<edge id="cameras_takingpicture_start-0_3--2" label="cameras_takingpicture_start-0_3--2" source="0" target="3" />
+			<edge id="cameras_takingpicture_start-0_8--2" label="cameras_takingpicture_start-0_8--2" source="0" target="8" />
+			<edge id="cameras_takingpicture_start-0_2--2" label="cameras_takingpicture_start-0_2--2" source="0" target="2" />
+			<edge id="cameras_takingpicture_start-0_9--2" label="cameras_takingpicture_start-0_9--2" source="0" target="9" />
+			<edge id="cameras_takingpicture_start-0_1--2" label="cameras_takingpicture_start-0_1--2" source="0" target="1" />
+			<edge id="cameras_takingpicture_start-0_7--2" label="cameras_takingpicture_start-0_7--2" source="0" target="7" />
+			<edge id="navigation_changemode_start-0_3--2" label="navigation_changemode_start-0_3--2" source="0" target="3" />
+			<edge id="navigation_changemode_start-0_23--2" label="navigation_changemode_start-0_23--2" source="0" target="23" />
+			<edge id="navigation_changemode_start-0_2--2" label="navigation_changemode_start-0_2--2" source="0" target="2" />
+			<edge id="navigation_changemode_start-0_25--2" label="navigation_changemode_start-0_25--2" source="0" target="25" />
+			<edge id="navigation_changemode_start-0_1--2" label="navigation_changemode_start-0_1--2" source="0" target="1" />
+			<edge id="navigation_changemode_start-0_24--2" label="navigation_changemode_start-0_24--2" source="0" target="24" />
+			<edge id="robotbase_undocking_end-0_3--2" label="robotbase_undocking_end-0_3--2" source="0" target="3" />
+			<edge id="robotbase_undocking_end-0_20--2" label="robotbase_undocking_end-0_20--2" source="0" target="20" />
+			<edge id="robotbase_recharge_end-0_3--2" label="robotbase_recharge_end-0_3--2" source="0" target="3" />
+			<edge id="robotbase_recharge_end-0_11--2" label="robotbase_recharge_end-0_11--2" source="0" target="11" />
+			<edge id="robotbase_undocking_end-0_2--2" label="robotbase_undocking_end-0_2--2" source="0" target="2" />
+			<edge id="robotbase_undocking_end-0_21--2" label="robotbase_undocking_end-0_21--2" source="0" target="21" />
+			<edge id="robotbase_recharge_end-0_2--2" label="robotbase_recharge_end-0_2--2" source="0" target="2" />
+			<edge id="robotbase_recharge_end-0_12--2" label="robotbase_recharge_end-0_12--2" source="0" target="12" />
+			<edge id="robotbase_undocking_end-0_1--2" label="robotbase_undocking_end-0_1--2" source="0" target="1" />
+			<edge id="robotbase_undocking_end-0_22--2" label="robotbase_undocking_end-0_22--2" source="0" target="22" />
+			<edge id="robotbase_recharge_end-0_1--2" label="robotbase_recharge_end-0_1--2" source="0" target="1" />
+			<edge id="robotbase_recharge_end-0_10--2" label="robotbase_recharge_end-0_10--2" source="0" target="10" />
+			<edge id="robotbase_docking_start-0_3--2" label="robotbase_docking_start-0_3--2" source="0" target="3" />
+			<edge id="robotbase_docking_start-0_20--2" label="robotbase_docking_start-0_20--2" source="0" target="20" />
+			<edge id="robotbase_docking_start-0_2--2" label="robotbase_docking_start-0_2--2" source="0" target="2" />
+			<edge id="robotbase_docking_start-0_21--2" label="robotbase_docking_start-0_21--2" source="0" target="21" />
+			<edge id="robotbase_docking_start-0_1--2" label="robotbase_docking_start-0_1--2" source="0" target="1" />
+			<edge id="robotbase_docking_start-0_22--2" label="robotbase_docking_start-0_22--2" source="0" target="22" />
+			<edge id="cameras_takingpicture_end-0_3--2" label="cameras_takingpicture_end-0_3--2" source="0" target="3" />
+			<edge id="cameras_takingpicture_end-0_8--2" label="cameras_takingpicture_end-0_8--2" source="0" target="8" />
+			<edge id="cameras_takingpicture_end-0_54--2" label="cameras_takingpicture_end-0_54--2" source="0" target="54" />
+			<edge id="cameras_takingpicture_end-0_2--2" label="cameras_takingpicture_end-0_2--2" source="0" target="2" />
+			<edge id="cameras_takingpicture_end-0_9--2" label="cameras_takingpicture_end-0_9--2" source="0" target="9" />
+			<edge id="cameras_takingpicture_end-0_55--2" label="cameras_takingpicture_end-0_55--2" source="0" target="55" />
+			<edge id="cameras_takingpicture_end-0_1--2" label="cameras_takingpicture_end-0_1--2" source="0" target="1" />
+			<edge id="cameras_takingpicture_end-0_7--2" label="cameras_takingpicture_end-0_7--2" source="0" target="7" />
+			<edge id="cameras_takingpicture_end-0_60--2" label="cameras_takingpicture_end-0_60--2" source="0" target="60" />
+			<edge id="navigation_changemode_end-0_3--2" label="navigation_changemode_end-0_3--2" source="0" target="3" />
+			<edge id="navigation_changemode_end-0_23--2" label="navigation_changemode_end-0_23--2" source="0" target="23" />
+			<edge id="navigation_changemode_end-0_2--2" label="navigation_changemode_end-0_2--2" source="0" target="2" />
+			<edge id="navigation_changemode_end-0_25--2" label="navigation_changemode_end-0_25--2" source="0" target="25" />
+			<edge id="navigation_changemode_end-0_1--2" label="navigation_changemode_end-0_1--2" source="0" target="1" />
+			<edge id="navigation_changemode_end-0_24--2" label="navigation_changemode_end-0_24--2" source="0" target="24" />
+			<edge id="robotbase_goingto_start-0_3--2" label="robotbase_goingto_start-0_3--2" source="0" target="3" />
+			<edge id="robotbase_goingto_start-0_5--2" label="robotbase_goingto_start-0_5--2" source="0" target="5" />
+			<edge id="robotbase_goingto_start-0_8--2" label="robotbase_goingto_start-0_8--2" source="0" target="8" />
+			<edge id="robotbase_goingto_start-0_11--2" label="robotbase_goingto_start-0_11--2" source="0" target="11" />
+			<edge id="robotbase_goingto_start-0_14--2" label="robotbase_goingto_start-0_14--2" source="0" target="14" />
+			<edge id="robotbase_goingto_start-0_15--2" label="robotbase_goingto_start-0_15--2" source="0" target="15" />
+			<edge id="robotbase_goingto_start-0_18--2" label="robotbase_goingto_start-0_18--2" source="0" target="18" />
+			<edge id="robotbase_docking_end-0_3--2" label="robotbase_docking_end-0_3--2" source="0" target="3" />
+			<edge id="robotbase_docking_end-0_20--2" label="robotbase_docking_end-0_20--2" source="0" target="20" />
+			<edge id="robotbase_goingto_start-0_2--2" label="robotbase_goingto_start-0_2--2" source="0" target="2" />
+			<edge id="robotbase_goingto_start-0_6--2" label="robotbase_goingto_start-0_6--2" source="0" target="6" />
+			<edge id="robotbase_goingto_start-0_9--2" label="robotbase_goingto_start-0_9--2" source="0" target="9" />
+			<edge id="robotbase_goingto_start-0_12--2" label="robotbase_goingto_start-0_12--2" source="0" target="12" />
+			<edge id="robotbase_goingto_start-0_16--2" label="robotbase_goingto_start-0_16--2" source="0" target="16" />
+			<edge id="robotbase_goingto_start-0_17--2" label="robotbase_goingto_start-0_17--2" source="0" target="17" />
+			<edge id="robotbase_docking_end-0_2--2" label="robotbase_docking_end-0_2--2" source="0" target="2" />
+			<edge id="robotbase_docking_end-0_21--2" label="robotbase_docking_end-0_21--2" source="0" target="21" />
+			<edge id="robotbase_goingto_start-0_1--2" label="robotbase_goingto_start-0_1--2" source="0" target="1" />
+			<edge id="robotbase_goingto_start-0_4--2" label="robotbase_goingto_start-0_4--2" source="0" target="4" />
+			<edge id="robotbase_goingto_start-0_7--2" label="robotbase_goingto_start-0_7--2" source="0" target="7" />
+			<edge id="robotbase_goingto_start-0_10--2" label="robotbase_goingto_start-0_10--2" source="0" target="10" />
+			<edge id="robotbase_goingto_start-0_13--2" label="robotbase_goingto_start-0_13--2" source="0" target="13" />
+			<edge id="robotbase_goingto_start-0_19--2" label="robotbase_goingto_start-0_19--2" source="0" target="19" />
+			<edge id="robotbase_docking_end-0_1--2" label="robotbase_docking_end-0_1--2" source="0" target="1" />
+			<edge id="robotbase_docking_end-0_22--2" label="robotbase_docking_end-0_22--2" source="0" target="22" />
+			<edge id="communication_transmittingpicture_start-0_3--2" label="communication_transmittingpicture_start-0_3--2" source="0" target="3" />
+			<edge id="communication_transmittingpicture_start-0_8--2" label="communication_transmittingpicture_start-0_8--2" source="0" target="8" />
+			<edge id="communication_transmittingpicture_start-0_2--2" label="communication_transmittingpicture_start-0_2--2" source="0" target="2" />
+			<edge id="communication_transmittingpicture_start-0_9--2" label="communication_transmittingpicture_start-0_9--2" source="0" target="9" />
+			<edge id="communication_transmittingpicture_start-0_1--2" label="communication_transmittingpicture_start-0_1--2" source="0" target="1" />
+			<edge id="communication_transmittingpicture_start-0_7--2" label="communication_transmittingpicture_start-0_7--2" source="0" target="7" />
+			<edge id="robotbase_goingto_end-0_3--2" label="robotbase_goingto_end-0_3--2" source="0" target="3" />
+			<edge id="robotbase_goingto_end-0_5--2" label="robotbase_goingto_end-0_5--2" source="0" target="5" />
+			<edge id="robotbase_goingto_end-0_8--2" label="robotbase_goingto_end-0_8--2" source="0" target="8" />
+			<edge id="robotbase_goingto_end-0_11--2" label="robotbase_goingto_end-0_11--2" source="0" target="11" />
+			<edge id="robotbase_goingto_end-0_14--2" label="robotbase_goingto_end-0_14--2" source="0" target="14" />
+			<edge id="robotbase_goingto_end-0_15--2" label="robotbase_goingto_end-0_15--2" source="0" target="15" />
+			<edge id="robotbase_goingto_end-0_18--2" label="robotbase_goingto_end-0_18--2" source="0" target="18" />
+			<edge id="robotbase_goingto_end-0_64--2" label="robotbase_goingto_end-0_64--2" source="0" target="64" />
+			<edge id="robotbase_goingto_end-0_37--2" label="robotbase_goingto_end-0_37--2" source="0" target="37" />
+			<edge id="robotbase_goingto_end-0_29--2" label="robotbase_goingto_end-0_29--2" source="0" target="29" />
+			<edge id="robotbase_goingto_end-0_61--2" label="robotbase_goingto_end-0_61--2" source="0" target="61" />
+			<edge id="robotbase_goingto_end-0_62--2" label="robotbase_goingto_end-0_62--2" source="0" target="62" />
+			<edge id="robotbase_goingto_end-0_63--2" label="robotbase_goingto_end-0_63--2" source="0" target="63" />
+			<edge id="robotbase_goingto_end-0_33--2" label="robotbase_goingto_end-0_33--2" source="0" target="33" />
+			<edge id="robotbase_goingto_end-0_2--2" label="robotbase_goingto_end-0_2--2" source="0" target="2" />
+			<edge id="robotbase_goingto_end-0_6--2" label="robotbase_goingto_end-0_6--2" source="0" target="6" />
+			<edge id="robotbase_goingto_end-0_9--2" label="robotbase_goingto_end-0_9--2" source="0" target="9" />
+			<edge id="robotbase_goingto_end-0_12--2" label="robotbase_goingto_end-0_12--2" source="0" target="12" />
+			<edge id="robotbase_goingto_end-0_16--2" label="robotbase_goingto_end-0_16--2" source="0" target="16" />
+			<edge id="robotbase_goingto_end-0_17--2" label="robotbase_goingto_end-0_17--2" source="0" target="17" />
+			<edge id="robotbase_goingto_end-0_26--2" label="robotbase_goingto_end-0_26--2" source="0" target="26" />
+			<edge id="robotbase_goingto_end-0_1--2" label="robotbase_goingto_end-0_1--2" source="0" target="1" />
+			<edge id="robotbase_goingto_end-0_4--2" label="robotbase_goingto_end-0_4--2" source="0" target="4" />
+			<edge id="robotbase_goingto_end-0_7--2" label="robotbase_goingto_end-0_7--2" source="0" target="7" />
+			<edge id="robotbase_goingto_end-0_10--2" label="robotbase_goingto_end-0_10--2" source="0" target="10" />
+			<edge id="robotbase_goingto_end-0_13--2" label="robotbase_goingto_end-0_13--2" source="0" target="13" />
+			<edge id="robotbase_goingto_end-0_19--2" label="robotbase_goingto_end-0_19--2" source="0" target="19" />
+			<edge id="communication_transmittingpicture_end-0_3--2" label="communication_transmittingpicture_end-0_3--2" source="0" target="3" />
+			<edge id="communication_transmittingpicture_end-0_8--2" label="communication_transmittingpicture_end-0_8--2" source="0" target="8" />
+			<edge id="communication_transmittingpicture_end-0_35--2" label="communication_transmittingpicture_end-0_35--2" source="0" target="35" />
+			<edge id="communication_transmittingpicture_end-0_2--2" label="communication_transmittingpicture_end-0_2--2" source="0" target="2" />
+			<edge id="communication_transmittingpicture_end-0_9--2" label="communication_transmittingpicture_end-0_9--2" source="0" target="9" />
+			<edge id="communication_transmittingpicture_end-0_36--2" label="communication_transmittingpicture_end-0_36--2" source="0" target="36" />
+			<edge id="communication_transmittingpicture_end-0_1--2" label="communication_transmittingpicture_end-0_1--2" source="0" target="1" />
+			<edge id="communication_transmittingpicture_end-0_7--2" label="communication_transmittingpicture_end-0_7--2" source="0" target="7" />
+			<edge id="communication_transmittingpicture_end-0_65--2" label="communication_transmittingpicture_end-0_65--2" source="0" target="65" />
+			<edge id="cameras_takingpicture_end-0_49--2" label="cameras_takingpicture_end-0_49--2" source="0" target="49" />
+			<edge id="cameras_takingpicture_end-0_50--2" label="cameras_takingpicture_end-0_50--2" source="0" target="50" />
+			<edge id="cameras_takingpicture_end-0_51--2" label="cameras_takingpicture_end-0_51--2" source="0" target="51" />
+			<edge id="cameras_takingpicture_end-0_52--2" label="cameras_takingpicture_end-0_52--2" source="0" target="52" />
+			<edge id="cameras_takingpicture_end-0_53--2" label="cameras_takingpicture_end-0_53--2" source="0" target="53" />
+			<edge id="cameras_takingpicture_end-0_30--2" label="cameras_takingpicture_end-0_30--2" source="0" target="30" />
+			<edge id="cameras_takingpicture_end-0_31--2" label="cameras_takingpicture_end-0_31--2" source="0" target="31" />
+			<edge id="cameras_takingpicture_end-0_32--2" label="cameras_takingpicture_end-0_32--2" source="0" target="32" />
+			<edge id="cameras_takingpicture_end-0_38--2" label="cameras_takingpicture_end-0_38--2" source="0" target="38" />
+			<edge id="cameras_takingpicture_end-0_39--2" label="cameras_takingpicture_end-0_39--2" source="0" target="39" />
+			<edge id="cameras_takingpicture_end-0_58--2" label="cameras_takingpicture_end-0_58--2" source="0" target="58" />
+			<edge id="cameras_takingpicture_end-0_59--2" label="cameras_takingpicture_end-0_59--2" source="0" target="59" />
+			<edge id="cameras_takingpicture_end-0_40--2" label="cameras_takingpicture_end-0_40--2" source="0" target="40" />
+			<edge id="cameras_takingpicture_end-0_41--2" label="cameras_takingpicture_end-0_41--2" source="0" target="41" />
+			<edge id="cameras_takingpicture_end-0_42--2" label="cameras_takingpicture_end-0_42--2" source="0" target="42" />
+			<edge id="cameras_takingpicture_end-0_43--2" label="cameras_takingpicture_end-0_43--2" source="0" target="43" />
+			<edge id="cameras_takingpicture_end-0_44--2" label="cameras_takingpicture_end-0_44--2" source="0" target="44" />
+			<edge id="cameras_takingpicture_end-0_45--2" label="cameras_takingpicture_end-0_45--2" source="0" target="45" />
+			<edge id="cameras_takingpicture_end-0_46--2" label="cameras_takingpicture_end-0_46--2" source="0" target="46" />
+			<edge id="cameras_takingpicture_end-0_47--2" label="cameras_takingpicture_end-0_47--2" source="0" target="47" />
+			<edge id="cameras_takingpicture_end-0_48--2" label="cameras_takingpicture_end-0_48--2" source="0" target="48" />
+			<edge id="communication_transmittingpicture_end-0_27--2" label="communication_transmittingpicture_end-0_27--2" source="0" target="27" />
+			<edge id="communication_transmittingpicture_end-0_28--2" label="communication_transmittingpicture_end-0_28--2" source="0" target="28" />
+			<edge id="communication_transmittingpicture_end-0_56--2" label="communication_transmittingpicture_end-0_56--2" source="0" target="56" />
+			<edge id="communication_transmittingpicture_end-0_57--2" label="communication_transmittingpicture_end-0_57--2" source="0" target="57" />
+			<edge id="communication_transmittingpicture_end-0_34--2" label="communication_transmittingpicture_end-0_34--2" source="0" target="34" />
+			<edge id="robotbase_undocking_start-1_22--2" label="robotbase_undocking_start-1_22--2" source="1" target="22" />
 			<edge id="robotbase_undocking_start-1_0--2" label="robotbase_undocking_start-1_0--2" source="1" target="0" />
+			<edge id="robotbase_recharge_start-1_0--2" label="robotbase_recharge_start-1_0--2" source="1" target="0" />
+			<edge id="robotbase_recharge_start-1_10--2" label="robotbase_recharge_start-1_10--2" source="1" target="10" />
 			<edge id="cameras_takingpicture_start-1_0--2" label="cameras_takingpicture_start-1_0--2" source="1" target="0" />
-			<edge id="cameras_takingpicture_start-1_9--2" label="cameras_takingpicture_start-1_9--2" source="1" target="9" />
-			<edge id="navigation_changemode_start-1_21--2" label="navigation_changemode_start-1_21--2" source="1" target="21" />
+			<edge id="cameras_takingpicture_start-1_7--2" label="cameras_takingpicture_start-1_7--2" source="1" target="7" />
+			<edge id="navigation_changemode_start-1_24--2" label="navigation_changemode_start-1_24--2" source="1" target="24" />
 			<edge id="navigation_changemode_start-1_0--2" label="navigation_changemode_start-1_0--2" source="1" target="0" />
 			<edge id="robotbase_undocking_end-1_0--2" label="robotbase_undocking_end-1_0--2" source="1" target="0" />
-			<edge id="robotbase_undocking_end-1_19--2" label="robotbase_undocking_end-1_19--2" source="1" target="19" />
-			<edge id="robotbase_docking_start-1_19--2" label="robotbase_docking_start-1_19--2" source="1" target="19" />
+			<edge id="robotbase_undocking_end-1_22--2" label="robotbase_undocking_end-1_22--2" source="1" target="22" />
+			<edge id="robotbase_recharge_end-1_0--2" label="robotbase_recharge_end-1_0--2" source="1" target="0" />
+			<edge id="robotbase_recharge_end-1_10--2" label="robotbase_recharge_end-1_10--2" source="1" target="10" />
+			<edge id="robotbase_docking_start-1_22--2" label="robotbase_docking_start-1_22--2" source="1" target="22" />
 			<edge id="robotbase_docking_start-1_0--2" label="robotbase_docking_start-1_0--2" source="1" target="0" />
 			<edge id="cameras_takingpicture_end-1_0--2" label="cameras_takingpicture_end-1_0--2" source="1" target="0" />
-			<edge id="cameras_takingpicture_end-1_9--2" label="cameras_takingpicture_end-1_9--2" source="1" target="9" />
+			<edge id="cameras_takingpicture_end-1_7--2" label="cameras_takingpicture_end-1_7--2" source="1" target="7" />
 			<edge id="cameras_takingpicture_end-1_60--2" label="cameras_takingpicture_end-1_60--2" source="1" target="60" />
 			<edge id="navigation_changemode_end-1_0--2" label="navigation_changemode_end-1_0--2" source="1" target="0" />
-			<edge id="navigation_changemode_end-1_21--2" label="navigation_changemode_end-1_21--2" source="1" target="21" />
-			<edge id="robotbase_goingto_start-1_6--2" label="robotbase_goingto_start-1_6--2" source="1" target="6" />
+			<edge id="navigation_changemode_end-1_24--2" label="navigation_changemode_end-1_24--2" source="1" target="24" />
+			<edge id="robotbase_goingto_start-1_4--2" label="robotbase_goingto_start-1_4--2" source="1" target="4" />
 			<edge id="robotbase_goingto_start-1_0--2" label="robotbase_goingto_start-1_0--2" source="1" target="0" />
-			<edge id="robotbase_goingto_start-1_9--2" label="robotbase_goingto_start-1_9--2" source="1" target="9" />
-			<edge id="robotbase_goingto_start-1_12--2" label="robotbase_goingto_start-1_12--2" source="1" target="12" />
+			<edge id="robotbase_goingto_start-1_7--2" label="robotbase_goingto_start-1_7--2" source="1" target="7" />
+			<edge id="robotbase_goingto_start-1_10--2" label="robotbase_goingto_start-1_10--2" source="1" target="10" />
 			<edge id="robotbase_goingto_start-1_13--2" label="robotbase_goingto_start-1_13--2" source="1" target="13" />
-			<edge id="robotbase_goingto_start-1_15--2" label="robotbase_goingto_start-1_15--2" source="1" target="15" />
+			<edge id="robotbase_goingto_start-1_14--2" label="robotbase_goingto_start-1_14--2" source="1" target="14" />
+			<edge id="robotbase_goingto_start-1_19--2" label="robotbase_goingto_start-1_19--2" source="1" target="19" />
 			<edge id="robotbase_docking_end-1_0--2" label="robotbase_docking_end-1_0--2" source="1" target="0" />
-			<edge id="robotbase_docking_end-1_19--2" label="robotbase_docking_end-1_19--2" source="1" target="19" />
+			<edge id="robotbase_docking_end-1_22--2" label="robotbase_docking_end-1_22--2" source="1" target="22" />
 			<edge id="communication_transmittingpicture_start-1_0--2" label="communication_transmittingpicture_start-1_0--2" source="1" target="0" />
-			<edge id="communication_transmittingpicture_start-1_9--2" label="communication_transmittingpicture_start-1_9--2" source="1" target="9" />
+			<edge id="communication_transmittingpicture_start-1_7--2" label="communication_transmittingpicture_start-1_7--2" source="1" target="7" />
 			<edge id="robotbase_goingto_end-1_0--2" label="robotbase_goingto_end-1_0--2" source="1" target="0" />
-			<edge id="robotbase_goingto_end-1_6--2" label="robotbase_goingto_end-1_6--2" source="1" target="6" />
-			<edge id="robotbase_goingto_end-1_9--2" label="robotbase_goingto_end-1_9--2" source="1" target="9" />
-			<edge id="robotbase_goingto_end-1_12--2" label="robotbase_goingto_end-1_12--2" source="1" target="12" />
+			<edge id="robotbase_goingto_end-1_4--2" label="robotbase_goingto_end-1_4--2" source="1" target="4" />
+			<edge id="robotbase_goingto_end-1_7--2" label="robotbase_goingto_end-1_7--2" source="1" target="7" />
+			<edge id="robotbase_goingto_end-1_10--2" label="robotbase_goingto_end-1_10--2" source="1" target="10" />
 			<edge id="robotbase_goingto_end-1_13--2" label="robotbase_goingto_end-1_13--2" source="1" target="13" />
-			<edge id="robotbase_goingto_end-1_15--2" label="robotbase_goingto_end-1_15--2" source="1" target="15" />
-			<edge id="robotbase_goingto_end-1_56--2" label="robotbase_goingto_end-1_56--2" source="1" target="56" />
-			<edge id="robotbase_goingto_end-1_57--2" label="robotbase_goingto_end-1_57--2" source="1" target="57" />
-			<edge id="robotbase_goingto_end-1_58--2" label="robotbase_goingto_end-1_58--2" source="1" target="58" />
-			<edge id="robotbase_goingto_end-1_59--2" label="robotbase_goingto_end-1_59--2" source="1" target="59" />
+			<edge id="robotbase_goingto_end-1_14--2" label="robotbase_goingto_end-1_14--2" source="1" target="14" />
+			<edge id="robotbase_goingto_end-1_19--2" label="robotbase_goingto_end-1_19--2" source="1" target="19" />
+			<edge id="robotbase_goingto_end-1_64--2" label="robotbase_goingto_end-1_64--2" source="1" target="64" />
+			<edge id="robotbase_goingto_end-1_37--2" label="robotbase_goingto_end-1_37--2" source="1" target="37" />
+			<edge id="robotbase_goingto_end-1_29--2" label="robotbase_goingto_end-1_29--2" source="1" target="29" />
+			<edge id="robotbase_goingto_end-1_26--2" label="robotbase_goingto_end-1_26--2" source="1" target="26" />
 			<edge id="robotbase_goingto_end-1_62--2" label="robotbase_goingto_end-1_62--2" source="1" target="62" />
-			<edge id="robotbase_goingto_end-1_38--2" label="robotbase_goingto_end-1_38--2" source="1" target="38" />
-			<edge id="robotbase_goingto_end-1_39--2" label="robotbase_goingto_end-1_39--2" source="1" target="39" />
+			<edge id="robotbase_goingto_end-1_63--2" label="robotbase_goingto_end-1_63--2" source="1" target="63" />
+			<edge id="robotbase_goingto_end-1_33--2" label="robotbase_goingto_end-1_33--2" source="1" target="33" />
 			<edge id="communication_transmittingpicture_end-1_0--2" label="communication_transmittingpicture_end-1_0--2" source="1" target="0" />
-			<edge id="communication_transmittingpicture_end-1_9--2" label="communication_transmittingpicture_end-1_9--2" source="1" target="9" />
-			<edge id="communication_transmittingpicture_end-1_23--2" label="communication_transmittingpicture_end-1_23--2" source="1" target="23" />
-			<edge id="robotbase_goingto_end-1_40--2" label="robotbase_goingto_end-1_40--2" source="1" target="40" />
-			<edge id="cameras_takingpicture_end-1_61--2" label="cameras_takingpicture_end-1_61--2" source="1" target="61" />
-			<edge id="cameras_takingpicture_end-1_53--2" label="cameras_takingpicture_end-1_53--2" source="1" target="53" />
-			<edge id="cameras_takingpicture_end-1_54--2" label="cameras_takingpicture_end-1_54--2" source="1" target="54" />
+			<edge id="communication_transmittingpicture_end-1_7--2" label="communication_transmittingpicture_end-1_7--2" source="1" target="7" />
+			<edge id="communication_transmittingpicture_end-1_65--2" label="communication_transmittingpicture_end-1_65--2" source="1" target="65" />
+			<edge id="robotbase_goingto_end-1_61--2" label="robotbase_goingto_end-1_61--2" source="1" target="61" />
+			<edge id="cameras_takingpicture_end-1_42--2" label="cameras_takingpicture_end-1_42--2" source="1" target="42" />
+			<edge id="cameras_takingpicture_end-1_43--2" label="cameras_takingpicture_end-1_43--2" source="1" target="43" />
 			<edge id="cameras_takingpicture_end-1_44--2" label="cameras_takingpicture_end-1_44--2" source="1" target="44" />
 			<edge id="cameras_takingpicture_end-1_45--2" label="cameras_takingpicture_end-1_45--2" source="1" target="45" />
 			<edge id="cameras_takingpicture_end-1_46--2" label="cameras_takingpicture_end-1_46--2" source="1" target="46" />
 			<edge id="cameras_takingpicture_end-1_47--2" label="cameras_takingpicture_end-1_47--2" source="1" target="47" />
+			<edge id="cameras_takingpicture_end-1_48--2" label="cameras_takingpicture_end-1_48--2" source="1" target="48" />
 			<edge id="communication_transmittingpicture_end-1_27--2" label="communication_transmittingpicture_end-1_27--2" source="1" target="27" />
 			<edge id="communication_transmittingpicture_end-1_28--2" label="communication_transmittingpicture_end-1_28--2" source="1" target="28" />
-			<edge id="communication_transmittingpicture_end-1_24--2" label="communication_transmittingpicture_end-1_24--2" source="1" target="24" />
-			<edge id="communication_transmittingpicture_end-1_25--2" label="communication_transmittingpicture_end-1_25--2" source="1" target="25" />
-			<edge id="communication_transmittingpicture_end-1_29--2" label="communication_transmittingpicture_end-1_29--2" source="1" target="29" />
-			<edge id="communication_transmittingpicture_end-1_30--2" label="communication_transmittingpicture_end-1_30--2" source="1" target="30" />
-			<edge id="communication_transmittingpicture_end-1_31--2" label="communication_transmittingpicture_end-1_31--2" source="1" target="31" />
-			<edge id="robotbase_undocking_start-2_17--2" label="robotbase_undocking_start-2_17--2" source="2" target="17" />
+			<edge id="communication_transmittingpicture_end-1_36--2" label="communication_transmittingpicture_end-1_36--2" source="1" target="36" />
+			<edge id="communication_transmittingpicture_end-1_35--2" label="communication_transmittingpicture_end-1_35--2" source="1" target="35" />
+			<edge id="communication_transmittingpicture_end-1_56--2" label="communication_transmittingpicture_end-1_56--2" source="1" target="56" />
+			<edge id="communication_transmittingpicture_end-1_57--2" label="communication_transmittingpicture_end-1_57--2" source="1" target="57" />
+			<edge id="communication_transmittingpicture_end-1_34--2" label="communication_transmittingpicture_end-1_34--2" source="1" target="34" />
+			<edge id="robotbase_undocking_start-2_21--2" label="robotbase_undocking_start-2_21--2" source="2" target="21" />
 			<edge id="robotbase_undocking_start-2_0--2" label="robotbase_undocking_start-2_0--2" source="2" target="0" />
+			<edge id="robotbase_recharge_start-2_0--2" label="robotbase_recharge_start-2_0--2" source="2" target="0" />
+			<edge id="robotbase_recharge_start-2_12--2" label="robotbase_recharge_start-2_12--2" source="2" target="12" />
 			<edge id="cameras_takingpicture_start-2_0--2" label="cameras_takingpicture_start-2_0--2" source="2" target="0" />
-			<edge id="cameras_takingpicture_start-2_7--2" label="cameras_takingpicture_start-2_7--2" source="2" target="7" />
-			<edge id="navigation_changemode_start-2_22--2" label="navigation_changemode_start-2_22--2" source="2" target="22" />
+			<edge id="cameras_takingpicture_start-2_9--2" label="cameras_takingpicture_start-2_9--2" source="2" target="9" />
+			<edge id="navigation_changemode_start-2_25--2" label="navigation_changemode_start-2_25--2" source="2" target="25" />
 			<edge id="navigation_changemode_start-2_0--2" label="navigation_changemode_start-2_0--2" source="2" target="0" />
 			<edge id="robotbase_undocking_end-2_0--2" label="robotbase_undocking_end-2_0--2" source="2" target="0" />
-			<edge id="robotbase_undocking_end-2_17--2" label="robotbase_undocking_end-2_17--2" source="2" target="17" />
-			<edge id="robotbase_docking_start-2_17--2" label="robotbase_docking_start-2_17--2" source="2" target="17" />
+			<edge id="robotbase_undocking_end-2_21--2" label="robotbase_undocking_end-2_21--2" source="2" target="21" />
+			<edge id="robotbase_recharge_end-2_0--2" label="robotbase_recharge_end-2_0--2" source="2" target="0" />
+			<edge id="robotbase_recharge_end-2_12--2" label="robotbase_recharge_end-2_12--2" source="2" target="12" />
+			<edge id="robotbase_docking_start-2_21--2" label="robotbase_docking_start-2_21--2" source="2" target="21" />
 			<edge id="robotbase_docking_start-2_0--2" label="robotbase_docking_start-2_0--2" source="2" target="0" />
 			<edge id="cameras_takingpicture_end-2_0--2" label="cameras_takingpicture_end-2_0--2" source="2" target="0" />
-			<edge id="cameras_takingpicture_end-2_7--2" label="cameras_takingpicture_end-2_7--2" source="2" target="7" />
-			<edge id="cameras_takingpicture_end-2_52--2" label="cameras_takingpicture_end-2_52--2" source="2" target="52" />
+			<edge id="cameras_takingpicture_end-2_9--2" label="cameras_takingpicture_end-2_9--2" source="2" target="9" />
+			<edge id="cameras_takingpicture_end-2_55--2" label="cameras_takingpicture_end-2_55--2" source="2" target="55" />
 			<edge id="navigation_changemode_end-2_0--2" label="navigation_changemode_end-2_0--2" source="2" target="0" />
-			<edge id="navigation_changemode_end-2_22--2" label="navigation_changemode_end-2_22--2" source="2" target="22" />
-			<edge id="robotbase_goingto_start-2_4--2" label="robotbase_goingto_start-2_4--2" source="2" target="4" />
+			<edge id="navigation_changemode_end-2_25--2" label="navigation_changemode_end-2_25--2" source="2" target="25" />
+			<edge id="robotbase_goingto_start-2_6--2" label="robotbase_goingto_start-2_6--2" source="2" target="6" />
 			<edge id="robotbase_goingto_start-2_0--2" label="robotbase_goingto_start-2_0--2" source="2" target="0" />
-			<edge id="robotbase_goingto_start-2_7--2" label="robotbase_goingto_start-2_7--2" source="2" target="7" />
-			<edge id="robotbase_goingto_start-2_11--2" label="robotbase_goingto_start-2_11--2" source="2" target="11" />
+			<edge id="robotbase_goingto_start-2_9--2" label="robotbase_goingto_start-2_9--2" source="2" target="9" />
 			<edge id="robotbase_goingto_start-2_12--2" label="robotbase_goingto_start-2_12--2" source="2" target="12" />
+			<edge id="robotbase_goingto_start-2_14--2" label="robotbase_goingto_start-2_14--2" source="2" target="14" />
 			<edge id="robotbase_goingto_start-2_16--2" label="robotbase_goingto_start-2_16--2" source="2" target="16" />
+			<edge id="robotbase_goingto_start-2_17--2" label="robotbase_goingto_start-2_17--2" source="2" target="17" />
 			<edge id="robotbase_docking_end-2_0--2" label="robotbase_docking_end-2_0--2" source="2" target="0" />
-			<edge id="robotbase_docking_end-2_17--2" label="robotbase_docking_end-2_17--2" source="2" target="17" />
+			<edge id="robotbase_docking_end-2_21--2" label="robotbase_docking_end-2_21--2" source="2" target="21" />
 			<edge id="communication_transmittingpicture_start-2_0--2" label="communication_transmittingpicture_start-2_0--2" source="2" target="0" />
-			<edge id="communication_transmittingpicture_start-2_7--2" label="communication_transmittingpicture_start-2_7--2" source="2" target="7" />
+			<edge id="communication_transmittingpicture_start-2_9--2" label="communication_transmittingpicture_start-2_9--2" source="2" target="9" />
 			<edge id="robotbase_goingto_end-2_0--2" label="robotbase_goingto_end-2_0--2" source="2" target="0" />
-			<edge id="robotbase_goingto_end-2_4--2" label="robotbase_goingto_end-2_4--2" source="2" target="4" />
-			<edge id="robotbase_goingto_end-2_7--2" label="robotbase_goingto_end-2_7--2" source="2" target="7" />
-			<edge id="robotbase_goingto_end-2_11--2" label="robotbase_goingto_end-2_11--2" source="2" target="11" />
+			<edge id="robotbase_goingto_end-2_6--2" label="robotbase_goingto_end-2_6--2" source="2" target="6" />
+			<edge id="robotbase_goingto_end-2_9--2" label="robotbase_goingto_end-2_9--2" source="2" target="9" />
 			<edge id="robotbase_goingto_end-2_12--2" label="robotbase_goingto_end-2_12--2" source="2" target="12" />
+			<edge id="robotbase_goingto_end-2_14--2" label="robotbase_goingto_end-2_14--2" source="2" target="14" />
 			<edge id="robotbase_goingto_end-2_16--2" label="robotbase_goingto_end-2_16--2" source="2" target="16" />
-			<edge id="robotbase_goingto_end-2_56--2" label="robotbase_goingto_end-2_56--2" source="2" target="56" />
-			<edge id="robotbase_goingto_end-2_57--2" label="robotbase_goingto_end-2_57--2" source="2" target="57" />
-			<edge id="robotbase_goingto_end-2_58--2" label="robotbase_goingto_end-2_58--2" source="2" target="58" />
-			<edge id="robotbase_goingto_end-2_40--2" label="robotbase_goingto_end-2_40--2" source="2" target="40" />
+			<edge id="robotbase_goingto_end-2_17--2" label="robotbase_goingto_end-2_17--2" source="2" target="17" />
+			<edge id="robotbase_goingto_end-2_64--2" label="robotbase_goingto_end-2_64--2" source="2" target="64" />
+			<edge id="robotbase_goingto_end-2_37--2" label="robotbase_goingto_end-2_37--2" source="2" target="37" />
+			<edge id="robotbase_goingto_end-2_26--2" label="robotbase_goingto_end-2_26--2" source="2" target="26" />
+			<edge id="robotbase_goingto_end-2_61--2" label="robotbase_goingto_end-2_61--2" source="2" target="61" />
 			<edge id="robotbase_goingto_end-2_62--2" label="robotbase_goingto_end-2_62--2" source="2" target="62" />
-			<edge id="robotbase_goingto_end-2_38--2" label="robotbase_goingto_end-2_38--2" source="2" target="38" />
-			<edge id="robotbase_goingto_end-2_39--2" label="robotbase_goingto_end-2_39--2" source="2" target="39" />
+			<edge id="robotbase_goingto_end-2_63--2" label="robotbase_goingto_end-2_63--2" source="2" target="63" />
+			<edge id="robotbase_goingto_end-2_33--2" label="robotbase_goingto_end-2_33--2" source="2" target="33" />
 			<edge id="communication_transmittingpicture_end-2_0--2" label="communication_transmittingpicture_end-2_0--2" source="2" target="0" />
-			<edge id="communication_transmittingpicture_end-2_7--2" label="communication_transmittingpicture_end-2_7--2" source="2" target="7" />
-			<edge id="communication_transmittingpicture_end-2_25--2" label="communication_transmittingpicture_end-2_25--2" source="2" target="25" />
-			<edge id="robotbase_goingto_end-2_59--2" label="robotbase_goingto_end-2_59--2" source="2" target="59" />
-			<edge id="cameras_takingpicture_end-2_34--2" label="cameras_takingpicture_end-2_34--2" source="2" target="34" />
-			<edge id="cameras_takingpicture_end-2_35--2" label="cameras_takingpicture_end-2_35--2" source="2" target="35" />
-			<edge id="cameras_takingpicture_end-2_36--2" label="cameras_takingpicture_end-2_36--2" source="2" target="36" />
-			<edge id="cameras_takingpicture_end-2_37--2" label="cameras_takingpicture_end-2_37--2" source="2" target="37" />
-			<edge id="cameras_takingpicture_end-2_51--2" label="cameras_takingpicture_end-2_51--2" source="2" target="51" />
-			<edge id="cameras_takingpicture_end-2_42--2" label="cameras_takingpicture_end-2_42--2" source="2" target="42" />
-			<edge id="cameras_takingpicture_end-2_43--2" label="cameras_takingpicture_end-2_43--2" source="2" target="43" />
+			<edge id="communication_transmittingpicture_end-2_9--2" label="communication_transmittingpicture_end-2_9--2" source="2" target="9" />
+			<edge id="communication_transmittingpicture_end-2_36--2" label="communication_transmittingpicture_end-2_36--2" source="2" target="36" />
+			<edge id="robotbase_goingto_end-2_29--2" label="robotbase_goingto_end-2_29--2" source="2" target="29" />
+			<edge id="cameras_takingpicture_end-2_32--2" label="cameras_takingpicture_end-2_32--2" source="2" target="32" />
+			<edge id="cameras_takingpicture_end-2_38--2" label="cameras_takingpicture_end-2_38--2" source="2" target="38" />
+			<edge id="cameras_takingpicture_end-2_39--2" label="cameras_takingpicture_end-2_39--2" source="2" target="39" />
+			<edge id="cameras_takingpicture_end-2_58--2" label="cameras_takingpicture_end-2_58--2" source="2" target="58" />
+			<edge id="cameras_takingpicture_end-2_59--2" label="cameras_takingpicture_end-2_59--2" source="2" target="59" />
+			<edge id="cameras_takingpicture_end-2_40--2" label="cameras_takingpicture_end-2_40--2" source="2" target="40" />
+			<edge id="cameras_takingpicture_end-2_41--2" label="cameras_takingpicture_end-2_41--2" source="2" target="41" />
 			<edge id="communication_transmittingpicture_end-2_27--2" label="communication_transmittingpicture_end-2_27--2" source="2" target="27" />
 			<edge id="communication_transmittingpicture_end-2_28--2" label="communication_transmittingpicture_end-2_28--2" source="2" target="28" />
-			<edge id="communication_transmittingpicture_end-2_24--2" label="communication_transmittingpicture_end-2_24--2" source="2" target="24" />
-			<edge id="communication_transmittingpicture_end-2_23--2" label="communication_transmittingpicture_end-2_23--2" source="2" target="23" />
-			<edge id="communication_transmittingpicture_end-2_29--2" label="communication_transmittingpicture_end-2_29--2" source="2" target="29" />
-			<edge id="communication_transmittingpicture_end-2_30--2" label="communication_transmittingpicture_end-2_30--2" source="2" target="30" />
-			<edge id="communication_transmittingpicture_end-2_31--2" label="communication_transmittingpicture_end-2_31--2" source="2" target="31" />
-			<edge id="robotbase_undocking_start-3_18--2" label="robotbase_undocking_start-3_18--2" source="3" target="18" />
+			<edge id="communication_transmittingpicture_end-2_35--2" label="communication_transmittingpicture_end-2_35--2" source="2" target="35" />
+			<edge id="communication_transmittingpicture_end-2_65--2" label="communication_transmittingpicture_end-2_65--2" source="2" target="65" />
+			<edge id="communication_transmittingpicture_end-2_56--2" label="communication_transmittingpicture_end-2_56--2" source="2" target="56" />
+			<edge id="communication_transmittingpicture_end-2_57--2" label="communication_transmittingpicture_end-2_57--2" source="2" target="57" />
+			<edge id="communication_transmittingpicture_end-2_34--2" label="communication_transmittingpicture_end-2_34--2" source="2" target="34" />
+			<edge id="robotbase_undocking_start-3_20--2" label="robotbase_undocking_start-3_20--2" source="3" target="20" />
 			<edge id="robotbase_undocking_start-3_0--2" label="robotbase_undocking_start-3_0--2" source="3" target="0" />
+			<edge id="robotbase_recharge_start-3_0--2" label="robotbase_recharge_start-3_0--2" source="3" target="0" />
+			<edge id="robotbase_recharge_start-3_11--2" label="robotbase_recharge_start-3_11--2" source="3" target="11" />
 			<edge id="cameras_takingpicture_start-3_0--2" label="cameras_takingpicture_start-3_0--2" source="3" target="0" />
 			<edge id="cameras_takingpicture_start-3_8--2" label="cameras_takingpicture_start-3_8--2" source="3" target="8" />
-			<edge id="navigation_changemode_start-3_20--2" label="navigation_changemode_start-3_20--2" source="3" target="20" />
+			<edge id="navigation_changemode_start-3_23--2" label="navigation_changemode_start-3_23--2" source="3" target="23" />
 			<edge id="navigation_changemode_start-3_0--2" label="navigation_changemode_start-3_0--2" source="3" target="0" />
 			<edge id="robotbase_undocking_end-3_0--2" label="robotbase_undocking_end-3_0--2" source="3" target="0" />
-			<edge id="robotbase_undocking_end-3_18--2" label="robotbase_undocking_end-3_18--2" source="3" target="18" />
-			<edge id="robotbase_docking_start-3_18--2" label="robotbase_docking_start-3_18--2" source="3" target="18" />
+			<edge id="robotbase_undocking_end-3_20--2" label="robotbase_undocking_end-3_20--2" source="3" target="20" />
+			<edge id="robotbase_recharge_end-3_0--2" label="robotbase_recharge_end-3_0--2" source="3" target="0" />
+			<edge id="robotbase_recharge_end-3_11--2" label="robotbase_recharge_end-3_11--2" source="3" target="11" />
+			<edge id="robotbase_docking_start-3_20--2" label="robotbase_docking_start-3_20--2" source="3" target="20" />
 			<edge id="robotbase_docking_start-3_0--2" label="robotbase_docking_start-3_0--2" source="3" target="0" />
 			<edge id="cameras_takingpicture_end-3_0--2" label="cameras_takingpicture_end-3_0--2" source="3" target="0" />
 			<edge id="cameras_takingpicture_end-3_8--2" label="cameras_takingpicture_end-3_8--2" source="3" target="8" />
-			<edge id="cameras_takingpicture_end-3_41--2" label="cameras_takingpicture_end-3_41--2" source="3" target="41" />
+			<edge id="cameras_takingpicture_end-3_54--2" label="cameras_takingpicture_end-3_54--2" source="3" target="54" />
 			<edge id="navigation_changemode_end-3_0--2" label="navigation_changemode_end-3_0--2" source="3" target="0" />
-			<edge id="navigation_changemode_end-3_20--2" label="navigation_changemode_end-3_20--2" source="3" target="20" />
+			<edge id="navigation_changemode_end-3_23--2" label="navigation_changemode_end-3_23--2" source="3" target="23" />
 			<edge id="robotbase_goingto_start-3_5--2" label="robotbase_goingto_start-3_5--2" source="3" target="5" />
 			<edge id="robotbase_goingto_start-3_0--2" label="robotbase_goingto_start-3_0--2" source="3" target="0" />
 			<edge id="robotbase_goingto_start-3_8--2" label="robotbase_goingto_start-3_8--2" source="3" target="8" />
-			<edge id="robotbase_goingto_start-3_10--2" label="robotbase_goingto_start-3_10--2" source="3" target="10" />
-			<edge id="robotbase_goingto_start-3_12--2" label="robotbase_goingto_start-3_12--2" source="3" target="12" />
+			<edge id="robotbase_goingto_start-3_11--2" label="robotbase_goingto_start-3_11--2" source="3" target="11" />
 			<edge id="robotbase_goingto_start-3_14--2" label="robotbase_goingto_start-3_14--2" source="3" target="14" />
+			<edge id="robotbase_goingto_start-3_15--2" label="robotbase_goingto_start-3_15--2" source="3" target="15" />
+			<edge id="robotbase_goingto_start-3_18--2" label="robotbase_goingto_start-3_18--2" source="3" target="18" />
 			<edge id="robotbase_docking_end-3_0--2" label="robotbase_docking_end-3_0--2" source="3" target="0" />
-			<edge id="robotbase_docking_end-3_18--2" label="robotbase_docking_end-3_18--2" source="3" target="18" />
+			<edge id="robotbase_docking_end-3_20--2" label="robotbase_docking_end-3_20--2" source="3" target="20" />
 			<edge id="communication_transmittingpicture_start-3_0--2" label="communication_transmittingpicture_start-3_0--2" source="3" target="0" />
 			<edge id="communication_transmittingpicture_start-3_8--2" label="communication_transmittingpicture_start-3_8--2" source="3" target="8" />
 			<edge id="robotbase_goingto_end-3_0--2" label="robotbase_goingto_end-3_0--2" source="3" target="0" />
 			<edge id="robotbase_goingto_end-3_5--2" label="robotbase_goingto_end-3_5--2" source="3" target="5" />
 			<edge id="robotbase_goingto_end-3_8--2" label="robotbase_goingto_end-3_8--2" source="3" target="8" />
-			<edge id="robotbase_goingto_end-3_10--2" label="robotbase_goingto_end-3_10--2" source="3" target="10" />
-			<edge id="robotbase_goingto_end-3_12--2" label="robotbase_goingto_end-3_12--2" source="3" target="12" />
+			<edge id="robotbase_goingto_end-3_11--2" label="robotbase_goingto_end-3_11--2" source="3" target="11" />
 			<edge id="robotbase_goingto_end-3_14--2" label="robotbase_goingto_end-3_14--2" source="3" target="14" />
-			<edge id="robotbase_goingto_end-3_56--2" label="robotbase_goingto_end-3_56--2" source="3" target="56" />
-			<edge id="robotbase_goingto_end-3_57--2" label="robotbase_goingto_end-3_57--2" source="3" target="57" />
-			<edge id="robotbase_goingto_end-3_40--2" label="robotbase_goingto_end-3_40--2" source="3" target="40" />
-			<edge id="robotbase_goingto_end-3_59--2" label="robotbase_goingto_end-3_59--2" source="3" target="59" />
+			<edge id="robotbase_goingto_end-3_15--2" label="robotbase_goingto_end-3_15--2" source="3" target="15" />
+			<edge id="robotbase_goingto_end-3_18--2" label="robotbase_goingto_end-3_18--2" source="3" target="18" />
+			<edge id="robotbase_goingto_end-3_64--2" label="robotbase_goingto_end-3_64--2" source="3" target="64" />
+			<edge id="robotbase_goingto_end-3_37--2" label="robotbase_goingto_end-3_37--2" source="3" target="37" />
+			<edge id="robotbase_goingto_end-3_29--2" label="robotbase_goingto_end-3_29--2" source="3" target="29" />
+			<edge id="robotbase_goingto_end-3_61--2" label="robotbase_goingto_end-3_61--2" source="3" target="61" />
 			<edge id="robotbase_goingto_end-3_62--2" label="robotbase_goingto_end-3_62--2" source="3" target="62" />
-			<edge id="robotbase_goingto_end-3_38--2" label="robotbase_goingto_end-3_38--2" source="3" target="38" />
-			<edge id="robotbase_goingto_end-3_39--2" label="robotbase_goingto_end-3_39--2" source="3" target="39" />
+			<edge id="robotbase_goingto_end-3_63--2" label="robotbase_goingto_end-3_63--2" source="3" target="63" />
+			<edge id="robotbase_goingto_end-3_33--2" label="robotbase_goingto_end-3_33--2" source="3" target="33" />
 			<edge id="communication_transmittingpicture_end-3_0--2" label="communication_transmittingpicture_end-3_0--2" source="3" target="0" />
 			<edge id="communication_transmittingpicture_end-3_8--2" label="communication_transmittingpicture_end-3_8--2" source="3" target="8" />
-			<edge id="communication_transmittingpicture_end-3_24--2" label="communication_transmittingpicture_end-3_24--2" source="3" target="24" />
-			<edge id="robotbase_goingto_end-3_58--2" label="robotbase_goingto_end-3_58--2" source="3" target="58" />
-			<edge id="cameras_takingpicture_end-3_48--2" label="cameras_takingpicture_end-3_48--2" source="3" target="48" />
+			<edge id="communication_transmittingpicture_end-3_35--2" label="communication_transmittingpicture_end-3_35--2" source="3" target="35" />
+			<edge id="robotbase_goingto_end-3_26--2" label="robotbase_goingto_end-3_26--2" source="3" target="26" />
 			<edge id="cameras_takingpicture_end-3_49--2" label="cameras_takingpicture_end-3_49--2" source="3" target="49" />
 			<edge id="cameras_takingpicture_end-3_50--2" label="cameras_takingpicture_end-3_50--2" source="3" target="50" />
-			<edge id="cameras_takingpicture_end-3_26--2" label="cameras_takingpicture_end-3_26--2" source="3" target="26" />
-			<edge id="cameras_takingpicture_end-3_55--2" label="cameras_takingpicture_end-3_55--2" source="3" target="55" />
-			<edge id="cameras_takingpicture_end-3_32--2" label="cameras_takingpicture_end-3_32--2" source="3" target="32" />
-			<edge id="cameras_takingpicture_end-3_33--2" label="cameras_takingpicture_end-3_33--2" source="3" target="33" />
+			<edge id="cameras_takingpicture_end-3_51--2" label="cameras_takingpicture_end-3_51--2" source="3" target="51" />
+			<edge id="cameras_takingpicture_end-3_52--2" label="cameras_takingpicture_end-3_52--2" source="3" target="52" />
+			<edge id="cameras_takingpicture_end-3_53--2" label="cameras_takingpicture_end-3_53--2" source="3" target="53" />
+			<edge id="cameras_takingpicture_end-3_30--2" label="cameras_takingpicture_end-3_30--2" source="3" target="30" />
+			<edge id="cameras_takingpicture_end-3_31--2" label="cameras_takingpicture_end-3_31--2" source="3" target="31" />
 			<edge id="communication_transmittingpicture_end-3_27--2" label="communication_transmittingpicture_end-3_27--2" source="3" target="27" />
 			<edge id="communication_transmittingpicture_end-3_28--2" label="communication_transmittingpicture_end-3_28--2" source="3" target="28" />
-			<edge id="communication_transmittingpicture_end-3_23--2" label="communication_transmittingpicture_end-3_23--2" source="3" target="23" />
-			<edge id="communication_transmittingpicture_end-3_25--2" label="communication_transmittingpicture_end-3_25--2" source="3" target="25" />
-			<edge id="communication_transmittingpicture_end-3_29--2" label="communication_transmittingpicture_end-3_29--2" source="3" target="29" />
-			<edge id="communication_transmittingpicture_end-3_30--2" label="communication_transmittingpicture_end-3_30--2" source="3" target="30" />
-			<edge id="communication_transmittingpicture_end-3_31--2" label="communication_transmittingpicture_end-3_31--2" source="3" target="31" />
-			<edge id="robotbase_goingto_start-4_2--2" label="robotbase_goingto_start-4_2--2" source="4" target="2" />
+			<edge id="communication_transmittingpicture_end-3_36--2" label="communication_transmittingpicture_end-3_36--2" source="3" target="36" />
+			<edge id="communication_transmittingpicture_end-3_65--2" label="communication_transmittingpicture_end-3_65--2" source="3" target="65" />
+			<edge id="communication_transmittingpicture_end-3_56--2" label="communication_transmittingpicture_end-3_56--2" source="3" target="56" />
+			<edge id="communication_transmittingpicture_end-3_57--2" label="communication_transmittingpicture_end-3_57--2" source="3" target="57" />
+			<edge id="communication_transmittingpicture_end-3_34--2" label="communication_transmittingpicture_end-3_34--2" source="3" target="34" />
+			<edge id="robotbase_goingto_start-4_1--2" label="robotbase_goingto_start-4_1--2" source="4" target="1" />
 			<edge id="robotbase_goingto_start-4_0--2" label="robotbase_goingto_start-4_0--2" source="4" target="0" />
 			<edge id="robotbase_goingto_start-4_7--2" label="robotbase_goingto_start-4_7--2" source="4" target="7" />
-			<edge id="robotbase_goingto_start-4_11--2" label="robotbase_goingto_start-4_11--2" source="4" target="11" />
-			<edge id="robotbase_goingto_start-4_12--2" label="robotbase_goingto_start-4_12--2" source="4" target="12" />
-			<edge id="robotbase_goingto_start-4_16--2" label="robotbase_goingto_start-4_16--2" source="4" target="16" />
+			<edge id="robotbase_goingto_start-4_10--2" label="robotbase_goingto_start-4_10--2" source="4" target="10" />
+			<edge id="robotbase_goingto_start-4_13--2" label="robotbase_goingto_start-4_13--2" source="4" target="13" />
+			<edge id="robotbase_goingto_start-4_14--2" label="robotbase_goingto_start-4_14--2" source="4" target="14" />
+			<edge id="robotbase_goingto_start-4_19--2" label="robotbase_goingto_start-4_19--2" source="4" target="19" />
 			<edge id="robotbase_goingto_end-4_0--2" label="robotbase_goingto_end-4_0--2" source="4" target="0" />
-			<edge id="robotbase_goingto_end-4_2--2" label="robotbase_goingto_end-4_2--2" source="4" target="2" />
+			<edge id="robotbase_goingto_end-4_1--2" label="robotbase_goingto_end-4_1--2" source="4" target="1" />
 			<edge id="robotbase_goingto_end-4_7--2" label="robotbase_goingto_end-4_7--2" source="4" target="7" />
-			<edge id="robotbase_goingto_end-4_11--2" label="robotbase_goingto_end-4_11--2" source="4" target="11" />
-			<edge id="robotbase_goingto_end-4_12--2" label="robotbase_goingto_end-4_12--2" source="4" target="12" />
-			<edge id="robotbase_goingto_end-4_16--2" label="robotbase_goingto_end-4_16--2" source="4" target="16" />
-			<edge id="robotbase_goingto_end-4_56--2" label="robotbase_goingto_end-4_56--2" source="4" target="56" />
-			<edge id="robotbase_goingto_end-4_57--2" label="robotbase_goingto_end-4_57--2" source="4" target="57" />
-			<edge id="robotbase_goingto_end-4_58--2" label="robotbase_goingto_end-4_58--2" source="4" target="58" />
-			<edge id="robotbase_goingto_end-4_40--2" label="robotbase_goingto_end-4_40--2" source="4" target="40" />
+			<edge id="robotbase_goingto_end-4_10--2" label="robotbase_goingto_end-4_10--2" source="4" target="10" />
+			<edge id="robotbase_goingto_end-4_13--2" label="robotbase_goingto_end-4_13--2" source="4" target="13" />
+			<edge id="robotbase_goingto_end-4_14--2" label="robotbase_goingto_end-4_14--2" source="4" target="14" />
+			<edge id="robotbase_goingto_end-4_19--2" label="robotbase_goingto_end-4_19--2" source="4" target="19" />
+			<edge id="robotbase_goingto_end-4_64--2" label="robotbase_goingto_end-4_64--2" source="4" target="64" />
+			<edge id="robotbase_goingto_end-4_37--2" label="robotbase_goingto_end-4_37--2" source="4" target="37" />
+			<edge id="robotbase_goingto_end-4_29--2" label="robotbase_goingto_end-4_29--2" source="4" target="29" />
+			<edge id="robotbase_goingto_end-4_26--2" label="robotbase_goingto_end-4_26--2" source="4" target="26" />
 			<edge id="robotbase_goingto_end-4_62--2" label="robotbase_goingto_end-4_62--2" source="4" target="62" />
-			<edge id="robotbase_goingto_end-4_38--2" label="robotbase_goingto_end-4_38--2" source="4" target="38" />
-			<edge id="robotbase_goingto_end-4_39--2" label="robotbase_goingto_end-4_39--2" source="4" target="39" />
-			<edge id="robotbase_goingto_end-4_59--2" label="robotbase_goingto_end-4_59--2" source="4" target="59" />
+			<edge id="robotbase_goingto_end-4_63--2" label="robotbase_goingto_end-4_63--2" source="4" target="63" />
+			<edge id="robotbase_goingto_end-4_33--2" label="robotbase_goingto_end-4_33--2" source="4" target="33" />
+			<edge id="robotbase_goingto_end-4_61--2" label="robotbase_goingto_end-4_61--2" source="4" target="61" />
 			<edge id="robotbase_goingto_start-5_3--2" label="robotbase_goingto_start-5_3--2" source="5" target="3" />
 			<edge id="robotbase_goingto_start-5_0--2" label="robotbase_goingto_start-5_0--2" source="5" target="0" />
 			<edge id="robotbase_goingto_start-5_8--2" label="robotbase_goingto_start-5_8--2" source="5" target="8" />
-			<edge id="robotbase_goingto_start-5_10--2" label="robotbase_goingto_start-5_10--2" source="5" target="10" />
-			<edge id="robotbase_goingto_start-5_12--2" label="robotbase_goingto_start-5_12--2" source="5" target="12" />
+			<edge id="robotbase_goingto_start-5_11--2" label="robotbase_goingto_start-5_11--2" source="5" target="11" />
 			<edge id="robotbase_goingto_start-5_14--2" label="robotbase_goingto_start-5_14--2" source="5" target="14" />
+			<edge id="robotbase_goingto_start-5_15--2" label="robotbase_goingto_start-5_15--2" source="5" target="15" />
+			<edge id="robotbase_goingto_start-5_18--2" label="robotbase_goingto_start-5_18--2" source="5" target="18" />
 			<edge id="robotbase_goingto_end-5_0--2" label="robotbase_goingto_end-5_0--2" source="5" target="0" />
 			<edge id="robotbase_goingto_end-5_3--2" label="robotbase_goingto_end-5_3--2" source="5" target="3" />
 			<edge id="robotbase_goingto_end-5_8--2" label="robotbase_goingto_end-5_8--2" source="5" target="8" />
-			<edge id="robotbase_goingto_end-5_10--2" label="robotbase_goingto_end-5_10--2" source="5" target="10" />
-			<edge id="robotbase_goingto_end-5_12--2" label="robotbase_goingto_end-5_12--2" source="5" target="12" />
+			<edge id="robotbase_goingto_end-5_11--2" label="robotbase_goingto_end-5_11--2" source="5" target="11" />
 			<edge id="robotbase_goingto_end-5_14--2" label="robotbase_goingto_end-5_14--2" source="5" target="14" />
-			<edge id="robotbase_goingto_end-5_56--2" label="robotbase_goingto_end-5_56--2" source="5" target="56" />
-			<edge id="robotbase_goingto_end-5_57--2" label="robotbase_goingto_end-5_57--2" source="5" target="57" />
-			<edge id="robotbase_goingto_end-5_40--2" label="robotbase_goingto_end-5_40--2" source="5" target="40" />
-			<edge id="robotbase_goingto_end-5_59--2" label="robotbase_goingto_end-5_59--2" source="5" target="59" />
+			<edge id="robotbase_goingto_end-5_15--2" label="robotbase_goingto_end-5_15--2" source="5" target="15" />
+			<edge id="robotbase_goingto_end-5_18--2" label="robotbase_goingto_end-5_18--2" source="5" target="18" />
+			<edge id="robotbase_goingto_end-5_64--2" label="robotbase_goingto_end-5_64--2" source="5" target="64" />
+			<edge id="robotbase_goingto_end-5_37--2" label="robotbase_goingto_end-5_37--2" source="5" target="37" />
+			<edge id="robotbase_goingto_end-5_29--2" label="robotbase_goingto_end-5_29--2" source="5" target="29" />
+			<edge id="robotbase_goingto_end-5_61--2" label="robotbase_goingto_end-5_61--2" source="5" target="61" />
 			<edge id="robotbase_goingto_end-5_62--2" label="robotbase_goingto_end-5_62--2" source="5" target="62" />
-			<edge id="robotbase_goingto_end-5_38--2" label="robotbase_goingto_end-5_38--2" source="5" target="38" />
-			<edge id="robotbase_goingto_end-5_39--2" label="robotbase_goingto_end-5_39--2" source="5" target="39" />
-			<edge id="robotbase_goingto_end-5_58--2" label="robotbase_goingto_end-5_58--2" source="5" target="58" />
-			<edge id="robotbase_goingto_start-6_1--2" label="robotbase_goingto_start-6_1--2" source="6" target="1" />
+			<edge id="robotbase_goingto_end-5_63--2" label="robotbase_goingto_end-5_63--2" source="5" target="63" />
+			<edge id="robotbase_goingto_end-5_33--2" label="robotbase_goingto_end-5_33--2" source="5" target="33" />
+			<edge id="robotbase_goingto_end-5_26--2" label="robotbase_goingto_end-5_26--2" source="5" target="26" />
+			<edge id="robotbase_goingto_start-6_2--2" label="robotbase_goingto_start-6_2--2" source="6" target="2" />
 			<edge id="robotbase_goingto_start-6_0--2" label="robotbase_goingto_start-6_0--2" source="6" target="0" />
 			<edge id="robotbase_goingto_start-6_9--2" label="robotbase_goingto_start-6_9--2" source="6" target="9" />
 			<edge id="robotbase_goingto_start-6_12--2" label="robotbase_goingto_start-6_12--2" source="6" target="12" />
-			<edge id="robotbase_goingto_start-6_13--2" label="robotbase_goingto_start-6_13--2" source="6" target="13" />
-			<edge id="robotbase_goingto_start-6_15--2" label="robotbase_goingto_start-6_15--2" source="6" target="15" />
+			<edge id="robotbase_goingto_start-6_14--2" label="robotbase_goingto_start-6_14--2" source="6" target="14" />
+			<edge id="robotbase_goingto_start-6_16--2" label="robotbase_goingto_start-6_16--2" source="6" target="16" />
+			<edge id="robotbase_goingto_start-6_17--2" label="robotbase_goingto_start-6_17--2" source="6" target="17" />
 			<edge id="robotbase_goingto_end-6_0--2" label="robotbase_goingto_end-6_0--2" source="6" target="0" />
-			<edge id="robotbase_goingto_end-6_1--2" label="robotbase_goingto_end-6_1--2" source="6" target="1" />
+			<edge id="robotbase_goingto_end-6_2--2" label="robotbase_goingto_end-6_2--2" source="6" target="2" />
 			<edge id="robotbase_goingto_end-6_9--2" label="robotbase_goingto_end-6_9--2" source="6" target="9" />
 			<edge id="robotbase_goingto_end-6_12--2" label="robotbase_goingto_end-6_12--2" source="6" target="12" />
-			<edge id="robotbase_goingto_end-6_13--2" label="robotbase_goingto_end-6_13--2" source="6" target="13" />
-			<edge id="robotbase_goingto_end-6_15--2" label="robotbase_goingto_end-6_15--2" source="6" target="15" />
-			<edge id="robotbase_goingto_end-6_56--2" label="robotbase_goingto_end-6_56--2" source="6" target="56" />
-			<edge id="robotbase_goingto_end-6_57--2" label="robotbase_goingto_end-6_57--2" source="6" target="57" />
-			<edge id="robotbase_goingto_end-6_58--2" label="robotbase_goingto_end-6_58--2" source="6" target="58" />
-			<edge id="robotbase_goingto_end-6_59--2" label="robotbase_goingto_end-6_59--2" source="6" target="59" />
+			<edge id="robotbase_goingto_end-6_14--2" label="robotbase_goingto_end-6_14--2" source="6" target="14" />
+			<edge id="robotbase_goingto_end-6_16--2" label="robotbase_goingto_end-6_16--2" source="6" target="16" />
+			<edge id="robotbase_goingto_end-6_17--2" label="robotbase_goingto_end-6_17--2" source="6" target="17" />
+			<edge id="robotbase_goingto_end-6_64--2" label="robotbase_goingto_end-6_64--2" source="6" target="64" />
+			<edge id="robotbase_goingto_end-6_37--2" label="robotbase_goingto_end-6_37--2" source="6" target="37" />
+			<edge id="robotbase_goingto_end-6_26--2" label="robotbase_goingto_end-6_26--2" source="6" target="26" />
+			<edge id="robotbase_goingto_end-6_61--2" label="robotbase_goingto_end-6_61--2" source="6" target="61" />
 			<edge id="robotbase_goingto_end-6_62--2" label="robotbase_goingto_end-6_62--2" source="6" target="62" />
-			<edge id="robotbase_goingto_end-6_38--2" label="robotbase_goingto_end-6_38--2" source="6" target="38" />
-			<edge id="robotbase_goingto_end-6_39--2" label="robotbase_goingto_end-6_39--2" source="6" target="39" />
-			<edge id="robotbase_goingto_end-6_40--2" label="robotbase_goingto_end-6_40--2" source="6" target="40" />
-			<edge id="robotbase_undocking_start-17_2--2" label="robotbase_undocking_start-17_2--2" source="17" target="2" />
-			<edge id="robotbase_undocking_start-17_0--2" label="robotbase_undocking_start-17_0--2" source="17" target="0" />
-			<edge id="robotbase_undocking_end-17_0--2" label="robotbase_undocking_end-17_0--2" source="17" target="0" />
-			<edge id="robotbase_undocking_end-17_2--2" label="robotbase_undocking_end-17_2--2" source="17" target="2" />
-			<edge id="robotbase_docking_start-17_2--2" label="robotbase_docking_start-17_2--2" source="17" target="2" />
-			<edge id="robotbase_docking_start-17_0--2" label="robotbase_docking_start-17_0--2" source="17" target="0" />
-			<edge id="robotbase_docking_end-17_0--2" label="robotbase_docking_end-17_0--2" source="17" target="0" />
-			<edge id="robotbase_docking_end-17_2--2" label="robotbase_docking_end-17_2--2" source="17" target="2" />
-			<edge id="robotbase_undocking_start-18_3--2" label="robotbase_undocking_start-18_3--2" source="18" target="3" />
-			<edge id="robotbase_undocking_start-18_0--2" label="robotbase_undocking_start-18_0--2" source="18" target="0" />
-			<edge id="robotbase_undocking_end-18_0--2" label="robotbase_undocking_end-18_0--2" source="18" target="0" />
-			<edge id="robotbase_undocking_end-18_3--2" label="robotbase_undocking_end-18_3--2" source="18" target="3" />
-			<edge id="robotbase_docking_start-18_3--2" label="robotbase_docking_start-18_3--2" source="18" target="3" />
-			<edge id="robotbase_docking_start-18_0--2" label="robotbase_docking_start-18_0--2" source="18" target="0" />
-			<edge id="robotbase_docking_end-18_0--2" label="robotbase_docking_end-18_0--2" source="18" target="0" />
-			<edge id="robotbase_docking_end-18_3--2" label="robotbase_docking_end-18_3--2" source="18" target="3" />
-			<edge id="robotbase_undocking_start-19_1--2" label="robotbase_undocking_start-19_1--2" source="19" target="1" />
-			<edge id="robotbase_undocking_start-19_0--2" label="robotbase_undocking_start-19_0--2" source="19" target="0" />
-			<edge id="robotbase_undocking_end-19_0--2" label="robotbase_undocking_end-19_0--2" source="19" target="0" />
-			<edge id="robotbase_undocking_end-19_1--2" label="robotbase_undocking_end-19_1--2" source="19" target="1" />
-			<edge id="robotbase_docking_start-19_1--2" label="robotbase_docking_start-19_1--2" source="19" target="1" />
-			<edge id="robotbase_docking_start-19_0--2" label="robotbase_docking_start-19_0--2" source="19" target="0" />
-			<edge id="robotbase_docking_end-19_0--2" label="robotbase_docking_end-19_0--2" source="19" target="0" />
-			<edge id="robotbase_docking_end-19_1--2" label="robotbase_docking_end-19_1--2" source="19" target="1" />
-			<edge id="navigation_changemode_start-20_3--2" label="navigation_changemode_start-20_3--2" source="20" target="3" />
-			<edge id="navigation_changemode_start-20_0--2" label="navigation_changemode_start-20_0--2" source="20" target="0" />
-			<edge id="navigation_changemode_end-20_0--2" label="navigation_changemode_end-20_0--2" source="20" target="0" />
-			<edge id="navigation_changemode_end-20_3--2" label="navigation_changemode_end-20_3--2" source="20" target="3" />
-			<edge id="navigation_changemode_start-21_1--2" label="navigation_changemode_start-21_1--2" source="21" target="1" />
-			<edge id="navigation_changemode_start-21_0--2" label="navigation_changemode_start-21_0--2" source="21" target="0" />
-			<edge id="navigation_changemode_end-21_0--2" label="navigation_changemode_end-21_0--2" source="21" target="0" />
-			<edge id="navigation_changemode_end-21_1--2" label="navigation_changemode_end-21_1--2" source="21" target="1" />
-			<edge id="navigation_changemode_start-22_2--2" label="navigation_changemode_start-22_2--2" source="22" target="2" />
-			<edge id="navigation_changemode_start-22_0--2" label="navigation_changemode_start-22_0--2" source="22" target="0" />
-			<edge id="navigation_changemode_end-22_0--2" label="navigation_changemode_end-22_0--2" source="22" target="0" />
-			<edge id="navigation_changemode_end-22_2--2" label="navigation_changemode_end-22_2--2" source="22" target="2" />
-			<edge id="communication_transmittingpicture_end-23_0--2" label="communication_transmittingpicture_end-23_0--2" source="23" target="0" />
-			<edge id="communication_transmittingpicture_end-23_1--2" label="communication_transmittingpicture_end-23_1--2" source="23" target="1" />
-			<edge id="communication_transmittingpicture_end-23_9--2" label="communication_transmittingpicture_end-23_9--2" source="23" target="9" />
-			<edge id="communication_transmittingpicture_end-23_3--2" label="communication_transmittingpicture_end-23_3--2" source="23" target="3" />
-			<edge id="communication_transmittingpicture_end-23_8--2" label="communication_transmittingpicture_end-23_8--2" source="23" target="8" />
-			<edge id="communication_transmittingpicture_end-23_2--2" label="communication_transmittingpicture_end-23_2--2" source="23" target="2" />
-			<edge id="communication_transmittingpicture_end-23_7--2" label="communication_transmittingpicture_end-23_7--2" source="23" target="7" />
-			<edge id="communication_transmittingpicture_end-24_0--2" label="communication_transmittingpicture_end-24_0--2" source="24" target="0" />
-			<edge id="communication_transmittingpicture_end-24_3--2" label="communication_transmittingpicture_end-24_3--2" source="24" target="3" />
-			<edge id="communication_transmittingpicture_end-24_8--2" label="communication_transmittingpicture_end-24_8--2" source="24" target="8" />
-			<edge id="communication_transmittingpicture_end-24_1--2" label="communication_transmittingpicture_end-24_1--2" source="24" target="1" />
-			<edge id="communication_transmittingpicture_end-24_9--2" label="communication_transmittingpicture_end-24_9--2" source="24" target="9" />
-			<edge id="communication_transmittingpicture_end-24_2--2" label="communication_transmittingpicture_end-24_2--2" source="24" target="2" />
-			<edge id="communication_transmittingpicture_end-24_7--2" label="communication_transmittingpicture_end-24_7--2" source="24" target="7" />
-			<edge id="communication_transmittingpicture_end-25_0--2" label="communication_transmittingpicture_end-25_0--2" source="25" target="0" />
-			<edge id="communication_transmittingpicture_end-25_2--2" label="communication_transmittingpicture_end-25_2--2" source="25" target="2" />
-			<edge id="communication_transmittingpicture_end-25_7--2" label="communication_transmittingpicture_end-25_7--2" source="25" target="7" />
-			<edge id="communication_transmittingpicture_end-25_1--2" label="communication_transmittingpicture_end-25_1--2" source="25" target="1" />
-			<edge id="communication_transmittingpicture_end-25_9--2" label="communication_transmittingpicture_end-25_9--2" source="25" target="9" />
-			<edge id="communication_transmittingpicture_end-25_3--2" label="communication_transmittingpicture_end-25_3--2" source="25" target="3" />
-			<edge id="communication_transmittingpicture_end-25_8--2" label="communication_transmittingpicture_end-25_8--2" source="25" target="8" />
-			<edge id="cameras_takingpicture_end-26_0--2" label="cameras_takingpicture_end-26_0--2" source="26" target="0" />
-			<edge id="cameras_takingpicture_end-26_3--2" label="cameras_takingpicture_end-26_3--2" source="26" target="3" />
-			<edge id="cameras_takingpicture_end-26_8--2" label="cameras_takingpicture_end-26_8--2" source="26" target="8" />
+			<edge id="robotbase_goingto_end-6_63--2" label="robotbase_goingto_end-6_63--2" source="6" target="63" />
+			<edge id="robotbase_goingto_end-6_33--2" label="robotbase_goingto_end-6_33--2" source="6" target="33" />
+			<edge id="robotbase_goingto_end-6_29--2" label="robotbase_goingto_end-6_29--2" source="6" target="29" />
+			<edge id="cameras_takingpicture_start-7_1--2" label="cameras_takingpicture_start-7_1--2" source="7" target="1" />
+			<edge id="cameras_takingpicture_start-7_0--2" label="cameras_takingpicture_start-7_0--2" source="7" target="0" />
+			<edge id="cameras_takingpicture_end-7_0--2" label="cameras_takingpicture_end-7_0--2" source="7" target="0" />
+			<edge id="cameras_takingpicture_end-7_1--2" label="cameras_takingpicture_end-7_1--2" source="7" target="1" />
+			<edge id="cameras_takingpicture_end-7_60--2" label="cameras_takingpicture_end-7_60--2" source="7" target="60" />
+			<edge id="robotbase_goingto_start-7_1--2" label="robotbase_goingto_start-7_1--2" source="7" target="1" />
+			<edge id="robotbase_goingto_start-7_4--2" label="robotbase_goingto_start-7_4--2" source="7" target="4" />
+			<edge id="robotbase_goingto_start-7_0--2" label="robotbase_goingto_start-7_0--2" source="7" target="0" />
+			<edge id="robotbase_goingto_start-7_10--2" label="robotbase_goingto_start-7_10--2" source="7" target="10" />
+			<edge id="robotbase_goingto_start-7_13--2" label="robotbase_goingto_start-7_13--2" source="7" target="13" />
+			<edge id="robotbase_goingto_start-7_14--2" label="robotbase_goingto_start-7_14--2" source="7" target="14" />
+			<edge id="robotbase_goingto_start-7_19--2" label="robotbase_goingto_start-7_19--2" source="7" target="19" />
+			<edge id="communication_transmittingpicture_start-7_1--2" label="communication_transmittingpicture_start-7_1--2" source="7" target="1" />
+			<edge id="communication_transmittingpicture_start-7_0--2" label="communication_transmittingpicture_start-7_0--2" source="7" target="0" />
+			<edge id="robotbase_goingto_end-7_0--2" label="robotbase_goingto_end-7_0--2" source="7" target="0" />
+			<edge id="robotbase_goingto_end-7_1--2" label="robotbase_goingto_end-7_1--2" source="7" target="1" />
+			<edge id="robotbase_goingto_end-7_4--2" label="robotbase_goingto_end-7_4--2" source="7" target="4" />
+			<edge id="robotbase_goingto_end-7_10--2" label="robotbase_goingto_end-7_10--2" source="7" target="10" />
+			<edge id="robotbase_goingto_end-7_13--2" label="robotbase_goingto_end-7_13--2" source="7" target="13" />
+			<edge id="robotbase_goingto_end-7_14--2" label="robotbase_goingto_end-7_14--2" source="7" target="14" />
+			<edge id="robotbase_goingto_end-7_19--2" label="robotbase_goingto_end-7_19--2" source="7" target="19" />
+			<edge id="robotbase_goingto_end-7_64--2" label="robotbase_goingto_end-7_64--2" source="7" target="64" />
+			<edge id="robotbase_goingto_end-7_37--2" label="robotbase_goingto_end-7_37--2" source="7" target="37" />
+			<edge id="robotbase_goingto_end-7_29--2" label="robotbase_goingto_end-7_29--2" source="7" target="29" />
+			<edge id="robotbase_goingto_end-7_26--2" label="robotbase_goingto_end-7_26--2" source="7" target="26" />
+			<edge id="robotbase_goingto_end-7_62--2" label="robotbase_goingto_end-7_62--2" source="7" target="62" />
+			<edge id="robotbase_goingto_end-7_63--2" label="robotbase_goingto_end-7_63--2" source="7" target="63" />
+			<edge id="robotbase_goingto_end-7_33--2" label="robotbase_goingto_end-7_33--2" source="7" target="33" />
+			<edge id="communication_transmittingpicture_end-7_0--2" label="communication_transmittingpicture_end-7_0--2" source="7" target="0" />
+			<edge id="communication_transmittingpicture_end-7_1--2" label="communication_transmittingpicture_end-7_1--2" source="7" target="1" />
+			<edge id="communication_transmittingpicture_end-7_65--2" label="communication_transmittingpicture_end-7_65--2" source="7" target="65" />
+			<edge id="robotbase_goingto_end-7_61--2" label="robotbase_goingto_end-7_61--2" source="7" target="61" />
+			<edge id="cameras_takingpicture_end-7_42--2" label="cameras_takingpicture_end-7_42--2" source="7" target="42" />
+			<edge id="cameras_takingpicture_end-7_43--2" label="cameras_takingpicture_end-7_43--2" source="7" target="43" />
+			<edge id="cameras_takingpicture_end-7_44--2" label="cameras_takingpicture_end-7_44--2" source="7" target="44" />
+			<edge id="cameras_takingpicture_end-7_45--2" label="cameras_takingpicture_end-7_45--2" source="7" target="45" />
+			<edge id="cameras_takingpicture_end-7_46--2" label="cameras_takingpicture_end-7_46--2" source="7" target="46" />
+			<edge id="cameras_takingpicture_end-7_47--2" label="cameras_takingpicture_end-7_47--2" source="7" target="47" />
+			<edge id="cameras_takingpicture_end-7_48--2" label="cameras_takingpicture_end-7_48--2" source="7" target="48" />
+			<edge id="communication_transmittingpicture_end-7_27--2" label="communication_transmittingpicture_end-7_27--2" source="7" target="27" />
+			<edge id="communication_transmittingpicture_end-7_28--2" label="communication_transmittingpicture_end-7_28--2" source="7" target="28" />
+			<edge id="communication_transmittingpicture_end-7_36--2" label="communication_transmittingpicture_end-7_36--2" source="7" target="36" />
+			<edge id="communication_transmittingpicture_end-7_35--2" label="communication_transmittingpicture_end-7_35--2" source="7" target="35" />
+			<edge id="communication_transmittingpicture_end-7_56--2" label="communication_transmittingpicture_end-7_56--2" source="7" target="56" />
+			<edge id="communication_transmittingpicture_end-7_57--2" label="communication_transmittingpicture_end-7_57--2" source="7" target="57" />
+			<edge id="communication_transmittingpicture_end-7_34--2" label="communication_transmittingpicture_end-7_34--2" source="7" target="34" />
+			<edge id="cameras_takingpicture_start-8_3--2" label="cameras_takingpicture_start-8_3--2" source="8" target="3" />
+			<edge id="cameras_takingpicture_start-8_0--2" label="cameras_takingpicture_start-8_0--2" source="8" target="0" />
+			<edge id="cameras_takingpicture_end-8_0--2" label="cameras_takingpicture_end-8_0--2" source="8" target="0" />
+			<edge id="cameras_takingpicture_end-8_3--2" label="cameras_takingpicture_end-8_3--2" source="8" target="3" />
+			<edge id="cameras_takingpicture_end-8_54--2" label="cameras_takingpicture_end-8_54--2" source="8" target="54" />
+			<edge id="robotbase_goingto_start-8_3--2" label="robotbase_goingto_start-8_3--2" source="8" target="3" />
+			<edge id="robotbase_goingto_start-8_5--2" label="robotbase_goingto_start-8_5--2" source="8" target="5" />
+			<edge id="robotbase_goingto_start-8_0--2" label="robotbase_goingto_start-8_0--2" source="8" target="0" />
+			<edge id="robotbase_goingto_start-8_11--2" label="robotbase_goingto_start-8_11--2" source="8" target="11" />
+			<edge id="robotbase_goingto_start-8_14--2" label="robotbase_goingto_start-8_14--2" source="8" target="14" />
+			<edge id="robotbase_goingto_start-8_15--2" label="robotbase_goingto_start-8_15--2" source="8" target="15" />
+			<edge id="robotbase_goingto_start-8_18--2" label="robotbase_goingto_start-8_18--2" source="8" target="18" />
+			<edge id="communication_transmittingpicture_start-8_3--2" label="communication_transmittingpicture_start-8_3--2" source="8" target="3" />
+			<edge id="communication_transmittingpicture_start-8_0--2" label="communication_transmittingpicture_start-8_0--2" source="8" target="0" />
+			<edge id="robotbase_goingto_end-8_0--2" label="robotbase_goingto_end-8_0--2" source="8" target="0" />
+			<edge id="robotbase_goingto_end-8_3--2" label="robotbase_goingto_end-8_3--2" source="8" target="3" />
+			<edge id="robotbase_goingto_end-8_5--2" label="robotbase_goingto_end-8_5--2" source="8" target="5" />
+			<edge id="robotbase_goingto_end-8_11--2" label="robotbase_goingto_end-8_11--2" source="8" target="11" />
+			<edge id="robotbase_goingto_end-8_14--2" label="robotbase_goingto_end-8_14--2" source="8" target="14" />
+			<edge id="robotbase_goingto_end-8_15--2" label="robotbase_goingto_end-8_15--2" source="8" target="15" />
+			<edge id="robotbase_goingto_end-8_18--2" label="robotbase_goingto_end-8_18--2" source="8" target="18" />
+			<edge id="robotbase_goingto_end-8_64--2" label="robotbase_goingto_end-8_64--2" source="8" target="64" />
+			<edge id="robotbase_goingto_end-8_37--2" label="robotbase_goingto_end-8_37--2" source="8" target="37" />
+			<edge id="robotbase_goingto_end-8_29--2" label="robotbase_goingto_end-8_29--2" source="8" target="29" />
+			<edge id="robotbase_goingto_end-8_61--2" label="robotbase_goingto_end-8_61--2" source="8" target="61" />
+			<edge id="robotbase_goingto_end-8_62--2" label="robotbase_goingto_end-8_62--2" source="8" target="62" />
+			<edge id="robotbase_goingto_end-8_63--2" label="robotbase_goingto_end-8_63--2" source="8" target="63" />
+			<edge id="robotbase_goingto_end-8_33--2" label="robotbase_goingto_end-8_33--2" source="8" target="33" />
+			<edge id="communication_transmittingpicture_end-8_0--2" label="communication_transmittingpicture_end-8_0--2" source="8" target="0" />
+			<edge id="communication_transmittingpicture_end-8_3--2" label="communication_transmittingpicture_end-8_3--2" source="8" target="3" />
+			<edge id="communication_transmittingpicture_end-8_35--2" label="communication_transmittingpicture_end-8_35--2" source="8" target="35" />
+			<edge id="robotbase_goingto_end-8_26--2" label="robotbase_goingto_end-8_26--2" source="8" target="26" />
+			<edge id="cameras_takingpicture_end-8_49--2" label="cameras_takingpicture_end-8_49--2" source="8" target="49" />
+			<edge id="cameras_takingpicture_end-8_50--2" label="cameras_takingpicture_end-8_50--2" source="8" target="50" />
+			<edge id="cameras_takingpicture_end-8_51--2" label="cameras_takingpicture_end-8_51--2" source="8" target="51" />
+			<edge id="cameras_takingpicture_end-8_52--2" label="cameras_takingpicture_end-8_52--2" source="8" target="52" />
+			<edge id="cameras_takingpicture_end-8_53--2" label="cameras_takingpicture_end-8_53--2" source="8" target="53" />
+			<edge id="cameras_takingpicture_end-8_30--2" label="cameras_takingpicture_end-8_30--2" source="8" target="30" />
+			<edge id="cameras_takingpicture_end-8_31--2" label="cameras_takingpicture_end-8_31--2" source="8" target="31" />
+			<edge id="communication_transmittingpicture_end-8_27--2" label="communication_transmittingpicture_end-8_27--2" source="8" target="27" />
+			<edge id="communication_transmittingpicture_end-8_28--2" label="communication_transmittingpicture_end-8_28--2" source="8" target="28" />
+			<edge id="communication_transmittingpicture_end-8_36--2" label="communication_transmittingpicture_end-8_36--2" source="8" target="36" />
+			<edge id="communication_transmittingpicture_end-8_65--2" label="communication_transmittingpicture_end-8_65--2" source="8" target="65" />
+			<edge id="communication_transmittingpicture_end-8_56--2" label="communication_transmittingpicture_end-8_56--2" source="8" target="56" />
+			<edge id="communication_transmittingpicture_end-8_57--2" label="communication_transmittingpicture_end-8_57--2" source="8" target="57" />
+			<edge id="communication_transmittingpicture_end-8_34--2" label="communication_transmittingpicture_end-8_34--2" source="8" target="34" />
+			<edge id="cameras_takingpicture_start-9_2--2" label="cameras_takingpicture_start-9_2--2" source="9" target="2" />
+			<edge id="cameras_takingpicture_start-9_0--2" label="cameras_takingpicture_start-9_0--2" source="9" target="0" />
+			<edge id="cameras_takingpicture_end-9_0--2" label="cameras_takingpicture_end-9_0--2" source="9" target="0" />
+			<edge id="cameras_takingpicture_end-9_2--2" label="cameras_takingpicture_end-9_2--2" source="9" target="2" />
+			<edge id="cameras_takingpicture_end-9_55--2" label="cameras_takingpicture_end-9_55--2" source="9" target="55" />
+			<edge id="robotbase_goingto_start-9_2--2" label="robotbase_goingto_start-9_2--2" source="9" target="2" />
+			<edge id="robotbase_goingto_start-9_6--2" label="robotbase_goingto_start-9_6--2" source="9" target="6" />
+			<edge id="robotbase_goingto_start-9_0--2" label="robotbase_goingto_start-9_0--2" source="9" target="0" />
+			<edge id="robotbase_goingto_start-9_12--2" label="robotbase_goingto_start-9_12--2" source="9" target="12" />
+			<edge id="robotbase_goingto_start-9_14--2" label="robotbase_goingto_start-9_14--2" source="9" target="14" />
+			<edge id="robotbase_goingto_start-9_16--2" label="robotbase_goingto_start-9_16--2" source="9" target="16" />
+			<edge id="robotbase_goingto_start-9_17--2" label="robotbase_goingto_start-9_17--2" source="9" target="17" />
+			<edge id="communication_transmittingpicture_start-9_2--2" label="communication_transmittingpicture_start-9_2--2" source="9" target="2" />
+			<edge id="communication_transmittingpicture_start-9_0--2" label="communication_transmittingpicture_start-9_0--2" source="9" target="0" />
+			<edge id="robotbase_goingto_end-9_0--2" label="robotbase_goingto_end-9_0--2" source="9" target="0" />
+			<edge id="robotbase_goingto_end-9_2--2" label="robotbase_goingto_end-9_2--2" source="9" target="2" />
+			<edge id="robotbase_goingto_end-9_6--2" label="robotbase_goingto_end-9_6--2" source="9" target="6" />
+			<edge id="robotbase_goingto_end-9_12--2" label="robotbase_goingto_end-9_12--2" source="9" target="12" />
+			<edge id="robotbase_goingto_end-9_14--2" label="robotbase_goingto_end-9_14--2" source="9" target="14" />
+			<edge id="robotbase_goingto_end-9_16--2" label="robotbase_goingto_end-9_16--2" source="9" target="16" />
+			<edge id="robotbase_goingto_end-9_17--2" label="robotbase_goingto_end-9_17--2" source="9" target="17" />
+			<edge id="robotbase_goingto_end-9_64--2" label="robotbase_goingto_end-9_64--2" source="9" target="64" />
+			<edge id="robotbase_goingto_end-9_37--2" label="robotbase_goingto_end-9_37--2" source="9" target="37" />
+			<edge id="robotbase_goingto_end-9_26--2" label="robotbase_goingto_end-9_26--2" source="9" target="26" />
+			<edge id="robotbase_goingto_end-9_61--2" label="robotbase_goingto_end-9_61--2" source="9" target="61" />
+			<edge id="robotbase_goingto_end-9_62--2" label="robotbase_goingto_end-9_62--2" source="9" target="62" />
+			<edge id="robotbase_goingto_end-9_63--2" label="robotbase_goingto_end-9_63--2" source="9" target="63" />
+			<edge id="robotbase_goingto_end-9_33--2" label="robotbase_goingto_end-9_33--2" source="9" target="33" />
+			<edge id="communication_transmittingpicture_end-9_0--2" label="communication_transmittingpicture_end-9_0--2" source="9" target="0" />
+			<edge id="communication_transmittingpicture_end-9_2--2" label="communication_transmittingpicture_end-9_2--2" source="9" target="2" />
+			<edge id="communication_transmittingpicture_end-9_36--2" label="communication_transmittingpicture_end-9_36--2" source="9" target="36" />
+			<edge id="robotbase_goingto_end-9_29--2" label="robotbase_goingto_end-9_29--2" source="9" target="29" />
+			<edge id="cameras_takingpicture_end-9_32--2" label="cameras_takingpicture_end-9_32--2" source="9" target="32" />
+			<edge id="cameras_takingpicture_end-9_38--2" label="cameras_takingpicture_end-9_38--2" source="9" target="38" />
+			<edge id="cameras_takingpicture_end-9_39--2" label="cameras_takingpicture_end-9_39--2" source="9" target="39" />
+			<edge id="cameras_takingpicture_end-9_58--2" label="cameras_takingpicture_end-9_58--2" source="9" target="58" />
+			<edge id="cameras_takingpicture_end-9_59--2" label="cameras_takingpicture_end-9_59--2" source="9" target="59" />
+			<edge id="cameras_takingpicture_end-9_40--2" label="cameras_takingpicture_end-9_40--2" source="9" target="40" />
+			<edge id="cameras_takingpicture_end-9_41--2" label="cameras_takingpicture_end-9_41--2" source="9" target="41" />
+			<edge id="communication_transmittingpicture_end-9_27--2" label="communication_transmittingpicture_end-9_27--2" source="9" target="27" />
+			<edge id="communication_transmittingpicture_end-9_28--2" label="communication_transmittingpicture_end-9_28--2" source="9" target="28" />
+			<edge id="communication_transmittingpicture_end-9_35--2" label="communication_transmittingpicture_end-9_35--2" source="9" target="35" />
+			<edge id="communication_transmittingpicture_end-9_65--2" label="communication_transmittingpicture_end-9_65--2" source="9" target="65" />
+			<edge id="communication_transmittingpicture_end-9_56--2" label="communication_transmittingpicture_end-9_56--2" source="9" target="56" />
+			<edge id="communication_transmittingpicture_end-9_57--2" label="communication_transmittingpicture_end-9_57--2" source="9" target="57" />
+			<edge id="communication_transmittingpicture_end-9_34--2" label="communication_transmittingpicture_end-9_34--2" source="9" target="34" />
+			<edge id="robotbase_recharge_start-10_1--2" label="robotbase_recharge_start-10_1--2" source="10" target="1" />
+			<edge id="robotbase_recharge_start-10_0--2" label="robotbase_recharge_start-10_0--2" source="10" target="0" />
+			<edge id="robotbase_recharge_end-10_0--2" label="robotbase_recharge_end-10_0--2" source="10" target="0" />
+			<edge id="robotbase_recharge_end-10_1--2" label="robotbase_recharge_end-10_1--2" source="10" target="1" />
+			<edge id="robotbase_goingto_start-10_1--2" label="robotbase_goingto_start-10_1--2" source="10" target="1" />
+			<edge id="robotbase_goingto_start-10_4--2" label="robotbase_goingto_start-10_4--2" source="10" target="4" />
+			<edge id="robotbase_goingto_start-10_0--2" label="robotbase_goingto_start-10_0--2" source="10" target="0" />
+			<edge id="robotbase_goingto_start-10_7--2" label="robotbase_goingto_start-10_7--2" source="10" target="7" />
+			<edge id="robotbase_goingto_start-10_13--2" label="robotbase_goingto_start-10_13--2" source="10" target="13" />
+			<edge id="robotbase_goingto_start-10_14--2" label="robotbase_goingto_start-10_14--2" source="10" target="14" />
+			<edge id="robotbase_goingto_start-10_19--2" label="robotbase_goingto_start-10_19--2" source="10" target="19" />
+			<edge id="robotbase_goingto_end-10_0--2" label="robotbase_goingto_end-10_0--2" source="10" target="0" />
+			<edge id="robotbase_goingto_end-10_1--2" label="robotbase_goingto_end-10_1--2" source="10" target="1" />
+			<edge id="robotbase_goingto_end-10_4--2" label="robotbase_goingto_end-10_4--2" source="10" target="4" />
+			<edge id="robotbase_goingto_end-10_7--2" label="robotbase_goingto_end-10_7--2" source="10" target="7" />
+			<edge id="robotbase_goingto_end-10_13--2" label="robotbase_goingto_end-10_13--2" source="10" target="13" />
+			<edge id="robotbase_goingto_end-10_14--2" label="robotbase_goingto_end-10_14--2" source="10" target="14" />
+			<edge id="robotbase_goingto_end-10_19--2" label="robotbase_goingto_end-10_19--2" source="10" target="19" />
+			<edge id="robotbase_goingto_end-10_64--2" label="robotbase_goingto_end-10_64--2" source="10" target="64" />
+			<edge id="robotbase_goingto_end-10_37--2" label="robotbase_goingto_end-10_37--2" source="10" target="37" />
+			<edge id="robotbase_goingto_end-10_29--2" label="robotbase_goingto_end-10_29--2" source="10" target="29" />
+			<edge id="robotbase_goingto_end-10_26--2" label="robotbase_goingto_end-10_26--2" source="10" target="26" />
+			<edge id="robotbase_goingto_end-10_62--2" label="robotbase_goingto_end-10_62--2" source="10" target="62" />
+			<edge id="robotbase_goingto_end-10_63--2" label="robotbase_goingto_end-10_63--2" source="10" target="63" />
+			<edge id="robotbase_goingto_end-10_33--2" label="robotbase_goingto_end-10_33--2" source="10" target="33" />
+			<edge id="robotbase_goingto_end-10_61--2" label="robotbase_goingto_end-10_61--2" source="10" target="61" />
+			<edge id="robotbase_recharge_start-11_3--2" label="robotbase_recharge_start-11_3--2" source="11" target="3" />
+			<edge id="robotbase_recharge_start-11_0--2" label="robotbase_recharge_start-11_0--2" source="11" target="0" />
+			<edge id="robotbase_recharge_end-11_0--2" label="robotbase_recharge_end-11_0--2" source="11" target="0" />
+			<edge id="robotbase_recharge_end-11_3--2" label="robotbase_recharge_end-11_3--2" source="11" target="3" />
+			<edge id="robotbase_goingto_start-11_3--2" label="robotbase_goingto_start-11_3--2" source="11" target="3" />
+			<edge id="robotbase_goingto_start-11_5--2" label="robotbase_goingto_start-11_5--2" source="11" target="5" />
+			<edge id="robotbase_goingto_start-11_0--2" label="robotbase_goingto_start-11_0--2" source="11" target="0" />
+			<edge id="robotbase_goingto_start-11_8--2" label="robotbase_goingto_start-11_8--2" source="11" target="8" />
+			<edge id="robotbase_goingto_start-11_14--2" label="robotbase_goingto_start-11_14--2" source="11" target="14" />
+			<edge id="robotbase_goingto_start-11_15--2" label="robotbase_goingto_start-11_15--2" source="11" target="15" />
+			<edge id="robotbase_goingto_start-11_18--2" label="robotbase_goingto_start-11_18--2" source="11" target="18" />
+			<edge id="robotbase_goingto_end-11_0--2" label="robotbase_goingto_end-11_0--2" source="11" target="0" />
+			<edge id="robotbase_goingto_end-11_3--2" label="robotbase_goingto_end-11_3--2" source="11" target="3" />
+			<edge id="robotbase_goingto_end-11_5--2" label="robotbase_goingto_end-11_5--2" source="11" target="5" />
+			<edge id="robotbase_goingto_end-11_8--2" label="robotbase_goingto_end-11_8--2" source="11" target="8" />
+			<edge id="robotbase_goingto_end-11_14--2" label="robotbase_goingto_end-11_14--2" source="11" target="14" />
+			<edge id="robotbase_goingto_end-11_15--2" label="robotbase_goingto_end-11_15--2" source="11" target="15" />
+			<edge id="robotbase_goingto_end-11_18--2" label="robotbase_goingto_end-11_18--2" source="11" target="18" />
+			<edge id="robotbase_goingto_end-11_64--2" label="robotbase_goingto_end-11_64--2" source="11" target="64" />
+			<edge id="robotbase_goingto_end-11_37--2" label="robotbase_goingto_end-11_37--2" source="11" target="37" />
+			<edge id="robotbase_goingto_end-11_29--2" label="robotbase_goingto_end-11_29--2" source="11" target="29" />
+			<edge id="robotbase_goingto_end-11_61--2" label="robotbase_goingto_end-11_61--2" source="11" target="61" />
+			<edge id="robotbase_goingto_end-11_62--2" label="robotbase_goingto_end-11_62--2" source="11" target="62" />
+			<edge id="robotbase_goingto_end-11_63--2" label="robotbase_goingto_end-11_63--2" source="11" target="63" />
+			<edge id="robotbase_goingto_end-11_33--2" label="robotbase_goingto_end-11_33--2" source="11" target="33" />
+			<edge id="robotbase_goingto_end-11_26--2" label="robotbase_goingto_end-11_26--2" source="11" target="26" />
+			<edge id="robotbase_recharge_start-12_2--2" label="robotbase_recharge_start-12_2--2" source="12" target="2" />
+			<edge id="robotbase_recharge_start-12_0--2" label="robotbase_recharge_start-12_0--2" source="12" target="0" />
+			<edge id="robotbase_recharge_end-12_0--2" label="robotbase_recharge_end-12_0--2" source="12" target="0" />
+			<edge id="robotbase_recharge_end-12_2--2" label="robotbase_recharge_end-12_2--2" source="12" target="2" />
+			<edge id="robotbase_goingto_start-12_2--2" label="robotbase_goingto_start-12_2--2" source="12" target="2" />
+			<edge id="robotbase_goingto_start-12_6--2" label="robotbase_goingto_start-12_6--2" source="12" target="6" />
+			<edge id="robotbase_goingto_start-12_0--2" label="robotbase_goingto_start-12_0--2" source="12" target="0" />
+			<edge id="robotbase_goingto_start-12_9--2" label="robotbase_goingto_start-12_9--2" source="12" target="9" />
+			<edge id="robotbase_goingto_start-12_14--2" label="robotbase_goingto_start-12_14--2" source="12" target="14" />
+			<edge id="robotbase_goingto_start-12_16--2" label="robotbase_goingto_start-12_16--2" source="12" target="16" />
+			<edge id="robotbase_goingto_start-12_17--2" label="robotbase_goingto_start-12_17--2" source="12" target="17" />
+			<edge id="robotbase_goingto_end-12_0--2" label="robotbase_goingto_end-12_0--2" source="12" target="0" />
+			<edge id="robotbase_goingto_end-12_2--2" label="robotbase_goingto_end-12_2--2" source="12" target="2" />
+			<edge id="robotbase_goingto_end-12_6--2" label="robotbase_goingto_end-12_6--2" source="12" target="6" />
+			<edge id="robotbase_goingto_end-12_9--2" label="robotbase_goingto_end-12_9--2" source="12" target="9" />
+			<edge id="robotbase_goingto_end-12_14--2" label="robotbase_goingto_end-12_14--2" source="12" target="14" />
+			<edge id="robotbase_goingto_end-12_16--2" label="robotbase_goingto_end-12_16--2" source="12" target="16" />
+			<edge id="robotbase_goingto_end-12_17--2" label="robotbase_goingto_end-12_17--2" source="12" target="17" />
+			<edge id="robotbase_goingto_end-12_64--2" label="robotbase_goingto_end-12_64--2" source="12" target="64" />
+			<edge id="robotbase_goingto_end-12_37--2" label="robotbase_goingto_end-12_37--2" source="12" target="37" />
+			<edge id="robotbase_goingto_end-12_26--2" label="robotbase_goingto_end-12_26--2" source="12" target="26" />
+			<edge id="robotbase_goingto_end-12_61--2" label="robotbase_goingto_end-12_61--2" source="12" target="61" />
+			<edge id="robotbase_goingto_end-12_62--2" label="robotbase_goingto_end-12_62--2" source="12" target="62" />
+			<edge id="robotbase_goingto_end-12_63--2" label="robotbase_goingto_end-12_63--2" source="12" target="63" />
+			<edge id="robotbase_goingto_end-12_33--2" label="robotbase_goingto_end-12_33--2" source="12" target="33" />
+			<edge id="robotbase_goingto_end-12_29--2" label="robotbase_goingto_end-12_29--2" source="12" target="29" />
+			<edge id="robotbase_goingto_start-13_1--2" label="robotbase_goingto_start-13_1--2" source="13" target="1" />
+			<edge id="robotbase_goingto_start-13_4--2" label="robotbase_goingto_start-13_4--2" source="13" target="4" />
+			<edge id="robotbase_goingto_start-13_0--2" label="robotbase_goingto_start-13_0--2" source="13" target="0" />
+			<edge id="robotbase_goingto_start-13_7--2" label="robotbase_goingto_start-13_7--2" source="13" target="7" />
+			<edge id="robotbase_goingto_start-13_10--2" label="robotbase_goingto_start-13_10--2" source="13" target="10" />
+			<edge id="robotbase_goingto_start-13_14--2" label="robotbase_goingto_start-13_14--2" source="13" target="14" />
+			<edge id="robotbase_goingto_start-13_19--2" label="robotbase_goingto_start-13_19--2" source="13" target="19" />
+			<edge id="robotbase_goingto_end-13_0--2" label="robotbase_goingto_end-13_0--2" source="13" target="0" />
+			<edge id="robotbase_goingto_end-13_1--2" label="robotbase_goingto_end-13_1--2" source="13" target="1" />
+			<edge id="robotbase_goingto_end-13_4--2" label="robotbase_goingto_end-13_4--2" source="13" target="4" />
+			<edge id="robotbase_goingto_end-13_7--2" label="robotbase_goingto_end-13_7--2" source="13" target="7" />
+			<edge id="robotbase_goingto_end-13_10--2" label="robotbase_goingto_end-13_10--2" source="13" target="10" />
+			<edge id="robotbase_goingto_end-13_14--2" label="robotbase_goingto_end-13_14--2" source="13" target="14" />
+			<edge id="robotbase_goingto_end-13_19--2" label="robotbase_goingto_end-13_19--2" source="13" target="19" />
+			<edge id="robotbase_goingto_end-13_64--2" label="robotbase_goingto_end-13_64--2" source="13" target="64" />
+			<edge id="robotbase_goingto_end-13_37--2" label="robotbase_goingto_end-13_37--2" source="13" target="37" />
+			<edge id="robotbase_goingto_end-13_29--2" label="robotbase_goingto_end-13_29--2" source="13" target="29" />
+			<edge id="robotbase_goingto_end-13_26--2" label="robotbase_goingto_end-13_26--2" source="13" target="26" />
+			<edge id="robotbase_goingto_end-13_62--2" label="robotbase_goingto_end-13_62--2" source="13" target="62" />
+			<edge id="robotbase_goingto_end-13_63--2" label="robotbase_goingto_end-13_63--2" source="13" target="63" />
+			<edge id="robotbase_goingto_end-13_33--2" label="robotbase_goingto_end-13_33--2" source="13" target="33" />
+			<edge id="robotbase_goingto_end-13_61--2" label="robotbase_goingto_end-13_61--2" source="13" target="61" />
+			<edge id="robotbase_goingto_start-14_3--2" label="robotbase_goingto_start-14_3--2" source="14" target="3" />
+			<edge id="robotbase_goingto_start-14_5--2" label="robotbase_goingto_start-14_5--2" source="14" target="5" />
+			<edge id="robotbase_goingto_start-14_0--2" label="robotbase_goingto_start-14_0--2" source="14" target="0" />
+			<edge id="robotbase_goingto_start-14_8--2" label="robotbase_goingto_start-14_8--2" source="14" target="8" />
+			<edge id="robotbase_goingto_start-14_11--2" label="robotbase_goingto_start-14_11--2" source="14" target="11" />
+			<edge id="robotbase_goingto_start-14_15--2" label="robotbase_goingto_start-14_15--2" source="14" target="15" />
+			<edge id="robotbase_goingto_start-14_18--2" label="robotbase_goingto_start-14_18--2" source="14" target="18" />
+			<edge id="robotbase_goingto_start-14_2--2" label="robotbase_goingto_start-14_2--2" source="14" target="2" />
+			<edge id="robotbase_goingto_start-14_6--2" label="robotbase_goingto_start-14_6--2" source="14" target="6" />
+			<edge id="robotbase_goingto_start-14_9--2" label="robotbase_goingto_start-14_9--2" source="14" target="9" />
+			<edge id="robotbase_goingto_start-14_12--2" label="robotbase_goingto_start-14_12--2" source="14" target="12" />
+			<edge id="robotbase_goingto_start-14_16--2" label="robotbase_goingto_start-14_16--2" source="14" target="16" />
+			<edge id="robotbase_goingto_start-14_17--2" label="robotbase_goingto_start-14_17--2" source="14" target="17" />
+			<edge id="robotbase_goingto_start-14_1--2" label="robotbase_goingto_start-14_1--2" source="14" target="1" />
+			<edge id="robotbase_goingto_start-14_4--2" label="robotbase_goingto_start-14_4--2" source="14" target="4" />
+			<edge id="robotbase_goingto_start-14_7--2" label="robotbase_goingto_start-14_7--2" source="14" target="7" />
+			<edge id="robotbase_goingto_start-14_10--2" label="robotbase_goingto_start-14_10--2" source="14" target="10" />
+			<edge id="robotbase_goingto_start-14_13--2" label="robotbase_goingto_start-14_13--2" source="14" target="13" />
+			<edge id="robotbase_goingto_start-14_19--2" label="robotbase_goingto_start-14_19--2" source="14" target="19" />
+			<edge id="robotbase_goingto_end-14_0--2" label="robotbase_goingto_end-14_0--2" source="14" target="0" />
+			<edge id="robotbase_goingto_end-14_3--2" label="robotbase_goingto_end-14_3--2" source="14" target="3" />
+			<edge id="robotbase_goingto_end-14_5--2" label="robotbase_goingto_end-14_5--2" source="14" target="5" />
+			<edge id="robotbase_goingto_end-14_8--2" label="robotbase_goingto_end-14_8--2" source="14" target="8" />
+			<edge id="robotbase_goingto_end-14_11--2" label="robotbase_goingto_end-14_11--2" source="14" target="11" />
+			<edge id="robotbase_goingto_end-14_15--2" label="robotbase_goingto_end-14_15--2" source="14" target="15" />
+			<edge id="robotbase_goingto_end-14_18--2" label="robotbase_goingto_end-14_18--2" source="14" target="18" />
+			<edge id="robotbase_goingto_end-14_64--2" label="robotbase_goingto_end-14_64--2" source="14" target="64" />
+			<edge id="robotbase_goingto_end-14_37--2" label="robotbase_goingto_end-14_37--2" source="14" target="37" />
+			<edge id="robotbase_goingto_end-14_29--2" label="robotbase_goingto_end-14_29--2" source="14" target="29" />
+			<edge id="robotbase_goingto_end-14_61--2" label="robotbase_goingto_end-14_61--2" source="14" target="61" />
+			<edge id="robotbase_goingto_end-14_62--2" label="robotbase_goingto_end-14_62--2" source="14" target="62" />
+			<edge id="robotbase_goingto_end-14_63--2" label="robotbase_goingto_end-14_63--2" source="14" target="63" />
+			<edge id="robotbase_goingto_end-14_33--2" label="robotbase_goingto_end-14_33--2" source="14" target="33" />
+			<edge id="robotbase_goingto_end-14_2--2" label="robotbase_goingto_end-14_2--2" source="14" target="2" />
+			<edge id="robotbase_goingto_end-14_6--2" label="robotbase_goingto_end-14_6--2" source="14" target="6" />
+			<edge id="robotbase_goingto_end-14_9--2" label="robotbase_goingto_end-14_9--2" source="14" target="9" />
+			<edge id="robotbase_goingto_end-14_12--2" label="robotbase_goingto_end-14_12--2" source="14" target="12" />
+			<edge id="robotbase_goingto_end-14_16--2" label="robotbase_goingto_end-14_16--2" source="14" target="16" />
+			<edge id="robotbase_goingto_end-14_17--2" label="robotbase_goingto_end-14_17--2" source="14" target="17" />
+			<edge id="robotbase_goingto_end-14_26--2" label="robotbase_goingto_end-14_26--2" source="14" target="26" />
+			<edge id="robotbase_goingto_end-14_1--2" label="robotbase_goingto_end-14_1--2" source="14" target="1" />
+			<edge id="robotbase_goingto_end-14_4--2" label="robotbase_goingto_end-14_4--2" source="14" target="4" />
+			<edge id="robotbase_goingto_end-14_7--2" label="robotbase_goingto_end-14_7--2" source="14" target="7" />
+			<edge id="robotbase_goingto_end-14_10--2" label="robotbase_goingto_end-14_10--2" source="14" target="10" />
+			<edge id="robotbase_goingto_end-14_13--2" label="robotbase_goingto_end-14_13--2" source="14" target="13" />
+			<edge id="robotbase_goingto_end-14_19--2" label="robotbase_goingto_end-14_19--2" source="14" target="19" />
+			<edge id="robotbase_goingto_start-15_3--2" label="robotbase_goingto_start-15_3--2" source="15" target="3" />
+			<edge id="robotbase_goingto_start-15_5--2" label="robotbase_goingto_start-15_5--2" source="15" target="5" />
+			<edge id="robotbase_goingto_start-15_0--2" label="robotbase_goingto_start-15_0--2" source="15" target="0" />
+			<edge id="robotbase_goingto_start-15_8--2" label="robotbase_goingto_start-15_8--2" source="15" target="8" />
+			<edge id="robotbase_goingto_start-15_11--2" label="robotbase_goingto_start-15_11--2" source="15" target="11" />
+			<edge id="robotbase_goingto_start-15_14--2" label="robotbase_goingto_start-15_14--2" source="15" target="14" />
+			<edge id="robotbase_goingto_start-15_18--2" label="robotbase_goingto_start-15_18--2" source="15" target="18" />
+			<edge id="robotbase_goingto_end-15_0--2" label="robotbase_goingto_end-15_0--2" source="15" target="0" />
+			<edge id="robotbase_goingto_end-15_3--2" label="robotbase_goingto_end-15_3--2" source="15" target="3" />
+			<edge id="robotbase_goingto_end-15_5--2" label="robotbase_goingto_end-15_5--2" source="15" target="5" />
+			<edge id="robotbase_goingto_end-15_8--2" label="robotbase_goingto_end-15_8--2" source="15" target="8" />
+			<edge id="robotbase_goingto_end-15_11--2" label="robotbase_goingto_end-15_11--2" source="15" target="11" />
+			<edge id="robotbase_goingto_end-15_14--2" label="robotbase_goingto_end-15_14--2" source="15" target="14" />
+			<edge id="robotbase_goingto_end-15_18--2" label="robotbase_goingto_end-15_18--2" source="15" target="18" />
+			<edge id="robotbase_goingto_end-15_64--2" label="robotbase_goingto_end-15_64--2" source="15" target="64" />
+			<edge id="robotbase_goingto_end-15_37--2" label="robotbase_goingto_end-15_37--2" source="15" target="37" />
+			<edge id="robotbase_goingto_end-15_29--2" label="robotbase_goingto_end-15_29--2" source="15" target="29" />
+			<edge id="robotbase_goingto_end-15_61--2" label="robotbase_goingto_end-15_61--2" source="15" target="61" />
+			<edge id="robotbase_goingto_end-15_62--2" label="robotbase_goingto_end-15_62--2" source="15" target="62" />
+			<edge id="robotbase_goingto_end-15_63--2" label="robotbase_goingto_end-15_63--2" source="15" target="63" />
+			<edge id="robotbase_goingto_end-15_33--2" label="robotbase_goingto_end-15_33--2" source="15" target="33" />
+			<edge id="robotbase_goingto_end-15_26--2" label="robotbase_goingto_end-15_26--2" source="15" target="26" />
+			<edge id="robotbase_goingto_start-16_2--2" label="robotbase_goingto_start-16_2--2" source="16" target="2" />
+			<edge id="robotbase_goingto_start-16_6--2" label="robotbase_goingto_start-16_6--2" source="16" target="6" />
+			<edge id="robotbase_goingto_start-16_0--2" label="robotbase_goingto_start-16_0--2" source="16" target="0" />
+			<edge id="robotbase_goingto_start-16_9--2" label="robotbase_goingto_start-16_9--2" source="16" target="9" />
+			<edge id="robotbase_goingto_start-16_12--2" label="robotbase_goingto_start-16_12--2" source="16" target="12" />
+			<edge id="robotbase_goingto_start-16_14--2" label="robotbase_goingto_start-16_14--2" source="16" target="14" />
+			<edge id="robotbase_goingto_start-16_17--2" label="robotbase_goingto_start-16_17--2" source="16" target="17" />
+			<edge id="robotbase_goingto_end-16_0--2" label="robotbase_goingto_end-16_0--2" source="16" target="0" />
+			<edge id="robotbase_goingto_end-16_2--2" label="robotbase_goingto_end-16_2--2" source="16" target="2" />
+			<edge id="robotbase_goingto_end-16_6--2" label="robotbase_goingto_end-16_6--2" source="16" target="6" />
+			<edge id="robotbase_goingto_end-16_9--2" label="robotbase_goingto_end-16_9--2" source="16" target="9" />
+			<edge id="robotbase_goingto_end-16_12--2" label="robotbase_goingto_end-16_12--2" source="16" target="12" />
+			<edge id="robotbase_goingto_end-16_14--2" label="robotbase_goingto_end-16_14--2" source="16" target="14" />
+			<edge id="robotbase_goingto_end-16_17--2" label="robotbase_goingto_end-16_17--2" source="16" target="17" />
+			<edge id="robotbase_goingto_end-16_64--2" label="robotbase_goingto_end-16_64--2" source="16" target="64" />
+			<edge id="robotbase_goingto_end-16_37--2" label="robotbase_goingto_end-16_37--2" source="16" target="37" />
+			<edge id="robotbase_goingto_end-16_26--2" label="robotbase_goingto_end-16_26--2" source="16" target="26" />
+			<edge id="robotbase_goingto_end-16_61--2" label="robotbase_goingto_end-16_61--2" source="16" target="61" />
+			<edge id="robotbase_goingto_end-16_62--2" label="robotbase_goingto_end-16_62--2" source="16" target="62" />
+			<edge id="robotbase_goingto_end-16_63--2" label="robotbase_goingto_end-16_63--2" source="16" target="63" />
+			<edge id="robotbase_goingto_end-16_33--2" label="robotbase_goingto_end-16_33--2" source="16" target="33" />
+			<edge id="robotbase_goingto_end-16_29--2" label="robotbase_goingto_end-16_29--2" source="16" target="29" />
+			<edge id="robotbase_goingto_start-17_2--2" label="robotbase_goingto_start-17_2--2" source="17" target="2" />
+			<edge id="robotbase_goingto_start-17_6--2" label="robotbase_goingto_start-17_6--2" source="17" target="6" />
+			<edge id="robotbase_goingto_start-17_0--2" label="robotbase_goingto_start-17_0--2" source="17" target="0" />
+			<edge id="robotbase_goingto_start-17_9--2" label="robotbase_goingto_start-17_9--2" source="17" target="9" />
+			<edge id="robotbase_goingto_start-17_12--2" label="robotbase_goingto_start-17_12--2" source="17" target="12" />
+			<edge id="robotbase_goingto_start-17_14--2" label="robotbase_goingto_start-17_14--2" source="17" target="14" />
+			<edge id="robotbase_goingto_start-17_16--2" label="robotbase_goingto_start-17_16--2" source="17" target="16" />
+			<edge id="robotbase_goingto_end-17_0--2" label="robotbase_goingto_end-17_0--2" source="17" target="0" />
+			<edge id="robotbase_goingto_end-17_2--2" label="robotbase_goingto_end-17_2--2" source="17" target="2" />
+			<edge id="robotbase_goingto_end-17_6--2" label="robotbase_goingto_end-17_6--2" source="17" target="6" />
+			<edge id="robotbase_goingto_end-17_9--2" label="robotbase_goingto_end-17_9--2" source="17" target="9" />
+			<edge id="robotbase_goingto_end-17_12--2" label="robotbase_goingto_end-17_12--2" source="17" target="12" />
+			<edge id="robotbase_goingto_end-17_14--2" label="robotbase_goingto_end-17_14--2" source="17" target="14" />
+			<edge id="robotbase_goingto_end-17_16--2" label="robotbase_goingto_end-17_16--2" source="17" target="16" />
+			<edge id="robotbase_goingto_end-17_64--2" label="robotbase_goingto_end-17_64--2" source="17" target="64" />
+			<edge id="robotbase_goingto_end-17_37--2" label="robotbase_goingto_end-17_37--2" source="17" target="37" />
+			<edge id="robotbase_goingto_end-17_26--2" label="robotbase_goingto_end-17_26--2" source="17" target="26" />
+			<edge id="robotbase_goingto_end-17_61--2" label="robotbase_goingto_end-17_61--2" source="17" target="61" />
+			<edge id="robotbase_goingto_end-17_62--2" label="robotbase_goingto_end-17_62--2" source="17" target="62" />
+			<edge id="robotbase_goingto_end-17_63--2" label="robotbase_goingto_end-17_63--2" source="17" target="63" />
+			<edge id="robotbase_goingto_end-17_33--2" label="robotbase_goingto_end-17_33--2" source="17" target="33" />
+			<edge id="robotbase_goingto_end-17_29--2" label="robotbase_goingto_end-17_29--2" source="17" target="29" />
+			<edge id="robotbase_goingto_start-18_3--2" label="robotbase_goingto_start-18_3--2" source="18" target="3" />
+			<edge id="robotbase_goingto_start-18_5--2" label="robotbase_goingto_start-18_5--2" source="18" target="5" />
+			<edge id="robotbase_goingto_start-18_0--2" label="robotbase_goingto_start-18_0--2" source="18" target="0" />
+			<edge id="robotbase_goingto_start-18_8--2" label="robotbase_goingto_start-18_8--2" source="18" target="8" />
+			<edge id="robotbase_goingto_start-18_11--2" label="robotbase_goingto_start-18_11--2" source="18" target="11" />
+			<edge id="robotbase_goingto_start-18_14--2" label="robotbase_goingto_start-18_14--2" source="18" target="14" />
+			<edge id="robotbase_goingto_start-18_15--2" label="robotbase_goingto_start-18_15--2" source="18" target="15" />
+			<edge id="robotbase_goingto_end-18_0--2" label="robotbase_goingto_end-18_0--2" source="18" target="0" />
+			<edge id="robotbase_goingto_end-18_3--2" label="robotbase_goingto_end-18_3--2" source="18" target="3" />
+			<edge id="robotbase_goingto_end-18_5--2" label="robotbase_goingto_end-18_5--2" source="18" target="5" />
+			<edge id="robotbase_goingto_end-18_8--2" label="robotbase_goingto_end-18_8--2" source="18" target="8" />
+			<edge id="robotbase_goingto_end-18_11--2" label="robotbase_goingto_end-18_11--2" source="18" target="11" />
+			<edge id="robotbase_goingto_end-18_14--2" label="robotbase_goingto_end-18_14--2" source="18" target="14" />
+			<edge id="robotbase_goingto_end-18_15--2" label="robotbase_goingto_end-18_15--2" source="18" target="15" />
+			<edge id="robotbase_goingto_end-18_64--2" label="robotbase_goingto_end-18_64--2" source="18" target="64" />
+			<edge id="robotbase_goingto_end-18_37--2" label="robotbase_goingto_end-18_37--2" source="18" target="37" />
+			<edge id="robotbase_goingto_end-18_29--2" label="robotbase_goingto_end-18_29--2" source="18" target="29" />
+			<edge id="robotbase_goingto_end-18_61--2" label="robotbase_goingto_end-18_61--2" source="18" target="61" />
+			<edge id="robotbase_goingto_end-18_62--2" label="robotbase_goingto_end-18_62--2" source="18" target="62" />
+			<edge id="robotbase_goingto_end-18_63--2" label="robotbase_goingto_end-18_63--2" source="18" target="63" />
+			<edge id="robotbase_goingto_end-18_33--2" label="robotbase_goingto_end-18_33--2" source="18" target="33" />
+			<edge id="robotbase_goingto_end-18_26--2" label="robotbase_goingto_end-18_26--2" source="18" target="26" />
+			<edge id="robotbase_goingto_start-19_1--2" label="robotbase_goingto_start-19_1--2" source="19" target="1" />
+			<edge id="robotbase_goingto_start-19_4--2" label="robotbase_goingto_start-19_4--2" source="19" target="4" />
+			<edge id="robotbase_goingto_start-19_0--2" label="robotbase_goingto_start-19_0--2" source="19" target="0" />
+			<edge id="robotbase_goingto_start-19_7--2" label="robotbase_goingto_start-19_7--2" source="19" target="7" />
+			<edge id="robotbase_goingto_start-19_10--2" label="robotbase_goingto_start-19_10--2" source="19" target="10" />
+			<edge id="robotbase_goingto_start-19_13--2" label="robotbase_goingto_start-19_13--2" source="19" target="13" />
+			<edge id="robotbase_goingto_start-19_14--2" label="robotbase_goingto_start-19_14--2" source="19" target="14" />
+			<edge id="robotbase_goingto_end-19_0--2" label="robotbase_goingto_end-19_0--2" source="19" target="0" />
+			<edge id="robotbase_goingto_end-19_1--2" label="robotbase_goingto_end-19_1--2" source="19" target="1" />
+			<edge id="robotbase_goingto_end-19_4--2" label="robotbase_goingto_end-19_4--2" source="19" target="4" />
+			<edge id="robotbase_goingto_end-19_7--2" label="robotbase_goingto_end-19_7--2" source="19" target="7" />
+			<edge id="robotbase_goingto_end-19_10--2" label="robotbase_goingto_end-19_10--2" source="19" target="10" />
+			<edge id="robotbase_goingto_end-19_13--2" label="robotbase_goingto_end-19_13--2" source="19" target="13" />
+			<edge id="robotbase_goingto_end-19_14--2" label="robotbase_goingto_end-19_14--2" source="19" target="14" />
+			<edge id="robotbase_goingto_end-19_64--2" label="robotbase_goingto_end-19_64--2" source="19" target="64" />
+			<edge id="robotbase_goingto_end-19_37--2" label="robotbase_goingto_end-19_37--2" source="19" target="37" />
+			<edge id="robotbase_goingto_end-19_29--2" label="robotbase_goingto_end-19_29--2" source="19" target="29" />
+			<edge id="robotbase_goingto_end-19_26--2" label="robotbase_goingto_end-19_26--2" source="19" target="26" />
+			<edge id="robotbase_goingto_end-19_62--2" label="robotbase_goingto_end-19_62--2" source="19" target="62" />
+			<edge id="robotbase_goingto_end-19_63--2" label="robotbase_goingto_end-19_63--2" source="19" target="63" />
+			<edge id="robotbase_goingto_end-19_33--2" label="robotbase_goingto_end-19_33--2" source="19" target="33" />
+			<edge id="robotbase_goingto_end-19_61--2" label="robotbase_goingto_end-19_61--2" source="19" target="61" />
+			<edge id="robotbase_undocking_start-20_3--2" label="robotbase_undocking_start-20_3--2" source="20" target="3" />
+			<edge id="robotbase_undocking_start-20_0--2" label="robotbase_undocking_start-20_0--2" source="20" target="0" />
+			<edge id="robotbase_undocking_end-20_0--2" label="robotbase_undocking_end-20_0--2" source="20" target="0" />
+			<edge id="robotbase_undocking_end-20_3--2" label="robotbase_undocking_end-20_3--2" source="20" target="3" />
+			<edge id="robotbase_docking_start-20_3--2" label="robotbase_docking_start-20_3--2" source="20" target="3" />
+			<edge id="robotbase_docking_start-20_0--2" label="robotbase_docking_start-20_0--2" source="20" target="0" />
+			<edge id="robotbase_docking_end-20_0--2" label="robotbase_docking_end-20_0--2" source="20" target="0" />
+			<edge id="robotbase_docking_end-20_3--2" label="robotbase_docking_end-20_3--2" source="20" target="3" />
+			<edge id="robotbase_undocking_start-21_2--2" label="robotbase_undocking_start-21_2--2" source="21" target="2" />
+			<edge id="robotbase_undocking_start-21_0--2" label="robotbase_undocking_start-21_0--2" source="21" target="0" />
+			<edge id="robotbase_undocking_end-21_0--2" label="robotbase_undocking_end-21_0--2" source="21" target="0" />
+			<edge id="robotbase_undocking_end-21_2--2" label="robotbase_undocking_end-21_2--2" source="21" target="2" />
+			<edge id="robotbase_docking_start-21_2--2" label="robotbase_docking_start-21_2--2" source="21" target="2" />
+			<edge id="robotbase_docking_start-21_0--2" label="robotbase_docking_start-21_0--2" source="21" target="0" />
+			<edge id="robotbase_docking_end-21_0--2" label="robotbase_docking_end-21_0--2" source="21" target="0" />
+			<edge id="robotbase_docking_end-21_2--2" label="robotbase_docking_end-21_2--2" source="21" target="2" />
+			<edge id="robotbase_undocking_start-22_1--2" label="robotbase_undocking_start-22_1--2" source="22" target="1" />
+			<edge id="robotbase_undocking_start-22_0--2" label="robotbase_undocking_start-22_0--2" source="22" target="0" />
+			<edge id="robotbase_undocking_end-22_0--2" label="robotbase_undocking_end-22_0--2" source="22" target="0" />
+			<edge id="robotbase_undocking_end-22_1--2" label="robotbase_undocking_end-22_1--2" source="22" target="1" />
+			<edge id="robotbase_docking_start-22_1--2" label="robotbase_docking_start-22_1--2" source="22" target="1" />
+			<edge id="robotbase_docking_start-22_0--2" label="robotbase_docking_start-22_0--2" source="22" target="0" />
+			<edge id="robotbase_docking_end-22_0--2" label="robotbase_docking_end-22_0--2" source="22" target="0" />
+			<edge id="robotbase_docking_end-22_1--2" label="robotbase_docking_end-22_1--2" source="22" target="1" />
+			<edge id="navigation_changemode_start-23_3--2" label="navigation_changemode_start-23_3--2" source="23" target="3" />
+			<edge id="navigation_changemode_start-23_0--2" label="navigation_changemode_start-23_0--2" source="23" target="0" />
+			<edge id="navigation_changemode_end-23_0--2" label="navigation_changemode_end-23_0--2" source="23" target="0" />
+			<edge id="navigation_changemode_end-23_3--2" label="navigation_changemode_end-23_3--2" source="23" target="3" />
+			<edge id="navigation_changemode_start-24_1--2" label="navigation_changemode_start-24_1--2" source="24" target="1" />
+			<edge id="navigation_changemode_start-24_0--2" label="navigation_changemode_start-24_0--2" source="24" target="0" />
+			<edge id="navigation_changemode_end-24_0--2" label="navigation_changemode_end-24_0--2" source="24" target="0" />
+			<edge id="navigation_changemode_end-24_1--2" label="navigation_changemode_end-24_1--2" source="24" target="1" />
+			<edge id="navigation_changemode_start-25_2--2" label="navigation_changemode_start-25_2--2" source="25" target="2" />
+			<edge id="navigation_changemode_start-25_0--2" label="navigation_changemode_start-25_0--2" source="25" target="0" />
+			<edge id="navigation_changemode_end-25_0--2" label="navigation_changemode_end-25_0--2" source="25" target="0" />
+			<edge id="navigation_changemode_end-25_2--2" label="navigation_changemode_end-25_2--2" source="25" target="2" />
+			<edge id="robotbase_goingto_end-26_0--2" label="robotbase_goingto_end-26_0--2" source="26" target="0" />
+			<edge id="robotbase_goingto_end-26_2--2" label="robotbase_goingto_end-26_2--2" source="26" target="2" />
+			<edge id="robotbase_goingto_end-26_6--2" label="robotbase_goingto_end-26_6--2" source="26" target="6" />
+			<edge id="robotbase_goingto_end-26_9--2" label="robotbase_goingto_end-26_9--2" source="26" target="9" />
+			<edge id="robotbase_goingto_end-26_12--2" label="robotbase_goingto_end-26_12--2" source="26" target="12" />
+			<edge id="robotbase_goingto_end-26_14--2" label="robotbase_goingto_end-26_14--2" source="26" target="14" />
+			<edge id="robotbase_goingto_end-26_16--2" label="robotbase_goingto_end-26_16--2" source="26" target="16" />
+			<edge id="robotbase_goingto_end-26_17--2" label="robotbase_goingto_end-26_17--2" source="26" target="17" />
+			<edge id="robotbase_goingto_end-26_1--2" label="robotbase_goingto_end-26_1--2" source="26" target="1" />
+			<edge id="robotbase_goingto_end-26_4--2" label="robotbase_goingto_end-26_4--2" source="26" target="4" />
+			<edge id="robotbase_goingto_end-26_7--2" label="robotbase_goingto_end-26_7--2" source="26" target="7" />
+			<edge id="robotbase_goingto_end-26_10--2" label="robotbase_goingto_end-26_10--2" source="26" target="10" />
+			<edge id="robotbase_goingto_end-26_13--2" label="robotbase_goingto_end-26_13--2" source="26" target="13" />
+			<edge id="robotbase_goingto_end-26_19--2" label="robotbase_goingto_end-26_19--2" source="26" target="19" />
+			<edge id="robotbase_goingto_end-26_3--2" label="robotbase_goingto_end-26_3--2" source="26" target="3" />
+			<edge id="robotbase_goingto_end-26_5--2" label="robotbase_goingto_end-26_5--2" source="26" target="5" />
+			<edge id="robotbase_goingto_end-26_8--2" label="robotbase_goingto_end-26_8--2" source="26" target="8" />
+			<edge id="robotbase_goingto_end-26_11--2" label="robotbase_goingto_end-26_11--2" source="26" target="11" />
+			<edge id="robotbase_goingto_end-26_15--2" label="robotbase_goingto_end-26_15--2" source="26" target="15" />
+			<edge id="robotbase_goingto_end-26_18--2" label="robotbase_goingto_end-26_18--2" source="26" target="18" />
 			<edge id="communication_transmittingpicture_end-27_0--2" label="communication_transmittingpicture_end-27_0--2" source="27" target="0" />
-			<edge id="communication_transmittingpicture_end-27_1--2" label="communication_transmittingpicture_end-27_1--2" source="27" target="1" />
-			<edge id="communication_transmittingpicture_end-27_9--2" label="communication_transmittingpicture_end-27_9--2" source="27" target="9" />
 			<edge id="communication_transmittingpicture_end-27_3--2" label="communication_transmittingpicture_end-27_3--2" source="27" target="3" />
 			<edge id="communication_transmittingpicture_end-27_8--2" label="communication_transmittingpicture_end-27_8--2" source="27" target="8" />
 			<edge id="communication_transmittingpicture_end-27_2--2" label="communication_transmittingpicture_end-27_2--2" source="27" target="2" />
+			<edge id="communication_transmittingpicture_end-27_9--2" label="communication_transmittingpicture_end-27_9--2" source="27" target="9" />
+			<edge id="communication_transmittingpicture_end-27_1--2" label="communication_transmittingpicture_end-27_1--2" source="27" target="1" />
 			<edge id="communication_transmittingpicture_end-27_7--2" label="communication_transmittingpicture_end-27_7--2" source="27" target="7" />
 			<edge id="communication_transmittingpicture_end-28_0--2" label="communication_transmittingpicture_end-28_0--2" source="28" target="0" />
-			<edge id="communication_transmittingpicture_end-28_1--2" label="communication_transmittingpicture_end-28_1--2" source="28" target="1" />
-			<edge id="communication_transmittingpicture_end-28_9--2" label="communication_transmittingpicture_end-28_9--2" source="28" target="9" />
 			<edge id="communication_transmittingpicture_end-28_3--2" label="communication_transmittingpicture_end-28_3--2" source="28" target="3" />
 			<edge id="communication_transmittingpicture_end-28_8--2" label="communication_transmittingpicture_end-28_8--2" source="28" target="8" />
 			<edge id="communication_transmittingpicture_end-28_2--2" label="communication_transmittingpicture_end-28_2--2" source="28" target="2" />
+			<edge id="communication_transmittingpicture_end-28_9--2" label="communication_transmittingpicture_end-28_9--2" source="28" target="9" />
+			<edge id="communication_transmittingpicture_end-28_1--2" label="communication_transmittingpicture_end-28_1--2" source="28" target="1" />
 			<edge id="communication_transmittingpicture_end-28_7--2" label="communication_transmittingpicture_end-28_7--2" source="28" target="7" />
-			<edge id="communication_transmittingpicture_end-29_0--2" label="communication_transmittingpicture_end-29_0--2" source="29" target="0" />
-			<edge id="communication_transmittingpicture_end-29_1--2" label="communication_transmittingpicture_end-29_1--2" source="29" target="1" />
-			<edge id="communication_transmittingpicture_end-29_9--2" label="communication_transmittingpicture_end-29_9--2" source="29" target="9" />
-			<edge id="communication_transmittingpicture_end-29_3--2" label="communication_transmittingpicture_end-29_3--2" source="29" target="3" />
-			<edge id="communication_transmittingpicture_end-29_8--2" label="communication_transmittingpicture_end-29_8--2" source="29" target="8" />
-			<edge id="communication_transmittingpicture_end-29_2--2" label="communication_transmittingpicture_end-29_2--2" source="29" target="2" />
-			<edge id="communication_transmittingpicture_end-29_7--2" label="communication_transmittingpicture_end-29_7--2" source="29" target="7" />
-			<edge id="communication_transmittingpicture_end-30_0--2" label="communication_transmittingpicture_end-30_0--2" source="30" target="0" />
-			<edge id="communication_transmittingpicture_end-30_1--2" label="communication_transmittingpicture_end-30_1--2" source="30" target="1" />
-			<edge id="communication_transmittingpicture_end-30_9--2" label="communication_transmittingpicture_end-30_9--2" source="30" target="9" />
-			<edge id="communication_transmittingpicture_end-30_3--2" label="communication_transmittingpicture_end-30_3--2" source="30" target="3" />
-			<edge id="communication_transmittingpicture_end-30_8--2" label="communication_transmittingpicture_end-30_8--2" source="30" target="8" />
-			<edge id="communication_transmittingpicture_end-30_2--2" label="communication_transmittingpicture_end-30_2--2" source="30" target="2" />
-			<edge id="communication_transmittingpicture_end-30_7--2" label="communication_transmittingpicture_end-30_7--2" source="30" target="7" />
-			<edge id="communication_transmittingpicture_end-31_0--2" label="communication_transmittingpicture_end-31_0--2" source="31" target="0" />
-			<edge id="communication_transmittingpicture_end-31_1--2" label="communication_transmittingpicture_end-31_1--2" source="31" target="1" />
-			<edge id="communication_transmittingpicture_end-31_9--2" label="communication_transmittingpicture_end-31_9--2" source="31" target="9" />
-			<edge id="communication_transmittingpicture_end-31_3--2" label="communication_transmittingpicture_end-31_3--2" source="31" target="3" />
-			<edge id="communication_transmittingpicture_end-31_8--2" label="communication_transmittingpicture_end-31_8--2" source="31" target="8" />
-			<edge id="communication_transmittingpicture_end-31_2--2" label="communication_transmittingpicture_end-31_2--2" source="31" target="2" />
-			<edge id="communication_transmittingpicture_end-31_7--2" label="communication_transmittingpicture_end-31_7--2" source="31" target="7" />
+			<edge id="robotbase_goingto_end-29_0--2" label="robotbase_goingto_end-29_0--2" source="29" target="0" />
+			<edge id="robotbase_goingto_end-29_3--2" label="robotbase_goingto_end-29_3--2" source="29" target="3" />
+			<edge id="robotbase_goingto_end-29_5--2" label="robotbase_goingto_end-29_5--2" source="29" target="5" />
+			<edge id="robotbase_goingto_end-29_8--2" label="robotbase_goingto_end-29_8--2" source="29" target="8" />
+			<edge id="robotbase_goingto_end-29_11--2" label="robotbase_goingto_end-29_11--2" source="29" target="11" />
+			<edge id="robotbase_goingto_end-29_14--2" label="robotbase_goingto_end-29_14--2" source="29" target="14" />
+			<edge id="robotbase_goingto_end-29_15--2" label="robotbase_goingto_end-29_15--2" source="29" target="15" />
+			<edge id="robotbase_goingto_end-29_18--2" label="robotbase_goingto_end-29_18--2" source="29" target="18" />
+			<edge id="robotbase_goingto_end-29_1--2" label="robotbase_goingto_end-29_1--2" source="29" target="1" />
+			<edge id="robotbase_goingto_end-29_4--2" label="robotbase_goingto_end-29_4--2" source="29" target="4" />
+			<edge id="robotbase_goingto_end-29_7--2" label="robotbase_goingto_end-29_7--2" source="29" target="7" />
+			<edge id="robotbase_goingto_end-29_10--2" label="robotbase_goingto_end-29_10--2" source="29" target="10" />
+			<edge id="robotbase_goingto_end-29_13--2" label="robotbase_goingto_end-29_13--2" source="29" target="13" />
+			<edge id="robotbase_goingto_end-29_19--2" label="robotbase_goingto_end-29_19--2" source="29" target="19" />
+			<edge id="robotbase_goingto_end-29_2--2" label="robotbase_goingto_end-29_2--2" source="29" target="2" />
+			<edge id="robotbase_goingto_end-29_6--2" label="robotbase_goingto_end-29_6--2" source="29" target="6" />
+			<edge id="robotbase_goingto_end-29_9--2" label="robotbase_goingto_end-29_9--2" source="29" target="9" />
+			<edge id="robotbase_goingto_end-29_12--2" label="robotbase_goingto_end-29_12--2" source="29" target="12" />
+			<edge id="robotbase_goingto_end-29_16--2" label="robotbase_goingto_end-29_16--2" source="29" target="16" />
+			<edge id="robotbase_goingto_end-29_17--2" label="robotbase_goingto_end-29_17--2" source="29" target="17" />
+			<edge id="cameras_takingpicture_end-30_0--2" label="cameras_takingpicture_end-30_0--2" source="30" target="0" />
+			<edge id="cameras_takingpicture_end-30_3--2" label="cameras_takingpicture_end-30_3--2" source="30" target="3" />
+			<edge id="cameras_takingpicture_end-30_8--2" label="cameras_takingpicture_end-30_8--2" source="30" target="8" />
+			<edge id="cameras_takingpicture_end-31_0--2" label="cameras_takingpicture_end-31_0--2" source="31" target="0" />
+			<edge id="cameras_takingpicture_end-31_3--2" label="cameras_takingpicture_end-31_3--2" source="31" target="3" />
+			<edge id="cameras_takingpicture_end-31_8--2" label="cameras_takingpicture_end-31_8--2" source="31" target="8" />
 			<edge id="cameras_takingpicture_end-32_0--2" label="cameras_takingpicture_end-32_0--2" source="32" target="0" />
-			<edge id="cameras_takingpicture_end-32_3--2" label="cameras_takingpicture_end-32_3--2" source="32" target="3" />
-			<edge id="cameras_takingpicture_end-32_8--2" label="cameras_takingpicture_end-32_8--2" source="32" target="8" />
-			<edge id="cameras_takingpicture_end-33_0--2" label="cameras_takingpicture_end-33_0--2" source="33" target="0" />
-			<edge id="cameras_takingpicture_end-33_3--2" label="cameras_takingpicture_end-33_3--2" source="33" target="3" />
-			<edge id="cameras_takingpicture_end-33_8--2" label="cameras_takingpicture_end-33_8--2" source="33" target="8" />
-			<edge id="cameras_takingpicture_end-34_0--2" label="cameras_takingpicture_end-34_0--2" source="34" target="0" />
-			<edge id="cameras_takingpicture_end-34_2--2" label="cameras_takingpicture_end-34_2--2" source="34" target="2" />
-			<edge id="cameras_takingpicture_end-34_7--2" label="cameras_takingpicture_end-34_7--2" source="34" target="7" />
-			<edge id="cameras_takingpicture_end-35_0--2" label="cameras_takingpicture_end-35_0--2" source="35" target="0" />
-			<edge id="cameras_takingpicture_end-35_2--2" label="cameras_takingpicture_end-35_2--2" source="35" target="2" />
-			<edge id="cameras_takingpicture_end-35_7--2" label="cameras_takingpicture_end-35_7--2" source="35" target="7" />
-			<edge id="cameras_takingpicture_end-36_0--2" label="cameras_takingpicture_end-36_0--2" source="36" target="0" />
-			<edge id="cameras_takingpicture_end-36_2--2" label="cameras_takingpicture_end-36_2--2" source="36" target="2" />
-			<edge id="cameras_takingpicture_end-36_7--2" label="cameras_takingpicture_end-36_7--2" source="36" target="7" />
-			<edge id="cameras_takingpicture_end-37_0--2" label="cameras_takingpicture_end-37_0--2" source="37" target="0" />
-			<edge id="cameras_takingpicture_end-37_2--2" label="cameras_takingpicture_end-37_2--2" source="37" target="2" />
-			<edge id="cameras_takingpicture_end-37_7--2" label="cameras_takingpicture_end-37_7--2" source="37" target="7" />
-			<edge id="robotbase_goingto_end-38_0--2" label="robotbase_goingto_end-38_0--2" source="38" target="0" />
-			<edge id="robotbase_goingto_end-38_1--2" label="robotbase_goingto_end-38_1--2" source="38" target="1" />
-			<edge id="robotbase_goingto_end-38_6--2" label="robotbase_goingto_end-38_6--2" source="38" target="6" />
-			<edge id="robotbase_goingto_end-38_9--2" label="robotbase_goingto_end-38_9--2" source="38" target="9" />
-			<edge id="robotbase_goingto_end-38_12--2" label="robotbase_goingto_end-38_12--2" source="38" target="12" />
-			<edge id="robotbase_goingto_end-38_13--2" label="robotbase_goingto_end-38_13--2" source="38" target="13" />
-			<edge id="robotbase_goingto_end-38_15--2" label="robotbase_goingto_end-38_15--2" source="38" target="15" />
-			<edge id="robotbase_goingto_end-38_3--2" label="robotbase_goingto_end-38_3--2" source="38" target="3" />
-			<edge id="robotbase_goingto_end-38_5--2" label="robotbase_goingto_end-38_5--2" source="38" target="5" />
-			<edge id="robotbase_goingto_end-38_8--2" label="robotbase_goingto_end-38_8--2" source="38" target="8" />
-			<edge id="robotbase_goingto_end-38_10--2" label="robotbase_goingto_end-38_10--2" source="38" target="10" />
-			<edge id="robotbase_goingto_end-38_14--2" label="robotbase_goingto_end-38_14--2" source="38" target="14" />
-			<edge id="robotbase_goingto_end-38_2--2" label="robotbase_goingto_end-38_2--2" source="38" target="2" />
-			<edge id="robotbase_goingto_end-38_4--2" label="robotbase_goingto_end-38_4--2" source="38" target="4" />
-			<edge id="robotbase_goingto_end-38_7--2" label="robotbase_goingto_end-38_7--2" source="38" target="7" />
-			<edge id="robotbase_goingto_end-38_11--2" label="robotbase_goingto_end-38_11--2" source="38" target="11" />
-			<edge id="robotbase_goingto_end-38_16--2" label="robotbase_goingto_end-38_16--2" source="38" target="16" />
-			<edge id="robotbase_goingto_end-39_0--2" label="robotbase_goingto_end-39_0--2" source="39" target="0" />
-			<edge id="robotbase_goingto_end-39_1--2" label="robotbase_goingto_end-39_1--2" source="39" target="1" />
-			<edge id="robotbase_goingto_end-39_6--2" label="robotbase_goingto_end-39_6--2" source="39" target="6" />
-			<edge id="robotbase_goingto_end-39_9--2" label="robotbase_goingto_end-39_9--2" source="39" target="9" />
-			<edge id="robotbase_goingto_end-39_12--2" label="robotbase_goingto_end-39_12--2" source="39" target="12" />
-			<edge id="robotbase_goingto_end-39_13--2" label="robotbase_goingto_end-39_13--2" source="39" target="13" />
-			<edge id="robotbase_goingto_end-39_15--2" label="robotbase_goingto_end-39_15--2" source="39" target="15" />
-			<edge id="robotbase_goingto_end-39_3--2" label="robotbase_goingto_end-39_3--2" source="39" target="3" />
-			<edge id="robotbase_goingto_end-39_5--2" label="robotbase_goingto_end-39_5--2" source="39" target="5" />
-			<edge id="robotbase_goingto_end-39_8--2" label="robotbase_goingto_end-39_8--2" source="39" target="8" />
-			<edge id="robotbase_goingto_end-39_10--2" label="robotbase_goingto_end-39_10--2" source="39" target="10" />
-			<edge id="robotbase_goingto_end-39_14--2" label="robotbase_goingto_end-39_14--2" source="39" target="14" />
-			<edge id="robotbase_goingto_end-39_2--2" label="robotbase_goingto_end-39_2--2" source="39" target="2" />
-			<edge id="robotbase_goingto_end-39_4--2" label="robotbase_goingto_end-39_4--2" source="39" target="4" />
-			<edge id="robotbase_goingto_end-39_7--2" label="robotbase_goingto_end-39_7--2" source="39" target="7" />
-			<edge id="robotbase_goingto_end-39_11--2" label="robotbase_goingto_end-39_11--2" source="39" target="11" />
-			<edge id="robotbase_goingto_end-39_16--2" label="robotbase_goingto_end-39_16--2" source="39" target="16" />
-			<edge id="robotbase_goingto_end-40_0--2" label="robotbase_goingto_end-40_0--2" source="40" target="0" />
-			<edge id="robotbase_goingto_end-40_3--2" label="robotbase_goingto_end-40_3--2" source="40" target="3" />
-			<edge id="robotbase_goingto_end-40_5--2" label="robotbase_goingto_end-40_5--2" source="40" target="5" />
-			<edge id="robotbase_goingto_end-40_8--2" label="robotbase_goingto_end-40_8--2" source="40" target="8" />
-			<edge id="robotbase_goingto_end-40_10--2" label="robotbase_goingto_end-40_10--2" source="40" target="10" />
-			<edge id="robotbase_goingto_end-40_12--2" label="robotbase_goingto_end-40_12--2" source="40" target="12" />
-			<edge id="robotbase_goingto_end-40_14--2" label="robotbase_goingto_end-40_14--2" source="40" target="14" />
-			<edge id="robotbase_goingto_end-40_2--2" label="robotbase_goingto_end-40_2--2" source="40" target="2" />
-			<edge id="robotbase_goingto_end-40_4--2" label="robotbase_goingto_end-40_4--2" source="40" target="4" />
-			<edge id="robotbase_goingto_end-40_7--2" label="robotbase_goingto_end-40_7--2" source="40" target="7" />
-			<edge id="robotbase_goingto_end-40_11--2" label="robotbase_goingto_end-40_11--2" source="40" target="11" />
-			<edge id="robotbase_goingto_end-40_16--2" label="robotbase_goingto_end-40_16--2" source="40" target="16" />
-			<edge id="robotbase_goingto_end-40_1--2" label="robotbase_goingto_end-40_1--2" source="40" target="1" />
-			<edge id="robotbase_goingto_end-40_6--2" label="robotbase_goingto_end-40_6--2" source="40" target="6" />
-			<edge id="robotbase_goingto_end-40_9--2" label="robotbase_goingto_end-40_9--2" source="40" target="9" />
-			<edge id="robotbase_goingto_end-40_13--2" label="robotbase_goingto_end-40_13--2" source="40" target="13" />
-			<edge id="robotbase_goingto_end-40_15--2" label="robotbase_goingto_end-40_15--2" source="40" target="15" />
+			<edge id="cameras_takingpicture_end-32_2--2" label="cameras_takingpicture_end-32_2--2" source="32" target="2" />
+			<edge id="cameras_takingpicture_end-32_9--2" label="cameras_takingpicture_end-32_9--2" source="32" target="9" />
+			<edge id="robotbase_goingto_end-33_0--2" label="robotbase_goingto_end-33_0--2" source="33" target="0" />
+			<edge id="robotbase_goingto_end-33_3--2" label="robotbase_goingto_end-33_3--2" source="33" target="3" />
+			<edge id="robotbase_goingto_end-33_5--2" label="robotbase_goingto_end-33_5--2" source="33" target="5" />
+			<edge id="robotbase_goingto_end-33_8--2" label="robotbase_goingto_end-33_8--2" source="33" target="8" />
+			<edge id="robotbase_goingto_end-33_11--2" label="robotbase_goingto_end-33_11--2" source="33" target="11" />
+			<edge id="robotbase_goingto_end-33_14--2" label="robotbase_goingto_end-33_14--2" source="33" target="14" />
+			<edge id="robotbase_goingto_end-33_15--2" label="robotbase_goingto_end-33_15--2" source="33" target="15" />
+			<edge id="robotbase_goingto_end-33_18--2" label="robotbase_goingto_end-33_18--2" source="33" target="18" />
+			<edge id="robotbase_goingto_end-33_2--2" label="robotbase_goingto_end-33_2--2" source="33" target="2" />
+			<edge id="robotbase_goingto_end-33_6--2" label="robotbase_goingto_end-33_6--2" source="33" target="6" />
+			<edge id="robotbase_goingto_end-33_9--2" label="robotbase_goingto_end-33_9--2" source="33" target="9" />
+			<edge id="robotbase_goingto_end-33_12--2" label="robotbase_goingto_end-33_12--2" source="33" target="12" />
+			<edge id="robotbase_goingto_end-33_16--2" label="robotbase_goingto_end-33_16--2" source="33" target="16" />
+			<edge id="robotbase_goingto_end-33_17--2" label="robotbase_goingto_end-33_17--2" source="33" target="17" />
+			<edge id="robotbase_goingto_end-33_1--2" label="robotbase_goingto_end-33_1--2" source="33" target="1" />
+			<edge id="robotbase_goingto_end-33_4--2" label="robotbase_goingto_end-33_4--2" source="33" target="4" />
+			<edge id="robotbase_goingto_end-33_7--2" label="robotbase_goingto_end-33_7--2" source="33" target="7" />
+			<edge id="robotbase_goingto_end-33_10--2" label="robotbase_goingto_end-33_10--2" source="33" target="10" />
+			<edge id="robotbase_goingto_end-33_13--2" label="robotbase_goingto_end-33_13--2" source="33" target="13" />
+			<edge id="robotbase_goingto_end-33_19--2" label="robotbase_goingto_end-33_19--2" source="33" target="19" />
+			<edge id="communication_transmittingpicture_end-34_0--2" label="communication_transmittingpicture_end-34_0--2" source="34" target="0" />
+			<edge id="communication_transmittingpicture_end-34_3--2" label="communication_transmittingpicture_end-34_3--2" source="34" target="3" />
+			<edge id="communication_transmittingpicture_end-34_8--2" label="communication_transmittingpicture_end-34_8--2" source="34" target="8" />
+			<edge id="communication_transmittingpicture_end-34_2--2" label="communication_transmittingpicture_end-34_2--2" source="34" target="2" />
+			<edge id="communication_transmittingpicture_end-34_9--2" label="communication_transmittingpicture_end-34_9--2" source="34" target="9" />
+			<edge id="communication_transmittingpicture_end-34_1--2" label="communication_transmittingpicture_end-34_1--2" source="34" target="1" />
+			<edge id="communication_transmittingpicture_end-34_7--2" label="communication_transmittingpicture_end-34_7--2" source="34" target="7" />
+			<edge id="communication_transmittingpicture_end-35_0--2" label="communication_transmittingpicture_end-35_0--2" source="35" target="0" />
+			<edge id="communication_transmittingpicture_end-35_3--2" label="communication_transmittingpicture_end-35_3--2" source="35" target="3" />
+			<edge id="communication_transmittingpicture_end-35_8--2" label="communication_transmittingpicture_end-35_8--2" source="35" target="8" />
+			<edge id="communication_transmittingpicture_end-35_2--2" label="communication_transmittingpicture_end-35_2--2" source="35" target="2" />
+			<edge id="communication_transmittingpicture_end-35_9--2" label="communication_transmittingpicture_end-35_9--2" source="35" target="9" />
+			<edge id="communication_transmittingpicture_end-35_1--2" label="communication_transmittingpicture_end-35_1--2" source="35" target="1" />
+			<edge id="communication_transmittingpicture_end-35_7--2" label="communication_transmittingpicture_end-35_7--2" source="35" target="7" />
+			<edge id="communication_transmittingpicture_end-36_0--2" label="communication_transmittingpicture_end-36_0--2" source="36" target="0" />
+			<edge id="communication_transmittingpicture_end-36_2--2" label="communication_transmittingpicture_end-36_2--2" source="36" target="2" />
+			<edge id="communication_transmittingpicture_end-36_9--2" label="communication_transmittingpicture_end-36_9--2" source="36" target="9" />
+			<edge id="communication_transmittingpicture_end-36_3--2" label="communication_transmittingpicture_end-36_3--2" source="36" target="3" />
+			<edge id="communication_transmittingpicture_end-36_8--2" label="communication_transmittingpicture_end-36_8--2" source="36" target="8" />
+			<edge id="communication_transmittingpicture_end-36_1--2" label="communication_transmittingpicture_end-36_1--2" source="36" target="1" />
+			<edge id="communication_transmittingpicture_end-36_7--2" label="communication_transmittingpicture_end-36_7--2" source="36" target="7" />
+			<edge id="robotbase_goingto_end-37_0--2" label="robotbase_goingto_end-37_0--2" source="37" target="0" />
+			<edge id="robotbase_goingto_end-37_3--2" label="robotbase_goingto_end-37_3--2" source="37" target="3" />
+			<edge id="robotbase_goingto_end-37_5--2" label="robotbase_goingto_end-37_5--2" source="37" target="5" />
+			<edge id="robotbase_goingto_end-37_8--2" label="robotbase_goingto_end-37_8--2" source="37" target="8" />
+			<edge id="robotbase_goingto_end-37_11--2" label="robotbase_goingto_end-37_11--2" source="37" target="11" />
+			<edge id="robotbase_goingto_end-37_14--2" label="robotbase_goingto_end-37_14--2" source="37" target="14" />
+			<edge id="robotbase_goingto_end-37_15--2" label="robotbase_goingto_end-37_15--2" source="37" target="15" />
+			<edge id="robotbase_goingto_end-37_18--2" label="robotbase_goingto_end-37_18--2" source="37" target="18" />
+			<edge id="robotbase_goingto_end-37_2--2" label="robotbase_goingto_end-37_2--2" source="37" target="2" />
+			<edge id="robotbase_goingto_end-37_6--2" label="robotbase_goingto_end-37_6--2" source="37" target="6" />
+			<edge id="robotbase_goingto_end-37_9--2" label="robotbase_goingto_end-37_9--2" source="37" target="9" />
+			<edge id="robotbase_goingto_end-37_12--2" label="robotbase_goingto_end-37_12--2" source="37" target="12" />
+			<edge id="robotbase_goingto_end-37_16--2" label="robotbase_goingto_end-37_16--2" source="37" target="16" />
+			<edge id="robotbase_goingto_end-37_17--2" label="robotbase_goingto_end-37_17--2" source="37" target="17" />
+			<edge id="robotbase_goingto_end-37_1--2" label="robotbase_goingto_end-37_1--2" source="37" target="1" />
+			<edge id="robotbase_goingto_end-37_4--2" label="robotbase_goingto_end-37_4--2" source="37" target="4" />
+			<edge id="robotbase_goingto_end-37_7--2" label="robotbase_goingto_end-37_7--2" source="37" target="7" />
+			<edge id="robotbase_goingto_end-37_10--2" label="robotbase_goingto_end-37_10--2" source="37" target="10" />
+			<edge id="robotbase_goingto_end-37_13--2" label="robotbase_goingto_end-37_13--2" source="37" target="13" />
+			<edge id="robotbase_goingto_end-37_19--2" label="robotbase_goingto_end-37_19--2" source="37" target="19" />
+			<edge id="cameras_takingpicture_end-38_0--2" label="cameras_takingpicture_end-38_0--2" source="38" target="0" />
+			<edge id="cameras_takingpicture_end-38_2--2" label="cameras_takingpicture_end-38_2--2" source="38" target="2" />
+			<edge id="cameras_takingpicture_end-38_9--2" label="cameras_takingpicture_end-38_9--2" source="38" target="9" />
+			<edge id="cameras_takingpicture_end-39_0--2" label="cameras_takingpicture_end-39_0--2" source="39" target="0" />
+			<edge id="cameras_takingpicture_end-39_2--2" label="cameras_takingpicture_end-39_2--2" source="39" target="2" />
+			<edge id="cameras_takingpicture_end-39_9--2" label="cameras_takingpicture_end-39_9--2" source="39" target="9" />
+			<edge id="cameras_takingpicture_end-40_0--2" label="cameras_takingpicture_end-40_0--2" source="40" target="0" />
+			<edge id="cameras_takingpicture_end-40_2--2" label="cameras_takingpicture_end-40_2--2" source="40" target="2" />
+			<edge id="cameras_takingpicture_end-40_9--2" label="cameras_takingpicture_end-40_9--2" source="40" target="9" />
 			<edge id="cameras_takingpicture_end-41_0--2" label="cameras_takingpicture_end-41_0--2" source="41" target="0" />
-			<edge id="cameras_takingpicture_end-41_3--2" label="cameras_takingpicture_end-41_3--2" source="41" target="3" />
-			<edge id="cameras_takingpicture_end-41_8--2" label="cameras_takingpicture_end-41_8--2" source="41" target="8" />
+			<edge id="cameras_takingpicture_end-41_2--2" label="cameras_takingpicture_end-41_2--2" source="41" target="2" />
+			<edge id="cameras_takingpicture_end-41_9--2" label="cameras_takingpicture_end-41_9--2" source="41" target="9" />
 			<edge id="cameras_takingpicture_end-42_0--2" label="cameras_takingpicture_end-42_0--2" source="42" target="0" />
-			<edge id="cameras_takingpicture_end-42_2--2" label="cameras_takingpicture_end-42_2--2" source="42" target="2" />
+			<edge id="cameras_takingpicture_end-42_1--2" label="cameras_takingpicture_end-42_1--2" source="42" target="1" />
 			<edge id="cameras_takingpicture_end-42_7--2" label="cameras_takingpicture_end-42_7--2" source="42" target="7" />
 			<edge id="cameras_takingpicture_end-43_0--2" label="cameras_takingpicture_end-43_0--2" source="43" target="0" />
-			<edge id="cameras_takingpicture_end-43_2--2" label="cameras_takingpicture_end-43_2--2" source="43" target="2" />
+			<edge id="cameras_takingpicture_end-43_1--2" label="cameras_takingpicture_end-43_1--2" source="43" target="1" />
 			<edge id="cameras_takingpicture_end-43_7--2" label="cameras_takingpicture_end-43_7--2" source="43" target="7" />
 			<edge id="cameras_takingpicture_end-44_0--2" label="cameras_takingpicture_end-44_0--2" source="44" target="0" />
 			<edge id="cameras_takingpicture_end-44_1--2" label="cameras_takingpicture_end-44_1--2" source="44" target="1" />
-			<edge id="cameras_takingpicture_end-44_9--2" label="cameras_takingpicture_end-44_9--2" source="44" target="9" />
+			<edge id="cameras_takingpicture_end-44_7--2" label="cameras_takingpicture_end-44_7--2" source="44" target="7" />
 			<edge id="cameras_takingpicture_end-45_0--2" label="cameras_takingpicture_end-45_0--2" source="45" target="0" />
 			<edge id="cameras_takingpicture_end-45_1--2" label="cameras_takingpicture_end-45_1--2" source="45" target="1" />
-			<edge id="cameras_takingpicture_end-45_9--2" label="cameras_takingpicture_end-45_9--2" source="45" target="9" />
+			<edge id="cameras_takingpicture_end-45_7--2" label="cameras_takingpicture_end-45_7--2" source="45" target="7" />
 			<edge id="cameras_takingpicture_end-46_0--2" label="cameras_takingpicture_end-46_0--2" source="46" target="0" />
 			<edge id="cameras_takingpicture_end-46_1--2" label="cameras_takingpicture_end-46_1--2" source="46" target="1" />
-			<edge id="cameras_takingpicture_end-46_9--2" label="cameras_takingpicture_end-46_9--2" source="46" target="9" />
+			<edge id="cameras_takingpicture_end-46_7--2" label="cameras_takingpicture_end-46_7--2" source="46" target="7" />
 			<edge id="cameras_takingpicture_end-47_0--2" label="cameras_takingpicture_end-47_0--2" source="47" target="0" />
 			<edge id="cameras_takingpicture_end-47_1--2" label="cameras_takingpicture_end-47_1--2" source="47" target="1" />
-			<edge id="cameras_takingpicture_end-47_9--2" label="cameras_takingpicture_end-47_9--2" source="47" target="9" />
+			<edge id="cameras_takingpicture_end-47_7--2" label="cameras_takingpicture_end-47_7--2" source="47" target="7" />
 			<edge id="cameras_takingpicture_end-48_0--2" label="cameras_takingpicture_end-48_0--2" source="48" target="0" />
-			<edge id="cameras_takingpicture_end-48_3--2" label="cameras_takingpicture_end-48_3--2" source="48" target="3" />
-			<edge id="cameras_takingpicture_end-48_8--2" label="cameras_takingpicture_end-48_8--2" source="48" target="8" />
+			<edge id="cameras_takingpicture_end-48_1--2" label="cameras_takingpicture_end-48_1--2" source="48" target="1" />
+			<edge id="cameras_takingpicture_end-48_7--2" label="cameras_takingpicture_end-48_7--2" source="48" target="7" />
 			<edge id="cameras_takingpicture_end-49_0--2" label="cameras_takingpicture_end-49_0--2" source="49" target="0" />
 			<edge id="cameras_takingpicture_end-49_3--2" label="cameras_takingpicture_end-49_3--2" source="49" target="3" />
 			<edge id="cameras_takingpicture_end-49_8--2" label="cameras_takingpicture_end-49_8--2" source="49" target="8" />
@@ -494,111 +1070,130 @@
 			<edge id="cameras_takingpicture_end-50_3--2" label="cameras_takingpicture_end-50_3--2" source="50" target="3" />
 			<edge id="cameras_takingpicture_end-50_8--2" label="cameras_takingpicture_end-50_8--2" source="50" target="8" />
 			<edge id="cameras_takingpicture_end-51_0--2" label="cameras_takingpicture_end-51_0--2" source="51" target="0" />
-			<edge id="cameras_takingpicture_end-51_2--2" label="cameras_takingpicture_end-51_2--2" source="51" target="2" />
-			<edge id="cameras_takingpicture_end-51_7--2" label="cameras_takingpicture_end-51_7--2" source="51" target="7" />
+			<edge id="cameras_takingpicture_end-51_3--2" label="cameras_takingpicture_end-51_3--2" source="51" target="3" />
+			<edge id="cameras_takingpicture_end-51_8--2" label="cameras_takingpicture_end-51_8--2" source="51" target="8" />
 			<edge id="cameras_takingpicture_end-52_0--2" label="cameras_takingpicture_end-52_0--2" source="52" target="0" />
-			<edge id="cameras_takingpicture_end-52_2--2" label="cameras_takingpicture_end-52_2--2" source="52" target="2" />
-			<edge id="cameras_takingpicture_end-52_7--2" label="cameras_takingpicture_end-52_7--2" source="52" target="7" />
+			<edge id="cameras_takingpicture_end-52_3--2" label="cameras_takingpicture_end-52_3--2" source="52" target="3" />
+			<edge id="cameras_takingpicture_end-52_8--2" label="cameras_takingpicture_end-52_8--2" source="52" target="8" />
 			<edge id="cameras_takingpicture_end-53_0--2" label="cameras_takingpicture_end-53_0--2" source="53" target="0" />
-			<edge id="cameras_takingpicture_end-53_1--2" label="cameras_takingpicture_end-53_1--2" source="53" target="1" />
-			<edge id="cameras_takingpicture_end-53_9--2" label="cameras_takingpicture_end-53_9--2" source="53" target="9" />
+			<edge id="cameras_takingpicture_end-53_3--2" label="cameras_takingpicture_end-53_3--2" source="53" target="3" />
+			<edge id="cameras_takingpicture_end-53_8--2" label="cameras_takingpicture_end-53_8--2" source="53" target="8" />
 			<edge id="cameras_takingpicture_end-54_0--2" label="cameras_takingpicture_end-54_0--2" source="54" target="0" />
-			<edge id="cameras_takingpicture_end-54_1--2" label="cameras_takingpicture_end-54_1--2" source="54" target="1" />
-			<edge id="cameras_takingpicture_end-54_9--2" label="cameras_takingpicture_end-54_9--2" source="54" target="9" />
+			<edge id="cameras_takingpicture_end-54_3--2" label="cameras_takingpicture_end-54_3--2" source="54" target="3" />
+			<edge id="cameras_takingpicture_end-54_8--2" label="cameras_takingpicture_end-54_8--2" source="54" target="8" />
 			<edge id="cameras_takingpicture_end-55_0--2" label="cameras_takingpicture_end-55_0--2" source="55" target="0" />
-			<edge id="cameras_takingpicture_end-55_3--2" label="cameras_takingpicture_end-55_3--2" source="55" target="3" />
-			<edge id="cameras_takingpicture_end-55_8--2" label="cameras_takingpicture_end-55_8--2" source="55" target="8" />
-			<edge id="robotbase_goingto_end-56_0--2" label="robotbase_goingto_end-56_0--2" source="56" target="0" />
-			<edge id="robotbase_goingto_end-56_1--2" label="robotbase_goingto_end-56_1--2" source="56" target="1" />
-			<edge id="robotbase_goingto_end-56_6--2" label="robotbase_goingto_end-56_6--2" source="56" target="6" />
-			<edge id="robotbase_goingto_end-56_9--2" label="robotbase_goingto_end-56_9--2" source="56" target="9" />
-			<edge id="robotbase_goingto_end-56_12--2" label="robotbase_goingto_end-56_12--2" source="56" target="12" />
-			<edge id="robotbase_goingto_end-56_13--2" label="robotbase_goingto_end-56_13--2" source="56" target="13" />
-			<edge id="robotbase_goingto_end-56_15--2" label="robotbase_goingto_end-56_15--2" source="56" target="15" />
-			<edge id="robotbase_goingto_end-56_3--2" label="robotbase_goingto_end-56_3--2" source="56" target="3" />
-			<edge id="robotbase_goingto_end-56_5--2" label="robotbase_goingto_end-56_5--2" source="56" target="5" />
-			<edge id="robotbase_goingto_end-56_8--2" label="robotbase_goingto_end-56_8--2" source="56" target="8" />
-			<edge id="robotbase_goingto_end-56_10--2" label="robotbase_goingto_end-56_10--2" source="56" target="10" />
-			<edge id="robotbase_goingto_end-56_14--2" label="robotbase_goingto_end-56_14--2" source="56" target="14" />
-			<edge id="robotbase_goingto_end-56_2--2" label="robotbase_goingto_end-56_2--2" source="56" target="2" />
-			<edge id="robotbase_goingto_end-56_4--2" label="robotbase_goingto_end-56_4--2" source="56" target="4" />
-			<edge id="robotbase_goingto_end-56_7--2" label="robotbase_goingto_end-56_7--2" source="56" target="7" />
-			<edge id="robotbase_goingto_end-56_11--2" label="robotbase_goingto_end-56_11--2" source="56" target="11" />
-			<edge id="robotbase_goingto_end-56_16--2" label="robotbase_goingto_end-56_16--2" source="56" target="16" />
-			<edge id="robotbase_goingto_end-57_0--2" label="robotbase_goingto_end-57_0--2" source="57" target="0" />
-			<edge id="robotbase_goingto_end-57_1--2" label="robotbase_goingto_end-57_1--2" source="57" target="1" />
-			<edge id="robotbase_goingto_end-57_6--2" label="robotbase_goingto_end-57_6--2" source="57" target="6" />
-			<edge id="robotbase_goingto_end-57_9--2" label="robotbase_goingto_end-57_9--2" source="57" target="9" />
-			<edge id="robotbase_goingto_end-57_12--2" label="robotbase_goingto_end-57_12--2" source="57" target="12" />
-			<edge id="robotbase_goingto_end-57_13--2" label="robotbase_goingto_end-57_13--2" source="57" target="13" />
-			<edge id="robotbase_goingto_end-57_15--2" label="robotbase_goingto_end-57_15--2" source="57" target="15" />
-			<edge id="robotbase_goingto_end-57_3--2" label="robotbase_goingto_end-57_3--2" source="57" target="3" />
-			<edge id="robotbase_goingto_end-57_5--2" label="robotbase_goingto_end-57_5--2" source="57" target="5" />
-			<edge id="robotbase_goingto_end-57_8--2" label="robotbase_goingto_end-57_8--2" source="57" target="8" />
-			<edge id="robotbase_goingto_end-57_10--2" label="robotbase_goingto_end-57_10--2" source="57" target="10" />
-			<edge id="robotbase_goingto_end-57_14--2" label="robotbase_goingto_end-57_14--2" source="57" target="14" />
-			<edge id="robotbase_goingto_end-57_2--2" label="robotbase_goingto_end-57_2--2" source="57" target="2" />
-			<edge id="robotbase_goingto_end-57_4--2" label="robotbase_goingto_end-57_4--2" source="57" target="4" />
-			<edge id="robotbase_goingto_end-57_7--2" label="robotbase_goingto_end-57_7--2" source="57" target="7" />
-			<edge id="robotbase_goingto_end-57_11--2" label="robotbase_goingto_end-57_11--2" source="57" target="11" />
-			<edge id="robotbase_goingto_end-57_16--2" label="robotbase_goingto_end-57_16--2" source="57" target="16" />
-			<edge id="robotbase_goingto_end-58_0--2" label="robotbase_goingto_end-58_0--2" source="58" target="0" />
-			<edge id="robotbase_goingto_end-58_1--2" label="robotbase_goingto_end-58_1--2" source="58" target="1" />
-			<edge id="robotbase_goingto_end-58_6--2" label="robotbase_goingto_end-58_6--2" source="58" target="6" />
-			<edge id="robotbase_goingto_end-58_9--2" label="robotbase_goingto_end-58_9--2" source="58" target="9" />
-			<edge id="robotbase_goingto_end-58_12--2" label="robotbase_goingto_end-58_12--2" source="58" target="12" />
-			<edge id="robotbase_goingto_end-58_13--2" label="robotbase_goingto_end-58_13--2" source="58" target="13" />
-			<edge id="robotbase_goingto_end-58_15--2" label="robotbase_goingto_end-58_15--2" source="58" target="15" />
-			<edge id="robotbase_goingto_end-58_2--2" label="robotbase_goingto_end-58_2--2" source="58" target="2" />
-			<edge id="robotbase_goingto_end-58_4--2" label="robotbase_goingto_end-58_4--2" source="58" target="4" />
-			<edge id="robotbase_goingto_end-58_7--2" label="robotbase_goingto_end-58_7--2" source="58" target="7" />
-			<edge id="robotbase_goingto_end-58_11--2" label="robotbase_goingto_end-58_11--2" source="58" target="11" />
-			<edge id="robotbase_goingto_end-58_16--2" label="robotbase_goingto_end-58_16--2" source="58" target="16" />
-			<edge id="robotbase_goingto_end-58_3--2" label="robotbase_goingto_end-58_3--2" source="58" target="3" />
-			<edge id="robotbase_goingto_end-58_5--2" label="robotbase_goingto_end-58_5--2" source="58" target="5" />
-			<edge id="robotbase_goingto_end-58_8--2" label="robotbase_goingto_end-58_8--2" source="58" target="8" />
-			<edge id="robotbase_goingto_end-58_10--2" label="robotbase_goingto_end-58_10--2" source="58" target="10" />
-			<edge id="robotbase_goingto_end-58_14--2" label="robotbase_goingto_end-58_14--2" source="58" target="14" />
-			<edge id="robotbase_goingto_end-59_0--2" label="robotbase_goingto_end-59_0--2" source="59" target="0" />
-			<edge id="robotbase_goingto_end-59_1--2" label="robotbase_goingto_end-59_1--2" source="59" target="1" />
-			<edge id="robotbase_goingto_end-59_6--2" label="robotbase_goingto_end-59_6--2" source="59" target="6" />
-			<edge id="robotbase_goingto_end-59_9--2" label="robotbase_goingto_end-59_9--2" source="59" target="9" />
-			<edge id="robotbase_goingto_end-59_12--2" label="robotbase_goingto_end-59_12--2" source="59" target="12" />
-			<edge id="robotbase_goingto_end-59_13--2" label="robotbase_goingto_end-59_13--2" source="59" target="13" />
-			<edge id="robotbase_goingto_end-59_15--2" label="robotbase_goingto_end-59_15--2" source="59" target="15" />
-			<edge id="robotbase_goingto_end-59_3--2" label="robotbase_goingto_end-59_3--2" source="59" target="3" />
-			<edge id="robotbase_goingto_end-59_5--2" label="robotbase_goingto_end-59_5--2" source="59" target="5" />
-			<edge id="robotbase_goingto_end-59_8--2" label="robotbase_goingto_end-59_8--2" source="59" target="8" />
-			<edge id="robotbase_goingto_end-59_10--2" label="robotbase_goingto_end-59_10--2" source="59" target="10" />
-			<edge id="robotbase_goingto_end-59_14--2" label="robotbase_goingto_end-59_14--2" source="59" target="14" />
-			<edge id="robotbase_goingto_end-59_2--2" label="robotbase_goingto_end-59_2--2" source="59" target="2" />
-			<edge id="robotbase_goingto_end-59_4--2" label="robotbase_goingto_end-59_4--2" source="59" target="4" />
-			<edge id="robotbase_goingto_end-59_7--2" label="robotbase_goingto_end-59_7--2" source="59" target="7" />
-			<edge id="robotbase_goingto_end-59_11--2" label="robotbase_goingto_end-59_11--2" source="59" target="11" />
-			<edge id="robotbase_goingto_end-59_16--2" label="robotbase_goingto_end-59_16--2" source="59" target="16" />
+			<edge id="cameras_takingpicture_end-55_2--2" label="cameras_takingpicture_end-55_2--2" source="55" target="2" />
+			<edge id="cameras_takingpicture_end-55_9--2" label="cameras_takingpicture_end-55_9--2" source="55" target="9" />
+			<edge id="communication_transmittingpicture_end-56_0--2" label="communication_transmittingpicture_end-56_0--2" source="56" target="0" />
+			<edge id="communication_transmittingpicture_end-56_3--2" label="communication_transmittingpicture_end-56_3--2" source="56" target="3" />
+			<edge id="communication_transmittingpicture_end-56_8--2" label="communication_transmittingpicture_end-56_8--2" source="56" target="8" />
+			<edge id="communication_transmittingpicture_end-56_2--2" label="communication_transmittingpicture_end-56_2--2" source="56" target="2" />
+			<edge id="communication_transmittingpicture_end-56_9--2" label="communication_transmittingpicture_end-56_9--2" source="56" target="9" />
+			<edge id="communication_transmittingpicture_end-56_1--2" label="communication_transmittingpicture_end-56_1--2" source="56" target="1" />
+			<edge id="communication_transmittingpicture_end-56_7--2" label="communication_transmittingpicture_end-56_7--2" source="56" target="7" />
+			<edge id="communication_transmittingpicture_end-57_0--2" label="communication_transmittingpicture_end-57_0--2" source="57" target="0" />
+			<edge id="communication_transmittingpicture_end-57_3--2" label="communication_transmittingpicture_end-57_3--2" source="57" target="3" />
+			<edge id="communication_transmittingpicture_end-57_8--2" label="communication_transmittingpicture_end-57_8--2" source="57" target="8" />
+			<edge id="communication_transmittingpicture_end-57_2--2" label="communication_transmittingpicture_end-57_2--2" source="57" target="2" />
+			<edge id="communication_transmittingpicture_end-57_9--2" label="communication_transmittingpicture_end-57_9--2" source="57" target="9" />
+			<edge id="communication_transmittingpicture_end-57_1--2" label="communication_transmittingpicture_end-57_1--2" source="57" target="1" />
+			<edge id="communication_transmittingpicture_end-57_7--2" label="communication_transmittingpicture_end-57_7--2" source="57" target="7" />
+			<edge id="cameras_takingpicture_end-58_0--2" label="cameras_takingpicture_end-58_0--2" source="58" target="0" />
+			<edge id="cameras_takingpicture_end-58_2--2" label="cameras_takingpicture_end-58_2--2" source="58" target="2" />
+			<edge id="cameras_takingpicture_end-58_9--2" label="cameras_takingpicture_end-58_9--2" source="58" target="9" />
+			<edge id="cameras_takingpicture_end-59_0--2" label="cameras_takingpicture_end-59_0--2" source="59" target="0" />
+			<edge id="cameras_takingpicture_end-59_2--2" label="cameras_takingpicture_end-59_2--2" source="59" target="2" />
+			<edge id="cameras_takingpicture_end-59_9--2" label="cameras_takingpicture_end-59_9--2" source="59" target="9" />
 			<edge id="cameras_takingpicture_end-60_0--2" label="cameras_takingpicture_end-60_0--2" source="60" target="0" />
 			<edge id="cameras_takingpicture_end-60_1--2" label="cameras_takingpicture_end-60_1--2" source="60" target="1" />
-			<edge id="cameras_takingpicture_end-60_9--2" label="cameras_takingpicture_end-60_9--2" source="60" target="9" />
-			<edge id="cameras_takingpicture_end-61_0--2" label="cameras_takingpicture_end-61_0--2" source="61" target="0" />
-			<edge id="cameras_takingpicture_end-61_1--2" label="cameras_takingpicture_end-61_1--2" source="61" target="1" />
-			<edge id="cameras_takingpicture_end-61_9--2" label="cameras_takingpicture_end-61_9--2" source="61" target="9" />
+			<edge id="cameras_takingpicture_end-60_7--2" label="cameras_takingpicture_end-60_7--2" source="60" target="7" />
+			<edge id="robotbase_goingto_end-61_0--2" label="robotbase_goingto_end-61_0--2" source="61" target="0" />
+			<edge id="robotbase_goingto_end-61_3--2" label="robotbase_goingto_end-61_3--2" source="61" target="3" />
+			<edge id="robotbase_goingto_end-61_5--2" label="robotbase_goingto_end-61_5--2" source="61" target="5" />
+			<edge id="robotbase_goingto_end-61_8--2" label="robotbase_goingto_end-61_8--2" source="61" target="8" />
+			<edge id="robotbase_goingto_end-61_11--2" label="robotbase_goingto_end-61_11--2" source="61" target="11" />
+			<edge id="robotbase_goingto_end-61_14--2" label="robotbase_goingto_end-61_14--2" source="61" target="14" />
+			<edge id="robotbase_goingto_end-61_15--2" label="robotbase_goingto_end-61_15--2" source="61" target="15" />
+			<edge id="robotbase_goingto_end-61_18--2" label="robotbase_goingto_end-61_18--2" source="61" target="18" />
+			<edge id="robotbase_goingto_end-61_2--2" label="robotbase_goingto_end-61_2--2" source="61" target="2" />
+			<edge id="robotbase_goingto_end-61_6--2" label="robotbase_goingto_end-61_6--2" source="61" target="6" />
+			<edge id="robotbase_goingto_end-61_9--2" label="robotbase_goingto_end-61_9--2" source="61" target="9" />
+			<edge id="robotbase_goingto_end-61_12--2" label="robotbase_goingto_end-61_12--2" source="61" target="12" />
+			<edge id="robotbase_goingto_end-61_16--2" label="robotbase_goingto_end-61_16--2" source="61" target="16" />
+			<edge id="robotbase_goingto_end-61_17--2" label="robotbase_goingto_end-61_17--2" source="61" target="17" />
+			<edge id="robotbase_goingto_end-61_1--2" label="robotbase_goingto_end-61_1--2" source="61" target="1" />
+			<edge id="robotbase_goingto_end-61_4--2" label="robotbase_goingto_end-61_4--2" source="61" target="4" />
+			<edge id="robotbase_goingto_end-61_7--2" label="robotbase_goingto_end-61_7--2" source="61" target="7" />
+			<edge id="robotbase_goingto_end-61_10--2" label="robotbase_goingto_end-61_10--2" source="61" target="10" />
+			<edge id="robotbase_goingto_end-61_13--2" label="robotbase_goingto_end-61_13--2" source="61" target="13" />
+			<edge id="robotbase_goingto_end-61_19--2" label="robotbase_goingto_end-61_19--2" source="61" target="19" />
 			<edge id="robotbase_goingto_end-62_0--2" label="robotbase_goingto_end-62_0--2" source="62" target="0" />
-			<edge id="robotbase_goingto_end-62_1--2" label="robotbase_goingto_end-62_1--2" source="62" target="1" />
-			<edge id="robotbase_goingto_end-62_6--2" label="robotbase_goingto_end-62_6--2" source="62" target="6" />
-			<edge id="robotbase_goingto_end-62_9--2" label="robotbase_goingto_end-62_9--2" source="62" target="9" />
-			<edge id="robotbase_goingto_end-62_12--2" label="robotbase_goingto_end-62_12--2" source="62" target="12" />
-			<edge id="robotbase_goingto_end-62_13--2" label="robotbase_goingto_end-62_13--2" source="62" target="13" />
-			<edge id="robotbase_goingto_end-62_15--2" label="robotbase_goingto_end-62_15--2" source="62" target="15" />
 			<edge id="robotbase_goingto_end-62_3--2" label="robotbase_goingto_end-62_3--2" source="62" target="3" />
 			<edge id="robotbase_goingto_end-62_5--2" label="robotbase_goingto_end-62_5--2" source="62" target="5" />
 			<edge id="robotbase_goingto_end-62_8--2" label="robotbase_goingto_end-62_8--2" source="62" target="8" />
-			<edge id="robotbase_goingto_end-62_10--2" label="robotbase_goingto_end-62_10--2" source="62" target="10" />
+			<edge id="robotbase_goingto_end-62_11--2" label="robotbase_goingto_end-62_11--2" source="62" target="11" />
 			<edge id="robotbase_goingto_end-62_14--2" label="robotbase_goingto_end-62_14--2" source="62" target="14" />
+			<edge id="robotbase_goingto_end-62_15--2" label="robotbase_goingto_end-62_15--2" source="62" target="15" />
+			<edge id="robotbase_goingto_end-62_18--2" label="robotbase_goingto_end-62_18--2" source="62" target="18" />
 			<edge id="robotbase_goingto_end-62_2--2" label="robotbase_goingto_end-62_2--2" source="62" target="2" />
+			<edge id="robotbase_goingto_end-62_6--2" label="robotbase_goingto_end-62_6--2" source="62" target="6" />
+			<edge id="robotbase_goingto_end-62_9--2" label="robotbase_goingto_end-62_9--2" source="62" target="9" />
+			<edge id="robotbase_goingto_end-62_12--2" label="robotbase_goingto_end-62_12--2" source="62" target="12" />
+			<edge id="robotbase_goingto_end-62_16--2" label="robotbase_goingto_end-62_16--2" source="62" target="16" />
+			<edge id="robotbase_goingto_end-62_17--2" label="robotbase_goingto_end-62_17--2" source="62" target="17" />
+			<edge id="robotbase_goingto_end-62_1--2" label="robotbase_goingto_end-62_1--2" source="62" target="1" />
 			<edge id="robotbase_goingto_end-62_4--2" label="robotbase_goingto_end-62_4--2" source="62" target="4" />
 			<edge id="robotbase_goingto_end-62_7--2" label="robotbase_goingto_end-62_7--2" source="62" target="7" />
-			<edge id="robotbase_goingto_end-62_11--2" label="robotbase_goingto_end-62_11--2" source="62" target="11" />
-			<edge id="robotbase_goingto_end-62_16--2" label="robotbase_goingto_end-62_16--2" source="62" target="16" />
+			<edge id="robotbase_goingto_end-62_10--2" label="robotbase_goingto_end-62_10--2" source="62" target="10" />
+			<edge id="robotbase_goingto_end-62_13--2" label="robotbase_goingto_end-62_13--2" source="62" target="13" />
+			<edge id="robotbase_goingto_end-62_19--2" label="robotbase_goingto_end-62_19--2" source="62" target="19" />
+			<edge id="robotbase_goingto_end-63_0--2" label="robotbase_goingto_end-63_0--2" source="63" target="0" />
+			<edge id="robotbase_goingto_end-63_3--2" label="robotbase_goingto_end-63_3--2" source="63" target="3" />
+			<edge id="robotbase_goingto_end-63_5--2" label="robotbase_goingto_end-63_5--2" source="63" target="5" />
+			<edge id="robotbase_goingto_end-63_8--2" label="robotbase_goingto_end-63_8--2" source="63" target="8" />
+			<edge id="robotbase_goingto_end-63_11--2" label="robotbase_goingto_end-63_11--2" source="63" target="11" />
+			<edge id="robotbase_goingto_end-63_14--2" label="robotbase_goingto_end-63_14--2" source="63" target="14" />
+			<edge id="robotbase_goingto_end-63_15--2" label="robotbase_goingto_end-63_15--2" source="63" target="15" />
+			<edge id="robotbase_goingto_end-63_18--2" label="robotbase_goingto_end-63_18--2" source="63" target="18" />
+			<edge id="robotbase_goingto_end-63_2--2" label="robotbase_goingto_end-63_2--2" source="63" target="2" />
+			<edge id="robotbase_goingto_end-63_6--2" label="robotbase_goingto_end-63_6--2" source="63" target="6" />
+			<edge id="robotbase_goingto_end-63_9--2" label="robotbase_goingto_end-63_9--2" source="63" target="9" />
+			<edge id="robotbase_goingto_end-63_12--2" label="robotbase_goingto_end-63_12--2" source="63" target="12" />
+			<edge id="robotbase_goingto_end-63_16--2" label="robotbase_goingto_end-63_16--2" source="63" target="16" />
+			<edge id="robotbase_goingto_end-63_17--2" label="robotbase_goingto_end-63_17--2" source="63" target="17" />
+			<edge id="robotbase_goingto_end-63_1--2" label="robotbase_goingto_end-63_1--2" source="63" target="1" />
+			<edge id="robotbase_goingto_end-63_4--2" label="robotbase_goingto_end-63_4--2" source="63" target="4" />
+			<edge id="robotbase_goingto_end-63_7--2" label="robotbase_goingto_end-63_7--2" source="63" target="7" />
+			<edge id="robotbase_goingto_end-63_10--2" label="robotbase_goingto_end-63_10--2" source="63" target="10" />
+			<edge id="robotbase_goingto_end-63_13--2" label="robotbase_goingto_end-63_13--2" source="63" target="13" />
+			<edge id="robotbase_goingto_end-63_19--2" label="robotbase_goingto_end-63_19--2" source="63" target="19" />
+			<edge id="robotbase_goingto_end-64_0--2" label="robotbase_goingto_end-64_0--2" source="64" target="0" />
+			<edge id="robotbase_goingto_end-64_3--2" label="robotbase_goingto_end-64_3--2" source="64" target="3" />
+			<edge id="robotbase_goingto_end-64_5--2" label="robotbase_goingto_end-64_5--2" source="64" target="5" />
+			<edge id="robotbase_goingto_end-64_8--2" label="robotbase_goingto_end-64_8--2" source="64" target="8" />
+			<edge id="robotbase_goingto_end-64_11--2" label="robotbase_goingto_end-64_11--2" source="64" target="11" />
+			<edge id="robotbase_goingto_end-64_14--2" label="robotbase_goingto_end-64_14--2" source="64" target="14" />
+			<edge id="robotbase_goingto_end-64_15--2" label="robotbase_goingto_end-64_15--2" source="64" target="15" />
+			<edge id="robotbase_goingto_end-64_18--2" label="robotbase_goingto_end-64_18--2" source="64" target="18" />
+			<edge id="robotbase_goingto_end-64_2--2" label="robotbase_goingto_end-64_2--2" source="64" target="2" />
+			<edge id="robotbase_goingto_end-64_6--2" label="robotbase_goingto_end-64_6--2" source="64" target="6" />
+			<edge id="robotbase_goingto_end-64_9--2" label="robotbase_goingto_end-64_9--2" source="64" target="9" />
+			<edge id="robotbase_goingto_end-64_12--2" label="robotbase_goingto_end-64_12--2" source="64" target="12" />
+			<edge id="robotbase_goingto_end-64_16--2" label="robotbase_goingto_end-64_16--2" source="64" target="16" />
+			<edge id="robotbase_goingto_end-64_17--2" label="robotbase_goingto_end-64_17--2" source="64" target="17" />
+			<edge id="robotbase_goingto_end-64_1--2" label="robotbase_goingto_end-64_1--2" source="64" target="1" />
+			<edge id="robotbase_goingto_end-64_4--2" label="robotbase_goingto_end-64_4--2" source="64" target="4" />
+			<edge id="robotbase_goingto_end-64_7--2" label="robotbase_goingto_end-64_7--2" source="64" target="7" />
+			<edge id="robotbase_goingto_end-64_10--2" label="robotbase_goingto_end-64_10--2" source="64" target="10" />
+			<edge id="robotbase_goingto_end-64_13--2" label="robotbase_goingto_end-64_13--2" source="64" target="13" />
+			<edge id="robotbase_goingto_end-64_19--2" label="robotbase_goingto_end-64_19--2" source="64" target="19" />
+			<edge id="communication_transmittingpicture_end-65_0--2" label="communication_transmittingpicture_end-65_0--2" source="65" target="0" />
+			<edge id="communication_transmittingpicture_end-65_1--2" label="communication_transmittingpicture_end-65_1--2" source="65" target="1" />
+			<edge id="communication_transmittingpicture_end-65_7--2" label="communication_transmittingpicture_end-65_7--2" source="65" target="7" />
+			<edge id="communication_transmittingpicture_end-65_3--2" label="communication_transmittingpicture_end-65_3--2" source="65" target="3" />
+			<edge id="communication_transmittingpicture_end-65_8--2" label="communication_transmittingpicture_end-65_8--2" source="65" target="8" />
+			<edge id="communication_transmittingpicture_end-65_2--2" label="communication_transmittingpicture_end-65_2--2" source="65" target="2" />
+			<edge id="communication_transmittingpicture_end-65_9--2" label="communication_transmittingpicture_end-65_9--2" source="65" target="9" />
 		</edges>
 	</graph>
 </gexf>

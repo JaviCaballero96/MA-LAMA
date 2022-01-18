@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
-	<meta lastmodifieddate="13/01/2022">
+	<meta lastmodifieddate="18/01/2022">
 		<creator>Javier Caballero</creator>
 		<description>graph_21</description>
 	</meta>
 	<graph mode="static" defaultedgetype="directed">
 		<nodes>
-			<node id="Atom navigation_mode(leader, n_0)" label="Atom navigation_mode(leader, n_0)" />
-			<node id="Atom navigation_changemode_curr(leader, n_0, n_1)" label="Atom navigation_changemode_curr(leader, n_0, n_1)" />
-			<node id="Atom navigation_changemode_curr(leader, n_1, n_0)" label="Atom navigation_changemode_curr(leader, n_1, n_0)" />
-			<node id="Atom navigation_mode(leader, n_1)" label="Atom navigation_mode(leader, n_1)" />
+			<node id="Atom robotbase_undocking_curr(follower0, c5_9)" label="Atom robotbase_undocking_curr(follower0, c5_9)" />
+			<node id="Atom robotbase_docking_curr(follower0, c5_9)" label="Atom robotbase_docking_curr(follower0, c5_9)" />
+			<node id="Atom robotbase_undocking_curr(follower0, c10_2)" label="Atom robotbase_undocking_curr(follower0, c10_2)" />
+			<node id="Atom robotbase_undocking_curr(follower0, c10_14)" label="Atom robotbase_undocking_curr(follower0, c10_14)" />
+			<node id="Atom robotbase_ondock(follower0)" label="Atom robotbase_ondock(follower0)" />
+			<node id="Atom robotbase_docking_curr(follower0, c10_2)" label="Atom robotbase_docking_curr(follower0, c10_2)" />
+			<node id="Atom robotbase_docking_curr(follower0, c10_14)" label="Atom robotbase_docking_curr(follower0, c10_14)" />
+			<node id="Atom robotbase_notondock(follower0)" label="Atom robotbase_notondock(follower0)" />
 		</nodes>
 		<edges>
-			<edge id="(navigation_changemode_start leader n_0 n_1)" label="(navigation_changemode_start leader n_0 n_1)" source="Atom navigation_mode(leader, n_0)" target="Atom navigation_changemode_curr(leader, n_0, n_1)" />
-			<edge id="(navigation_changemode_end leader n_0 n_1)" label="(navigation_changemode_end leader n_0 n_1)" source="Atom navigation_changemode_curr(leader, n_0, n_1)" target="Atom navigation_mode(leader, n_1)" />
-			<edge id="(navigation_changemode_end leader n_1 n_0)" label="(navigation_changemode_end leader n_1 n_0)" source="Atom navigation_changemode_curr(leader, n_1, n_0)" target="Atom navigation_mode(leader, n_0)" />
-			<edge id="(navigation_changemode_start leader n_1 n_0)" label="(navigation_changemode_start leader n_1 n_0)" source="Atom navigation_mode(leader, n_1)" target="Atom navigation_changemode_curr(leader, n_1, n_0)" />
+			<edge id="(robotbase_undocking_end follower0 c5_9)" label="(robotbase_undocking_end follower0 c5_9)" source="Atom robotbase_undocking_curr(follower0, c5_9)" target="Atom robotbase_notondock(follower0)" />
+			<edge id="(robotbase_docking_end follower0 c5_9)" label="(robotbase_docking_end follower0 c5_9)" source="Atom robotbase_docking_curr(follower0, c5_9)" target="Atom robotbase_ondock(follower0)" />
+			<edge id="(robotbase_undocking_end follower0 c10_2)" label="(robotbase_undocking_end follower0 c10_2)" source="Atom robotbase_undocking_curr(follower0, c10_2)" target="Atom robotbase_notondock(follower0)" />
+			<edge id="(robotbase_undocking_end follower0 c10_14)" label="(robotbase_undocking_end follower0 c10_14)" source="Atom robotbase_undocking_curr(follower0, c10_14)" target="Atom robotbase_notondock(follower0)" />
+			<edge id="(robotbase_undocking_start follower0 c10_2)" label="(robotbase_undocking_start follower0 c10_2)" source="Atom robotbase_ondock(follower0)" target="Atom robotbase_undocking_curr(follower0, c10_2)" />
+			<edge id="(robotbase_undocking_start follower0 c5_9)" label="(robotbase_undocking_start follower0 c5_9)" source="Atom robotbase_ondock(follower0)" target="Atom robotbase_undocking_curr(follower0, c5_9)" />
+			<edge id="(robotbase_undocking_start follower0 c10_14)" label="(robotbase_undocking_start follower0 c10_14)" source="Atom robotbase_ondock(follower0)" target="Atom robotbase_undocking_curr(follower0, c10_14)" />
+			<edge id="(robotbase_docking_end follower0 c10_2)" label="(robotbase_docking_end follower0 c10_2)" source="Atom robotbase_docking_curr(follower0, c10_2)" target="Atom robotbase_ondock(follower0)" />
+			<edge id="(robotbase_docking_end follower0 c10_14)" label="(robotbase_docking_end follower0 c10_14)" source="Atom robotbase_docking_curr(follower0, c10_14)" target="Atom robotbase_ondock(follower0)" />
+			<edge id="(robotbase_docking_start follower0 c5_9)" label="(robotbase_docking_start follower0 c5_9)" source="Atom robotbase_notondock(follower0)" target="Atom robotbase_docking_curr(follower0, c5_9)" />
+			<edge id="(robotbase_docking_start follower0 c10_14)" label="(robotbase_docking_start follower0 c10_14)" source="Atom robotbase_notondock(follower0)" target="Atom robotbase_docking_curr(follower0, c10_14)" />
+			<edge id="(robotbase_docking_start follower0 c10_2)" label="(robotbase_docking_start follower0 c10_2)" source="Atom robotbase_notondock(follower0)" target="Atom robotbase_docking_curr(follower0, c10_2)" />
 		</edges>
 	</graph>
 </gexf>
