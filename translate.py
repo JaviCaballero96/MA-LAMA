@@ -521,6 +521,29 @@ def set_function_values(operators, groups, mutex_groups):
     return
 
 
+def obtain_metric_functions(groups, sas_task):
+    sas_task.translated_metric = {}
+    for metric_elem in sas_task.metric[1:]:
+        gopup_index = 0
+        for group in groups:
+            if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
+                    isinstance(group[0].predicate, pddl.f_expression.Increase) or \
+                    isinstance(group[0].predicate, pddl.f_expression.Increase):
+                if metric_elem.symbol == group[0].predicate.fluent.symbol:
+                    arg_index = 0
+                    equal = True
+                    for arg_elem in metric_elem.args:
+                        if arg_elem.name != group[0].predicate.fluent.args[arg_index].name:
+                            equal = False
+                        arg_index = arg_index + 1
+                    if equal:
+                        sas_task.translated_metric[gopup_index] = metric_elem
+            gopup_index = gopup_index + 1
+
+
+
+
+
 def unsolvable_sas_task(msg):
     print("%s! Generating unsolvable task..." % msg)
     write_translation_key([])
@@ -579,6 +602,7 @@ def pddl_to_sas(task):
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
     print("%d implied preconditions added" % added_implied_precondition_counter)
 
+    obtain_metric_functions(groups, sas_task)
     set_function_values(sas_task.operators, groups, mutex_groups)
 
     with timers.timing("Building mutex information", block=True):
@@ -608,10 +632,14 @@ def pddl_to_sas(task):
                                                                     SIMPLIFIED_CASUAL_GRAPH)
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+    fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
+    fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
 
     graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
     graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
     graphs.create_gexf_transition_functional_graphs_files(fdtgs)
+    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
+    graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric)
     graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
     graphs.create_gexf_casual_graph_files(casual_graph, 0)
     graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)

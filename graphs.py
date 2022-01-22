@@ -238,6 +238,73 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
     return fdtgs_per_invariant
 
 
+def create_functional_dtg_metric(sas_task, translation_key, groups):
+    node_dict = {}
+    node_names = []
+
+    for op in sas_task.operators:
+        eff_index_1 = 0
+        for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+            if n_pre_spec == -2 and n_var_no in sas_task.translated_metric:
+                eff_index_2 = 0
+                for var_no, pre_spec, post, cond in op.pre_post:
+                    if eff_index_1 != eff_index_2 and pre_spec != -2:
+                        if translation_key[var_no][pre_spec] != '<none of those>':
+                            if translation_key[var_no][pre_spec] not in node_names:
+                                node_dict[translation_key[var_no][pre_spec]] = []
+                                node_names.append(translation_key[var_no][pre_spec])
+                            if translation_key[var_no][post] not in node_names:
+                                node_dict[translation_key[var_no][post]] = []
+                                node_names.append(translation_key[var_no][post])
+                            node_dict[translation_key[var_no][pre_spec]].append(
+                                DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
+                                          translation_key[n_var_no][n_post[2]]))
+                    eff_index_2 = eff_index_2 + 1
+            eff_index_1 = eff_index_1 + 1
+
+    return DomainTransGraph(0, 0, node_dict)
+
+
+def create_functional_dtgs_metric(sas_task, translation_key, groups):
+    metric_fdtgs = []
+    index = 0
+    for group in groups:
+
+        # Check if the group is propositional
+        if (isinstance(group[0].predicate, pddl.f_expression.Increase) or
+                isinstance(group[0].predicate, pddl.f_expression.Assign) or
+                isinstance(group[0].predicate, pddl.f_expression.Decrease)):
+            index = index + 1
+            continue
+
+        node_dict = {}
+        node_names = []
+        for op in sas_task.operators:
+            eff_index_1 = 0
+            for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+                if n_pre_spec == -2 and n_var_no in sas_task.translated_metric:
+                    eff_index_2 = 0
+                    for var_no, pre_spec, post, cond in op.pre_post:
+                        if eff_index_1 != eff_index_2 and pre_spec != -2 and var_no == index:
+                            if translation_key[var_no][pre_spec] != '<none of those>':
+                                if translation_key[var_no][pre_spec] not in node_names:
+                                    node_dict[translation_key[var_no][pre_spec]] = []
+                                    node_names.append(translation_key[var_no][pre_spec])
+                                if translation_key[var_no][post] not in node_names:
+                                    node_dict[translation_key[var_no][post]] = []
+                                    node_names.append(translation_key[var_no][post])
+                                node_dict[translation_key[var_no][pre_spec]].append(
+                                    DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
+                                              translation_key[n_var_no][n_post[2]]))
+                        eff_index_2 = eff_index_2 + 1
+                eff_index_1 = eff_index_1 + 1
+
+        metric_fdtgs.append(DomainTransGraph(0, index, node_dict))
+        index = index + 1
+
+    return metric_fdtgs
+
+
 def create_gexf_transition_functional_graphs_files(fdtgs):
     index = 0
     today = date.today()
@@ -257,6 +324,85 @@ def create_gexf_transition_functional_graphs_files(fdtgs):
         f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
         f.write("\t\t<creator>Javier Caballero</creator>\n")
         f.write("\t\t<description>functional_graph_" + str(index) + "</description>\n")
+        f.write("\t</meta>\n")
+        f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+        f.write("\t\t<nodes>\n")
+        for key, arcs in graph.node_list.items():
+            if key != '<none of those>':
+                f.write("\t\t\t<node id=\"" + key + "\" label=\"" + key + "\" />\n")
+        f.write("\t\t</nodes>\n")
+
+        f.write("\t\t<edges>\n")
+        for key, arcs in graph.node_list.items():
+            if key != '<none of those>':
+                for arc in arcs:
+                    f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                            arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+        f.write("\t\t</edges>\n")
+        f.write("\t</graph>\n")
+        f.write("</gexf>\n")
+
+        f.close()
+        index = index + 1
+
+
+def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/metric"
+
+    file_name = "functional_metric_graph.gexf"
+    full_name = os.path.join(save_path, file_name)
+    f = open(full_name, "w")
+    f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+    f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+    f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+    f.write("\t\t<creator>Javier Caballero</creator>\n")
+    f.write("\t\t<description>functional_metric_graph</description>\n")
+    f.write("\t</meta>\n")
+    f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+    f.write("\t\t<nodes>\n")
+    for key, arcs in fdtg_metric.node_list.items():
+        if key != '<none of those>':
+            f.write("\t\t\t<node id=\"" + key + "\" label=\"" + key + "\" />\n")
+    f.write("\t\t</nodes>\n")
+
+    f.write("\t\t<edges>\n")
+    for key, arcs in fdtg_metric.node_list.items():
+        if key != '<none of those>':
+            for arc in arcs:
+                f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                        arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+    f.write("\t\t</edges>\n")
+    f.write("\t</graph>\n")
+    f.write("</gexf>\n")
+
+    f.close()
+
+
+def create_gexf_transition_functional_metric_graphs_files(fdtgs):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
+    else:
+        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/metric"
+
+    for graph in fdtgs:
+        file_name = "functional_metric_graph_" + str(graph.var_group) + ".gexf"
+        full_name = os.path.join(save_path, file_name)
+        f = open(full_name, "w")
+        f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+        f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+        f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+        f.write("\t\t<creator>Javier Caballero</creator>\n")
+        f.write("\t\t<description>functional_metric_graph_" + str(graph.var_group) + "</description>\n")
         f.write("\t</meta>\n")
         f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
         f.write("\t\t<nodes>\n")
