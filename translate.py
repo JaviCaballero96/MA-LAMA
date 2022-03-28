@@ -630,6 +630,9 @@ def pddl_to_sas(task):
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
+
+    # casual_graph_type1_cycle2 = graphs.remove_level2_cycles(casual_graph_type1, translation_key)
+
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
     fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)

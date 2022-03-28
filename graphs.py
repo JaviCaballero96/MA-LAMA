@@ -336,8 +336,9 @@ def create_gexf_transition_functional_graphs_files(fdtgs):
         for key, arcs in graph.node_list.items():
             if key != '<none of those>':
                 for arc in arcs:
-                    f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
-                            arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+                    if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                        f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                                arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
         f.write("\t\t</edges>\n")
         f.write("\t</graph>\n")
         f.write("</gexf>\n")
@@ -375,8 +376,9 @@ def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
     for key, arcs in fdtg_metric.node_list.items():
         if key != '<none of those>':
             for arc in arcs:
-                f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
-                        arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+                if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                    f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                            arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
     f.write("\t\t</edges>\n")
     f.write("\t</graph>\n")
     f.write("</gexf>\n")
@@ -415,8 +417,9 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs):
         for key, arcs in graph.node_list.items():
             if key != '<none of those>':
                 for arc in arcs:
-                    f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
-                            arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+                    if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                        f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                                arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
         f.write("\t\t</edges>\n")
         f.write("\t</graph>\n")
         f.write("</gexf>\n")
@@ -448,7 +451,8 @@ def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
                 f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
                 f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
                 f.write("\t\t<creator>Javier Caballero</creator>\n")
-                f.write("\t\t<description>functional_graph_" + str(n_invariant) + "_" + str(n_graph) + "</description>\n")
+                f.write(
+                    "\t\t<description>functional_graph_" + str(n_invariant) + "_" + str(n_graph) + "</description>\n")
                 f.write("\t</meta>\n")
                 f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
                 f.write("\t\t<nodes>\n")
@@ -461,8 +465,9 @@ def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
                 for key, arcs in graph.node_list.items():
                     if key != '<none of those>':
                         for arc in arcs:
-                            f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
-                                    arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
+                            if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                                f.write("\t\t\t<edge label=\"" + arc.action + "\" source=\"" +
+                                        arc.origin_state + "\" target=\"" + arc.end_state + "\" />\n")
                 f.write("\t\t</edges>\n")
                 f.write("\t</graph>\n")
                 f.write("</gexf>\n")
@@ -548,8 +553,9 @@ def create_gexf_transition_graphs_files(dtgs, groups):
             for node in graph.node_list:
                 if node.state != '<none of those>':
                     for arc in node.arcs:
-                        f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
-                                node.state + "\" target=\"" + arc.end_state + "\" />\n")
+                        if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                            f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
+                                    node.state + "\" target=\"" + arc.end_state + "\" />\n")
             f.write("\t\t</edges>\n")
             f.write("\t</graph>\n")
             f.write("</gexf>\n")
@@ -595,7 +601,6 @@ def create_casual_graph(sas_task, groups, simplify):
                     atoms_included.append(state.predicate)
                     name = name + state.predicate + "_"
 
-
         name = name[:-1]
         node_groups_list.append(DomainCasualNode([], name, group_number, [], []))
         node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], []))
@@ -608,8 +613,6 @@ def create_casual_graph(sas_task, groups, simplify):
 
         group_number = group_number + 1
 
-    # Ahora mismo solo se están metiendo los arcos entre efectos con precondiciones y efectos,
-    # falta añadir los arcos de los prevail
     for op in sas_task.operators:
         operator_index1 = 0
         for var_no1, pre_spec1, post1, cond1 in op.pre_post:
@@ -628,7 +631,7 @@ def create_casual_graph(sas_task, groups, simplify):
                             node_groups_list[var_no1].type2_arcs.append(arc_id)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
                             node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
-                            if var_no2 in propositional_node_groups_list\
+                            if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
                                 propositional_node_groups[var_no1].type2_arcs.append(arc_id)
@@ -716,6 +719,10 @@ def create_casual_graph(sas_task, groups, simplify):
             DomainCasualGraph(propositional_node_groups_type2))
 
 
+def remove_level2_cycles(casual_graph_type1, translation_key):
+    print("a")
+
+
 def create_gexf_casual_graph_files(casual_graph, type):
     index = 0
     today = date.today()
@@ -765,7 +772,9 @@ def create_gexf_casual_graph_files(casual_graph, type):
         if propo:
             node = casual_graph.node_list[node]
         for arc in node.arcs:
-            f.write("\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" label=\"" + arc.arc_id + "--" +
+            if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                f.write(
+                    "\t\t\t<edge id=\"" + arc.arc_id + "--" + str(arc.arc_type) + "\" label=\"" + arc.arc_id + "--" +
                     str(arc.arc_type) + "\" source=\"" + str(arc.origin_state) + "\" target=\"" +
                     str(arc.end_state) + "\" />\n")
     f.write("\t\t</edges>\n")
