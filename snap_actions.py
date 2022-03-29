@@ -35,13 +35,21 @@ def obtain_start_snap_actions(all_actions):
         preconditions_list = []
         cost_list = []
 
-        for condition in action.conditions.parts:
-            if condition.tmp == "start" or condition.tmp == "all":
-                preconditions_list.append(condition)
+        if isinstance(action.conditions, cond.Atom):
+            if action.conditions.tmp == "start" or action.conditions.tmp == "all":
+                preconditions_list.append(action.conditions)
+        else:
+            for condition in action.conditions.parts:
+                if condition.tmp == "start" or condition.tmp == "all":
+                    preconditions_list.append(condition)
 
-        for effect in action.effects:
-            if effect.tmp == "start":
-                effects_list.append(effect)
+        if isinstance(action.effects, eff.Effect):
+            if action.effects.tmp == "start":
+                effects_list.append(action.effects)
+        else:
+            for effect in action.effects:
+                if effect.tmp == "start":
+                    effects_list.append(effect)
 
         add_start_eff_cond(effects_list, action)
 
@@ -49,6 +57,8 @@ def obtain_start_snap_actions(all_actions):
             preconditions = cond.Conjunction(preconditions_list)
         elif isinstance(action.conditions, cond.Disjunction):
             preconditions = cond.Disjunction(preconditions_list)
+        elif isinstance(action.conditions, cond.Atom):
+            preconditions = cond.Conjunction(preconditions_list)
 
         if action.cost:
             for cost_effect in action.cost:
@@ -71,13 +81,21 @@ def obtain_end_snap_actions(all_actions):
         preconditions_list = []
         cost_list = []
 
-        for condition in action.conditions.parts:
-            if condition.tmp == "end" or condition.tmp == "all":
-                preconditions_list.append(condition)
+        if isinstance(action.conditions, cond.Atom):
+            if action.conditions.tmp == "end" or action.conditions.tmp == "end":
+                preconditions_list.append(action.conditions)
+        else:
+            for condition in action.conditions.parts:
+                if condition.tmp == "end" or condition.tmp == "all":
+                    preconditions_list.append(condition)
 
-        for effect in action.effects:
-            if effect.tmp == "end":
-                effects_list.append(effect)
+        if isinstance(action.effects, eff.Effect):
+            if action.effects.tmp == "end":
+                effects_list.append(action.effects)
+        else:
+            for effect in action.effects:
+                if effect.tmp == "end":
+                    effects_list.append(effect)
 
         add_end_eff_cond(preconditions_list, effects_list, action)
 
@@ -85,6 +103,8 @@ def obtain_end_snap_actions(all_actions):
             preconditions = cond.Conjunction(preconditions_list)
         elif isinstance(action.conditions, cond.Disjunction):
             preconditions = cond.Disjunction(preconditions_list)
+        elif isinstance(action.conditions, cond.Atom):
+            preconditions = cond.Conjunction(preconditions_list)
 
         if action.cost:
             for cost_effect in action.cost:

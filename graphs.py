@@ -680,7 +680,7 @@ def create_casual_graph(sas_task, groups, simplify):
 
                 operator_index2 = operator_index2 + 1
 
-                # Check for arcs of type 1 from prevail array (precondition - effect)
+            # Check for arcs of type 1 from prevail array (precondition - effect)
             for var_no2, pre_spec2 in op.prevail:
                 if simplify:
                     arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)

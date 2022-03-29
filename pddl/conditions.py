@@ -172,9 +172,12 @@ class Condition(object):
 
     def include_temp_info(self, temp_info):
         index = 0
-        for cond in self.parts:
-            cond.tmp = temp_info[index]
-            index = index + 1
+        if isinstance(self, Atom):
+            self.tmp = temp_info[0]
+        else:
+            for cond in self.parts:
+                cond.tmp = temp_info[index]
+                index = index + 1
 
 class ConstantCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
