@@ -14,12 +14,15 @@ class DomainNode:
 
 
 class DomainCasualNode:
-    def __init__(self, arcs, name, number, type1_arcs, type2_arcs):
+    def __init__(self, arcs, name, number, type1_arcs, type2_arcs, end_arcs, end_type1_arcs, end_type2_arcs):
         self.name = name
         self.number = number
         self.arcs = arcs
+        self.end_arcs = end_arcs
         self.type1_arcs = type1_arcs
+        self.end_type1_arcs = end_type1_arcs
         self.type2_arcs = type2_arcs
+        self.end_type2_arcs = end_type2_arcs
 
 
 class DomainArc:
@@ -602,18 +605,21 @@ def create_casual_graph(sas_task, groups, simplify):
                     name = name + state.predicate + "_"
 
         name = name[:-1]
-        node_groups_list.append(DomainCasualNode([], name, group_number, [], []))
-        node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], []))
-        node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], []))
+        node_groups_list.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
+        node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
+        node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
         if not is_there_function_states:
             propositional_node_groups_list.append(group_number)
-            propositional_node_groups[group_number] = DomainCasualNode([], name, group_number, [], [])
-            propositional_node_groups_type1[group_number] = DomainCasualNode([], name, group_number, [], [])
-            propositional_node_groups_type2[group_number] = DomainCasualNode([], name, group_number, [], [])
+            propositional_node_groups[group_number] = DomainCasualNode([], name, group_number, [], [], [], [], [])
+            propositional_node_groups_type1[group_number] = DomainCasualNode([], name, group_number, [], [], [], [], [])
+            propositional_node_groups_type2[group_number] = DomainCasualNode([], name, group_number, [], [], [], [], [])
 
         group_number = group_number + 1
 
     for op in sas_task.operators:
+        end_action = False
+        if "_end " in op.name:
+            end_action = True
         operator_index1 = 0
         for var_no1, pre_spec1, post1, cond1 in op.pre_post:
             operator_index2 = 0
@@ -623,21 +629,28 @@ def create_casual_graph(sas_task, groups, simplify):
                 if operator_index2 != operator_index1:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type2_arcs:
+                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       2, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list[var_no2].end_arcs.append(new_arc)
                             node_groups_list[var_no1].type2_arcs.append(arc_id)
+                            node_groups_list[var_no2].end_type2_arcs.append(arc_id)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
+                            node_groups_list_type2[var_no2].end_arcs.append(new_arc)
                             node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
+                            node_groups_list_type2[var_no2].end_type2_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
                                 propositional_node_groups[var_no1].type2_arcs.append(arc_id)
+                                propositional_node_groups[var_no2].end_type2_arcs.append(arc_id)
                                 propositional_node_groups_type2[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type2[var_no2].end_arcs.append(new_arc)
                                 propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
-
+                                propositional_node_groups_type2[var_no2].end_type2_arcs.append(arc_id)
                     else:
                         new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                   node_groups_list[var_no2].name,
@@ -653,20 +666,28 @@ def create_casual_graph(sas_task, groups, simplify):
                 if pre_spec1 != -1 and pre_spec1 != -2:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type1_arcs:
+                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list[var_no2].end_arcs.append(new_arc)
                             node_groups_list[var_no1].type1_arcs.append(arc_id)
+                            node_groups_list[var_no2].end_type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no1].arcs.append(new_arc)
+                            node_groups_list_type1[var_no2].end_arcs.append(new_arc)
                             node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no2].end_type1_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
                                 propositional_node_groups[var_no1].type1_arcs.append(arc_id)
+                                propositional_node_groups[var_no2].end_type1_arcs.append(arc_id)
                                 propositional_node_groups_type1[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no2].end_arcs.append(new_arc)
                                 propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no2].end_type1_arcs.append(arc_id)
                     else:
                         new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                   node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
@@ -681,33 +702,42 @@ def create_casual_graph(sas_task, groups, simplify):
                 operator_index2 = operator_index2 + 1
 
             # Check for arcs of type 1 from prevail array (precondition - effect)
-            for var_no2, pre_spec2 in op.prevail:
-                if simplify:
-                    arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
-                    if arc_id not in node_groups_list[var_no2].type1_arcs:
+            if not end_action:
+                for var_no2, pre_spec2 in op.prevail:
+                    if simplify:
+                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
+                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2:
+                            new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
+                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
+                                                      1, arc_id)
+                            node_groups_list[var_no2].arcs.append(new_arc)
+                            node_groups_list[var_no1].end_arcs.append(new_arc)
+                            node_groups_list[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list[var_no1].end_type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no2].arcs.append(new_arc)
+                            node_groups_list_type1[var_no1].end_arcs.append(new_arc)
+                            node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no1].end_type1_arcs.append(arc_id)
+                            if var_no2 in propositional_node_groups_list \
+                                    and var_no1 in propositional_node_groups_list:
+                                propositional_node_groups[var_no2].arcs.append(new_arc)
+                                propositional_node_groups[var_no1].end_arcs.append(new_arc)
+                                propositional_node_groups[var_no2].type1_arcs.append(arc_id)
+                                propositional_node_groups[var_no1].end_type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no2].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no1].end_arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no1].end_type1_arcs.append(arc_id)
+                    else:
                         new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                                  node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
-                                                  1, arc_id)
+                                                  node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
+                                                  arc_id)
                         node_groups_list[var_no2].arcs.append(new_arc)
-                        node_groups_list[var_no2].type1_arcs.append(arc_id)
                         node_groups_list_type1[var_no2].arcs.append(new_arc)
-                        node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
                         if var_no2 in propositional_node_groups_list \
                                 and var_no1 in propositional_node_groups_list:
-                            propositional_node_groups[var_no2].arcs.append(new_arc)
-                            propositional_node_groups[var_no2].type1_arcs.append(arc_id)
+                            propositional_node_groups[var_no1].arcs.append(new_arc)
                             propositional_node_groups_type1[var_no2].arcs.append(new_arc)
-                            propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
-                else:
-                    new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                              node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
-                                              arc_id)
-                    node_groups_list[var_no2].arcs.append(new_arc)
-                    node_groups_list_type1[var_no2].arcs.append(new_arc)
-                    if var_no2 in propositional_node_groups_list \
-                            and var_no1 in propositional_node_groups_list:
-                        propositional_node_groups[var_no1].arcs.append(new_arc)
-                        propositional_node_groups_type1[var_no2].arcs.append(new_arc)
 
             operator_index1 = operator_index1 + 1
 
