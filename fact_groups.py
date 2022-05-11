@@ -1,5 +1,6 @@
 # -*- coding: latin-1 -*-
 import itertools
+import numpy
 
 import invariant_finder
 import pddl
@@ -54,6 +55,31 @@ def expand_group(group, task, reachable_facts):
     return result
 
 
+def obtaing_const_args(groups):
+    const_args = []
+    for group in groups:
+        const_group_args = []
+        for atom in group:
+            for arg in atom.args:
+                if "?" not in arg and arg not in const_group_args:
+                    const_group_args.append(arg)
+        const_args.append(const_group_args)
+    return const_args
+
+def obtaing_const_args_funcs(groups, arguments):
+    for group in groups:
+        const_group_args = []
+        if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
+            isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
+            isinstance(group[0].predicate, pddl.f_expression.Assign):
+            name = group[0].predicate.fluent.symbol
+            for arg in group[0].predicate.fluent.args:
+                name = name + "-" + arg.name
+            const_group_args.append(name)
+            arguments.append(const_group_args)
+    return arguments
+
+
 def instantiate_groups(groups, task, reachable_facts):
     return [expand_group(group, task, reachable_facts) for group in groups]
 
@@ -71,17 +97,21 @@ def instantiate_function_groups(groups, task, functions):
 
 
 class GroupCoverQueue:
-    def __init__(self, groups, partial_encoding):
+    def __init__(self, groups, arguments, partial_encoding):
         self.partial_encoding = partial_encoding
         if groups:
             self.max_size = max([len(group) for group in groups])
             self.groups_by_size = [[] for i in range(self.max_size + 1)]
+            self.arguments = [[] for i in range(self.max_size + 1)]
             self.groups_by_fact = {}
+            i = 0
             for group in groups:
                 group = set(group)  # Copy group, as it will be modified.
                 self.groups_by_size[len(group)].append(group)
+                self.arguments[len(group)].append(arguments[i])
                 for fact in group:
                     self.groups_by_fact.setdefault(fact, []).append(group)
+                i = i + 1
             self._update_top()
         else:
             self.max_size = 0
@@ -112,21 +142,31 @@ class GroupCoverQueue:
 
 # I don't want to remove facts that have already been covered
 # Thus, partial encoding is set to false for all cases
-def choose_groups(groups, reachable_facts, functions, partial_encoding=False):
-    queue = GroupCoverQueue(groups, partial_encoding=partial_encoding)
+def choose_groups(groups, reachable_facts, functions, arguments, partial_encoding=False):
+    queue = GroupCoverQueue(groups, arguments, partial_encoding=partial_encoding)
     uncovered_facts = reachable_facts.copy()
+
     # uncovered_funcs = functions.copy()
     result = []
+    i = 0
+    arguments_aux = []
     while queue:
         group = queue.pop()
         uncovered_facts.difference_update(group)
         result.append(group)
+
+    for dummy in queue.arguments:
+        if len(dummy):
+            for arg in dummy:
+                arguments_aux.append(arg)
+    arguments_aux.reverse()
+
     print(len(uncovered_facts), "uncovered facts")
     # for fact in uncovered_facts:
     #  print fact
     result += [[fact] for fact in uncovered_facts]
     # result += [[func] for func in uncovered_funcs]
-    return result
+    return result, arguments_aux
 
 
 def build_translation_key(groups):
@@ -157,16 +197,18 @@ def collect_all_mutex_groups(groups, atoms, functions):
 def compute_groups(task, atoms, functions, reachable_action_params, partial_encoding=False):
     groups = invariant_finder.get_groups(task, reachable_action_params)
     with timers.timing("Instantiating groups"):
+        arguments = obtaing_const_args(groups)
         groups = instantiate_groups(groups, task, atoms)
     with timers.timing("Instantiating function groups"):
         groups = instantiate_function_groups(groups, task, functions)
+        arguments = obtaing_const_args_funcs(groups, arguments)
     # TODO: I think that collect_all_mutex_groups should do the same thing
     #       as choose_groups with partial_encoding=False, so these two should
     #       be unified.
     with timers.timing("Collecting mutex groups"):
         mutex_groups = collect_all_mutex_groups(groups, atoms, functions)
     with timers.timing("Choosing groups", block=True):
-        groups = choose_groups(groups, atoms, functions, partial_encoding=partial_encoding)
+        groups, arguments = choose_groups(groups, atoms, functions, arguments, partial_encoding=partial_encoding)
     with timers.timing("Building translation key"):
         translation_key = build_translation_key(groups)
-    return groups, mutex_groups, translation_key
+    return groups, mutex_groups, translation_key, arguments

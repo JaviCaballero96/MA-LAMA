@@ -567,7 +567,7 @@ def create_gexf_transition_graphs_files(dtgs, groups):
             index = index + 1
 
 
-def create_casual_graph(sas_task, groups, simplify):
+def create_casual_graph(sas_task, groups, group_const_arg, simplify):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
@@ -600,11 +600,16 @@ def create_casual_graph(sas_task, groups, simplify):
                         name = name + "assign-" + state.predicate.fluent.symbol + "_"
                 is_there_function_states = True
             else:
-                if state.predicate not in atoms_included:
-                    atoms_included.append(state.predicate)
-                    name = name + state.predicate + "_"
+                if len(group) == 1:
+                    name = state.predicate + "_" + "-".join(state.args)
+                else:
+                    if state.predicate not in atoms_included:
+                        atoms_included.append(state.predicate)
+                        name = name + state.predicate + "_"
 
         name = name[:-1]
+        if group_number < len(group_const_arg):
+            name = name + "_" + "-".join(group_const_arg[group_number])
         node_groups_list.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
         node_groups_list_type1.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
         node_groups_list_type2.append(DomainCasualNode([], name, group_number, [], [], [], [], []))
@@ -749,8 +754,32 @@ def create_casual_graph(sas_task, groups, simplify):
             DomainCasualGraph(propositional_node_groups_type2))
 
 
-def remove_level2_cycles(casual_graph_type1, translation_key):
-    print("a")
+def simplify_graph(propositional_casual_graph_type1):
+    node_groups_list = []
+    for node in propositional_casual_graph_type1:
+        node_groups_list.append(node)
+
+    return DomainCasualGraph(node_groups_list)
+
+
+def obtain_secondary_origin_nodes(casual_graph, translation_key):
+    origin_nodes = {}
+    for node_number in casual_graph.node_list:
+        if not casual_graph.node_list[node_number].end_arcs:
+            origin_nodes[node_number] = casual_graph.node_list[node_number]
+        else:
+            # Check if inputs are cycles of level 2
+            for end_arc in casual_graph.node_list[node_number].end_arcs:
+                for second_end_arc in casual_graph.node_list[end_arc.end_state].end_arcs:
+                    if not second_end_arc.end_state == node_number:
+                        for third_end_arc in casual_graph.node_list[second_end_arc.end_state].end_arcs:
+                            if third_end_arc.end_state == node_number:
+                                origin_nodes[node_number] = casual_graph.node_list[node_number]
+                                break
+                    else:
+                        origin_nodes[node_number] = casual_graph.node_list[node_number]
+                        break
+    return origin_nodes
 
 
 def create_gexf_casual_graph_files(casual_graph, type):

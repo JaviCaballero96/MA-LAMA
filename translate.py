@@ -574,7 +574,7 @@ def pddl_to_sas(task):
         assert isinstance(item, pddl.Literal)
 
     with timers.timing("Computing fact groups", block=True):
-        groups, mutex_groups, translation_key = fact_groups.compute_groups(
+        groups, mutex_groups, translation_key, group_const_arg = fact_groups.compute_groups(
             task, atoms, functions, reachable_action_params,
             partial_encoding=USE_PARTIAL_ENCODING)
 
@@ -628,10 +628,11 @@ def pddl_to_sas(task):
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
-     propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups,
+     propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
 
-    # casual_graph_type1_cycle2 = graphs.remove_level2_cycles(casual_graph_type1, translation_key)
+    # propositional_casual_graph_type1_simplified = graphs.simplify_graph(propositional_casual_graph_type1)
+    origin_nodes = graphs.obtain_secondary_origin_nodes(propositional_casual_graph_type1, translation_key)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
