@@ -631,8 +631,11 @@ def pddl_to_sas(task):
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
 
-    # propositional_casual_graph_type1_simplified = graphs.simplify_graph(propositional_casual_graph_type1)
-    origin_nodes = graphs.obtain_secondary_origin_nodes(propositional_casual_graph_type1, translation_key)
+    propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
+    propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
+        deepcopy(propositional_casual_graph_type1_simple1))
+
+    origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
@@ -651,6 +654,8 @@ def pddl_to_sas(task):
     graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     return sas_task
 

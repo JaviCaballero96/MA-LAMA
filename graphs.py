@@ -762,23 +762,54 @@ def simplify_graph(propositional_casual_graph_type1):
     return DomainCasualGraph(node_groups_list)
 
 
-def obtain_secondary_origin_nodes(casual_graph, translation_key):
+def remove_two_way_cycles(casual_graph):
+    arcs_to_remove = []
+    for node_number in casual_graph.node_list:
+        for first_arc in casual_graph.node_list[node_number].arcs[:]:
+            for second_arc in casual_graph.node_list[first_arc.end_state].arcs[:]:
+                if second_arc.end_state == node_number:
+                    arcs_to_remove.append(first_arc)
+                    arcs_to_remove.append(second_arc)
+                    casual_graph.node_list[node_number].arcs.remove(first_arc)
+                    casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
+
+    for remove_arc in arcs_to_remove:
+        for end_arc in casual_graph.node_list[remove_arc.end_state].end_arcs[:]:
+            if end_arc.end_state == remove_arc.end_state and end_arc.origin_state == remove_arc.origin_state:
+                casual_graph.node_list[remove_arc.end_state].end_arcs.remove(end_arc)
+
+    return casual_graph
+
+
+def remove_three_way_cycles(casual_graph):
+    arcs_to_remove = []
+    for node_number in casual_graph.node_list:
+        for first_arc in casual_graph.node_list[node_number].arcs[:]:
+            for second_arc in casual_graph.node_list[first_arc.end_state].arcs[:]:
+                if second_arc.end_state != node_number:
+                    for third_arc in casual_graph.node_list[second_arc.end_state].arcs[:]:
+                        if third_arc.end_state == node_number:
+                            arcs_to_remove.append(first_arc)
+                            arcs_to_remove.append(second_arc)
+                            arcs_to_remove.append(third_arc)
+                            casual_graph.node_list[node_number].arcs.remove(first_arc)
+                            casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
+                            casual_graph.node_list[second_arc.end_state].arcs.remove(third_arc)
+
+    for remove_arc in arcs_to_remove:
+        for end_arc in casual_graph.node_list[remove_arc.end_state].end_arcs[:]:
+            if end_arc.end_state == remove_arc.end_state and end_arc.origin_state == remove_arc.origin_state:
+                casual_graph.node_list[remove_arc.end_state].end_arcs.remove(end_arc)
+
+    return casual_graph
+
+
+def obtain_origin_nodes(casual_graph):
     origin_nodes = {}
     for node_number in casual_graph.node_list:
-        if not casual_graph.node_list[node_number].end_arcs:
+        if not casual_graph.node_list[node_number].end_arcs and casual_graph.node_list[node_number].arcs:
             origin_nodes[node_number] = casual_graph.node_list[node_number]
-        else:
-            # Check if inputs are cycles of level 2
-            for end_arc in casual_graph.node_list[node_number].end_arcs:
-                for second_end_arc in casual_graph.node_list[end_arc.end_state].end_arcs:
-                    if not second_end_arc.end_state == node_number:
-                        for third_end_arc in casual_graph.node_list[second_end_arc.end_state].end_arcs:
-                            if third_end_arc.end_state == node_number:
-                                origin_nodes[node_number] = casual_graph.node_list[node_number]
-                                break
-                    else:
-                        origin_nodes[node_number] = casual_graph.node_list[node_number]
-                        break
+
     return origin_nodes
 
 
@@ -808,6 +839,12 @@ def create_gexf_casual_graph_files(casual_graph, type):
     if type == 5:
         propo = True
         file_name = "propositional_casual_graph_type2.gexf"
+    if type == 6:
+        propo = True
+        file_name = "propositional_casual_cycles1_graph.gexf"
+    if type == 7:
+        propo = True
+        file_name = "propositional_casual_cycles2_graph.gexf"
 
     full_name = os.path.join(save_path, file_name)
     f = open(full_name, "w")
