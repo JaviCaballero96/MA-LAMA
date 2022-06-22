@@ -1,3 +1,5 @@
+import copy
+
 import pddl
 import os
 import glob
@@ -811,6 +813,95 @@ def obtain_origin_nodes(casual_graph):
             origin_nodes[node_number] = casual_graph.node_list[node_number]
 
     return origin_nodes
+
+
+def fill_basic_agents(origin_nodes, propositional_casual_graph):
+    full_agents = []
+    redundant_agents = []
+    or_agent_nodes = [or_node_number for or_node_number in origin_nodes]
+    for agent in origin_nodes:
+        search_queue = []
+        already_visited = []
+
+        for node_app in propositional_casual_graph.node_list[agent].arcs:
+            if node_app.arc_type == 1:
+                search_queue.append(node_app.end_state)
+
+        for node_app in propositional_casual_graph.node_list[agent].arcs:
+            if node_app.arc_type == 1:
+                already_visited.append(node_app.end_state)
+
+        full_agents.append([agent])
+        while search_queue:
+            node = search_queue.pop(0)
+
+            # Check if all predecesors are in V
+            bool_all = True
+            for node_arc in propositional_casual_graph.node_list[node].end_arcs:
+                if node_app.arc_type == 1 and (node_arc.origin_state not in full_agents[-1]):
+                    # Check if the arc found is part of a 1 level loop
+                    if len(propositional_casual_graph.node_list[node_arc.origin_state].end_type1_arcs) == 1:
+                        continue
+                    bool_all = False
+                    break
+
+            if bool_all:
+                full_agents[-1].append(node)
+
+                # Check if the new variable of the agent was considered a separated agent
+                if node in or_agent_nodes:
+                    redundant_agents.append(node)
+
+                for arc_app in propositional_casual_graph.node_list[node].arcs:
+                    if arc_app.arc_type == 1 and arc_app.end_state not in already_visited:
+                        search_queue.append(arc_app.end_state)
+                        already_visited.append(arc_app.end_state)
+
+    # Remove redundant agents
+    for agent in full_agents[:]:
+        for agent2 in full_agents[:]:
+            if agent[0] != agent2[0]:
+                for agent_state in agent[:]:
+                    if agent_state == agent2[0] and agent_state != agent[0]:
+                        full_agents.remove(agent2)
+                        break
+
+    # Remove redundant states in agents
+    full_agents_final = []
+    for agent in full_agents:
+        agent_final = []
+        [agent_final.append(x) for x in agent if x not in agent_final]
+        full_agents_final.append(agent_final)
+
+    return full_agents_final
+
+
+def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
+    joint_agents = copy.deepcopy(basic_agents)
+    not_jointed = []
+
+    for _ in range(depth):
+        for node in propositional_casual_graph.node_list:
+            for agent in joint_agents:
+                if node not in agent:
+                    for arc in propositional_casual_graph.node_list[node].end_arcs:
+                        if arc.arc_type == 1 and agent.count(arc.origin_state) != 0:
+                            agent.append(node)
+                            break
+
+    for agent in joint_agents:
+        agent.sort()
+
+    for node in propositional_casual_graph.node_list:
+        found = False
+        for agent in joint_agents:
+            if agent.count(node) != 0:
+                found = True
+                break
+        if not found:
+            not_jointed.append(node)
+
+    return joint_agents
 
 
 def create_gexf_casual_graph_files(casual_graph, type):
