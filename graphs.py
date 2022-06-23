@@ -904,6 +904,45 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     return joint_agents
 
 
+def full_func_agents(joint_agents, casual_graph, depth):
+    functional_agents = copy.deepcopy(joint_agents)
+    not_jointed = []
+
+    for _ in range(depth):
+        for node in casual_graph.node_list:
+            if "increase" in casual_graph.node_list[node.number].name or \
+                    "decrease" in casual_graph.node_list[node.number].name or \
+                    "assign" in casual_graph.node_list[node.number].name:
+                for agent in functional_agents:
+                    if node not in agent:
+                        for arc in casual_graph.node_list[node.number].end_arcs:
+                            if arc.arc_type == 1 and agent.count(arc.origin_state) != 0:
+                                agent.append(node.number)
+                                break
+
+    for agent in functional_agents:
+        agent.sort()
+
+
+    # Remove redundant states in agents
+    functional_agents_final = []
+    for agent in functional_agents:
+        agent_final = []
+        [agent_final.append(x) for x in agent if x not in agent_final]
+        functional_agents_final.append(agent_final)
+
+    for node in casual_graph.node_list:
+        found = False
+        for agent in functional_agents_final:
+            if agent.count(node.number) != 0:
+                found = True
+                break
+        if not found:
+            not_jointed.append(node.number)
+
+    return functional_agents_final
+
+
 def create_gexf_casual_graph_files(casual_graph, type):
     index = 0
     today = date.today()

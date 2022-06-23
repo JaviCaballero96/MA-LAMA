@@ -639,6 +639,7 @@ def pddl_to_sas(task):
 
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 2)
+    functional_agents = graphs.full_func_agents(joint_agents, casual_graph, 2)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
