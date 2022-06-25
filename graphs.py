@@ -904,7 +904,7 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     return joint_agents
 
 
-def full_func_agents(joint_agents, casual_graph, depth):
+def fill_func_agents(joint_agents, casual_graph, depth):
     functional_agents = copy.deepcopy(joint_agents)
     not_jointed = []
 
@@ -941,6 +941,71 @@ def full_func_agents(joint_agents, casual_graph, depth):
             not_jointed.append(node.number)
 
     return functional_agents_final
+
+
+def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
+    agent_actions = []
+    not_added = []
+
+    for _ in full_agents:
+        agent_actions.append([])
+
+    for ope in sas_task.operators:
+        index = 0
+        for agent in full_agents:
+            added = False
+            for eff in ope.pre_post:
+                if eff[0] == 0:
+                    continue
+                if not added and agent.count(eff[0]) != 0:
+                    added = True
+                    agent_actions[index].append(ope)
+
+            for pre in ope.prevail:
+                if not added and agent.count(pre[0]) != 0:
+                    added = True
+                    agent_actions[index].append(pre)
+
+            index = index + 1
+
+    for ope in sas_task.operators:
+        found = False
+        for agent in agent_actions:
+            if not found and agent.count(ope) != 0:
+                found = True
+                break
+        if not found:
+            not_added.append(ope)
+
+    #If there are not addded actioins, try to add them by functions
+    if not_added:
+        for ope in not_added:
+            index = 0
+            for agent in full_func_agents:
+                added = False
+                for eff in ope.pre_post:
+                    if eff[0] == 0:
+                        continue
+                    if not added and agent.count(eff[0]) != 0:
+                        added = True
+                        agent_actions[index].append(ope)
+
+                for pre in ope.prevail:
+                    if not added and agent.count(pre[0]) != 0:
+                        added = True
+                        agent_actions[index].append(pre)
+
+                index = index + 1
+
+
+    # Remove redundant actions in agents
+    agent_actions_final = []
+    for agent in agent_actions:
+        agent_final = []
+        [agent_final.append(x) for x in agent if x not in agent_final]
+        agent_actions_final.append(agent_final)
+
+    return agent_actions_final
 
 
 def create_gexf_casual_graph_files(casual_graph, type):
