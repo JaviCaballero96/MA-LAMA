@@ -923,7 +923,6 @@ def fill_func_agents(joint_agents, casual_graph, depth):
     for agent in functional_agents:
         agent.sort()
 
-
     # Remove redundant states in agents
     functional_agents_final = []
     for agent in functional_agents:
@@ -977,7 +976,7 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
         if not found:
             not_added.append(ope)
 
-    #If there are not addded actioins, try to add them by functions
+    # If there are not addded actions, try to add them by functions
     if not_added:
         for ope in not_added:
             index = 0
@@ -997,7 +996,6 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
 
                 index = index + 1
 
-
     # Remove redundant actions in agents
     agent_actions_final = []
     for agent in agent_actions:
@@ -1008,7 +1006,7 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
     return agent_actions_final
 
 
-def fill_agents_metric(joint_agents, functional_agents, agents_actions, casual_graph, sas_task):
+def fill_agents_metric(joint_agents, functional_agents, sas_task):
     agent_metrics = []
 
     for _ in joint_agents:
@@ -1022,6 +1020,34 @@ def fill_agents_metric(joint_agents, functional_agents, agents_actions, casual_g
             index = index + 1
 
     return agent_metrics
+
+
+def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, casual_graph, sas_task):
+    agent_goals = []
+    goals_to_analyze = []
+
+    for _ in joint_agents:
+        agent_goals.append([])
+
+    # First find if there are goals that belong only to one agent
+    for goal in sas_task.goal.pairs:
+        n_agent_found = 0
+        direct_goal = True
+        index = 0
+        for agent in joint_agents:
+            if agent.count(goal[0]) != 0:
+                if n_agent_found != 0:
+                    direct_goal = False
+                    goals_to_analyze.append(goal)
+                else:
+                    n_agent_found = index
+            index = index + 1
+        if direct_goal:
+            agent_goals[n_agent_found].append(goal)
+
+    # If there are goals_to_analyze, we have to assign them by analyzing the problem
+
+    return agent_goals
 
 
 def create_gexf_casual_graph_files(casual_graph, type):
