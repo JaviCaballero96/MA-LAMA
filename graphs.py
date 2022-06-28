@@ -1008,6 +1008,22 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
     return agent_actions_final
 
 
+def fill_agents_metric(joint_agents, functional_agents, agents_actions, casual_graph, sas_task):
+    agent_metrics = []
+
+    for _ in joint_agents:
+        agent_metrics.append([])
+
+    for metr in sas_task.translated_metric:
+        index = 0
+        for agent in functional_agents:
+            if agent.count(metr) != 0:
+                agent_metrics[index].append(metr)
+            index = index + 1
+
+    return agent_metrics
+
+
 def create_gexf_casual_graph_files(casual_graph, type):
     index = 0
     today = date.today()
