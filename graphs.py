@@ -3,6 +3,8 @@ import copy
 import pddl
 import os
 import glob
+import signal
+import time
 from simplify import DomainTransitionGraph
 from datetime import date
 
@@ -55,6 +57,14 @@ class DomainTransGraph:
 class DomainCasualGraph:
     def __init__(self, node_list):
         self.node_list = node_list
+
+
+class EstimatedMetricNode:
+    def __init__(self, app_actions, curr_state, estimated_metric, pending_additions):
+        self.app_actions = app_actions
+        self.curr_state = curr_state
+        self.estimated_metric = estimated_metric
+        self.pending_additions = pending_additions
 
 
 def get_agent_elements(task, strips_to_sas):
@@ -837,11 +847,18 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
 
             # Check if all predecesors are in V
             bool_all = True
+            curr_arc = False
             for node_arc in propositional_casual_graph.node_list[node].end_arcs:
                 if node_app.arc_type == 1 and (node_arc.origin_state not in full_agents[-1]):
                     # Check if the arc found is part of a 1 level loop
                     if len(propositional_casual_graph.node_list[node_arc.origin_state].end_type1_arcs) == 1:
-                        continue
+                        if "_curr_" in propositional_casual_graph.node_list[node].name:
+                            continue
+                    elif "_curr_" in propositional_casual_graph.node_list[node].name:
+                        if not curr_arc:
+                            curr_arc = True
+                            continue
+
                     bool_all = False
                     break
 
@@ -872,6 +889,9 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
         agent_final = []
         [agent_final.append(x) for x in agent if x not in agent_final]
         full_agents_final.append(agent_final)
+
+    for agent in full_agents_final:
+        agent.sort()
 
     return full_agents_final
 
@@ -942,7 +962,7 @@ def fill_func_agents(joint_agents, casual_graph, depth):
     return functional_agents_final
 
 
-def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
+def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task, groups):
     agent_actions = []
     not_added = []
 
@@ -963,7 +983,7 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task):
             for pre in ope.prevail:
                 if not added and agent.count(pre[0]) != 0:
                     added = True
-                    agent_actions[index].append(pre)
+                    agent_actions[index].append(ope)
 
             index = index + 1
 
@@ -1019,10 +1039,32 @@ def fill_agents_metric(joint_agents, functional_agents, sas_task):
                 agent_metrics[index].append(metr)
             index = index + 1
 
+    for agent in agent_metrics:
+        agent.insert(0, sas_task.metric[0])
+
     return agent_metrics
 
 
-def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, casual_graph, sas_task):
+def fill_agents_init(joint_agents, functional_agents, sas_task):
+    agent_init = []
+
+    for _ in joint_agents:
+        agent_init.append({})
+
+    init_pos = 0
+    for init_value in sas_task.init.values:
+        index = 0
+        for agent in functional_agents:
+            if agent.count(init_pos) != 0:
+                agent_init[index][init_pos] = init_value
+            index = index + 1
+        init_pos = init_pos + 1
+
+    return agent_init
+
+
+def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init, casual_graph,
+                      sas_task, groups):
     agent_goals = []
     goals_to_analyze = []
 
@@ -1046,8 +1088,153 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             agent_goals[n_agent_found].append(goal)
 
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
+    estimations_agent_goals = fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
+                                                       agents_actions, agents_metric, agents_init, casual_graph,
+                                                       sas_task, groups)
+
+    # Now the calculated objectives will be assigned
+    goal_index = 0
+    metric_total_agent = []
+
+    for _ in joint_agents:
+        metric_total_agent.append(0)
+
+    for goal_estimations in estimations_agent_goals:
+        min_vals = []
+        agent_index = 0
+        for agent_estimations in goal_estimations:
+            min_value = agent_estimations[0].estimated_metric
+            for node in agent_estimations:
+                if node.estimated_metric < min_value:
+                    min_value = node.estimated_metric
+            min_vals.append(min_value)
+            agent_index = agent_index + 1
+
+        # Assign goal
+        estimations = []
+        agent_analysis_index = 0
+        for agent_analysis in min_vals:
+            estimations.append(metric_total_agent[agent_analysis_index] + agent_analysis)
+            agent_analysis_index = agent_analysis_index + 1
+        agent_index_chosen = estimations.index(min(estimations))
+
+        agent_goals[agent_index_chosen].append(goals_to_analyze[goal_index])
+        metric_total_agent[agent_index_chosen] = min(estimations)
+
+        goal_index = goal_index + 1
 
     return agent_goals
+
+
+def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents, agents_actions, agents_metric,
+                              agents_init, casual_graph, sas_task, groups):
+    analyzed_agent_goals = []
+    goal_index = 0
+
+    # We have to do a backward search from the goals to the init state
+    for goal in goals_to_analyze:
+        print("The goal " + str(goal[0]) + ":" + str(goal[1]) + " ... launching non delete search")
+
+        # Go backwards searching for necessary init states
+        agent_index = 0
+        agent_sol_estimations = []
+
+        for agent in functional_agents:
+            agent_sol_estimations.append([])
+            agent_actions = agents_actions[agent_index]
+            agent_metric = agents_metric[agent_index]
+            agent_init = copy.deepcopy(agents_init[agent_index])
+            joint_agent = joint_agents[agent_index]
+
+            estimated_metric = 0
+            search_queue = []
+            solutions = []
+            init_node = EstimatedMetricNode([], agent_init, 0, [goal])
+            search_queue.append(init_node)
+
+            # Set a time limit for each goal and agent
+            timeout_start = time.time()
+
+            max_cost = 9999999
+
+            while search_queue and time.time() < timeout_start + 5:
+                node = search_queue.pop(0)
+
+                # Check if the agent has a pending to start action
+                if node.app_actions:
+                    last_action_name = node.app_actions[-1].name
+                    last_action_end = False
+                    if "_end " in last_action_name:
+                        last_action_end = True
+
+                # Search actions that can set the state "node"
+                for action in agent_actions:
+                    added = False
+                    if node.app_actions:
+                        if last_action_end and "_end " in action.name:
+                            continue
+                        if not last_action_end and "_start " in action.name:
+                            continue
+                    for effect in action.pre_post:
+                        for pending_subgoal in node.pending_additions:
+                            if effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
+
+                                new_action_name = "_".join(
+                                    (((((action.name.split(" "))[0]).split("("))[1]).split("_"))[:-1])
+
+                                # Create new current state for the new nodes
+                                new_node_state = copy.deepcopy(node.curr_state)
+                                new_node_state[effect[0]] = effect[2]
+
+                                # If an action that can set the effect is found
+                                # create a new state with all preconditions not met
+                                # and add it to the queue
+
+                                new_node_cost = copy.deepcopy(node.estimated_metric + action.cost)
+                                new_node_actions = copy.deepcopy(node.app_actions)
+                                new_node_actions.append(action)
+
+                                new_node_subgoals = copy.deepcopy(node.pending_additions)
+                                new_node_subgoals.remove(pending_subgoal)
+
+                                for pre in action.prevail:
+                                    if agent_init[pre[0]] != pre[1] and new_node_subgoals.count([pre[0], pre[1]]) == 0:
+                                        new_node_subgoals.append([pre[0], pre[1]])
+
+                                for effect_2 in action.pre_post:
+                                    if effect_2[1] != -2 and \
+                                            effect_2[2] != -1 and \
+                                            effect_2[1] != -1 and \
+                                            agent_init[effect_2[0]] != effect_2[1]:
+                                        if new_node_subgoals.count([effect_2[0], effect_2[1]]) == 0:
+                                            new_node_subgoals.append([effect_2[0], effect_2[1]])
+
+                                new_node = EstimatedMetricNode(new_node_actions, new_node_state, new_node_cost,
+                                                               new_node_subgoals)
+
+                                added = True
+
+                                if not new_node_subgoals:
+
+                                    if new_node.estimated_metric < max_cost:
+                                        print(
+                                            "The goal " + str(goal[0]) + ":" + str(goal[1]) +
+                                            " has solution for agent (" + str(agent_index) + ") -- estimation -> " +
+                                            str(new_node.estimated_metric) + " < " + str(max_cost))
+
+                                        max_cost = new_node.estimated_metric
+
+                                        agent_sol_estimations[agent_index].append(new_node)
+                                else:
+                                    if new_node.estimated_metric < max_cost:
+                                        search_queue.append(new_node)
+
+            agent_index = agent_index + 1
+        analyzed_agent_goals.append(agent_sol_estimations)
+
+        goal_index = goal_index + 1
+
+    return analyzed_agent_goals
 
 
 def create_gexf_casual_graph_files(casual_graph, type):

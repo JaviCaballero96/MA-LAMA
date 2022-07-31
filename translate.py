@@ -14,6 +14,7 @@ import simplify
 import timers
 import snap_actions
 import graphs
+import os
 
 # TODO: The translator may generate trivial derived variables which are always true,
 # for example if there ia a derived predicate in the input that only depends on
@@ -640,10 +641,30 @@ def pddl_to_sas(task):
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 2)
     functional_agents = graphs.fill_func_agents(joint_agents, casual_graph, 2)
-    agents_actions = graphs.fill_agents_actions(joint_agents, functional_agents, casual_graph, sas_task)
+    agents_actions = graphs.fill_agents_actions(basic_agents, functional_agents, casual_graph, sas_task, groups)
     agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
-    agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric,
-                                            casual_graph, sas_task)
+    agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
+    agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
+                                            casual_graph, sas_task, groups)
+
+    # Create new tasks
+    agent_tasks = []
+    agent_index = 0
+    for _ in basic_agents:
+
+        axiom_layers = [-1] * len(functional_agents[agent_index])
+        vars = {}
+        for var in functional_agents[agent_index]:
+            vars[var] = len(groups[var])
+        variables = sas_tasks.SASVariables(vars, axiom_layers)
+        init = sas_tasks.SASInit(agents_init[agent_index])
+        goal = sas_tasks.SASGoal(agents_goals[agent_index])
+
+        new_task = sas_tasks.SASTask(variables, init,
+                                     goal, agents_actions[agent_index], [],
+                                     agents_metric[agent_index])
+
+        agent_tasks.append(new_task)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
@@ -665,7 +686,7 @@ def pddl_to_sas(task):
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
-    return sas_task
+    return sas_task, agent_tasks
 
 
 def build_mutex_key(strips_to_sas, groups):
@@ -782,7 +803,15 @@ if __name__ == "__main__":
     # Translate durative task to snap actions task
     snap_task = snap_actions.task_snap_translate(durative_task)
 
-    sas_task = pddl_to_sas(snap_task)
+    sas_task, agent_tasks = pddl_to_sas(snap_task)
+
+    print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):
         sas_task.output(open("output.sas", "w"))
+
+        agent_index = 0
+        for task in agent_tasks:
+            task.output(open("output_agent" + str(agent_index) + ".sas", "w"))
+            agent_index = agent_index + 1
+
     print("Done! %s" % timer)
