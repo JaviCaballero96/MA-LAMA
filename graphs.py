@@ -328,7 +328,7 @@ def create_gexf_transition_functional_graphs_files(fdtgs):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+        save_path = "/home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
 
     for graph in fdtgs:
         file_name = "functional_graph_" + str(index) + ".gexf"
@@ -369,7 +369,7 @@ def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/metric"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs/metric"
 
     file_name = "functional_metric_graph.gexf"
     full_name = os.path.join(save_path, file_name)
@@ -409,7 +409,7 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/metric"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs/metric"
 
     for graph in fdtgs:
         file_name = "functional_metric_graph_" + str(graph.var_group) + ".gexf"
@@ -450,7 +450,7 @@ def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\functional_graphs_inv"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs/functional_graphs_inv"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs/functional_graphs_inv"
 
     n_invariant = 0
     for invariant in fdtgs_per_invariant:
@@ -498,7 +498,7 @@ def create_csv_transition_graphs_files(dtgs, groups):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
 
     filelist = glob.glob(os.path.join(save_path, "*.csv"))
     for f in filelist:
@@ -534,7 +534,7 @@ def create_gexf_transition_graphs_files(dtgs, groups):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
 
     filelist = glob.glob(os.path.join(save_path, "*.gexf"))
     for f in filelist:
@@ -1245,7 +1245,7 @@ def create_gexf_casual_graph_files(casual_graph, type):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "/home/caba/Escritorio/planners/pddl2-sas+trasnslate/graphs"
+        save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
 
     propo = False
     if type == 0:
