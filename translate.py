@@ -807,7 +807,7 @@ if __name__ == "__main__":
 
     print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):
-        sas_task.output(open("output.sas", "w"))
+        sas_task.output(open("/home/javier/Desktop/planners/outPreprocess/output.sas", "w"))
 
         agent_index = 0
         for task in agent_tasks:
