@@ -174,10 +174,10 @@ def create_functional_dtgs(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if n_pre_spec == -2 and n_var_no == index:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no == index:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
-                        if eff_index_1 != eff_index_2 and pre_spec != -2:
+                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4):
                             if translation_key[var_no][pre_spec] != '<none of those>':
                                 if translation_key[var_no][pre_spec] not in node_names:
                                     node_dict[translation_key[var_no][pre_spec]] = []
@@ -227,10 +227,11 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
             for op in sas_task.operators:
                 eff_index_1 = 0
                 for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                    if n_pre_spec == -2 and n_var_no == index2:
+                    if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no == index2:
                         eff_index_2 = 0
                         for var_no, pre_spec, post, cond in op.pre_post:
-                            if eff_index_1 != eff_index_2 and pre_spec != -2 and var_no == index:
+                            if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3
+                                                               and n_pre_spec != -4) and var_no == index:
                                 if translation_key[var_no][pre_spec] != '<none of those>':
                                     if translation_key[var_no][pre_spec] not in node_names:
                                         node_dict[translation_key[var_no][pre_spec]] = []
@@ -260,10 +261,10 @@ def create_functional_dtg_metric(sas_task, translation_key, groups):
     for op in sas_task.operators:
         eff_index_1 = 0
         for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-            if n_pre_spec == -2 and n_var_no in sas_task.translated_metric:
+            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
                 eff_index_2 = 0
                 for var_no, pre_spec, post, cond in op.pre_post:
-                    if eff_index_1 != eff_index_2 and pre_spec != -2:
+                    if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4):
                         if translation_key[var_no][pre_spec] != '<none of those>':
                             if translation_key[var_no][pre_spec] not in node_names:
                                 node_dict[translation_key[var_no][pre_spec]] = []
@@ -297,10 +298,11 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if n_pre_spec == -2 and n_var_no in sas_task.translated_metric:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
-                        if eff_index_1 != eff_index_2 and pre_spec != -2 and var_no == index:
+                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and
+                                                           n_pre_spec != -4)  and var_no == index:
                             if translation_key[var_no][pre_spec] != '<none of those>':
                                 if translation_key[var_no][pre_spec] not in node_names:
                                     node_dict[translation_key[var_no][pre_spec]] = []
@@ -680,7 +682,7 @@ def create_casual_graph(sas_task, groups, group_const_arg, simplify):
                             propositional_node_groups_type2[var_no1].arcs.append(new_arc)
 
                 # Type 1 (only if a precondition exists)
-                if pre_spec1 != -1 and pre_spec1 != -2:
+                if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4):
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
                         if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2:
@@ -1202,7 +1204,7 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                                         new_node_subgoals.append([pre[0], pre[1]])
 
                                 for effect_2 in action.pre_post:
-                                    if effect_2[1] != -2 and \
+                                    if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4) and \
                                             effect_2[2] != -1 and \
                                             effect_2[1] != -1 and \
                                             agent_init[effect_2[0]] != effect_2[1]:

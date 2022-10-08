@@ -223,12 +223,26 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
             continue
         eff_condition = [list(eff_cond.items())
                          for eff_cond in eff_condition_list]
+
+        op_f = 0
         if isinstance(fact.expression, pddl.f_expression.PrimitiveNumericExpression):
             fact_exp = str(get_new_expresison(fact.expression))
             value = fact.expression.value
+            if isinstance(fact, pddl.f_expression.Increase):
+                op_f = -2
+            elif isinstance(fact, pddl.f_expression.Decrease):
+                op_f = -3
+            elif isinstance(fact, pddl.f_expression.Assign):
+                op_f = -4
         else:
             fact_exp = str(fact.expression.fluent)
             value = fact.expression.expression.value
+            if isinstance(fact, pddl.f_expression.Increase):
+                op_f = -2
+            elif isinstance(fact, pddl.f_expression.Decrease):
+                op_f = -3
+            elif isinstance(fact, pddl.f_expression.Assign):
+                op_f = -4
         fact_fluent = str(fact.fluent.fluent)
         fact_str = fact.__class__.__name__ + " " + fact_fluent + " " + fact_exp
         new_atom = aux_func_strips_to_sas[fact_str]
@@ -247,7 +261,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         for var, val in dictionary[new_atom]:
             effect_pair = effect.get(var)
             if not effect_pair:
-                effect[var] = ([value, var, val], eff_condition)
+                effect[var] = ([value, var, val, op_f], eff_condition)
             else:
                 if isinstance(effect_pair[0], list):
                     effect_pair[0].append(fact.expression.expression.value)
@@ -339,7 +353,8 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
     for var, (post, eff_condition_lists) in effect.items():
         pre = condition.pop(var, -1)
         if isinstance(post, list):
-            pre = -2
+            pre = post[3]
+            post = post[:-1]
             # post = post[0]
         else:
             if ranges[var] == 2:
@@ -451,7 +466,7 @@ def duplicate_funct_effects(operators):
         if op.name.split(" ")[0][-3:] == "end":
             name1 = op.name.split(" ")[0].split("_")[:-1][1:] + op.name.split(" ")[1:]
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if n_pre_spec == -2:
+                if n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4:
                     for op2 in operators:
                         if op2.name.split(" ")[0][-5:] == "start":
                             name2 = op2.name.split(" ")[0].split("_")[:-1][1:] + op2.name.split(" ")[1:]
@@ -516,7 +531,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
 def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
         for effect in operator.pre_post:
-            if effect[1] == -2:
+            if effect[1] == -2 or effect[1] == -3 or effect[1] == -4:
                 groups[effect[0]][0].value = effect[2]
                 mutex_groups[effect[0]][0].value = effect[2]
     return
@@ -805,13 +820,13 @@ if __name__ == "__main__":
 
     sas_task, agent_tasks = pddl_to_sas(snap_task)
 
-    print("Files will be stored in: " + os.getcwd())
+    print("Files will be stored in: /home/javier/Desktop/planners/outPreprocess")
     with timers.timing("Writing output"):
         sas_task.output(open("/home/javier/Desktop/planners/outPreprocess/output.sas", "w"))
 
         agent_index = 0
         for task in agent_tasks:
-            task.output(open("output_agent" + str(agent_index) + ".sas", "w"))
+            task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas", "w"))
             agent_index = agent_index + 1
 
     print("Done! %s" % timer)

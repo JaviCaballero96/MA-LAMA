@@ -8,7 +8,10 @@ class SASTask:
         self.metric = metric
     def output(self, stream):
         print("begin_metric", file=stream)
-        print(self.metric, file=stream)
+        print("(" + self.metric[0], file=stream)
+        for me in self.translated_metric.keys():
+            print(str(me) + " ", file=stream)
+        print(")", file=stream)
         print("end_metric", file=stream)
         self.variables.output(stream)
         self.init.output(stream)
@@ -20,6 +23,22 @@ class SASTask:
         for axiom in self.axioms:
             axiom.output(stream)
 
+    def outputma(self, stream):
+        print("begin_metric", file=stream)
+        print("(" + self.metric[0], file=stream)
+        for me in self.metric[1:]:
+            print(str(me) + " ", file=stream)
+        print(")", file=stream)
+        print("end_metric", file=stream)
+        self.variables.output(stream)
+        self.init.output(stream)
+        self.goal.output(stream)
+        print(len(self.operators), file=stream)
+        for op in self.operators:
+            op.output(stream)
+        print(len(self.axioms), file=stream)
+        for axiom in self.axioms:
+            axiom.output(stream)
 class SASVariables:
     def __init__(self, ranges, axiom_layers):
         self.ranges = ranges
@@ -93,7 +112,17 @@ class SASOperator:
             print(len(cond), end=' ', file=stream)
             for cvar, cval in cond:
                 print(cvar, cval, end=' ', file=stream)
-            print(var, pre, post, file=stream)
+                print(cvar, cval, end=' ')
+            if pre == -2 or pre == -3 or pre == -4:
+                to_write = ""
+                for elem in post:
+                    to_write = to_write + str(elem) + " "
+                to_write = to_write[:-1]
+                print(var, pre, to_write, file=stream)
+                print(var, pre, to_write)
+            else:
+                print(var, pre, post, file=stream)
+                print(var, pre, post)
         print(self.cost, file=stream)
         print("end_operator", file=stream)
 

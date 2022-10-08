@@ -1,263 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">
-	<meta lastmodifieddate="20/09/2022">
+	<meta lastmodifieddate="08/10/2022">
 		<creator>Javier Caballero</creator>
 		<description>propositional_casual_graph_type2.gexf</description>
 	</meta>
 	<graph mode="static" defaultedgetype="directed">
 		<nodes>
-			<node id="1" label="robotbase_at_robotbase_goingto_curr_follower0" />
-			<node id="2" label="robotbase_at_robotbase_goingto_curr_follower1" />
-			<node id="3" label="robotbase_at_robotbase_goingto_curr_leader" />
-			<node id="17" label="robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_robotbase_ondock_follower1" />
-			<node id="18" label="robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_robotbase_ondock_follower0" />
-			<node id="19" label="robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_robotbase_ondock_leader" />
-			<node id="20" label="navigation_mode_navigation_changemode_curr_follower0" />
-			<node id="21" label="navigation_mode_navigation_changemode_curr_leader" />
-			<node id="22" label="navigation_mode_navigation_changemode_curr_follower1" />
-			<node id="23" label="communication_transmittedp_c2_" />
-			<node id="24" label="communication_transmittedp_c2_" />
-			<node id="25" label="cameras_takingpicture_curr_leader-c6_10-i_" />
-			<node id="26" label="communication_transmittingpicture_curr_follower1-c10_" />
-			<node id="27" label="communication_transmittingpicture_curr_follower1-c1_" />
-			<node id="28" label="communication_transmittingpicture_curr_follower1-c2_" />
-			<node id="29" label="communication_transmittedp_c10_1" />
-			<node id="30" label="cameras_takingpicture_curr_follower0-c10_2-i_" />
-			<node id="31" label="robotbase_recharge_curr_follower1-c5_" />
-			<node id="32" label="communication_transmittingpicture_curr_follower0-c1_" />
-			<node id="33" label="communication_transmittingpicture_curr_follower0-c2_" />
-			<node id="34" label="communication_transmittingpicture_curr_follower0-c2_" />
-			<node id="35" label="communication_transmittingpicture_curr_follower1-c6_1" />
-			<node id="36" label="cameras_takingpicture_curr_follower1-c2_3-i_" />
-			<node id="37" label="cameras_picture_leader-c6_1" />
-			<node id="38" label="cameras_picture_leader-c16_1" />
-			<node id="39" label="cameras_picture_leader-c5_" />
-			<node id="40" label="visited_c2_" />
-			<node id="41" label="cameras_picture_follower1-c1_" />
-			<node id="42" label="cameras_picture_follower1-c2_" />
-			<node id="43" label="cameras_picture_follower1-c2_" />
-			<node id="44" label="communication_transmittingpicture_curr_leader-c6_1" />
-			<node id="45" label="communication_transmittingpicture_curr_leader-c16_1" />
-			<node id="46" label="communication_transmittingpicture_curr_leader-c5_" />
-			<node id="47" label="communication_transmittingpicture_curr_leader-c10_1" />
-			<node id="48" label="communication_transmittingpicture_curr_leader-c1_" />
-			<node id="49" label="robotbase_recharge_curr_follower1-c10_1" />
-			<node id="50" label="communication_transmittingpicture_curr_follower1-c10_1" />
-			<node id="51" label="cameras_takingpicture_curr_leader-c10_2-i_" />
-			<node id="52" label="cameras_takingpicture_curr_follower0-c6_10-i_" />
-			<node id="53" label="communication_transmittedp_c10_" />
-			<node id="54" label="cameras_takingpicture_curr_leader-c2_2-i_" />
-			<node id="55" label="cameras_picture_leader-c10_1" />
-			<node id="56" label="cameras_picture_leader-c1_" />
+			<node id="1" label="robotbase_goingto_curr_robotbase_at_leader" />
+			<node id="2" label="robotbase_goingto_curr_robotbase_at_follower0" />
+			<node id="3" label="robotbase_goingto_curr_robotbase_at_follower1" />
+			<node id="17" label="robotbase_ondock_robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_leader" />
+			<node id="18" label="robotbase_ondock_robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_follower0" />
+			<node id="19" label="robotbase_ondock_robotbase_docking_curr_robotbase_notondock_robotbase_undocking_curr_follower1" />
+			<node id="20" label="navigation_changemode_curr_navigation_mode_follower0" />
+			<node id="21" label="navigation_changemode_curr_navigation_mode_follower1" />
+			<node id="22" label="navigation_changemode_curr_navigation_mode_leader" />
+			<node id="23" label="cameras_takingpicture_curr_follower0-c10_14-i_" />
+			<node id="24" label="cameras_takingpicture_curr_follower1-c2_3-i_" />
+			<node id="25" label="cameras_picture_leader-c6_1" />
+			<node id="26" label="visited_c6_1" />
+			<node id="27" label="visited_c16_1" />
+			<node id="28" label="visited_c5_" />
+			<node id="29" label="robotbase_recharge_curr_follower1-c5_" />
+			<node id="30" label="cameras_takingpicture_curr_leader-c2_2-i_" />
+			<node id="31" label="cameras_takingpicture_curr_follower1-c16_13-i_" />
+			<node id="32" label="cameras_takingpicture_curr_leader-c1_2-i_" />
+			<node id="33" label="communication_transmittingpicture_curr_leader-c6_1" />
+			<node id="34" label="communication_transmittingpicture_curr_leader-c16_1" />
+			<node id="35" label="communication_transmittingpicture_curr_leader-c5_" />
+			<node id="36" label="communication_transmittingpicture_curr_leader-c10_1" />
+			<node id="37" label="communication_transmittingpicture_curr_leader-c1_" />
+			<node id="38" label="communication_transmittingpicture_curr_leader-c2_" />
+			<node id="39" label="communication_transmittingpicture_curr_leader-c2_" />
+			<node id="40" label="cameras_picture_follower1-c10_" />
+			<node id="41" label="communication_transmittingpicture_curr_follower0-c5_" />
+			<node id="42" label="communication_transmittingpicture_curr_follower1-c10_1" />
+			<node id="43" label="communication_transmittingpicture_curr_follower0-c6_1" />
+			<node id="44" label="communication_transmittingpicture_curr_follower0-c16_1" />
+			<node id="45" label="communication_transmittingpicture_curr_follower0-c10_" />
+			<node id="46" label="robotbase_recharge_curr_follower1-c10_1" />
+			<node id="47" label="cameras_takingpicture_curr_leader-c6_10-i_" />
+			<node id="48" label="cameras_picture_follower1-c1_" />
+			<node id="49" label="cameras_picture_follower1-c2_" />
+			<node id="50" label="cameras_picture_follower1-c2_" />
+			<node id="51" label="cameras_takingpicture_curr_leader-c5_9-i_" />
+			<node id="52" label="cameras_picture_follower0-c2_" />
+			<node id="53" label="cameras_picture_follower1-c6_1" />
+			<node id="54" label="cameras_picture_follower1-c16_1" />
+			<node id="55" label="cameras_picture_follower1-c5_" />
+			<node id="56" label="robotbase_recharge_curr_follower0-c10_1" />
 			<node id="57" label="cameras_takingpicture_curr_leader-c10_14-i_" />
-			<node id="58" label="cameras_takingpicture_curr_leader-c2_3-i_" />
-			<node id="59" label="communication_transmittingpicture_curr_leader-c10_" />
-			<node id="60" label="communication_transmittingpicture_curr_follower0-c5_" />
-			<node id="61" label="cameras_picture_follower0-c2_" />
-			<node id="62" label="cameras_picture_follower1-c6_1" />
-			<node id="63" label="cameras_picture_follower1-c16_1" />
-			<node id="64" label="cameras_picture_follower1-c5_" />
-			<node id="65" label="cameras_picture_follower1-c10_" />
-			<node id="66" label="communication_transmittingpicture_curr_follower0-c6_1" />
-			<node id="67" label="communication_transmittingpicture_curr_follower0-c16_1" />
-			<node id="68" label="communication_transmittingpicture_curr_follower0-c10_" />
-			<node id="69" label="communication_transmittingpicture_curr_follower0-c10_1" />
-			<node id="70" label="visited_c10_1" />
-			<node id="71" label="visited_c1_" />
-			<node id="72" label="cameras_picture_leader-c2_" />
-			<node id="73" label="cameras_picture_leader-c2_" />
-			<node id="74" label="cameras_picture_follower0-c6_1" />
-			<node id="75" label="cameras_picture_follower0-c16_1" />
-			<node id="76" label="cameras_picture_follower0-c10_" />
-			<node id="77" label="cameras_picture_follower0-c10_1" />
-			<node id="78" label="cameras_picture_follower0-c1_" />
-			<node id="79" label="cameras_picture_follower0-c2_" />
-			<node id="80" label="cameras_takingpicture_curr_leader-c16_13-i_" />
-			<node id="81" label="communication_transmittingpicture_curr_leader-c2_" />
-			<node id="82" label="communication_transmittingpicture_curr_leader-c2_" />
-			<node id="83" label="robotbase_recharge_curr_leader-c10_1" />
-			<node id="84" label="cameras_takingpicture_curr_follower1-c6_10-i_" />
-			<node id="85" label="cameras_takingpicture_curr_follower0-c10_14-i_" />
-			<node id="86" label="communication_transmittedp_c5_" />
-			<node id="87" label="communication_transmittingpicture_curr_follower1-c16_1" />
-			<node id="88" label="communication_transmittingpicture_curr_follower1-c5_" />
-			<node id="89" label="cameras_takingpicture_curr_follower0-c16_13-i_" />
-			<node id="90" label="cameras_takingpicture_curr_leader-c5_9-i_" />
-			<node id="91" label="visited_c16_1" />
-			<node id="92" label="visited_c5_" />
-			<node id="93" label="robotbase_recharge_curr_follower0-c10_" />
-			<node id="94" label="robotbase_recharge_curr_follower0-c10_1" />
-			<node id="95" label="cameras_takingpicture_curr_follower0-c1_2-i_" />
-			<node id="96" label="cameras_takingpicture_curr_follower0-c2_3-i_" />
-			<node id="97" label="cameras_picture_follower1-c10_1" />
-			<node id="98" label="visited_c2_" />
-			<node id="99" label="cameras_takingpicture_curr_leader-c1_2-i_" />
-			<node id="100" label="robotbase_recharge_curr_leader-c5_" />
-			<node id="101" label="cameras_takingpicture_curr_follower0-c5_9-i_" />
-			<node id="102" label="cameras_takingpicture_curr_follower1-c10_14-i_" />
-			<node id="103" label="robotbase_recharge_curr_follower0-c5_" />
-			<node id="104" label="cameras_takingpicture_curr_follower1-c1_2-i_" />
-			<node id="105" label="cameras_takingpicture_curr_follower0-c2_2-i_" />
-			<node id="106" label="cameras_takingpicture_curr_follower1-c2_2-i_" />
-			<node id="107" label="visited_c10_" />
-			<node id="108" label="cameras_takingpicture_curr_follower1-c16_13-i_" />
-			<node id="109" label="robotbase_recharge_curr_leader-c10_" />
-			<node id="110" label="communication_transmittingpicture_curr_follower1-c2_" />
-			<node id="111" label="communication_transmittedp_c6_1" />
-			<node id="112" label="communication_transmittedp_c16_1" />
-			<node id="113" label="communication_transmittedp_c1_" />
-			<node id="114" label="robotbase_recharge_curr_follower1-c10_" />
-			<node id="115" label="cameras_takingpicture_curr_follower1-c5_9-i_" />
-			<node id="116" label="visited_c6_1" />
-			<node id="117" label="cameras_picture_leader-c10_" />
-			<node id="118" label="cameras_picture_follower0-c5_" />
-			<node id="119" label="cameras_takingpicture_curr_follower1-c10_2-i_" />
+			<node id="58" label="communication_transmittingpicture_curr_leader-c10_" />
+			<node id="59" label="cameras_takingpicture_curr_follower0-c2_2-i_" />
+			<node id="60" label="cameras_takingpicture_curr_leader-c16_13-i_" />
+			<node id="61" label="communication_transmittedp_c1_" />
+			<node id="62" label="communication_transmittedp_c2_" />
+			<node id="63" label="cameras_takingpicture_curr_follower0-c1_2-i_" />
+			<node id="64" label="communication_transmittingpicture_curr_follower0-c10_1" />
+			<node id="65" label="communication_transmittedp_c10_" />
+			<node id="66" label="communication_transmittedp_c5_" />
+			<node id="67" label="cameras_takingpicture_curr_follower0-c10_2-i_" />
+			<node id="68" label="cameras_takingpicture_curr_follower1-c2_2-i_" />
+			<node id="69" label="communication_transmittingpicture_curr_follower1-c2_" />
+			<node id="70" label="communication_transmittingpicture_curr_follower1-c2_" />
+			<node id="71" label="communication_transmittedp_c6_1" />
+			<node id="72" label="communication_transmittedp_c16_1" />
+			<node id="73" label="cameras_takingpicture_curr_follower1-c10_2-i_" />
+			<node id="74" label="cameras_picture_leader-c1_" />
+			<node id="75" label="cameras_picture_leader-c2_" />
+			<node id="76" label="visited_c10_1" />
+			<node id="77" label="visited_c1_" />
+			<node id="78" label="visited_c2_" />
+			<node id="79" label="visited_c2_" />
+			<node id="80" label="robotbase_recharge_curr_leader-c10_" />
+			<node id="81" label="cameras_takingpicture_curr_leader-c10_2-i_" />
+			<node id="82" label="cameras_takingpicture_curr_follower0-c5_9-i_" />
+			<node id="83" label="cameras_takingpicture_curr_follower1-c10_14-i_" />
+			<node id="84" label="cameras_takingpicture_curr_leader-c2_3-i_" />
+			<node id="85" label="robotbase_recharge_curr_leader-c5_" />
+			<node id="86" label="communication_transmittedp_c2_" />
+			<node id="87" label="robotbase_recharge_curr_follower1-c10_" />
+			<node id="88" label="cameras_picture_follower1-c10_1" />
+			<node id="89" label="visited_c10_" />
+			<node id="90" label="cameras_takingpicture_curr_follower1-c1_2-i_" />
+			<node id="91" label="communication_transmittedp_c10_1" />
+			<node id="92" label="cameras_picture_follower0-c2_" />
+			<node id="93" label="cameras_takingpicture_curr_follower1-c6_10-i_" />
+			<node id="94" label="cameras_picture_leader-c10_" />
+			<node id="95" label="cameras_picture_follower0-c5_" />
+			<node id="96" label="communication_transmittingpicture_curr_follower0-c1_" />
+			<node id="97" label="communication_transmittingpicture_curr_follower0-c2_" />
+			<node id="98" label="cameras_takingpicture_curr_follower1-c5_9-i_" />
+			<node id="99" label="cameras_picture_leader-c2_" />
+			<node id="100" label="cameras_picture_follower0-c6_1" />
+			<node id="101" label="cameras_picture_follower0-c16_1" />
+			<node id="102" label="cameras_picture_follower0-c10_" />
+			<node id="103" label="cameras_picture_follower0-c10_1" />
+			<node id="104" label="cameras_picture_follower0-c1_" />
+			<node id="105" label="communication_transmittingpicture_curr_follower1-c5_" />
+			<node id="106" label="communication_transmittingpicture_curr_follower1-c10_" />
+			<node id="107" label="communication_transmittingpicture_curr_follower1-c1_" />
+			<node id="108" label="cameras_takingpicture_curr_follower0-c6_10-i_" />
+			<node id="109" label="communication_transmittingpicture_curr_follower0-c2_" />
+			<node id="110" label="communication_transmittingpicture_curr_follower1-c6_1" />
+			<node id="111" label="communication_transmittingpicture_curr_follower1-c16_1" />
+			<node id="112" label="robotbase_recharge_curr_leader-c10_1" />
+			<node id="113" label="robotbase_recharge_curr_follower0-c10_" />
+			<node id="114" label="robotbase_recharge_curr_follower0-c5_" />
+			<node id="115" label="cameras_takingpicture_curr_follower0-c16_13-i_" />
+			<node id="116" label="cameras_takingpicture_curr_follower0-c2_3-i_" />
+			<node id="117" label="cameras_picture_leader-c16_1" />
+			<node id="118" label="cameras_picture_leader-c5_" />
+			<node id="119" label="cameras_picture_leader-c10_1" />
 		</nodes>
 		<edges>
-			<edge id="robotbase_goingto_end-1_116--2" label="robotbase_goingto_end-1_116--2" source="1" target="116" />
-			<edge id="robotbase_goingto_end-1_91--2" label="robotbase_goingto_end-1_91--2" source="1" target="91" />
-			<edge id="robotbase_goingto_end-1_107--2" label="robotbase_goingto_end-1_107--2" source="1" target="107" />
-			<edge id="robotbase_goingto_end-1_70--2" label="robotbase_goingto_end-1_70--2" source="1" target="70" />
-			<edge id="robotbase_goingto_end-1_71--2" label="robotbase_goingto_end-1_71--2" source="1" target="71" />
-			<edge id="robotbase_goingto_end-1_40--2" label="robotbase_goingto_end-1_40--2" source="1" target="40" />
-			<edge id="robotbase_goingto_end-1_98--2" label="robotbase_goingto_end-1_98--2" source="1" target="98" />
-			<edge id="robotbase_goingto_end-1_92--2" label="robotbase_goingto_end-1_92--2" source="1" target="92" />
-			<edge id="robotbase_goingto_end-2_116--2" label="robotbase_goingto_end-2_116--2" source="2" target="116" />
-			<edge id="robotbase_goingto_end-2_91--2" label="robotbase_goingto_end-2_91--2" source="2" target="91" />
-			<edge id="robotbase_goingto_end-2_92--2" label="robotbase_goingto_end-2_92--2" source="2" target="92" />
-			<edge id="robotbase_goingto_end-2_107--2" label="robotbase_goingto_end-2_107--2" source="2" target="107" />
-			<edge id="robotbase_goingto_end-2_71--2" label="robotbase_goingto_end-2_71--2" source="2" target="71" />
-			<edge id="robotbase_goingto_end-2_40--2" label="robotbase_goingto_end-2_40--2" source="2" target="40" />
-			<edge id="robotbase_goingto_end-2_98--2" label="robotbase_goingto_end-2_98--2" source="2" target="98" />
-			<edge id="robotbase_goingto_end-2_70--2" label="robotbase_goingto_end-2_70--2" source="2" target="70" />
-			<edge id="robotbase_goingto_end-3_116--2" label="robotbase_goingto_end-3_116--2" source="3" target="116" />
-			<edge id="robotbase_goingto_end-3_91--2" label="robotbase_goingto_end-3_91--2" source="3" target="91" />
-			<edge id="robotbase_goingto_end-3_92--2" label="robotbase_goingto_end-3_92--2" source="3" target="92" />
-			<edge id="robotbase_goingto_end-3_70--2" label="robotbase_goingto_end-3_70--2" source="3" target="70" />
-			<edge id="robotbase_goingto_end-3_71--2" label="robotbase_goingto_end-3_71--2" source="3" target="71" />
-			<edge id="robotbase_goingto_end-3_40--2" label="robotbase_goingto_end-3_40--2" source="3" target="40" />
-			<edge id="robotbase_goingto_end-3_98--2" label="robotbase_goingto_end-3_98--2" source="3" target="98" />
-			<edge id="robotbase_goingto_end-3_107--2" label="robotbase_goingto_end-3_107--2" source="3" target="107" />
-			<edge id="communication_transmittingpicture_end-23_81--2" label="communication_transmittingpicture_end-23_81--2" source="23" target="81" />
-			<edge id="communication_transmittingpicture_end-23_33--2" label="communication_transmittingpicture_end-23_33--2" source="23" target="33" />
-			<edge id="communication_transmittingpicture_end-23_28--2" label="communication_transmittingpicture_end-23_28--2" source="23" target="28" />
-			<edge id="communication_transmittingpicture_end-24_82--2" label="communication_transmittingpicture_end-24_82--2" source="24" target="82" />
-			<edge id="communication_transmittingpicture_end-24_34--2" label="communication_transmittingpicture_end-24_34--2" source="24" target="34" />
-			<edge id="communication_transmittingpicture_end-24_110--2" label="communication_transmittingpicture_end-24_110--2" source="24" target="110" />
-			<edge id="cameras_takingpicture_end-25_37--2" label="cameras_takingpicture_end-25_37--2" source="25" target="37" />
-			<edge id="communication_transmittingpicture_end-26_53--2" label="communication_transmittingpicture_end-26_53--2" source="26" target="53" />
-			<edge id="communication_transmittingpicture_end-27_113--2" label="communication_transmittingpicture_end-27_113--2" source="27" target="113" />
-			<edge id="communication_transmittingpicture_end-28_23--2" label="communication_transmittingpicture_end-28_23--2" source="28" target="23" />
-			<edge id="communication_transmittingpicture_end-29_50--2" label="communication_transmittingpicture_end-29_50--2" source="29" target="50" />
-			<edge id="communication_transmittingpicture_end-29_47--2" label="communication_transmittingpicture_end-29_47--2" source="29" target="47" />
-			<edge id="communication_transmittingpicture_end-29_69--2" label="communication_transmittingpicture_end-29_69--2" source="29" target="69" />
-			<edge id="cameras_takingpicture_end-30_76--2" label="cameras_takingpicture_end-30_76--2" source="30" target="76" />
-			<edge id="communication_transmittingpicture_end-32_113--2" label="communication_transmittingpicture_end-32_113--2" source="32" target="113" />
-			<edge id="communication_transmittingpicture_end-33_23--2" label="communication_transmittingpicture_end-33_23--2" source="33" target="23" />
-			<edge id="communication_transmittingpicture_end-34_24--2" label="communication_transmittingpicture_end-34_24--2" source="34" target="24" />
-			<edge id="communication_transmittingpicture_end-35_111--2" label="communication_transmittingpicture_end-35_111--2" source="35" target="111" />
-			<edge id="cameras_takingpicture_end-36_43--2" label="cameras_takingpicture_end-36_43--2" source="36" target="43" />
-			<edge id="cameras_takingpicture_end-37_25--2" label="cameras_takingpicture_end-37_25--2" source="37" target="25" />
-			<edge id="cameras_takingpicture_end-38_80--2" label="cameras_takingpicture_end-38_80--2" source="38" target="80" />
-			<edge id="cameras_takingpicture_end-39_90--2" label="cameras_takingpicture_end-39_90--2" source="39" target="90" />
-			<edge id="robotbase_goingto_end-40_3--2" label="robotbase_goingto_end-40_3--2" source="40" target="3" />
-			<edge id="robotbase_goingto_end-40_1--2" label="robotbase_goingto_end-40_1--2" source="40" target="1" />
-			<edge id="robotbase_goingto_end-40_2--2" label="robotbase_goingto_end-40_2--2" source="40" target="2" />
-			<edge id="cameras_takingpicture_end-41_104--2" label="cameras_takingpicture_end-41_104--2" source="41" target="104" />
-			<edge id="cameras_takingpicture_end-42_106--2" label="cameras_takingpicture_end-42_106--2" source="42" target="106" />
-			<edge id="cameras_takingpicture_end-43_36--2" label="cameras_takingpicture_end-43_36--2" source="43" target="36" />
-			<edge id="communication_transmittingpicture_end-44_111--2" label="communication_transmittingpicture_end-44_111--2" source="44" target="111" />
-			<edge id="communication_transmittingpicture_end-45_112--2" label="communication_transmittingpicture_end-45_112--2" source="45" target="112" />
-			<edge id="communication_transmittingpicture_end-46_86--2" label="communication_transmittingpicture_end-46_86--2" source="46" target="86" />
-			<edge id="communication_transmittingpicture_end-47_29--2" label="communication_transmittingpicture_end-47_29--2" source="47" target="29" />
-			<edge id="communication_transmittingpicture_end-48_113--2" label="communication_transmittingpicture_end-48_113--2" source="48" target="113" />
-			<edge id="communication_transmittingpicture_end-50_29--2" label="communication_transmittingpicture_end-50_29--2" source="50" target="29" />
-			<edge id="cameras_takingpicture_end-51_117--2" label="cameras_takingpicture_end-51_117--2" source="51" target="117" />
-			<edge id="cameras_takingpicture_end-52_74--2" label="cameras_takingpicture_end-52_74--2" source="52" target="74" />
-			<edge id="communication_transmittingpicture_end-53_59--2" label="communication_transmittingpicture_end-53_59--2" source="53" target="59" />
-			<edge id="communication_transmittingpicture_end-53_68--2" label="communication_transmittingpicture_end-53_68--2" source="53" target="68" />
-			<edge id="communication_transmittingpicture_end-53_26--2" label="communication_transmittingpicture_end-53_26--2" source="53" target="26" />
-			<edge id="cameras_takingpicture_end-54_72--2" label="cameras_takingpicture_end-54_72--2" source="54" target="72" />
-			<edge id="cameras_takingpicture_end-55_57--2" label="cameras_takingpicture_end-55_57--2" source="55" target="57" />
-			<edge id="cameras_takingpicture_end-56_99--2" label="cameras_takingpicture_end-56_99--2" source="56" target="99" />
-			<edge id="cameras_takingpicture_end-57_55--2" label="cameras_takingpicture_end-57_55--2" source="57" target="55" />
-			<edge id="cameras_takingpicture_end-58_73--2" label="cameras_takingpicture_end-58_73--2" source="58" target="73" />
-			<edge id="communication_transmittingpicture_end-59_53--2" label="communication_transmittingpicture_end-59_53--2" source="59" target="53" />
-			<edge id="communication_transmittingpicture_end-60_86--2" label="communication_transmittingpicture_end-60_86--2" source="60" target="86" />
-			<edge id="cameras_takingpicture_end-61_96--2" label="cameras_takingpicture_end-61_96--2" source="61" target="96" />
-			<edge id="cameras_takingpicture_end-62_84--2" label="cameras_takingpicture_end-62_84--2" source="62" target="84" />
-			<edge id="cameras_takingpicture_end-63_108--2" label="cameras_takingpicture_end-63_108--2" source="63" target="108" />
-			<edge id="cameras_takingpicture_end-64_115--2" label="cameras_takingpicture_end-64_115--2" source="64" target="115" />
-			<edge id="cameras_takingpicture_end-65_119--2" label="cameras_takingpicture_end-65_119--2" source="65" target="119" />
-			<edge id="communication_transmittingpicture_end-66_111--2" label="communication_transmittingpicture_end-66_111--2" source="66" target="111" />
-			<edge id="communication_transmittingpicture_end-67_112--2" label="communication_transmittingpicture_end-67_112--2" source="67" target="112" />
-			<edge id="communication_transmittingpicture_end-68_53--2" label="communication_transmittingpicture_end-68_53--2" source="68" target="53" />
-			<edge id="communication_transmittingpicture_end-69_29--2" label="communication_transmittingpicture_end-69_29--2" source="69" target="29" />
-			<edge id="robotbase_goingto_end-70_3--2" label="robotbase_goingto_end-70_3--2" source="70" target="3" />
-			<edge id="robotbase_goingto_end-70_1--2" label="robotbase_goingto_end-70_1--2" source="70" target="1" />
-			<edge id="robotbase_goingto_end-70_2--2" label="robotbase_goingto_end-70_2--2" source="70" target="2" />
-			<edge id="robotbase_goingto_end-71_3--2" label="robotbase_goingto_end-71_3--2" source="71" target="3" />
-			<edge id="robotbase_goingto_end-71_1--2" label="robotbase_goingto_end-71_1--2" source="71" target="1" />
-			<edge id="robotbase_goingto_end-71_2--2" label="robotbase_goingto_end-71_2--2" source="71" target="2" />
-			<edge id="cameras_takingpicture_end-72_54--2" label="cameras_takingpicture_end-72_54--2" source="72" target="54" />
-			<edge id="cameras_takingpicture_end-73_58--2" label="cameras_takingpicture_end-73_58--2" source="73" target="58" />
-			<edge id="cameras_takingpicture_end-74_52--2" label="cameras_takingpicture_end-74_52--2" source="74" target="52" />
-			<edge id="cameras_takingpicture_end-75_89--2" label="cameras_takingpicture_end-75_89--2" source="75" target="89" />
-			<edge id="cameras_takingpicture_end-76_30--2" label="cameras_takingpicture_end-76_30--2" source="76" target="30" />
-			<edge id="cameras_takingpicture_end-77_85--2" label="cameras_takingpicture_end-77_85--2" source="77" target="85" />
-			<edge id="cameras_takingpicture_end-78_95--2" label="cameras_takingpicture_end-78_95--2" source="78" target="95" />
-			<edge id="cameras_takingpicture_end-79_105--2" label="cameras_takingpicture_end-79_105--2" source="79" target="105" />
-			<edge id="cameras_takingpicture_end-80_38--2" label="cameras_takingpicture_end-80_38--2" source="80" target="38" />
-			<edge id="communication_transmittingpicture_end-81_23--2" label="communication_transmittingpicture_end-81_23--2" source="81" target="23" />
-			<edge id="communication_transmittingpicture_end-82_24--2" label="communication_transmittingpicture_end-82_24--2" source="82" target="24" />
-			<edge id="cameras_takingpicture_end-84_62--2" label="cameras_takingpicture_end-84_62--2" source="84" target="62" />
-			<edge id="cameras_takingpicture_end-85_77--2" label="cameras_takingpicture_end-85_77--2" source="85" target="77" />
-			<edge id="communication_transmittingpicture_end-86_60--2" label="communication_transmittingpicture_end-86_60--2" source="86" target="60" />
-			<edge id="communication_transmittingpicture_end-86_46--2" label="communication_transmittingpicture_end-86_46--2" source="86" target="46" />
-			<edge id="communication_transmittingpicture_end-86_88--2" label="communication_transmittingpicture_end-86_88--2" source="86" target="88" />
-			<edge id="communication_transmittingpicture_end-87_112--2" label="communication_transmittingpicture_end-87_112--2" source="87" target="112" />
-			<edge id="communication_transmittingpicture_end-88_86--2" label="communication_transmittingpicture_end-88_86--2" source="88" target="86" />
-			<edge id="cameras_takingpicture_end-89_75--2" label="cameras_takingpicture_end-89_75--2" source="89" target="75" />
-			<edge id="cameras_takingpicture_end-90_39--2" label="cameras_takingpicture_end-90_39--2" source="90" target="39" />
-			<edge id="robotbase_goingto_end-91_3--2" label="robotbase_goingto_end-91_3--2" source="91" target="3" />
-			<edge id="robotbase_goingto_end-91_1--2" label="robotbase_goingto_end-91_1--2" source="91" target="1" />
-			<edge id="robotbase_goingto_end-91_2--2" label="robotbase_goingto_end-91_2--2" source="91" target="2" />
-			<edge id="robotbase_goingto_end-92_3--2" label="robotbase_goingto_end-92_3--2" source="92" target="3" />
-			<edge id="robotbase_goingto_end-92_2--2" label="robotbase_goingto_end-92_2--2" source="92" target="2" />
-			<edge id="robotbase_goingto_end-92_1--2" label="robotbase_goingto_end-92_1--2" source="92" target="1" />
-			<edge id="cameras_takingpicture_end-95_78--2" label="cameras_takingpicture_end-95_78--2" source="95" target="78" />
-			<edge id="cameras_takingpicture_end-96_61--2" label="cameras_takingpicture_end-96_61--2" source="96" target="61" />
-			<edge id="cameras_takingpicture_end-97_102--2" label="cameras_takingpicture_end-97_102--2" source="97" target="102" />
-			<edge id="robotbase_goingto_end-98_3--2" label="robotbase_goingto_end-98_3--2" source="98" target="3" />
-			<edge id="robotbase_goingto_end-98_1--2" label="robotbase_goingto_end-98_1--2" source="98" target="1" />
-			<edge id="robotbase_goingto_end-98_2--2" label="robotbase_goingto_end-98_2--2" source="98" target="2" />
-			<edge id="cameras_takingpicture_end-99_56--2" label="cameras_takingpicture_end-99_56--2" source="99" target="56" />
-			<edge id="cameras_takingpicture_end-101_118--2" label="cameras_takingpicture_end-101_118--2" source="101" target="118" />
-			<edge id="cameras_takingpicture_end-102_97--2" label="cameras_takingpicture_end-102_97--2" source="102" target="97" />
-			<edge id="cameras_takingpicture_end-104_41--2" label="cameras_takingpicture_end-104_41--2" source="104" target="41" />
-			<edge id="cameras_takingpicture_end-105_79--2" label="cameras_takingpicture_end-105_79--2" source="105" target="79" />
-			<edge id="cameras_takingpicture_end-106_42--2" label="cameras_takingpicture_end-106_42--2" source="106" target="42" />
-			<edge id="robotbase_goingto_end-107_1--2" label="robotbase_goingto_end-107_1--2" source="107" target="1" />
-			<edge id="robotbase_goingto_end-107_2--2" label="robotbase_goingto_end-107_2--2" source="107" target="2" />
-			<edge id="robotbase_goingto_end-107_3--2" label="robotbase_goingto_end-107_3--2" source="107" target="3" />
-			<edge id="cameras_takingpicture_end-108_63--2" label="cameras_takingpicture_end-108_63--2" source="108" target="63" />
-			<edge id="communication_transmittingpicture_end-110_24--2" label="communication_transmittingpicture_end-110_24--2" source="110" target="24" />
-			<edge id="communication_transmittingpicture_end-111_44--2" label="communication_transmittingpicture_end-111_44--2" source="111" target="44" />
-			<edge id="communication_transmittingpicture_end-111_66--2" label="communication_transmittingpicture_end-111_66--2" source="111" target="66" />
-			<edge id="communication_transmittingpicture_end-111_35--2" label="communication_transmittingpicture_end-111_35--2" source="111" target="35" />
-			<edge id="communication_transmittingpicture_end-112_45--2" label="communication_transmittingpicture_end-112_45--2" source="112" target="45" />
-			<edge id="communication_transmittingpicture_end-112_67--2" label="communication_transmittingpicture_end-112_67--2" source="112" target="67" />
-			<edge id="communication_transmittingpicture_end-112_87--2" label="communication_transmittingpicture_end-112_87--2" source="112" target="87" />
-			<edge id="communication_transmittingpicture_end-113_48--2" label="communication_transmittingpicture_end-113_48--2" source="113" target="48" />
-			<edge id="communication_transmittingpicture_end-113_32--2" label="communication_transmittingpicture_end-113_32--2" source="113" target="32" />
-			<edge id="communication_transmittingpicture_end-113_27--2" label="communication_transmittingpicture_end-113_27--2" source="113" target="27" />
-			<edge id="cameras_takingpicture_end-115_64--2" label="cameras_takingpicture_end-115_64--2" source="115" target="64" />
-			<edge id="robotbase_goingto_end-116_3--2" label="robotbase_goingto_end-116_3--2" source="116" target="3" />
-			<edge id="robotbase_goingto_end-116_1--2" label="robotbase_goingto_end-116_1--2" source="116" target="1" />
-			<edge id="robotbase_goingto_end-116_2--2" label="robotbase_goingto_end-116_2--2" source="116" target="2" />
-			<edge id="cameras_takingpicture_end-117_51--2" label="cameras_takingpicture_end-117_51--2" source="117" target="51" />
-			<edge id="cameras_takingpicture_end-118_101--2" label="cameras_takingpicture_end-118_101--2" source="118" target="101" />
-			<edge id="cameras_takingpicture_end-119_65--2" label="cameras_takingpicture_end-119_65--2" source="119" target="65" />
+			<edge id="robotbase_goingto_end-1_26--2" label="robotbase_goingto_end-1_26--2" source="1" target="26" />
+			<edge id="robotbase_goingto_end-1_27--2" label="robotbase_goingto_end-1_27--2" source="1" target="27" />
+			<edge id="robotbase_goingto_end-1_28--2" label="robotbase_goingto_end-1_28--2" source="1" target="28" />
+			<edge id="robotbase_goingto_end-1_76--2" label="robotbase_goingto_end-1_76--2" source="1" target="76" />
+			<edge id="robotbase_goingto_end-1_77--2" label="robotbase_goingto_end-1_77--2" source="1" target="77" />
+			<edge id="robotbase_goingto_end-1_78--2" label="robotbase_goingto_end-1_78--2" source="1" target="78" />
+			<edge id="robotbase_goingto_end-1_79--2" label="robotbase_goingto_end-1_79--2" source="1" target="79" />
+			<edge id="robotbase_goingto_end-1_89--2" label="robotbase_goingto_end-1_89--2" source="1" target="89" />
+			<edge id="robotbase_goingto_end-2_26--2" label="robotbase_goingto_end-2_26--2" source="2" target="26" />
+			<edge id="robotbase_goingto_end-2_27--2" label="robotbase_goingto_end-2_27--2" source="2" target="27" />
+			<edge id="robotbase_goingto_end-2_89--2" label="robotbase_goingto_end-2_89--2" source="2" target="89" />
+			<edge id="robotbase_goingto_end-2_76--2" label="robotbase_goingto_end-2_76--2" source="2" target="76" />
+			<edge id="robotbase_goingto_end-2_77--2" label="robotbase_goingto_end-2_77--2" source="2" target="77" />
+			<edge id="robotbase_goingto_end-2_78--2" label="robotbase_goingto_end-2_78--2" source="2" target="78" />
+			<edge id="robotbase_goingto_end-2_79--2" label="robotbase_goingto_end-2_79--2" source="2" target="79" />
+			<edge id="robotbase_goingto_end-2_28--2" label="robotbase_goingto_end-2_28--2" source="2" target="28" />
+			<edge id="robotbase_goingto_end-3_26--2" label="robotbase_goingto_end-3_26--2" source="3" target="26" />
+			<edge id="robotbase_goingto_end-3_27--2" label="robotbase_goingto_end-3_27--2" source="3" target="27" />
+			<edge id="robotbase_goingto_end-3_28--2" label="robotbase_goingto_end-3_28--2" source="3" target="28" />
+			<edge id="robotbase_goingto_end-3_89--2" label="robotbase_goingto_end-3_89--2" source="3" target="89" />
+			<edge id="robotbase_goingto_end-3_77--2" label="robotbase_goingto_end-3_77--2" source="3" target="77" />
+			<edge id="robotbase_goingto_end-3_78--2" label="robotbase_goingto_end-3_78--2" source="3" target="78" />
+			<edge id="robotbase_goingto_end-3_79--2" label="robotbase_goingto_end-3_79--2" source="3" target="79" />
+			<edge id="robotbase_goingto_end-3_76--2" label="robotbase_goingto_end-3_76--2" source="3" target="76" />
+			<edge id="cameras_takingpicture_end-23_103--2" label="cameras_takingpicture_end-23_103--2" source="23" target="103" />
+			<edge id="cameras_takingpicture_end-24_50--2" label="cameras_takingpicture_end-24_50--2" source="24" target="50" />
+			<edge id="cameras_takingpicture_end-25_47--2" label="cameras_takingpicture_end-25_47--2" source="25" target="47" />
+			<edge id="robotbase_goingto_end-26_1--2" label="robotbase_goingto_end-26_1--2" source="26" target="1" />
+			<edge id="robotbase_goingto_end-26_2--2" label="robotbase_goingto_end-26_2--2" source="26" target="2" />
+			<edge id="robotbase_goingto_end-26_3--2" label="robotbase_goingto_end-26_3--2" source="26" target="3" />
+			<edge id="robotbase_goingto_end-27_1--2" label="robotbase_goingto_end-27_1--2" source="27" target="1" />
+			<edge id="robotbase_goingto_end-27_2--2" label="robotbase_goingto_end-27_2--2" source="27" target="2" />
+			<edge id="robotbase_goingto_end-27_3--2" label="robotbase_goingto_end-27_3--2" source="27" target="3" />
+			<edge id="robotbase_goingto_end-28_1--2" label="robotbase_goingto_end-28_1--2" source="28" target="1" />
+			<edge id="robotbase_goingto_end-28_3--2" label="robotbase_goingto_end-28_3--2" source="28" target="3" />
+			<edge id="robotbase_goingto_end-28_2--2" label="robotbase_goingto_end-28_2--2" source="28" target="2" />
+			<edge id="cameras_takingpicture_end-30_75--2" label="cameras_takingpicture_end-30_75--2" source="30" target="75" />
+			<edge id="cameras_takingpicture_end-31_54--2" label="cameras_takingpicture_end-31_54--2" source="31" target="54" />
+			<edge id="cameras_takingpicture_end-32_74--2" label="cameras_takingpicture_end-32_74--2" source="32" target="74" />
+			<edge id="communication_transmittingpicture_end-33_71--2" label="communication_transmittingpicture_end-33_71--2" source="33" target="71" />
+			<edge id="communication_transmittingpicture_end-34_72--2" label="communication_transmittingpicture_end-34_72--2" source="34" target="72" />
+			<edge id="communication_transmittingpicture_end-35_66--2" label="communication_transmittingpicture_end-35_66--2" source="35" target="66" />
+			<edge id="communication_transmittingpicture_end-36_91--2" label="communication_transmittingpicture_end-36_91--2" source="36" target="91" />
+			<edge id="communication_transmittingpicture_end-37_61--2" label="communication_transmittingpicture_end-37_61--2" source="37" target="61" />
+			<edge id="communication_transmittingpicture_end-38_62--2" label="communication_transmittingpicture_end-38_62--2" source="38" target="62" />
+			<edge id="communication_transmittingpicture_end-39_86--2" label="communication_transmittingpicture_end-39_86--2" source="39" target="86" />
+			<edge id="cameras_takingpicture_end-40_73--2" label="cameras_takingpicture_end-40_73--2" source="40" target="73" />
+			<edge id="communication_transmittingpicture_end-41_66--2" label="communication_transmittingpicture_end-41_66--2" source="41" target="66" />
+			<edge id="communication_transmittingpicture_end-42_91--2" label="communication_transmittingpicture_end-42_91--2" source="42" target="91" />
+			<edge id="communication_transmittingpicture_end-43_71--2" label="communication_transmittingpicture_end-43_71--2" source="43" target="71" />
+			<edge id="communication_transmittingpicture_end-44_72--2" label="communication_transmittingpicture_end-44_72--2" source="44" target="72" />
+			<edge id="communication_transmittingpicture_end-45_65--2" label="communication_transmittingpicture_end-45_65--2" source="45" target="65" />
+			<edge id="cameras_takingpicture_end-47_25--2" label="cameras_takingpicture_end-47_25--2" source="47" target="25" />
+			<edge id="cameras_takingpicture_end-48_90--2" label="cameras_takingpicture_end-48_90--2" source="48" target="90" />
+			<edge id="cameras_takingpicture_end-49_68--2" label="cameras_takingpicture_end-49_68--2" source="49" target="68" />
+			<edge id="cameras_takingpicture_end-50_24--2" label="cameras_takingpicture_end-50_24--2" source="50" target="24" />
+			<edge id="cameras_takingpicture_end-51_118--2" label="cameras_takingpicture_end-51_118--2" source="51" target="118" />
+			<edge id="cameras_takingpicture_end-52_116--2" label="cameras_takingpicture_end-52_116--2" source="52" target="116" />
+			<edge id="cameras_takingpicture_end-53_93--2" label="cameras_takingpicture_end-53_93--2" source="53" target="93" />
+			<edge id="cameras_takingpicture_end-54_31--2" label="cameras_takingpicture_end-54_31--2" source="54" target="31" />
+			<edge id="cameras_takingpicture_end-55_98--2" label="cameras_takingpicture_end-55_98--2" source="55" target="98" />
+			<edge id="cameras_takingpicture_end-57_119--2" label="cameras_takingpicture_end-57_119--2" source="57" target="119" />
+			<edge id="communication_transmittingpicture_end-58_65--2" label="communication_transmittingpicture_end-58_65--2" source="58" target="65" />
+			<edge id="cameras_takingpicture_end-59_92--2" label="cameras_takingpicture_end-59_92--2" source="59" target="92" />
+			<edge id="cameras_takingpicture_end-60_117--2" label="cameras_takingpicture_end-60_117--2" source="60" target="117" />
+			<edge id="communication_transmittingpicture_end-61_37--2" label="communication_transmittingpicture_end-61_37--2" source="61" target="37" />
+			<edge id="communication_transmittingpicture_end-61_96--2" label="communication_transmittingpicture_end-61_96--2" source="61" target="96" />
+			<edge id="communication_transmittingpicture_end-61_107--2" label="communication_transmittingpicture_end-61_107--2" source="61" target="107" />
+			<edge id="communication_transmittingpicture_end-62_38--2" label="communication_transmittingpicture_end-62_38--2" source="62" target="38" />
+			<edge id="communication_transmittingpicture_end-62_97--2" label="communication_transmittingpicture_end-62_97--2" source="62" target="97" />
+			<edge id="communication_transmittingpicture_end-62_69--2" label="communication_transmittingpicture_end-62_69--2" source="62" target="69" />
+			<edge id="cameras_takingpicture_end-63_104--2" label="cameras_takingpicture_end-63_104--2" source="63" target="104" />
+			<edge id="communication_transmittingpicture_end-64_91--2" label="communication_transmittingpicture_end-64_91--2" source="64" target="91" />
+			<edge id="communication_transmittingpicture_end-65_58--2" label="communication_transmittingpicture_end-65_58--2" source="65" target="58" />
+			<edge id="communication_transmittingpicture_end-65_45--2" label="communication_transmittingpicture_end-65_45--2" source="65" target="45" />
+			<edge id="communication_transmittingpicture_end-65_106--2" label="communication_transmittingpicture_end-65_106--2" source="65" target="106" />
+			<edge id="communication_transmittingpicture_end-66_41--2" label="communication_transmittingpicture_end-66_41--2" source="66" target="41" />
+			<edge id="communication_transmittingpicture_end-66_35--2" label="communication_transmittingpicture_end-66_35--2" source="66" target="35" />
+			<edge id="communication_transmittingpicture_end-66_105--2" label="communication_transmittingpicture_end-66_105--2" source="66" target="105" />
+			<edge id="cameras_takingpicture_end-67_102--2" label="cameras_takingpicture_end-67_102--2" source="67" target="102" />
+			<edge id="cameras_takingpicture_end-68_49--2" label="cameras_takingpicture_end-68_49--2" source="68" target="49" />
+			<edge id="communication_transmittingpicture_end-69_62--2" label="communication_transmittingpicture_end-69_62--2" source="69" target="62" />
+			<edge id="communication_transmittingpicture_end-70_86--2" label="communication_transmittingpicture_end-70_86--2" source="70" target="86" />
+			<edge id="communication_transmittingpicture_end-71_33--2" label="communication_transmittingpicture_end-71_33--2" source="71" target="33" />
+			<edge id="communication_transmittingpicture_end-71_43--2" label="communication_transmittingpicture_end-71_43--2" source="71" target="43" />
+			<edge id="communication_transmittingpicture_end-71_110--2" label="communication_transmittingpicture_end-71_110--2" source="71" target="110" />
+			<edge id="communication_transmittingpicture_end-72_34--2" label="communication_transmittingpicture_end-72_34--2" source="72" target="34" />
+			<edge id="communication_transmittingpicture_end-72_44--2" label="communication_transmittingpicture_end-72_44--2" source="72" target="44" />
+			<edge id="communication_transmittingpicture_end-72_111--2" label="communication_transmittingpicture_end-72_111--2" source="72" target="111" />
+			<edge id="cameras_takingpicture_end-73_40--2" label="cameras_takingpicture_end-73_40--2" source="73" target="40" />
+			<edge id="cameras_takingpicture_end-74_32--2" label="cameras_takingpicture_end-74_32--2" source="74" target="32" />
+			<edge id="cameras_takingpicture_end-75_30--2" label="cameras_takingpicture_end-75_30--2" source="75" target="30" />
+			<edge id="robotbase_goingto_end-76_1--2" label="robotbase_goingto_end-76_1--2" source="76" target="1" />
+			<edge id="robotbase_goingto_end-76_2--2" label="robotbase_goingto_end-76_2--2" source="76" target="2" />
+			<edge id="robotbase_goingto_end-76_3--2" label="robotbase_goingto_end-76_3--2" source="76" target="3" />
+			<edge id="robotbase_goingto_end-77_1--2" label="robotbase_goingto_end-77_1--2" source="77" target="1" />
+			<edge id="robotbase_goingto_end-77_2--2" label="robotbase_goingto_end-77_2--2" source="77" target="2" />
+			<edge id="robotbase_goingto_end-77_3--2" label="robotbase_goingto_end-77_3--2" source="77" target="3" />
+			<edge id="robotbase_goingto_end-78_1--2" label="robotbase_goingto_end-78_1--2" source="78" target="1" />
+			<edge id="robotbase_goingto_end-78_2--2" label="robotbase_goingto_end-78_2--2" source="78" target="2" />
+			<edge id="robotbase_goingto_end-78_3--2" label="robotbase_goingto_end-78_3--2" source="78" target="3" />
+			<edge id="robotbase_goingto_end-79_1--2" label="robotbase_goingto_end-79_1--2" source="79" target="1" />
+			<edge id="robotbase_goingto_end-79_2--2" label="robotbase_goingto_end-79_2--2" source="79" target="2" />
+			<edge id="robotbase_goingto_end-79_3--2" label="robotbase_goingto_end-79_3--2" source="79" target="3" />
+			<edge id="cameras_takingpicture_end-81_94--2" label="cameras_takingpicture_end-81_94--2" source="81" target="94" />
+			<edge id="cameras_takingpicture_end-82_95--2" label="cameras_takingpicture_end-82_95--2" source="82" target="95" />
+			<edge id="cameras_takingpicture_end-83_88--2" label="cameras_takingpicture_end-83_88--2" source="83" target="88" />
+			<edge id="cameras_takingpicture_end-84_99--2" label="cameras_takingpicture_end-84_99--2" source="84" target="99" />
+			<edge id="communication_transmittingpicture_end-86_39--2" label="communication_transmittingpicture_end-86_39--2" source="86" target="39" />
+			<edge id="communication_transmittingpicture_end-86_109--2" label="communication_transmittingpicture_end-86_109--2" source="86" target="109" />
+			<edge id="communication_transmittingpicture_end-86_70--2" label="communication_transmittingpicture_end-86_70--2" source="86" target="70" />
+			<edge id="cameras_takingpicture_end-88_83--2" label="cameras_takingpicture_end-88_83--2" source="88" target="83" />
+			<edge id="robotbase_goingto_end-89_2--2" label="robotbase_goingto_end-89_2--2" source="89" target="2" />
+			<edge id="robotbase_goingto_end-89_3--2" label="robotbase_goingto_end-89_3--2" source="89" target="3" />
+			<edge id="robotbase_goingto_end-89_1--2" label="robotbase_goingto_end-89_1--2" source="89" target="1" />
+			<edge id="cameras_takingpicture_end-90_48--2" label="cameras_takingpicture_end-90_48--2" source="90" target="48" />
+			<edge id="communication_transmittingpicture_end-91_42--2" label="communication_transmittingpicture_end-91_42--2" source="91" target="42" />
+			<edge id="communication_transmittingpicture_end-91_36--2" label="communication_transmittingpicture_end-91_36--2" source="91" target="36" />
+			<edge id="communication_transmittingpicture_end-91_64--2" label="communication_transmittingpicture_end-91_64--2" source="91" target="64" />
+			<edge id="cameras_takingpicture_end-92_59--2" label="cameras_takingpicture_end-92_59--2" source="92" target="59" />
+			<edge id="cameras_takingpicture_end-93_53--2" label="cameras_takingpicture_end-93_53--2" source="93" target="53" />
+			<edge id="cameras_takingpicture_end-94_81--2" label="cameras_takingpicture_end-94_81--2" source="94" target="81" />
+			<edge id="cameras_takingpicture_end-95_82--2" label="cameras_takingpicture_end-95_82--2" source="95" target="82" />
+			<edge id="communication_transmittingpicture_end-96_61--2" label="communication_transmittingpicture_end-96_61--2" source="96" target="61" />
+			<edge id="communication_transmittingpicture_end-97_62--2" label="communication_transmittingpicture_end-97_62--2" source="97" target="62" />
+			<edge id="cameras_takingpicture_end-98_55--2" label="cameras_takingpicture_end-98_55--2" source="98" target="55" />
+			<edge id="cameras_takingpicture_end-99_84--2" label="cameras_takingpicture_end-99_84--2" source="99" target="84" />
+			<edge id="cameras_takingpicture_end-100_108--2" label="cameras_takingpicture_end-100_108--2" source="100" target="108" />
+			<edge id="cameras_takingpicture_end-101_115--2" label="cameras_takingpicture_end-101_115--2" source="101" target="115" />
+			<edge id="cameras_takingpicture_end-102_67--2" label="cameras_takingpicture_end-102_67--2" source="102" target="67" />
+			<edge id="cameras_takingpicture_end-103_23--2" label="cameras_takingpicture_end-103_23--2" source="103" target="23" />
+			<edge id="cameras_takingpicture_end-104_63--2" label="cameras_takingpicture_end-104_63--2" source="104" target="63" />
+			<edge id="communication_transmittingpicture_end-105_66--2" label="communication_transmittingpicture_end-105_66--2" source="105" target="66" />
+			<edge id="communication_transmittingpicture_end-106_65--2" label="communication_transmittingpicture_end-106_65--2" source="106" target="65" />
+			<edge id="communication_transmittingpicture_end-107_61--2" label="communication_transmittingpicture_end-107_61--2" source="107" target="61" />
+			<edge id="cameras_takingpicture_end-108_100--2" label="cameras_takingpicture_end-108_100--2" source="108" target="100" />
+			<edge id="communication_transmittingpicture_end-109_86--2" label="communication_transmittingpicture_end-109_86--2" source="109" target="86" />
+			<edge id="communication_transmittingpicture_end-110_71--2" label="communication_transmittingpicture_end-110_71--2" source="110" target="71" />
+			<edge id="communication_transmittingpicture_end-111_72--2" label="communication_transmittingpicture_end-111_72--2" source="111" target="72" />
+			<edge id="cameras_takingpicture_end-115_101--2" label="cameras_takingpicture_end-115_101--2" source="115" target="101" />
+			<edge id="cameras_takingpicture_end-116_52--2" label="cameras_takingpicture_end-116_52--2" source="116" target="52" />
+			<edge id="cameras_takingpicture_end-117_60--2" label="cameras_takingpicture_end-117_60--2" source="117" target="60" />
+			<edge id="cameras_takingpicture_end-118_51--2" label="cameras_takingpicture_end-118_51--2" source="118" target="51" />
+			<edge id="cameras_takingpicture_end-119_57--2" label="cameras_takingpicture_end-119_57--2" source="119" target="57" />
 		</edges>
 	</graph>
 </gexf>
