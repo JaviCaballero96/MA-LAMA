@@ -532,8 +532,8 @@ def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
         for effect in operator.pre_post:
             if effect[1] == -2 or effect[1] == -3 or effect[1] == -4:
-                groups[effect[0]][0].value = effect[2]
-                mutex_groups[effect[0]][0].value = effect[2]
+                groups[effect[0]][effect[2][2]].value = effect[2][0]
+               # mutex_groups[effect[0]][effect[2][2]].value = effect[2][0]
     return
 
 
@@ -543,8 +543,8 @@ def obtain_metric_functions(groups, sas_task):
         gopup_index = 0
         for group in groups:
             if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
-                    isinstance(group[0].predicate, pddl.f_expression.Increase) or \
-                    isinstance(group[0].predicate, pddl.f_expression.Increase):
+                    isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
+                    isinstance(group[0].predicate, pddl.f_expression.Assign):
                 if metric_elem.symbol == group[0].predicate.fluent.symbol:
                     arg_index = 0
                     equal = True
