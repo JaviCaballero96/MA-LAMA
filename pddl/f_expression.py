@@ -119,7 +119,7 @@ class FunctionAssignment(object):
         self.expression = expression
 
     def __str__(self):
-        return "%s %s %s" % (self.__class__.__name__, self.fluent, self.expression)
+        return "%s %s>%s" % (self.__class__.__name__, self.fluent, self.expression)
 
     def dump(self, indent="  "):
         print("%s%s" % (indent, self._dump()))

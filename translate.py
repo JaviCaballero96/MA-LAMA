@@ -765,7 +765,7 @@ def build_implied_facts(strips_to_sas, groups, mutex_groups):
 
 
 def write_translation_key(translation_key):
-    groups_file = open("test.groups", "w")
+    groups_file = open("/home/javier/Desktop/planners/outPreprocess/test.groups", "w")
     for var_no, var_key in enumerate(translation_key):
         print("var%d:" % var_no, file=groups_file)
         for value, value_name in enumerate(var_key):
@@ -774,7 +774,7 @@ def write_translation_key(translation_key):
 
 
 def write_mutex_key(mutex_key):
-    invariants_file = open("all.groups", "w")
+    invariants_file = open("/home/javier/Desktop/planners/outPreprocess/all.groups", "w")
     print("begin_groups", file=invariants_file)
     print(len(mutex_key), file=invariants_file)
     for group in mutex_key:
@@ -785,18 +785,32 @@ def write_mutex_key(mutex_key):
         for var, val, fact in group:
             # print fact
             assert str(fact).startswith("Atom ")
-            predicate = str(fact)[5:].split("(")[0]
-            # print predicate
-            rest = str(fact).split("(")[1]
-            rest = rest.strip(")").strip()
-            if not rest == "":
-                # print "there are args" , rest
-                args = rest.split(",")
+            if("Increase" in str(fact) or
+               "Decrease" in str(fact) or
+               "=:" in str(fact)):
+                predicate = str(fact)[5:].split("<")[0]
+                pred_args_str = str(fact).split("<")[1][1:][:-1]
+                if not rest == "":
+                    # print "there are args" , rest
+                    pred_args = pred_args_str.split(",")
+                else:
+                    pred_args = []
+                print_line = "%d %d %s > %d " % (var, val, predicate, len(pred_args))
+                for arg in pred_args:
+                    print_line += str(arg).strip() + " "
             else:
-                args = []
-            print_line = "%d %d %s %d " % (var, val, predicate, len(args))
-            for arg in args:
-                print_line += str(arg).strip() + " "
+                predicate = str(fact)[5:].split("(")[0]
+                # print predicate
+                rest = str(fact).split("(")[1]
+                rest = rest.strip(")").strip()
+                if not rest == "":
+                    # print "there are args" , rest
+                    args = rest.split(",")
+                else:
+                    args = []
+                print_line = "%d %d %s %d " % (var, val, predicate, len(args))
+                for arg in args:
+                    print_line += str(arg).strip() + " "
             # print fact
             # print print_line
             print(print_line, file=invariants_file)

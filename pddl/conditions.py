@@ -378,8 +378,10 @@ class Literal(Condition):
         self.hash = hash((self.__class__, self.predicate, self.args))
 
     def __str__(self):
-        if isinstance(self, pddl.f_expression.Increase):
-            return "%s %s" % (self.__class__.__name__, self.predicate)
+        if isinstance(self.predicate, pddl.f_expression.Increase)\
+                or isinstance(self.predicate, pddl.f_expression.Decrease) \
+                or isinstance(self.predicate, pddl.f_expression.Assign):
+            return "%s %s<(%s)" % (self.__class__.__name__, self.predicate, ", ".join(map(str, self.args)))
         else:
             return "%s %s(%s)" % (self.__class__.__name__, self.predicate,
                               ", ".join(map(str, self.args)))
