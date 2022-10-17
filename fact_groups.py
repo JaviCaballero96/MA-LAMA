@@ -168,6 +168,16 @@ def choose_groups(groups, reachable_facts, functions, arguments, partial_encodin
     # result += [[func] for func in uncovered_funcs]
     return result, arguments_aux
 
+def remove_func_redundant(groups, mutex_groups):
+    index = 0
+    removed = 0
+    length = len(mutex_groups)
+    for _ in range(length):
+        if index >= len(groups):
+            mutex_groups.pop(index - removed)
+            removed = removed + 1
+        index = index + 1
+
 
 def build_translation_key(groups):
     group_keys = []
@@ -209,6 +219,8 @@ def compute_groups(task, atoms, functions, reachable_action_params, partial_enco
         mutex_groups = collect_all_mutex_groups(groups, atoms, functions)
     with timers.timing("Choosing groups", block=True):
         groups, arguments = choose_groups(groups, atoms, functions, arguments, partial_encoding=partial_encoding)
+    with timers.timing("Removing redundant functional propositions"):
+        remove_func_redundant(groups, mutex_groups)
     with timers.timing("Building translation key"):
         translation_key = build_translation_key(groups)
     return groups, mutex_groups, translation_key, arguments

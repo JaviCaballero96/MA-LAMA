@@ -786,9 +786,20 @@ def write_mutex_key(mutex_key):
             # print fact
             assert str(fact).startswith("Atom ")
             if("Increase" in str(fact) or
-               "Decrease" in str(fact) or
-               "=:" in str(fact)):
+               "Decrease" in str(fact)):
                 predicate = str(fact)[5:].split("<")[0]
+                pred_args_str = str(fact).split("<")[1][1:][:-1]
+                if not rest == "":
+                    # print "there are args" , rest
+                    pred_args = pred_args_str.split(",")
+                else:
+                    pred_args = []
+                print_line = "%d %d %s > %d " % (var, val, predicate, len(pred_args))
+                for arg in pred_args:
+                    print_line += str(arg).strip() + " "
+            elif fact.find(":=") != -1:
+                predicate = "Assign " + str(fact)[5:].split("<")[0].split(":=")[0] + \
+                             str(fact)[5:].split("<")[0].split(":=")[1]
                 pred_args_str = str(fact).split("<")[1][1:][:-1]
                 if not rest == "":
                     # print "there are args" , rest
