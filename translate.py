@@ -789,8 +789,8 @@ def write_mutex_key(mutex_key):
                "Decrease" in str(fact)):
                 predicate = str(fact)[5:].split("<")[0]
                 pred_args_str = str(fact).split("<")[1][1:][:-1]
-                if not rest == "":
-                    # print "there are args" , rest
+                if not pred_args_str == "":
+                    # print "there are args" , pred_args_str
                     pred_args = pred_args_str.split(",")
                 else:
                     pred_args = []
@@ -798,10 +798,10 @@ def write_mutex_key(mutex_key):
                 for arg in pred_args:
                     print_line += str(arg).strip() + " "
             elif fact.find(":=") != -1:
-                predicate = "Assign " + str(fact)[5:].split("<")[0].split(":=")[0] + \
-                             str(fact)[5:].split("<")[0].split(":=")[1]
+                predicate = "Assign " + (str(fact)[5:].split("<")[0].split(":=")[0])[:-1] + ">" + \
+                            (str(fact)[5:].split("<")[0].split(":=")[1])[1:]
                 pred_args_str = str(fact).split("<")[1][1:][:-1]
-                if not rest == "":
+                if not pred_args_str == "":
                     # print "there are args" , rest
                     pred_args = pred_args_str.split(",")
                 else:
