@@ -53,8 +53,12 @@ class SASVariables:
     def output(self, stream):
         print("begin_variables", file=stream)
         print(len(self.ranges), file=stream)
-        for var, (rang, axiom_layer) in enumerate(zip(self.ranges, self.axiom_layers)):
-            print("var%d %d %d" % (var, rang, axiom_layer), file=stream)
+        if type(self.ranges) is not dict:
+            for var, (rang, axiom_layer) in enumerate(zip(self.ranges, self.axiom_layers)):
+                print("var%d %d %d" % (var, rang, axiom_layer), file=stream)
+        else:
+            for var, rang in self.ranges.items():
+                print("var%d %d %d" % (var, rang + 1, -1), file=stream)
         print("end_variables", file=stream)
 
 class SASInit:
@@ -66,8 +70,12 @@ class SASInit:
                 print("v%d: %d" % (var, val))
     def output(self, stream):
         print("begin_state", file=stream)
-        for val in self.values:
-            print(val, file=stream)
+        if type(self.values) is not dict:
+            for val in self.values:
+                print(val, file=stream)
+        else:
+            for var, val in self.values.items():
+                print(val, file=stream)
         print("end_state", file=stream)
 
 class SASGoal:
