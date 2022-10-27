@@ -7,6 +7,7 @@ class SASTask:
         self.axioms = axioms
         self.metric = metric
     def output(self, stream):
+        print("gen", file=stream)
         print("begin_metric", file=stream)
         print("(" + self.metric[0], file=stream)
         for me in self.translated_metric.keys():
@@ -23,7 +24,8 @@ class SASTask:
         for axiom in self.axioms:
             axiom.output(stream)
 
-    def outputma(self, stream):
+    def outputma(self, stream, name):
+        print(name, file=stream)
         print("begin_metric", file=stream)
         print("(" + self.metric[0], file=stream)
         for me in self.metric[1:]:
@@ -32,10 +34,22 @@ class SASTask:
         print("end_metric", file=stream)
         self.variables.output(stream)
         self.init.output(stream)
-        self.goal.output(stream)
+
+        print("begin_goal", file=stream)
+        print(len(self.goal.pairs), file=stream)
+        for var, val in self.goal.pairs:
+            index = 0
+            for vari, range in self.variables.ranges.items():
+                if vari == var:
+                    break
+                index = index + 1
+            print(index, val, file=stream)
+        print("end_goal", file=stream)
+
+        # self.goal.output(stream)
         print(len(self.operators), file=stream)
         for op in self.operators:
-            op.output(stream)
+            op.outputma(stream, self.variables.ranges)
         print(len(self.axioms), file=stream)
         for axiom in self.axioms:
             axiom.output(stream)
@@ -131,6 +145,47 @@ class SASOperator:
             else:
                 print(var, pre, post, file=stream)
                 print(var, pre, post)
+        print(self.cost, file=stream)
+        print("end_operator", file=stream)
+
+    def outputma(self, stream, ranges):
+        print("begin_operator", file=stream)
+        print(self.name[1:-1], file=stream)
+        print(len(self.prevail), file=stream)
+        for var, val in self.prevail:
+            index = 0
+            for vari, range in ranges.items():
+                if vari == var:
+                    break
+                index = index + 1
+            print(index, val, file=stream)
+        print(len(self.pre_post), file=stream)
+        for var, pre, post, cond in self.pre_post:
+            print(len(cond), end=' ', file=stream)
+            for cvar, cval in cond:
+                print(cvar, cval, end=' ', file=stream)
+                print(cvar, cval, end=' ')
+            if pre == -2 or pre == -3 or pre == -4:
+                to_write = ""
+                for elem in post:
+                    to_write = to_write + str(elem) + " "
+                to_write = to_write[:-1]
+
+                index = 0
+                for vari, range in ranges.items():
+                    if vari == var:
+                        break
+                    index = index + 1
+                print(index, pre, to_write, file=stream)
+                print(index, pre, to_write)
+            else:
+                index = 0
+                for vari, range in ranges.items():
+                    if vari == var:
+                        break
+                    index = index + 1
+                print(index, pre, post, file=stream)
+                print(index, pre, post)
         print(self.cost, file=stream)
         print("end_operator", file=stream)
 

@@ -533,7 +533,7 @@ def set_function_values(operators, groups, mutex_groups):
         for effect in operator.pre_post:
             if effect[1] == -2 or effect[1] == -3 or effect[1] == -4:
                 groups[effect[0]][effect[2][2]].value = effect[2][0]
-               # mutex_groups[effect[0]][effect[2][2]].value = effect[2][0]
+            # mutex_groups[effect[0]][effect[2][2]].value = effect[2][0]
     return
 
 
@@ -555,9 +555,6 @@ def obtain_metric_functions(groups, sas_task):
                     if equal:
                         sas_task.translated_metric[gopup_index] = metric_elem
             gopup_index = gopup_index + 1
-
-
-
 
 
 def unsolvable_sas_task(msg):
@@ -628,7 +625,7 @@ def pddl_to_sas(task):
         with timers.timing("Detecting unreachable propositions", block=True):
             try:
                 simplify.filter_unreachable_propositions(
-                   sas_task, mutex_key, translation_key)
+                    sas_task, mutex_key, translation_key)
             except simplify.Impossible:
                 return unsolvable_sas_task("Simplified to trivially false goal")
 
@@ -680,6 +677,10 @@ def pddl_to_sas(task):
                                      agents_metric[agent_index])
 
         agent_tasks.append(new_task)
+        agent_index = agent_index + 1
+
+    mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, agent_tasks)
+    write_mutex_keys(mutex_keys)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
@@ -716,6 +717,25 @@ def build_mutex_key(strips_to_sas, groups):
                 print("not in strips_to_sas, left out:", fact)
         group_keys.append(group_key)
     return group_keys
+
+
+def build_mutex_keys(strips_to_sas, groups, tasks):
+    mutex_keys = []
+    for task in tasks:
+        group_keys = []
+        for group in groups:
+            group_key = []
+            for fact in group:
+                if strips_to_sas.get(fact):
+                    for var, val in strips_to_sas[fact]:
+                        if var in task.variables.ranges.keys():
+                            group_key.append((var, val, str(fact)))
+                else:
+                    print("not in strips_to_sas, left out:", fact)
+            if group_key:
+                group_keys.append(group_key)
+        mutex_keys.append(group_keys)
+    return mutex_keys
 
 
 def build_implied_facts(strips_to_sas, groups, mutex_groups):
@@ -785,8 +805,8 @@ def write_mutex_key(mutex_key):
         for var, val, fact in group:
             # print fact
             assert str(fact).startswith("Atom ")
-            if("Increase" in str(fact) or
-               "Decrease" in str(fact)):
+            if ("Increase" in str(fact) or
+                    "Decrease" in str(fact)):
                 predicate = str(fact)[5:].split("<")[0]
                 pred_args_str = str(fact).split("<")[1][1:][:-1]
                 if not pred_args_str == "":
@@ -829,6 +849,65 @@ def write_mutex_key(mutex_key):
     invariants_file.close()
 
 
+def write_mutex_keys(mutex_keys):
+    index = 0
+    for mutex_key in mutex_keys:
+        invariants_file = open("/home/javier/Desktop/planners/outPreprocess/agent" + str(index) + ".groups", "w")
+        print("begin_groups", file=invariants_file)
+        print(len(mutex_key), file=invariants_file)
+        for group in mutex_key:
+            # print map(str, group)
+            no_facts = len(group)
+            print("group", file=invariants_file)
+            print(no_facts, file=invariants_file)
+            for var, val, fact in group:
+                # print fact
+                assert str(fact).startswith("Atom ")
+                if ("Increase" in str(fact) or
+                        "Decrease" in str(fact)):
+                    predicate = str(fact)[5:].split("<")[0]
+                    pred_args_str = str(fact).split("<")[1][1:][:-1]
+                    if not pred_args_str == "":
+                        # print "there are args" , pred_args_str
+                        pred_args = pred_args_str.split(",")
+                    else:
+                        pred_args = []
+                    print_line = "%d %d %s > %d " % (var, val, predicate, len(pred_args))
+                    for arg in pred_args:
+                        print_line += str(arg).strip() + " "
+                elif fact.find(":=") != -1:
+                    predicate = "Assign " + (str(fact)[5:].split("<")[0].split(":=")[0])[:-1] + ">" + \
+                                (str(fact)[5:].split("<")[0].split(":=")[1])[1:]
+                    pred_args_str = str(fact).split("<")[1][1:][:-1]
+                    if not pred_args_str == "":
+                        # print "there are args" , rest
+                        pred_args = pred_args_str.split(",")
+                    else:
+                        pred_args = []
+                    print_line = "%d %d %s > %d " % (var, val, predicate, len(pred_args))
+                    for arg in pred_args:
+                        print_line += str(arg).strip() + " "
+                else:
+                    predicate = str(fact)[5:].split("(")[0]
+                    # print predicate
+                    rest = str(fact).split("(")[1]
+                    rest = rest.strip(")").strip()
+                    if not rest == "":
+                        # print "there are args" , rest
+                        args = rest.split(",")
+                    else:
+                        args = []
+                    print_line = "%d %d %s %d " % (var, val, predicate, len(args))
+                    for arg in args:
+                        print_line += str(arg).strip() + " "
+                # print fact
+                # print print_line
+                print(print_line, file=invariants_file)
+        print("end_groups", file=invariants_file)
+        invariants_file.close()
+        index = index + 1
+
+
 if __name__ == "__main__":
     import pddl
 
@@ -851,7 +930,9 @@ if __name__ == "__main__":
 
         agent_index = 0
         for task in agent_tasks:
-            task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas", "w"))
+            name = "agent" + str(agent_index)
+            task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas",
+                               "w"), name)
             agent_index = agent_index + 1
 
     print("Done! %s" % timer)
