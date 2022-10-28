@@ -166,16 +166,22 @@ class SASOperator:
                 print(cvar, cval, end=' ', file=stream)
                 print(cvar, cval, end=' ')
             if pre == -2 or pre == -3 or pre == -4:
-                to_write = ""
-                for elem in post:
-                    to_write = to_write + str(elem) + " "
-                to_write = to_write[:-1]
-
                 index = 0
                 for vari, range in ranges.items():
                     if vari == var:
                         break
                     index = index + 1
+
+                to_write = ""
+                index_var = 0
+                for elem in post:
+                    if index_var != 1:
+                        to_write = to_write + str(elem) + " "
+                    else:
+                        to_write = to_write + str(index) + " "
+                    index_var = index_var + 1
+                to_write = to_write[:-1]
+
                 print(index, pre, to_write, file=stream)
                 print(index, pre, to_write)
             else:
