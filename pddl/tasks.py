@@ -122,10 +122,15 @@ def parse_domain(domain_pddl):
         pred = opt_constants
 
     assert pred[0] == ":predicates"
-    yield ([predicates.Predicate.parse(entry) for entry in pred[1:]] +
-           [predicates.Predicate("=",
+
+    the_predicates = [predicates.Predicate.parse(entry) for entry in pred[1:]] + [predicates.Predicate("=",
                                  [pddl_types.TypedObject("?x", "object"),
-                                  pddl_types.TypedObject("?y", "object")])])
+                                  pddl_types.TypedObject("?y", "object")])]
+
+    yield the_predicates
+
+    # create a new parameter to control each agent state in the search phase
+    the_predicates.append(predicates.Predicate("free_agent", []))
 
     opt_functions = next(iterator) #action costs enable restrictive version of fluents
     if opt_functions[0] == ":functions":
@@ -201,6 +206,9 @@ def parse_task(task_pddl):
                                  "Reason: %s." %  e)
         else:
             initial.append(conditions.Atom(fact[0], fact[1:]))
+
+    # Append initial state of free_agent()
+    initial.append(conditions.Atom("free_agent", []))
 
     initial.append(f_expression.parse_assignment(["=", "total-time", "0"]))
     yield initial

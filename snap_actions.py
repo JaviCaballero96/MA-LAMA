@@ -51,7 +51,7 @@ def obtain_start_snap_actions(all_actions):
                 if effect.tmp == "start":
                     effects_list.append(effect)
 
-        add_start_eff_cond(effects_list, action)
+        add_start_eff_cond(preconditions_list, effects_list, action)
 
         if isinstance(action.conditions, cond.Conjunction):
             preconditions = cond.Conjunction(preconditions_list)
@@ -129,7 +129,7 @@ def create_start_end_predicates(predicates, all_actions):
     return
 
 
-def add_start_eff_cond(effects, action):
+def add_start_eff_cond(preconditions_list, effects, action):
 
     # Create parameters list to update Atom list
     plist = []
@@ -138,6 +138,11 @@ def add_start_eff_cond(effects, action):
 
     # Add init action effect
     simple_effect = eff.SimpleEffect(cond.Atom(action.name + "_curr", plist))
+    effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+
+    # We assume all actions are agent actions, later on this will be checked
+    preconditions_list.append(cond.Atom("free_agent", []))
+    simple_effect = eff.SimpleEffect(cond.NegatedAtom("free_agent", []))
     effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
 
     return
@@ -156,5 +161,9 @@ def add_end_eff_cond(preconditions_list, effects, action):
     # Add end action negated effect
     simple_effect = eff.SimpleEffect(cond.NegatedAtom(action.name + "_curr", plist))
     effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+
+    # We assume all actions are agent actions, later on this will be checked
+    simple_effect2 = eff.SimpleEffect(cond.Atom("free_agent", []))
+    effects.append(eff.Effect([], cond.Truth(), simple_effect2.effect))
 
     return

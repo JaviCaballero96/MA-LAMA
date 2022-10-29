@@ -109,6 +109,15 @@ def get_agents_minimal_variables(agents_pred):
     return agent_minimal_vars
 
 
+def find_free_agent_index(groups):
+    index = 0
+    for group in groups:
+        for state in group:
+            if state.predicate == "free_agent":
+                return index
+        index = index + 1
+    return -1
+
 def create_groups_dtgs(task):
     init_vals = task.init.values
     sizes = task.variables.ranges
@@ -581,7 +590,7 @@ def create_gexf_transition_graphs_files(dtgs, groups):
             index = index + 1
 
 
-def create_casual_graph(sas_task, groups, group_const_arg, simplify):
+def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, simplify):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
@@ -648,7 +657,8 @@ def create_casual_graph(sas_task, groups, group_const_arg, simplify):
                 if operator_index2 != operator_index1:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2:
+                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2\
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       2, arc_id)
@@ -685,7 +695,8 @@ def create_casual_graph(sas_task, groups, group_const_arg, simplify):
                 if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4):
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2:
+                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2\
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
@@ -725,7 +736,8 @@ def create_casual_graph(sas_task, groups, group_const_arg, simplify):
                 for var_no2, pre_spec2 in op.prevail:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
-                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2:
+                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2\
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
                                                       node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
@@ -784,8 +796,10 @@ def remove_two_way_cycles(casual_graph):
                 if second_arc.end_state == node_number:
                     arcs_to_remove.append(first_arc)
                     arcs_to_remove.append(second_arc)
-                    casual_graph.node_list[node_number].arcs.remove(first_arc)
-                    casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
+                    if first_arc in casual_graph.node_list[node_number].arcs:
+                        casual_graph.node_list[node_number].arcs.remove(first_arc)
+                    if second_arc in casual_graph.node_list[first_arc.end_state].arcs:
+                        casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
 
     for remove_arc in arcs_to_remove:
         for end_arc in casual_graph.node_list[remove_arc.end_state].end_arcs[:]:
@@ -924,6 +938,16 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
             not_jointed.append(node)
 
     return joint_agents
+
+
+def fill_free_agents(joint_agents, groups, free_agent_index):
+    free_agents = copy.deepcopy(joint_agents)
+
+    for agent in free_agents:
+        agent.append(free_agent_index)
+        agent.sort()
+
+    return free_agents
 
 
 def fill_func_agents(joint_agents, casual_graph, depth):

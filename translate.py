@@ -637,11 +637,13 @@ def pddl_to_sas(task):
     # agents_pred = graphs.get_agent_elements(task, strips_to_sas)
     # agents_pred_dics = graphs.get_agents_pred_dicts(agents_pred, strips_to_sas)
     # agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
+
+    free_agent_index = graphs.find_free_agent_index(groups)
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
-     propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg,
+     propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
 
     propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
@@ -652,7 +654,8 @@ def pddl_to_sas(task):
 
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 2)
-    functional_agents = graphs.fill_func_agents(joint_agents, casual_graph, 2)
+    free_joint_agents = graphs.fill_free_agents(joint_agents, groups, free_agent_index)
+    functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
     agents_actions = graphs.fill_agents_actions(basic_agents, functional_agents, casual_graph, sas_task, groups)
     agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
     agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)

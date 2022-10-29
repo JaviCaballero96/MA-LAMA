@@ -163,9 +163,23 @@ def useful_groups(invariants, initial_facts):
 def get_groups(task, reachable_action_params=None):
     with timers.timing("Finding invariants"):
         invariants = list(find_invariants(task, reachable_action_params))
+        invariants_f = remove_free_invariant(invariants)
     with timers.timing("Checking invariant weight"):
-        result = list(useful_groups(invariants, task.init))
+        result = list(useful_groups(invariants_f, task.init))
     return result
+
+
+def remove_free_invariant(invariants):
+    invariants_f = []
+    for inv in invariants:
+        append = True
+        for pred in inv.predicates:
+            if pred == "free_agent":
+                append = False
+                continue
+        if append:
+            invariants_f.append(inv)
+    return invariants_f
 
 
 if __name__ == "__main__":
