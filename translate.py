@@ -705,7 +705,48 @@ def pddl_to_sas(task):
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
+    set_func_init_value(sas_task, agent_tasks, task, groups)
+
     return sas_task, agent_tasks
+
+
+def set_func_init_value(sas_task, agent_tasks, task, groups):
+    for init_val in task.init:
+        index = 0
+        for init_sas_val in sas_task.init.values:
+            group = groups[index]
+            if not isinstance(group[0].predicate, str) and not isinstance(init_val, pddl.Atom) and \
+                    group[0].predicate.fluent.symbol == init_val.fluent.symbol:
+                arg_index = 0
+                equal = True
+                for arg in init_val.fluent.args:
+                    if group[0].predicate.fluent.args[arg_index].name != arg.name:
+                        equal = False
+                        break
+                    arg_index = arg_index + 1
+
+                if equal:
+                    sas_task.init.values[index] = init_val.expression.value
+            index = index + 1
+
+        for agent_task in agent_tasks:
+            for init_sas_val_key, init_sas_val in agent_task.init.values.items():
+                group = groups[init_sas_val_key]
+                if not isinstance(group[0].predicate, str) and not isinstance(init_val, pddl.Atom) and \
+                        group[0].predicate.fluent.symbol == init_val.fluent.symbol:
+                    arg_index = 0
+                    equal = True
+                    for arg in init_val.fluent.args:
+                        if group[0].predicate.fluent.args[arg_index].name != arg.name:
+                            equal = False
+                            break
+                        arg_index = arg_index + 1
+
+                    if equal:
+                        agent_task.init.values[init_sas_val_key] = init_val.expression.value
+
+
+
 
 
 def build_mutex_key(strips_to_sas, groups):

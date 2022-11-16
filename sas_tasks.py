@@ -86,10 +86,16 @@ class SASInit:
         print("begin_state", file=stream)
         if type(self.values) is not dict:
             for val in self.values:
-                print(val, file=stream)
+                if isinstance(val, float):
+                    print("-1", val, file=stream)
+                else:
+                    print(val, file=stream)
         else:
             for var, val in self.values.items():
-                print(val, file=stream)
+                if isinstance(val, float):
+                    print("-1", val, file=stream)
+                else:
+                    print(val, file=stream)
         print("end_state", file=stream)
 
 class SASGoal:
