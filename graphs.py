@@ -1113,8 +1113,14 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
         if direct_goal:
             agent_goals[n_agent_found].append(goal)
 
+    un_goals_to_analyze = []
+
+    for goal in goals_to_analyze:
+        if goal not in un_goals_to_analyze:
+            un_goals_to_analyze.append(goal)
+
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
-    estimations_agent_goals = fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
+    estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, joint_agents, functional_agents,
                                                        agents_actions, agents_metric, agents_init, casual_graph,
                                                        sas_task, groups)
 
@@ -1144,7 +1150,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             agent_analysis_index = agent_analysis_index + 1
         agent_index_chosen = estimations.index(min(estimations))
 
-        agent_goals[agent_index_chosen].append(goals_to_analyze[goal_index])
+        agent_goals[agent_index_chosen].append(un_goals_to_analyze[goal_index])
         metric_total_agent[agent_index_chosen] = min(estimations)
 
         goal_index = goal_index + 1
@@ -1183,7 +1189,7 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
 
             max_cost = 9999999
 
-            while search_queue and time.time() < timeout_start + 5:
+            while search_queue and time.time() < timeout_start + 2:
                 node = search_queue.pop(0)
 
                 # Check if the agent has a pending to start action
