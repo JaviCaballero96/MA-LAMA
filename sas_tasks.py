@@ -6,7 +6,7 @@ class SASTask:
         self.operators = operators
         self.axioms = axioms
         self.metric = metric
-    def output(self, stream):
+    def output(self, stream, groups):
         print("gen", file=stream)
         print("begin_metric", file=stream)
         print("(" + self.metric[0], file=stream)
@@ -14,7 +14,7 @@ class SASTask:
             print(str(me) + " ", file=stream)
         print(")", file=stream)
         print("end_metric", file=stream)
-        self.variables.output(stream)
+        self.variables.output(stream, groups)
         self.init.output(stream)
         self.goal.output(stream)
         print(len(self.operators), file=stream)
@@ -24,7 +24,7 @@ class SASTask:
         for axiom in self.axioms:
             axiom.output(stream)
 
-    def outputma(self, stream, name):
+    def outputma(self, stream, name, groups):
         print(name, file=stream)
         print("begin_metric", file=stream)
         print("(" + self.metric[0], file=stream)
@@ -32,7 +32,7 @@ class SASTask:
             print(str(me) + " ", file=stream)
         print(")", file=stream)
         print("end_metric", file=stream)
-        self.variables.output(stream)
+        self.variables.output(stream, groups)
         self.init.output(stream)
 
         print("begin_goal", file=stream)
@@ -64,15 +64,25 @@ class SASVariables:
             else:
                 axiom_str = ""
             print("v%d in {%s}%s" % (var, list(range(rang)), axiom_str))
-    def output(self, stream):
+    def output(self, stream, groups):
         print("begin_variables", file=stream)
         print(len(self.ranges), file=stream)
         if type(self.ranges) is not dict:
             for var, (rang, axiom_layer) in enumerate(zip(self.ranges, self.axiom_layers)):
-                print("var%d %d %d" % (var, rang, axiom_layer), file=stream)
+                if (not isinstance(groups[var][0].predicate, str)) and \
+                        'total-time' == groups[var][0].predicate.fluent.symbol:
+                    time = 1
+                else:
+                    time = 0
+                print("var%d %d %d %d" % (var, rang, axiom_layer, time), file=stream)
         else:
             for var, rang in self.ranges.items():
-                print("var%d %d %d" % (var, rang + 1, -1), file=stream)
+                if (not isinstance(groups[var][0].predicate, str)) and \
+                        'total-time' == groups[var][0].predicate.fluent.symbol:
+                    time = 1
+                else:
+                    time = 0
+                print("var%d %d %d %d" % (var, rang + 1, -1, time), file=stream)
         print("end_variables", file=stream)
 
 class SASInit:

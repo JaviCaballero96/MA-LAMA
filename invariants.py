@@ -266,9 +266,15 @@ class Invariant:
 
     def operator_unbalanced(self, action, enqueue_func):
         inv_vars = find_unique_variables(action, self)
-        relevant_effs = [eff for eff in action.effects
-                         if not isinstance(eff, pddl.effects.CostEffect) and
-                         self.predicate_to_part.get(eff.literal.predicate)]
+        # relevant_effs = [eff for eff in action.effects
+        #                 if (not isinstance(eff, pddl.effects.CostEffect)) and
+        #                 eff.literal.predicate in self.predicate_to_part]
+        relevant_effs = []
+        for eff in action.effects:
+            if not isinstance(eff, pddl.effects.CostEffect):
+                if eff.literal.predicate in self.predicate_to_part:
+                    relevant_effs.append(eff)
+
         add_effects = [eff for eff in relevant_effs
                        if not eff.literal.negated]
         del_effects = [eff for eff in relevant_effs

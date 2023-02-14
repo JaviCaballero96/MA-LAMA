@@ -166,7 +166,7 @@ def translate_strips_conditions(conditions, dictionary, ranges,
 
 
 def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ranges, implied_facts,
-                              aux_func_strips_to_sas):
+                              aux_func_strips_to_sas, groups):
     conditions = translate_strips_conditions(operator.precondition, dictionary, ranges, mutex_dict, mutex_ranges)
     if conditions is None:
         return []
@@ -174,13 +174,13 @@ def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ra
     for condition in conditions:
         op = translate_strips_operator_aux(operator, dictionary, ranges,
                                            mutex_dict, mutex_ranges,
-                                           implied_facts, condition, aux_func_strips_to_sas)
+                                           implied_facts, condition, aux_func_strips_to_sas, groups)
         sas_operators.append(op)
     return sas_operators
 
 
 def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
-                                  mutex_ranges, implied_facts, condition, aux_func_strips_to_sas):
+                                  mutex_ranges, implied_facts, condition, aux_func_strips_to_sas, groups):
     # NOTE: This function does not really deal with the intricacies of properly
     # encoding delete effects for grouped propositions in the presence of
     # conditional effects. It should work ok but will bail out in more
@@ -452,11 +452,11 @@ def translate_strips_axiom(axiom, dictionary, ranges, mutex_dict, mutex_ranges):
 
 
 def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                               aux_func_strips_to_sas):
+                               aux_func_strips_to_sas, groups):
     result = []
     for action in actions:
         sas_ops = translate_strips_operator(action, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                                            aux_func_strips_to_sas)
+                                            aux_func_strips_to_sas, groups)
         result.extend(sas_ops)
     return result
 
@@ -483,7 +483,7 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
-                   actions, axioms, metric, implied_facts, aux_func_strips_to_sas):
+                   actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -514,7 +514,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     goal = sas_tasks.SASGoal(goal_pairs)
 
     operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                                           aux_func_strips_to_sas)
+                                           aux_func_strips_to_sas, groups)
     duplicate_funct_effects(operators)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
@@ -609,7 +609,7 @@ def pddl_to_sas(task):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
-            implied_facts, aux_func_strips_to_sas)
+            implied_facts, aux_func_strips_to_sas, groups)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
@@ -646,17 +646,29 @@ def pddl_to_sas(task):
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
                                                                     SIMPLIFIED_CASUAL_GRAPH)
 
+    graphs.create_gexf_casual_graph_files(casual_graph, 0)
+    graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
+    graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
+
     propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
         deepcopy(propositional_casual_graph_type1_simple1))
+    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
 
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
-    joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 2)
-    free_joint_agents = graphs.fill_free_agents(joint_agents, groups, free_agent_index)
+    basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
+    joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 3)
+    joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups, group_const_arg)
+    free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
     functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
-    agents_actions = graphs.fill_agents_actions(basic_agents, functional_agents, casual_graph, sas_task, groups)
+    agents_actions = graphs.fill_agents_actions(basic_agents, joint_final_agents, functional_agents, casual_graph,
+                                                sas_task, groups)
     agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
     agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
     agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
@@ -696,18 +708,10 @@ def pddl_to_sas(task):
     graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
     graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric)
     graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
-    graphs.create_gexf_casual_graph_files(casual_graph, 0)
-    graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
-    graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
-    return sas_task, agent_tasks
+    return sas_task, agent_tasks, groups
 
 
 def set_func_init_value(sas_task, agent_tasks, task, groups):
@@ -966,17 +970,17 @@ if __name__ == "__main__":
     # Translate durative task to snap actions task
     snap_task = snap_actions.task_snap_translate(durative_task)
 
-    sas_task, agent_tasks = pddl_to_sas(snap_task)
+    sas_task, agent_tasks, groups = pddl_to_sas(snap_task)
 
     print("Files will be stored in: /home/javier/Desktop/planners/outPreprocess")
     with timers.timing("Writing output"):
-        sas_task.output(open("/home/javier/Desktop/planners/outPreprocess/output.sas", "w"))
+        sas_task.output(open("/home/javier/Desktop/planners/outPreprocess/output.sas", "w"), groups)
 
         agent_index = 0
         for task in agent_tasks:
             name = "agent" + str(agent_index)
             task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas",
-                               "w"), name)
+                               "w"), name, groups)
             agent_index = agent_index + 1
 
     print("Done! %s" % timer)

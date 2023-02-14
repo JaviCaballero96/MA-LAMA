@@ -307,11 +307,12 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
+                if (
+                        n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
                         if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and
-                                                           n_pre_spec != -4)  and var_no == index:
+                                                           n_pre_spec != -4) and var_no == index:
                             if translation_key[var_no][pre_spec] != '<none of those>':
                                 if translation_key[var_no][pre_spec] not in node_names:
                                     node_dict[translation_key[var_no][pre_spec]] = []
@@ -511,10 +512,6 @@ def create_csv_transition_graphs_files(dtgs, groups):
     else:
         save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
 
-    filelist = glob.glob(os.path.join(save_path, "*.csv"))
-    for f in filelist:
-        os.remove(f)
-
     for graph in dtgs:
 
         # Check if the group is functional
@@ -546,10 +543,6 @@ def create_gexf_transition_graphs_files(dtgs, groups):
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
         save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
-
-    filelist = glob.glob(os.path.join(save_path, "*.gexf"))
-    for f in filelist:
-        os.remove(f)
 
     for graph in dtgs:
 
@@ -657,7 +650,7 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                 if operator_index2 != operator_index1:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2\
+                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2 \
                                 and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
@@ -695,7 +688,7 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                 if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4):
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2\
+                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2 \
                                 and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
@@ -736,7 +729,7 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                 for var_no2, pre_spec2 in op.prevail:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
-                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2\
+                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2 \
                                 and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
                                                       node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
@@ -912,6 +905,54 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
     return full_agents_final
 
 
+def assemble_basic_agents(basic_agents, group_const_arg):
+    final_basic_agents = []
+    do_not_agent = []
+    for agent in basic_agents:
+        agent_nodes = []
+        if type(agent) is list:
+
+            if agent[0] in do_not_agent:
+                continue
+
+            for node_a in agent:
+                agent_nodes.append(node_a)
+            for agent_2 in basic_agents:
+                if type(agent_2) is list:
+                    if agent[0] != agent_2[0]:
+                        if group_const_arg[agent[0]] == group_const_arg[agent_2[0]]:
+                            for node in agent_2:
+                                agent_nodes.append(node)
+                            do_not_agent.append(agent_2[0])
+                else:
+                    if agent[0] != agent_2:
+                        if group_const_arg[agent[0]] == group_const_arg[agent_2]:
+                            agent_nodes.append(agent_2)
+                            do_not_agent.append(agent_2)
+        else:
+
+            if agent in do_not_agent:
+                continue
+
+            agent_nodes.append(agent)
+            for agent_2 in basic_agents:
+                if type(agent_2) is list:
+                    if agent != agent_2[0]:
+                        if group_const_arg[agent] == group_const_arg[agent_2[0]]:
+                            for node in agent_2:
+                                agent_nodes.append(node)
+                            do_not_agent.append(agent_2[0])
+                else:
+                    if agent != agent_2:
+                        if group_const_arg[agent] == group_const_arg[agent_2]:
+                            agent_nodes.append(agent_2)
+                            do_not_agent.append(agent_2)
+
+        final_basic_agents.append(agent_nodes)
+
+    return final_basic_agents
+
+
 def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     joint_agents = copy.deepcopy(basic_agents)
     not_jointed = []
@@ -938,6 +979,39 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
             not_jointed.append(node)
 
     return joint_agents
+
+
+def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, group_const_arg):
+    joint_final_agents = copy.deepcopy(joint_agents)
+
+    remaining_nodes = []
+    index = 0
+    for node in groups:
+        if isinstance(node[0].predicate, str):
+            exists = False
+            for agent in joint_agents:
+                if index in agent:
+                    exists = True
+
+            if not exists:
+                remaining_nodes.append(index)
+
+        index = index + 1
+
+    for node in remaining_nodes:
+        agent_index = 0
+        for agent in joint_agents:
+            if node < len(group_const_arg):
+                if group_const_arg[node] == group_const_arg[agent[0]]:
+                    joint_final_agents[agent_index].append(node)
+            agent_index = agent_index + 1
+
+    for agent in joint_final_agents:
+        agent.sort()
+
+    joint_final_agents_return = fill_joint_agents(joint_final_agents, propositional_casual_graph, 2)
+
+    return joint_final_agents_return
 
 
 def fill_free_agents(joint_agents, groups, free_agent_index):
@@ -988,7 +1062,7 @@ def fill_func_agents(joint_agents, casual_graph, depth):
     return functional_agents_final
 
 
-def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task, groups):
+def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_graph, sas_task, groups):
     agent_actions = []
     not_added = []
 
@@ -1000,8 +1074,6 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task, g
         for agent in full_agents:
             added = False
             for eff in ope.pre_post:
-                if eff[0] == 0:
-                    continue
                 if not added and agent.count(eff[0]) != 0:
                     added = True
                     agent_actions[index].append(ope)
@@ -1022,9 +1094,39 @@ def fill_agents_actions(full_agents, full_func_agents, casual_graph, sas_task, g
         if not found:
             not_added.append(ope)
 
-    # If there are not addded actions, try to add them by functions
+    # <If there are actions not yet assigned, try yo apply them by joint_agents
+    not_added_second = []
     if not_added:
         for ope in not_added:
+            index = 0
+            for agent in joint_agents:
+                added = False
+                for eff in ope.pre_post:
+                    if eff[0] == 0:
+                        continue
+                    if not added and agent.count(eff[0]) != 0:
+                        added = True
+                        agent_actions[index].append(ope)
+
+                for pre in ope.prevail:
+                    if not added and agent.count(pre[0]) != 0:
+                        added = True
+                        agent_actions[index].append(pre)
+
+                index = index + 1
+
+    for ope in sas_task.operators:
+        found = False
+        for agent in agent_actions:
+            if not found and agent.count(ope) != 0:
+                found = True
+                break
+        if not found:
+            not_added_second.append(ope)
+
+    # If there are not added actions, try to add them by functions
+    if not_added_second:
+        for ope in not_added_second:
             index = 0
             for agent in full_func_agents:
                 added = False
@@ -1099,16 +1201,16 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
     # First find if there are goals that belong only to one agent
     for goal in sas_task.goal.pairs:
-        n_agent_found = 0
+        n_agent_found = -1
         direct_goal = True
-        index = 0
+        index = -1
         for agent in joint_agents:
             if agent.count(goal[0]) != 0:
-                if n_agent_found != 0:
+                if n_agent_found != -1:
                     direct_goal = False
                     goals_to_analyze.append(goal)
                 else:
-                    n_agent_found = index
+                    n_agent_found = index + 1
             index = index + 1
         if direct_goal:
             agent_goals[n_agent_found].append(goal)
@@ -1121,8 +1223,8 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
     estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, joint_agents, functional_agents,
-                                                       agents_actions, agents_metric, agents_init, casual_graph,
-                                                       sas_task, groups)
+                                                        agents_actions, agents_metric, agents_init, casual_graph,
+                                                        sas_task, groups)
 
     # Now the calculated objectives will be assigned
     goal_index = 0
@@ -1135,10 +1237,13 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
         min_vals = []
         agent_index = 0
         for agent_estimations in goal_estimations:
-            min_value = agent_estimations[0].estimated_metric
-            for node in agent_estimations:
-                if node.estimated_metric < min_value:
-                    min_value = node.estimated_metric
+            if not agent_estimations:
+                min_value = 99999
+            else:
+                min_value = agent_estimations[0].estimated_metric
+                for node in agent_estimations:
+                    if node.estimated_metric < min_value:
+                        min_value = node.estimated_metric
             min_vals.append(min_value)
             agent_index = agent_index + 1
 
@@ -1172,6 +1277,14 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
         agent_sol_estimations = []
 
         for agent in functional_agents:
+
+            # Checkm if the agent can achieve the goal
+            if goal[0] not in agent:
+                print(
+                    "The goal " + str(goal[0]) + ":" + str(goal[1]) +
+                    " cannot be achieved by agent " + str(agent_index) + ", no search will be launched.")
+                continue
+
             agent_sol_estimations.append([])
             agent_actions = agents_actions[agent_index]
             agent_metric = agents_metric[agent_index]
@@ -1182,20 +1295,20 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
             search_queue = []
             solutions = []
             init_node = EstimatedMetricNode([], agent_init, 0, [goal])
-            search_queue.append(init_node)
+            search_queue.append((init_node, 0))
 
             # Set a time limit for each goal and agent
             timeout_start = time.time()
 
             max_cost = 9999999
 
-            while search_queue and time.time() < timeout_start + 2:
-                node = search_queue.pop(0)
+            while search_queue and time.time() < timeout_start + 1:
+                (node, h_node) = search_queue.pop(0)
 
                 # Check if the agent has a pending to start action
+                last_action_end = False
                 if node.app_actions:
                     last_action_name = node.app_actions[-1].name
-                    last_action_end = False
                     if "_end " in last_action_name:
                         last_action_end = True
 
@@ -1259,7 +1372,12 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                                         agent_sol_estimations[agent_index].append(new_node)
                                 else:
                                     if new_node.estimated_metric < max_cost:
-                                        search_queue.append(new_node)
+                                        if last_action_end:
+                                            search_queue.append((new_node, calculate_heuristic(new_node)))
+                                        else:
+                                            search_queue.append((new_node, h_node))
+                                        search_queue.sort(key=take_second)
+                                        # search_queue.insert(0, new_node)
 
             agent_index = agent_index + 1
         analyzed_agent_goals.append(agent_sol_estimations)
@@ -1267,6 +1385,15 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
         goal_index = goal_index + 1
 
     return analyzed_agent_goals
+
+
+def calculate_heuristic(node):
+    h_value = len(node.pending_additions) - (len(node.app_actions) / 2)
+    return h_value
+
+
+def take_second(elem):
+    return elem[1]
 
 
 def create_gexf_casual_graph_files(casual_graph, type):
@@ -1278,6 +1405,23 @@ def create_gexf_casual_graph_files(casual_graph, type):
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
         save_path = "//home/javier/Desktop/planners/pddl2-sas+trasnslate/graphs"
+
+    if type == 0:
+        filelist = glob.glob(os.path.join(save_path, "*.csv"))
+        for f in filelist:
+            os.remove(f)
+
+        filelist = glob.glob(os.path.join(save_path, "*.gexf"))
+        for f in filelist:
+            os.remove(f)
+
+        filelist = glob.glob(os.path.join(save_path + "/metric", "*.gexf"))
+        for f in filelist:
+            os.remove(f)
+
+        filelist = glob.glob(os.path.join(save_path + "/functional_graphs_inv", "*.gexf"))
+        for f in filelist:
+            os.remove(f)
 
     propo = False
     if type == 0:
