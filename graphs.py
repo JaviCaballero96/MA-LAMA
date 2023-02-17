@@ -1283,6 +1283,8 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                 print(
                     "The goal " + str(goal[0]) + ":" + str(goal[1]) +
                     " cannot be achieved by agent " + str(agent_index) + ", no search will be launched.")
+                agent_sol_estimations.append([])
+                agent_index = agent_index + 1
                 continue
 
             agent_sol_estimations.append([])
