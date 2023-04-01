@@ -161,6 +161,10 @@ def choose_groups(groups, reachable_facts, functions, arguments, partial_encodin
                 arguments_aux.append(arg)
     arguments_aux.reverse()
 
+    for group in groups:
+        if len(group) == 1 and isinstance(group[0].predicate, pddl.f_expression.Increase) and group not in result:
+            result.append(group)
+
     print(len(uncovered_facts), "uncovered facts")
     # for fact in uncovered_facts:
     #  print fact

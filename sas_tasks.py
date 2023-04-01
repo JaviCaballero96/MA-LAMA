@@ -1,11 +1,12 @@
 class SASTask:
-    def __init__(self, variables, init, goal, operators, axioms, metric):
+    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes):
         self.variables = variables
         self.init = init
         self.goal = goal
         self.operators = operators
         self.axioms = axioms
         self.metric = metric
+        self.shared_nodes = shared_nodes
     def output(self, stream, groups):
         print("gen", file=stream)
         print("begin_metric", file=stream)
@@ -24,7 +25,7 @@ class SASTask:
         for axiom in self.axioms:
             axiom.output(stream)
 
-    def outputma(self, stream, name, groups):
+    def outputma(self, stream, name, groups, agent_index):
         print(name, file=stream)
         print("begin_metric", file=stream)
         print("(" + self.metric[0], file=stream)
@@ -34,6 +35,22 @@ class SASTask:
         print("end_metric", file=stream)
         self.variables.output(stream, groups)
         self.init.output(stream)
+        print("begin_shared", file=stream)
+        shared_number = 0
+        for me, is_agent in self.shared_nodes.items():
+            if is_agent[agent_index]:
+                shared_number = shared_number + 1
+        print(shared_number, file=stream)
+        for me, is_agent in self.shared_nodes.items():
+            if not is_agent[agent_index]:
+                continue
+            index = 0
+            for vari, range in self.variables.ranges.items():
+                if vari == me:
+                    break
+                index = index + 1
+            print(str(me) + " " + str(index), file=stream)
+        print("end_shared", file=stream)
 
         print("begin_goal", file=stream)
         print(len(self.goal.pairs), file=stream)

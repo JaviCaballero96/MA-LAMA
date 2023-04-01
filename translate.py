@@ -378,8 +378,8 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
 
 def get_new_expresison(expression):
     if isinstance(expression, pddl.f_expression.Assign):
-        if expression.fluent.symbol == "*" or expression.fluent.symbol == "/" or expression.fluent.symbol == "/" \
-                or expression.fluent.symbol == "/":
+        if expression.fluent.symbol == "*" or expression.fluent.symbol == "/" or expression.fluent.symbol == "-" \
+                or expression.fluent.symbol == "+":
             param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].name,
                                                                                      expression.fluent.args[0].args))
             param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].name,
@@ -389,8 +389,8 @@ def get_new_expresison(expression):
             return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol,
                                                                 expression.fluent.args)
     elif isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
-        if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "/" \
-                or expression.symbol == "/":
+        if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "-" \
+                or expression.symbol == "+":
             param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
                                                                                      expression.args[0].fluent.args))
             param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
@@ -525,7 +525,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [])
 
 
 def set_function_values(operators, groups, mutex_groups):
@@ -663,12 +663,13 @@ def pddl_to_sas(task):
 
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
     basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
-    joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 3)
+    joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
     joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups, group_const_arg)
     free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
     functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
-    agents_actions = graphs.fill_agents_actions(basic_agents, joint_final_agents, functional_agents, casual_graph,
-                                                sas_task, groups)
+    agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
+                                                                              functional_agents, casual_graph,
+                                                                              sas_task, groups)
     agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
     agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
     agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
@@ -689,7 +690,7 @@ def pddl_to_sas(task):
 
         new_task = sas_tasks.SASTask(variables, init,
                                      goal, agents_actions[agent_index], [],
-                                     agents_metric[agent_index])
+                                     agents_metric[agent_index], shared_nodes)
 
         agent_tasks.append(new_task)
         agent_index = agent_index + 1
@@ -980,7 +981,7 @@ if __name__ == "__main__":
         for task in agent_tasks:
             name = "agent" + str(agent_index)
             task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas",
-                               "w"), name, groups)
+                               "w"), name, groups, agent_index)
             agent_index = agent_index + 1
 
     print("Done! %s" % timer)

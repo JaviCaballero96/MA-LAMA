@@ -884,12 +884,14 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
                         already_visited.append(arc_app.end_state)
 
     # Remove redundant agents
+    to_remove = []
     for agent in full_agents[:]:
         for agent2 in full_agents[:]:
-            if agent[0] != agent2[0]:
+            if agent[0] != agent2[0] and agent[0] not in to_remove:
                 for agent_state in agent[:]:
                     if agent_state == agent2[0] and agent_state != agent[0]:
                         full_agents.remove(agent2)
+                        to_remove.append(agent2[0])
                         break
 
     # Remove redundant states in agents
@@ -920,15 +922,19 @@ def assemble_basic_agents(basic_agents, group_const_arg):
             for agent_2 in basic_agents:
                 if type(agent_2) is list:
                     if agent[0] != agent_2[0]:
-                        if group_const_arg[agent[0]] == group_const_arg[agent_2[0]]:
-                            for node in agent_2:
-                                agent_nodes.append(node)
-                            do_not_agent.append(agent_2[0])
+                        for node_2 in agent_2:
+                            for node_1 in agent:
+                                if node_1 < len(group_const_arg) and node_2 < len(group_const_arg) and \
+                                        group_const_arg[node_1] == group_const_arg[node_2]:
+                                    for node in agent_2:
+                                        agent_nodes.append(node)
+                                    do_not_agent.append(agent_2[0])
                 else:
                     if agent[0] != agent_2:
-                        if group_const_arg[agent[0]] == group_const_arg[agent_2]:
-                            agent_nodes.append(agent_2)
-                            do_not_agent.append(agent_2)
+                        for node_1 in agent:
+                            if node_1 < len(group_const_arg) and group_const_arg[node_1] == group_const_arg[agent_2]:
+                                agent_nodes.append(agent_2)
+                                do_not_agent.append(agent_2)
         else:
 
             if agent in do_not_agent:
@@ -938,10 +944,11 @@ def assemble_basic_agents(basic_agents, group_const_arg):
             for agent_2 in basic_agents:
                 if type(agent_2) is list:
                     if agent != agent_2[0]:
-                        if group_const_arg[agent] == group_const_arg[agent_2[0]]:
-                            for node in agent_2:
-                                agent_nodes.append(node)
-                            do_not_agent.append(agent_2[0])
+                        for node_2 in agent_2:
+                            if node_2 < len(group_const_arg) and group_const_arg[agent] == group_const_arg[node_2]:
+                                for node in agent_2:
+                                    agent_nodes.append(node)
+                                do_not_agent.append(agent_2[0])
                 else:
                     if agent != agent_2:
                         if group_const_arg[agent] == group_const_arg[agent_2]:
@@ -958,13 +965,28 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     not_jointed = []
 
     for _ in range(depth):
-        for node in propositional_casual_graph.node_list:
-            for agent in joint_agents:
+        for agent in joint_agents:
+            agent_additions = []
+            for node in propositional_casual_graph.node_list:
                 if node not in agent:
                     for arc in propositional_casual_graph.node_list[node].end_arcs:
                         if arc.arc_type == 1 and agent.count(arc.origin_state) != 0:
-                            agent.append(node)
-                            break
+                            add = True
+                            if node not in not_jointed:
+                                for agent2 in joint_agents:
+                                    if agent != agent2 and node in agent2:
+                                        agent2.remove(node)
+                                        if node not in not_jointed:
+                                            not_jointed.append(node)
+                                        add = False
+                            else:
+                                add = False
+
+                            if add:
+                                agent_additions.append(node)
+                                break
+            for addin in agent_additions:
+                agent.append(addin)
 
     for agent in joint_agents:
         agent.sort()
@@ -975,8 +997,35 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
             if agent.count(node) != 0:
                 found = True
                 break
-        if not found:
+        if not found and node not in not_jointed and propositional_casual_graph.node_list[node].name != "free_agent":
             not_jointed.append(node)
+
+    while len(not_jointed) != 0:
+        to_remove = []
+        for node in not_jointed:
+            added_node = False
+            for agent in joint_agents:
+                added_agent = False
+                for node_a in agent:
+                    if not added_agent:
+                        for arc in propositional_casual_graph.node_list[node_a].end_arcs:
+                            if not added_agent and arc.arc_type == 1 and arc.origin_state == node:
+                                agent.append(node)
+                                added_agent = True
+                                added_node = True
+                    if not added_agent:
+                        for arc in propositional_casual_graph.node_list[node].end_arcs:
+                            if not added_agent and arc.arc_type == 1 and arc.origin_state == node_a:
+                                agent.append(node)
+                                added_agent = True
+                                added_node = True
+
+            if added_node:
+                to_remove.append(node)
+
+        for node_rem in to_remove:
+            if node_rem in not_jointed:
+                not_jointed.remove(node_rem)
 
     return joint_agents
 
@@ -1009,9 +1058,12 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
     for agent in joint_final_agents:
         agent.sort()
 
-    joint_final_agents_return = fill_joint_agents(joint_final_agents, propositional_casual_graph, 2)
+    #joint_final_agents_return = fill_joint_agents(joint_final_agents, propositional_casual_graph, 2)
 
-    return joint_final_agents_return
+    #for agent in joint_final_agents_return:
+    #    agent.sort()
+
+    return joint_final_agents
 
 
 def fill_free_agents(joint_agents, groups, free_agent_index):
@@ -1069,6 +1121,27 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
     for _ in full_agents:
         agent_actions.append([])
 
+    # Get common actions
+    extern_actions = []
+    for _ in full_agents:
+        extern_actions.append([])
+    # Obtain common nodes between agents
+    agent_common_nodes = {}
+    agent_index = 0
+    for agent in joint_agents:
+        for node in agent:
+            agent_index_2 = 0
+            for agent_2 in joint_agents:
+                if agent_index_2 != agent_index:
+                    for node_2 in agent_2:
+                        if node == node_2:
+                            if node not in agent_common_nodes:
+                                agent_common_nodes[node] = [False, False, False]
+                            agent_common_nodes[node][agent_index_2] = True
+                            agent_common_nodes[node][agent_index] = True
+                agent_index_2 = agent_index_2 + 1
+        agent_index = agent_index + 1
+
     for ope in sas_task.operators:
         index = 0
         for agent in full_agents:
@@ -1094,7 +1167,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         if not found:
             not_added.append(ope)
 
-    # <If there are actions not yet assigned, try yo apply them by joint_agents
+    # If there are actions not yet assigned, try to apply them by joint_agents
     not_added_second = []
     if not_added:
         for ope in not_added:
@@ -1151,7 +1224,26 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         [agent_final.append(x) for x in agent if x not in agent_final]
         agent_actions_final.append(agent_final)
 
-    return agent_actions_final
+    # cosas por determinar
+    for node, agents_com in agent_common_nodes.items():
+        index = 0
+        for exists_in_agent in agents_com:
+            if exists_in_agent:
+                for ope in sas_task.operators:
+                    added = False
+                    if ope not in agent_actions_final[index]:
+                        for eff in ope.pre_post:
+                            if not added and node == eff[0] != 0:
+                                added = True
+                                extern_actions[index].append(ope)
+
+                        for pre in ope.prevail:
+                            if not added and node == pre[0] != 0:
+                                added = True
+                                extern_actions[index].append(ope)
+            index = index + 1
+
+    return agent_actions_final, extern_actions, agent_common_nodes
 
 
 def fill_agents_metric(joint_agents, functional_agents, sas_task):
