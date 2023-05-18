@@ -71,7 +71,9 @@ def obtaing_const_args_funcs(groups, arguments):
         const_group_args = []
         if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
             isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
-            isinstance(group[0].predicate, pddl.f_expression.Assign):
+            isinstance(group[0].predicate, pddl.f_expression.Assign) or \
+            isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or \
+            isinstance(group[0].predicate, pddl.f_expression.LessThan):
             name = group[0].predicate.fluent.symbol
             for arg in group[0].predicate.fluent.args:
                 name = name + "-" + arg.name

@@ -39,6 +39,19 @@ def parse_assignment(alist):
         assert False, "Assignment operator not supported."
 
 
+def parse_comparation(alist):
+    op = alist.symbol
+    head = parse_expression(alist.args[0])
+    if isinstance(alist.args[1], pddl.f_expression.PrimitiveNumericExpression):
+        exp = alist.args[1]
+    elif isinstance(alist.args[1], pddl.f_expression.NumericConstant):
+        exp = parse_expression(str(alist.args[1].value))
+    else:
+        exp = parse_expression(alist.args[1])
+
+    return [op, head, exp]
+
+
 class FunctionalExpression(object):
     def __init__(self, parts):
         self.parts = tuple(parts)
@@ -157,4 +170,12 @@ class Increase(FunctionAssignment):
 
 
 class Decrease(FunctionAssignment):
+    pass
+
+
+class LessThan(FunctionAssignment):
+    pass
+
+
+class GreaterThan(FunctionAssignment):
     pass

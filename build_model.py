@@ -65,6 +65,26 @@ def variables_to_numbers(effect, conditions):
 
         new_effect = pddl.f_expression.Assign(new_fluent, new_expression)
         new_effect.args = new_effect_args
+    elif isinstance(effect, pddl.f_expression.GreaterThan):
+        fluent_args = []
+        for arg in effect.fluent.args:
+            new_arg = pddl.conditions.Variable(rename_map[arg.name])
+            fluent_args.append(new_arg)
+        new_fluent = pddl.f_expression.PrimitiveNumericExpression(effect.fluent.symbol, fluent_args)
+        new_expression = create_new_expression(effect.expression, rename_map)
+
+        new_effect = pddl.f_expression.GreaterThan(new_fluent, new_expression)
+        new_effect.args = new_effect_args
+    elif isinstance(effect, pddl.f_expression.LessThan):
+        fluent_args = []
+        for arg in effect.fluent.args:
+            new_arg = pddl.conditions.Variable(rename_map[arg.name])
+            fluent_args.append(new_arg)
+        new_fluent = pddl.f_expression.PrimitiveNumericExpression(effect.fluent.symbol, fluent_args)
+        new_expression = create_new_expression(effect.expression, rename_map)
+
+        new_effect = pddl.f_expression.LessThan(new_fluent, new_expression)
+        new_effect.args = new_effect_args
     else:
         new_effect = pddl.Atom(effect.predicate, new_effect_args)
 
@@ -227,6 +247,12 @@ class ProjectRule(BuildRule):
             effect_args = self.prepare_effect(new_atom, cond_index)
             enqueue_func(self.effect, effect_args)
         elif isinstance(self.effect, pddl.f_expression.Assign):
+            effect_args = self.prepare_effect(new_atom, cond_index)
+            enqueue_func(self.effect, effect_args)
+        elif isinstance(self.effect, pddl.f_expression.GreaterThan):
+            effect_args = self.prepare_effect(new_atom, cond_index)
+            enqueue_func(self.effect, effect_args)
+        elif isinstance(self.effect, pddl.f_expression.LessThan):
             effect_args = self.prepare_effect(new_atom, cond_index)
             enqueue_func(self.effect, effect_args)
         else:

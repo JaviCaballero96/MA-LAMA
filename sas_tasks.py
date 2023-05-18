@@ -167,7 +167,7 @@ class SASOperator:
             print(len(cond), end=' ', file=stream)
             for cvar, cval in cond:
                 print(cvar, cval, end=' ', file=stream)
-            if pre == -2 or pre == -3 or pre == -4:
+            if pre == -2 or pre == -3 or pre == -4 or pre == -5 or pre == -6:
                 to_write = ""
                 for elem in post:
                     to_write = to_write + str(elem) + " "
@@ -194,7 +194,7 @@ class SASOperator:
             print(len(cond), end=' ', file=stream)
             for cvar, cval in cond:
                 print(cvar, cval, end=' ', file=stream)
-            if pre == -2 or pre == -3 or pre == -4:
+            if pre == -2 or pre == -3 or pre == -4 or pre == -5 or pre == -6:
                 index = 0
                 for vari, range in ranges.items():
                     if vari == var:

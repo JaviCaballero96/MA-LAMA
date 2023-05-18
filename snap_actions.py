@@ -3,6 +3,7 @@ import io
 
 from keyring.backends import null
 
+import pddl
 import pddl.actions as act
 import pddl.conditions as cond
 import pddl.tasks as tasks
@@ -33,6 +34,7 @@ def obtain_start_snap_actions(all_actions):
     for action in all_actions:
         effects_list = []
         preconditions_list = []
+        numeric_conditions = []
         cost_list = []
 
         if isinstance(action.conditions, cond.Atom):
@@ -43,6 +45,11 @@ def obtain_start_snap_actions(all_actions):
                 if condition.tmp == "start" or condition.tmp == "all":
                     preconditions_list.append(condition)
 
+        for num_cond in action.num_condition:
+            if num_cond[0] == "start" or num_cond[0] == "all":
+                num_cond[1].condition = pddl.conditions.Truth()
+                numeric_conditions.append(num_cond[1])
+
         if isinstance(action.effects, eff.Effect):
             if action.effects.tmp == "start":
                 effects_list.append(action.effects)
@@ -50,6 +57,9 @@ def obtain_start_snap_actions(all_actions):
             for effect in action.effects:
                 if effect.tmp == "start":
                     effects_list.append(effect)
+
+        for num_c in numeric_conditions:
+            effects_list.append(num_c)
 
         add_start_eff_cond(preconditions_list, effects_list, action)
 
@@ -65,8 +75,8 @@ def obtain_start_snap_actions(all_actions):
                 if cost_effect.tmp == "start":
                     cost_list.append(cost_effect)
 
-        new_action = act.Action(action.name + "_start", action.parameters, preconditions, effects_list,
-                                cost_list)
+        new_action = act.Action(action.name + "_start", action.parameters, preconditions, numeric_conditions,
+                                effects_list, cost_list)
 
         start_actions.append(new_action)
     return start_actions
@@ -79,6 +89,7 @@ def obtain_end_snap_actions(all_actions):
     for action in all_actions:
         effects_list = []
         preconditions_list = []
+        numeric_conditions = []
         cost_list = []
 
         if isinstance(action.conditions, cond.Atom):
@@ -89,6 +100,11 @@ def obtain_end_snap_actions(all_actions):
                 if condition.tmp == "end" or condition.tmp == "all":
                     preconditions_list.append(condition)
 
+        for num_cond in action.num_condition:
+            if num_cond[0] == "end" or num_cond[0] == "all":
+                num_cond[1].condition = pddl.conditions.Truth()
+                numeric_conditions.append(num_cond[1])
+
         if isinstance(action.effects, eff.Effect):
             if action.effects.tmp == "end":
                 effects_list.append(action.effects)
@@ -96,6 +112,9 @@ def obtain_end_snap_actions(all_actions):
             for effect in action.effects:
                 if effect.tmp == "end":
                     effects_list.append(effect)
+
+        for num_c in numeric_conditions:
+            effects_list.append(num_c)
 
         add_end_eff_cond(preconditions_list, effects_list, action)
 
@@ -111,8 +130,8 @@ def obtain_end_snap_actions(all_actions):
                 if cost_effect.tmp == "end":
                     cost_list.append(cost_effect)
 
-        new_action = act.Action(action.name + "_end", action.parameters, preconditions, effects_list,
-                                cost_list)
+        new_action = act.Action(action.name + "_end", action.parameters, preconditions, numeric_conditions,
+                                effects_list, cost_list)
         end_actions.append(new_action)
     return end_actions
 

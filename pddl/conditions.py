@@ -4,25 +4,27 @@ from . import tasks  # for Task.FUNCTION_SYMBOLS, needed in parse_term()
 
 
 def parse_condition(alist):
-    condition = parse_condition_aux(alist, False)
+    condition, num_condition = parse_condition_aux(alist, False)
     # TODO: The next line doesn't appear to do anything good,
     # since uniquify_variables doesn't modify the condition in place.
     # Conditions in actions or axioms are uniquified elsewhere, but
     # it looks like goal conditions are never uniquified at all
     # (which would be a bug).
+
     condition.uniquify_variables({})
     return condition
 
 
 def parse_durative_condition(alist):
-    condition = parse_condition_aux(alist, False)
+    condition, num_conditions = parse_condition_aux(alist, False)
     condition.uniquify_variables({})
-    return condition
+    return condition, num_conditions
 
 
 def parse_condition_aux(alist, negated):
     """Parse a PDDL condition. The condition is translated into NNF on the fly."""
     tag = alist[0]
+    tag_2 = alist[1]
     if tag in ("and", "or", "not", "imply"):
         args = alist[1:]
         if tag == "imply":
@@ -30,8 +32,16 @@ def parse_condition_aux(alist, negated):
         if tag == "not":
             assert len(args) == 1
             return parse_condition_aux(args[0], not negated)
-    elif tag in ("over", "at"):
-        return Atom(alist[2][0], alist[2][1:])
+    elif tag in ("over"):
+        if alist[2][0] in (">", "<", ">=", "<="):
+            return pddl.f_expression.PrimitiveNumericExpression(alist[2][0], alist[2][1:])
+        else:
+            return Atom(alist[2][0], alist[2][1:])
+    elif (tag in "at" and tag_2 in "end") or (tag in "at" and tag_2 in "start"):
+        if alist[2][0] in (">", "<", ">=", "<="):
+            return pddl.f_expression.PrimitiveNumericExpression(alist[2][0], alist[2][1:])
+        else:
+            return Atom(alist[2][0], alist[2][1:])
     elif tag in ("forall", "exists"):
         parameters = pddl_types.parse_typed_list(alist[1])
         args = alist[2:]
@@ -48,7 +58,20 @@ def parse_condition_aux(alist, negated):
         parts = [parse_condition_aux(part, negated) for part in args]
 
     if tag == "and" and not negated or tag == "or" and negated:
-        return Conjunction(parts)
+        num_conditions = []
+        pos = 0
+        for part in parts.copy():
+            if not isinstance(part, Atom):
+                op, head, exp = pddl.f_expression.parse_comparation(part)
+                if op == ">":
+                    num_conditions.append((pos, pddl.effects.CostEffect(pddl.f_expression.GreaterThan(head, exp))))
+                elif op == "<":
+                    num_conditions.append((pos, pddl.effects.CostEffect(pddl.f_expression.LessThan(head, exp))))
+                parts.pop(pos)
+            pos = pos + 1
+
+        conditions_ret = Conjunction(parts)
+        return conditions_ret, num_conditions
     elif tag == "or" and not negated or tag == "and" and negated:
         return Disjunction(parts)
     elif tag == "forall" and not negated or tag == "exists" and negated:
@@ -178,6 +201,7 @@ class Condition(object):
             for cond in self.parts:
                 cond.tmp = temp_info[index]
                 index = index + 1
+
 
 class ConstantCondition(Condition):
     # Defining __eq__ blocks inheritance of __hash__, so must set it explicitly.
@@ -378,13 +402,15 @@ class Literal(Condition):
         self.hash = hash((self.__class__, self.predicate, self.args))
 
     def __str__(self):
-        if isinstance(self.predicate, pddl.f_expression.Increase)\
+        if isinstance(self.predicate, pddl.f_expression.Increase) \
                 or isinstance(self.predicate, pddl.f_expression.Decrease) \
-                or isinstance(self.predicate, pddl.f_expression.Assign):
+                or isinstance(self.predicate, pddl.f_expression.Assign) \
+                or isinstance(self.predicate, pddl.f_expression.GreaterThan) \
+                or isinstance(self.predicate, pddl.f_expression.LessThan):
             return "%s %s<(%s)" % (self.__class__.__name__, self.predicate, ", ".join(map(str, self.args)))
         else:
             return "%s %s(%s)" % (self.__class__.__name__, self.predicate,
-                              ", ".join(map(str, self.args)))
+                                  ", ".join(map(str, self.args)))
 
     def _dump(self):
         return str(self)
@@ -425,6 +451,16 @@ class Atom(Literal):
 
     def positive(self):
         return self
+
+
+class CompAtom(Literal):
+    negated = False
+
+    def __hash__(self):
+        return hash(self.__class__)
+
+    def __init__(self, condition):
+        self.condition = condition
 
 
 class NegatedAtom(Literal):

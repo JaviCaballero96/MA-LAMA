@@ -9,15 +9,16 @@ from . import f_expression
 
 
 class DurativeAction(object):
-    def __init__(self, name, duration_t, parameters, conditions, effects, cost):
+    def __init__(self, name, duration_t, parameters, conditions, num_condition, effects, cost):
         self.name = name
         self.duration_t = duration_t
         self.parameters = parameters
         self.conditions = conditions
-        cond_tmp_info = conditions.temp_info
+        self.num_condition = num_condition
         self.effects = effects
         self.cost = cost
         self.uniquify_variables()  # TODO: uniquify variables in cost?
+        cond_tmp_info = conditions.temp_info
         self.conditions.include_temp_info(cond_tmp_info)
 
     def __repr__(self):
@@ -42,9 +43,14 @@ class DurativeAction(object):
             precondition_tag_opt = next(iterator)
         if precondition_tag_opt == ":condition":
             raw = next(iterator)
-            precondition = cond.parse_durative_condition(raw)
+            precondition, num_condition = cond.parse_durative_condition(raw)
             precondition = precondition.simplified()
             precondition.temp_info = precondition.parse_temp_info(raw)
+            num_condition_final = []
+            for num_cond in num_condition:
+                pos = num_cond[0]
+                num_condition_final.append((precondition.temp_info[pos], num_cond[1]))
+                precondition.temp_info.pop(pos)
             effect_tag = next(iterator)
         else:
             precondition = cond.Conjunction([])
@@ -58,7 +64,7 @@ class DurativeAction(object):
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
-        return DurativeAction(name, duration_t, parameters, precondition, effects, cost)
+        return DurativeAction(name, duration_t, parameters, precondition, num_condition_final, effects, cost)
 
     parse = staticmethod(parse)
 

@@ -10,10 +10,11 @@ from . import f_expression
 
 
 class Action(object):
-    def __init__(self, name, parameters, precondition, effects, cost):
+    def __init__(self, name, parameters, precondition, num_condition, effects, cost):
         self.name = name
         self.parameters = parameters
         self.precondition = precondition
+        self.num_condition = num_condition
         self.effects = effects
         self.cost = cost
         self.uniquify_variables()  # TODO: uniquify variables in cost?
@@ -143,6 +144,10 @@ class Action(object):
                     eff_aux = f_expression.Decrease("", "")
                 elif isinstance(eff.effect, pddl.f_expression.Assign):
                     eff_aux = f_expression.Assign("", "")
+                elif isinstance(eff.effect, pddl.f_expression.GreaterThan):
+                    eff_aux = f_expression.GreaterThan("", "")
+                elif isinstance(eff.effect, pddl.f_expression.LessThan):
+                    eff_aux = f_expression.LessThan("", "")
 
                 eff_aux.fluent = eff.effect.fluent.instantiate(var_mapping, init_facts)
                 arg_used = [var_mapping.get(arg.name, arg.name) for arg in eff.effect.fluent.args]
@@ -164,28 +169,76 @@ class Action(object):
                     if isinstance(cost_eff, pddl.f_expression.Increase):
                         for m_elem in metric:
                             if not isinstance(m_elem, str):
-                                if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
-                                        [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in cost_eff.fluent.
-                                                                                                        fluent.args]:
-                                    if isinstance(cost_eff.expression, pddl.f_expression.PrimitiveNumericExpression):
-                                        cost = cost + cost_eff.expression.value
-                                    else:
-                                        cost = cost + cost_eff.expression.expression.value
-                                        # cost = cost + int(cost_eff.effect.instantiate(var_mapping,
-                                        # init_facts).expression.value)
-                                        # cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+                                if m_elem.symbol == "*":
+                                    if m_elem.args[1].name == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args[1].args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost + (cost_eff.expression.value * float(m_elem.args[0].name))
+                                        else:
+                                            cost = cost + (cost_eff.expression.expression.value * float(m_elem.args[0].
+                                                                                                        name))
+                                            # cost = cost + int(cost_eff.effect.instantiate(var_mapping,
+                                            # init_facts).expression.value)
+                                            # cost = cost + self.calculateCost(cost_eff.effect, var_mapping, init_facts)
+                                elif m_elem.symbol == "/":
+                                    if m_elem.args[1].name == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args[1].args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost + (cost_eff.expression.value / float(m_elem.args[0].name))
+                                        else:
+                                            cost = cost + (cost_eff.expression.expression.value / float(m_elem.args[0].
+                                                                                                        name))
+                                else:
+                                    if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost + cost_eff.expression.value
+                                        else:
+                                            cost = cost + cost_eff.expression.expression.value
                     if isinstance(cost_eff, pddl.f_expression.Decrease):
                         for m_elem in metric:
                             if not isinstance(m_elem, str):
-                                if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
-                                        [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in
-                                                                                cost_eff.fluent.
-                                                                                        fluent.args]:
-                                    if isinstance(cost_eff.expression,
-                                                  pddl.f_expression.PrimitiveNumericExpression):
-                                        cost = cost - cost_eff.expression.value
-                                    else:
-                                        cost = cost - cost_eff.expression.expression.value
+                                if m_elem.symbol == "*":
+                                    if m_elem.args[1].name == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args[1].args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost - (cost_eff.expression.value * float(m_elem.args[0].name))
+                                        else:
+                                            cost = cost - (cost_eff.expression.expression.value * float(m_elem.args[0].
+                                                                                                        name))
+                                elif m_elem.symbol == "/":
+                                    if m_elem.args[1].name == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args[1].args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost - (cost_eff.expression.value / float(m_elem.args[0].name))
+                                        else:
+                                            cost = cost - (cost_eff.expression.expression.value / float(m_elem.args[0].
+                                                                                                        name))
+                                else:
+                                    if m_elem.symbol == cost_eff.fluent.fluent.symbol and \
+                                            [arg1.name for arg1 in m_elem.args] == [arg2.name for arg2 in
+                                                                                            cost_eff.fluent.
+                                                                                                    fluent.args]:
+                                        if isinstance(cost_eff.expression,
+                                                      pddl.f_expression.PrimitiveNumericExpression):
+                                            cost = cost - cost_eff.expression.value
+                                        else:
+                                            cost = cost - cost_eff.expression.expression.value
 
                 # cost = int(self.cost.instantiate(var_mapping, init_facts).expression.value)
             return PropositionalAction(name, precondition, effects, cost)
@@ -249,6 +302,10 @@ class PropositionalAction:
                 elif isinstance(effect, f_expression.Decrease):
                     self.func_effects.append((condition, effect))
                 elif isinstance(effect, f_expression.Assign):
+                    self.func_effects.append((condition, effect))
+                elif isinstance(effect, f_expression.GreaterThan):
+                    self.func_effects.append((condition, effect))
+                elif isinstance(effect, f_expression.LessThan):
                     self.func_effects.append((condition, effect))
                 else:
                     self.add_effects.append((condition, effect))

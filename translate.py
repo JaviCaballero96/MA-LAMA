@@ -48,7 +48,9 @@ def strips_to_sas_dictionary(groups, assert_partial):
             dictionary.setdefault(atom, []).append((var_no, val_no))
             if isinstance(atom.predicate, pddl.f_expression.Increase) or \
                     isinstance(atom.predicate, pddl.f_expression.Decrease) or \
-                    isinstance(atom.predicate, pddl.f_expression.Assign):
+                    isinstance(atom.predicate, pddl.f_expression.Assign) or \
+                    isinstance(atom.predicate, pddl.f_expression.GreaterThan) or \
+                    isinstance(atom.predicate, pddl.f_expression.LessThan):
                 func_aux_dictionary[atom.predicate.__class__.__name__ + " " + str(atom.predicate.fluent)
                                     + " " + str(atom.predicate.expression)] = atom
     if assert_partial:
@@ -234,6 +236,10 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                 op_f = -3
             elif isinstance(fact, pddl.f_expression.Assign):
                 op_f = -4
+            elif isinstance(fact, pddl.f_expression.GreaterThan):
+                op_f = -5
+            elif isinstance(fact, pddl.f_expression.LessThan):
+                op_f = -6
         else:
             fact_exp = str(fact.expression.fluent)
             value = fact.expression.expression.value
@@ -243,6 +249,10 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                 op_f = -3
             elif isinstance(fact, pddl.f_expression.Assign):
                 op_f = -4
+            elif isinstance(fact, pddl.f_expression.GreaterThan):
+                op_f = -5
+            elif isinstance(fact, pddl.f_expression.LessThan):
+                op_f = -6
         fact_fluent = str(fact.fluent.fluent)
         fact_str = fact.__class__.__name__ + " " + fact_fluent + " " + fact_exp
         new_atom = aux_func_strips_to_sas[fact_str]
@@ -539,13 +549,36 @@ def set_function_values(operators, groups, mutex_groups):
 
 def obtain_metric_functions(groups, sas_task):
     sas_task.translated_metric = {}
+    sas_task.translated_metric_vals = {}
     for metric_elem in sas_task.metric[1:]:
         gopup_index = 0
         for group in groups:
             if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
                     isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
                     isinstance(group[0].predicate, pddl.f_expression.Assign):
-                if metric_elem.symbol == group[0].predicate.fluent.symbol:
+                if metric_elem.symbol == "*":
+                    if metric_elem.args[1].name == group[0].predicate.fluent.symbol:
+                        arg_index = 0
+                        equal = True
+                        for arg_elem in metric_elem.args[1].args:
+                            if arg_elem.name != group[0].predicate.fluent.args[arg_index].name:
+                                equal = False
+                            arg_index = arg_index + 1
+                        if equal:
+                            sas_task.translated_metric[gopup_index] = metric_elem.args[1]
+                            sas_task.translated_metric_vals[gopup_index] = float(metric_elem.args[0].name)
+                elif metric_elem.symbol == "/":
+                    if metric_elem.args[1].name == group[0].predicate.fluent.symbol:
+                        arg_index = 0
+                        equal = True
+                        for arg_elem in metric_elem.args[1].args:
+                            if arg_elem.name != group[0].predicate.fluent.args[arg_index].name:
+                                equal = False
+                            arg_index = arg_index + 1
+                        if equal:
+                            sas_task.translated_metric[gopup_index] = metric_elem.args[1]
+                            sas_task.translated_metric_vals[gopup_index] = 1/float(metric_elem.args[0].name)
+                elif metric_elem.symbol == group[0].predicate.fluent.symbol:
                     arg_index = 0
                     equal = True
                     for arg_elem in metric_elem.args:
@@ -554,6 +587,7 @@ def obtain_metric_functions(groups, sas_task):
                         arg_index = arg_index + 1
                     if equal:
                         sas_task.translated_metric[gopup_index] = metric_elem
+                        sas_task.translated_metric_vals[gopup_index] = 1
             gopup_index = gopup_index + 1
 
 
@@ -567,7 +601,7 @@ def unsolvable_sas_task(msg):
     operators = []
     axioms = []
     metric = True
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [])
 
 
 def pddl_to_sas(task):
@@ -679,6 +713,10 @@ def pddl_to_sas(task):
     agent_tasks = []
     agent_index = 0
     for _ in basic_agents:
+
+        if len(agents_goals[agent_index]) == 0:
+            agent_index = agent_index + 1
+            continue
 
         axiom_layers = [-1] * len(functional_agents[agent_index])
         vars = {}
@@ -855,7 +893,9 @@ def write_mutex_key(mutex_key):
             # print fact
             assert str(fact).startswith("Atom ")
             if ("Increase" in str(fact) or
-                    "Decrease" in str(fact)):
+                    "Decrease" in str(fact) or
+                    "GreaterThan" in str(fact) or
+                    "LessThan" in str(fact)):
                 predicate = str(fact)[5:].split("<")[0]
                 pred_args_str = str(fact).split("<")[1][1:][:-1]
                 if not pred_args_str == "":
@@ -913,7 +953,9 @@ def write_mutex_keys(mutex_keys):
                 # print fact
                 assert str(fact).startswith("Atom ")
                 if ("Increase" in str(fact) or
-                        "Decrease" in str(fact)):
+                        "Decrease" in str(fact) or
+                        "GreaterThan" in str(fact) or
+                        "LessThan" in str(fact)):
                     predicate = str(fact)[5:].split("<")[0]
                     pred_args_str = str(fact).split("<")[1][1:][:-1]
                     if not pred_args_str == "":

@@ -33,6 +33,12 @@ def get_fluent_facts(task, model):
         elif isinstance(function.predicate, pddl.f_expression.Assign):
             if function.predicate.fluent.symbol in fluent_functions_aux:
                 fluent_functions.add(function)
+        elif isinstance(function.predicate, pddl.f_expression.GreaterThan):
+            if function.predicate.fluent.symbol in fluent_functions_aux:
+                fluent_functions.add(function)
+        elif isinstance(function.predicate, pddl.f_expression.LessThan):
+            if function.predicate.fluent.symbol in fluent_functions_aux:
+                fluent_functions.add(function)
 
     return set([fact for fact in model
                 if fact.predicate in fluent_predicates]), fluent_functions
@@ -117,6 +123,10 @@ def intantiate_func_args(functions):
             new_functions.add(pddl.Atom(pddl.f_expression.Decrease(new_fluent, new_expression), func.args))
         elif isinstance(func.predicate, pddl.f_expression.Assign):
             new_functions.add(pddl.Atom(pddl.f_expression.Assign(new_fluent, new_expression), func.args))
+        elif isinstance(func.predicate, pddl.f_expression.GreaterThan):
+            new_functions.add(pddl.Atom(pddl.f_expression.GreaterThan(new_fluent, new_expression), func.args))
+        elif isinstance(func.predicate, pddl.f_expression.LessThan):
+            new_functions.add(pddl.Atom(pddl.f_expression.LessThan(new_fluent, new_expression), func.args))
 
     return new_functions
 

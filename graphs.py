@@ -118,6 +118,7 @@ def find_free_agent_index(groups):
         index = index + 1
     return -1
 
+
 def create_groups_dtgs(task):
     init_vals = task.init.values
     sizes = task.variables.ranges
@@ -174,7 +175,9 @@ def create_functional_dtgs(sas_task, translation_key, groups):
         # Check if the group is functional
         if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
                 isinstance(group[0].predicate, pddl.f_expression.Assign) or
-                isinstance(group[0].predicate, pddl.f_expression.Decrease)):
+                isinstance(group[0].predicate, pddl.f_expression.Decrease) or
+                isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or
+                isinstance(group[0].predicate, pddl.f_expression.LessThan)):
             index = index + 1
             continue
 
@@ -183,10 +186,12 @@ def create_functional_dtgs(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no == index:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or n_pre_spec == -6) \
+                        and n_var_no == index:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
-                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4):
+                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4
+                                                           and n_pre_spec != -5 and n_pre_spec != -6):
                             if translation_key[var_no][pre_spec] != '<none of those>':
                                 if translation_key[var_no][pre_spec] not in node_names:
                                     node_dict[translation_key[var_no][pre_spec]] = []
@@ -213,9 +218,11 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
     for invariant in groups:
 
         # Check if the group is propositional
-        if (isinstance(invariant[0].predicate, pddl.f_expression.Increase) or
+        if not (isinstance(invariant[0].predicate, pddl.f_expression.Increase) or
                 isinstance(invariant[0].predicate, pddl.f_expression.Assign) or
-                isinstance(invariant[0].predicate, pddl.f_expression.Decrease)):
+                isinstance(invariant[0].predicate, pddl.f_expression.Decrease) or
+                isinstance(invariant[0].predicate, pddl.f_expression.GreaterThan) or
+                isinstance(invariant[0].predicate, pddl.f_expression.LessThan)):
             index = index + 1
             continue
 
@@ -227,7 +234,9 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
             # Check if the group is functional
             if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
                     isinstance(group[0].predicate, pddl.f_expression.Assign) or
-                    isinstance(group[0].predicate, pddl.f_expression.Decrease)):
+                    isinstance(group[0].predicate, pddl.f_expression.Decrease) or
+                    isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or
+                    isinstance(group[0].predicate, pddl.f_expression.LessThan)):
                 index2 = index2 + 1
                 continue
 
@@ -236,11 +245,13 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
             for op in sas_task.operators:
                 eff_index_1 = 0
                 for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                    if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no == index2:
+                    if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or
+                        n_pre_spec == -6) and n_var_no == index2:
                         eff_index_2 = 0
                         for var_no, pre_spec, post, cond in op.pre_post:
                             if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3
-                                                               and n_pre_spec != -4) and var_no == index:
+                                                               and n_pre_spec != -4 and n_pre_spec != -5 and
+                                                               n_pre_spec != -6) and var_no == index:
                                 if translation_key[var_no][pre_spec] != '<none of those>':
                                     if translation_key[var_no][pre_spec] not in node_names:
                                         node_dict[translation_key[var_no][pre_spec]] = []
@@ -270,10 +281,13 @@ def create_functional_dtg_metric(sas_task, translation_key, groups):
     for op in sas_task.operators:
         eff_index_1 = 0
         for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
+            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or
+                n_pre_spec == -6) \
+                    and n_var_no in sas_task.translated_metric:
                 eff_index_2 = 0
                 for var_no, pre_spec, post, cond in op.pre_post:
-                    if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4):
+                    if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4 and
+                                                       n_pre_spec != -5 and n_pre_spec != -6):
                         if translation_key[var_no][pre_spec] != '<none of those>':
                             if translation_key[var_no][pre_spec] not in node_names:
                                 node_dict[translation_key[var_no][pre_spec]] = []
@@ -296,9 +310,11 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
     for group in groups:
 
         # Check if the group is propositional
-        if (isinstance(group[0].predicate, pddl.f_expression.Increase) or
+        if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
                 isinstance(group[0].predicate, pddl.f_expression.Assign) or
-                isinstance(group[0].predicate, pddl.f_expression.Decrease)):
+                isinstance(group[0].predicate, pddl.f_expression.Decrease) or
+                isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or
+                isinstance(group[0].predicate, pddl.f_expression.LessThan)):
             index = index + 1
             continue
 
@@ -307,12 +323,13 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if (
-                        n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no in sas_task.translated_metric:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or
+                        n_pre_spec == -5 or n_pre_spec == -6) and n_var_no in sas_task.translated_metric:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
                         if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and
-                                                           n_pre_spec != -4) and var_no == index:
+                                                           n_pre_spec != -4 and n_pre_spec != -5 and
+                                                           n_pre_spec != -6) and var_no == index:
                             if translation_key[var_no][pre_spec] != '<none of those>':
                                 if translation_key[var_no][pre_spec] not in node_names:
                                     node_dict[translation_key[var_no][pre_spec]] = []
@@ -601,7 +618,9 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
         for state in group:
             if isinstance(state.predicate, pddl.f_expression.Increase) or \
                     isinstance(state.predicate, pddl.f_expression.Decrease) or \
-                    isinstance(state.predicate, pddl.f_expression.Assign):
+                    isinstance(state.predicate, pddl.f_expression.Assign) or \
+                    isinstance(state.predicate, pddl.f_expression.GreaterThan) or \
+                    isinstance(state.predicate, pddl.f_expression.LessThan):
                 if isinstance(state.predicate, pddl.f_expression.Increase):
                     if "increase-" + state.predicate.fluent.symbol not in atoms_included:
                         atoms_included.append("increase-" + state.predicate.fluent.symbol)
@@ -614,6 +633,14 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                     if "assign-" + state.predicate.fluent.symbol not in atoms_included:
                         atoms_included.append("assign-" + state.predicate.fluent.symbol)
                         name = name + "assign-" + state.predicate.fluent.symbol + "_"
+                elif isinstance(state.predicate, pddl.f_expression.GreaterThan):
+                    if "gt-" + state.predicate.fluent.symbol not in atoms_included:
+                        atoms_included.append("gt-" + state.predicate.fluent.symbol)
+                        name = name + "gt-" + state.predicate.fluent.symbol + "_"
+                elif isinstance(state.predicate, pddl.f_expression.LessThan):
+                    if "lt-" + state.predicate.fluent.symbol not in atoms_included:
+                        atoms_included.append("lt-" + state.predicate.fluent.symbol)
+                        name = name + "lt-" + state.predicate.fluent.symbol + "_"
                 is_there_function_states = True
             else:
                 if len(group) == 1:
@@ -901,8 +928,8 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
         [agent_final.append(x) for x in agent if x not in agent_final]
         full_agents_final.append(agent_final)
 
-    for agent in full_agents_final:
-        agent.sort()
+    # for agent in full_agents_final:
+    #    agent.sort()
 
     return full_agents_final
 
@@ -1003,6 +1030,12 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     while len(not_jointed) != 0:
         to_remove = []
         for node in not_jointed:
+
+            remove_node = True
+            if len(propositional_casual_graph.node_list[node].arcs) == 0:
+                to_remove.append(node)
+                continue
+
             added_node = False
             for agent in joint_agents:
                 added_agent = False
@@ -1058,9 +1091,9 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
     for agent in joint_final_agents:
         agent.sort()
 
-    #joint_final_agents_return = fill_joint_agents(joint_final_agents, propositional_casual_graph, 2)
+    # joint_final_agents_return = fill_joint_agents(joint_final_agents, propositional_casual_graph, 2)
 
-    #for agent in joint_final_agents_return:
+    # for agent in joint_final_agents_return:
     #    agent.sort()
 
     return joint_final_agents
@@ -1084,7 +1117,9 @@ def fill_func_agents(joint_agents, casual_graph, depth):
         for node in casual_graph.node_list:
             if "increase" in casual_graph.node_list[node.number].name or \
                     "decrease" in casual_graph.node_list[node.number].name or \
-                    "assign" in casual_graph.node_list[node.number].name:
+                    "assign" in casual_graph.node_list[node.number].name or \
+                    "gt" in casual_graph.node_list[node.number].name or \
+                    "lt" in casual_graph.node_list[node.number].name:
                 for agent in functional_agents:
                     if node not in agent:
                         for arc in casual_graph.node_list[node.number].end_arcs:
@@ -1184,7 +1219,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                 for pre in ope.prevail:
                     if not added and agent.count(pre[0]) != 0:
                         added = True
-                        agent_actions[index].append(pre)
+                        agent_actions[index].append(ope)
 
                 index = index + 1
 
@@ -1441,7 +1476,8 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                                         new_node_subgoals.append([pre[0], pre[1]])
 
                                 for effect_2 in action.pre_post:
-                                    if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4) and \
+                                    if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4 and
+                                        effect_2[1] != -5 and effect_2[1] != -6) and \
                                             effect_2[2] != -1 and \
                                             effect_2[1] != -1 and \
                                             agent_init[effect_2[0]] != effect_2[1]:

@@ -65,7 +65,7 @@ class BalanceChecker(object):
                 new_cond = pddl.NegatedAtom("=", (param1, param2))
                 precond_parts.append(new_cond)
             precond = action.precondition.change_parts(precond_parts)
-            return pddl.Action(action.name, action.parameters, precond,
+            return pddl.Action(action.name, action.parameters, precond, action.num_condition,
                                action.effects, action.cost)
         else:
             return action
