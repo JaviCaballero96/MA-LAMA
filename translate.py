@@ -872,7 +872,7 @@ def build_implied_facts(strips_to_sas, groups, mutex_groups):
 
 
 def write_translation_key(translation_key):
-    groups_file = open("/home/javier/Desktop/planners/outPreprocess/test.groups", "w")
+    groups_file = open("test.groups", "w")
     for var_no, var_key in enumerate(translation_key):
         print("var%d:" % var_no, file=groups_file)
         for value, value_name in enumerate(var_key):
@@ -881,7 +881,7 @@ def write_translation_key(translation_key):
 
 
 def write_mutex_key(mutex_key):
-    invariants_file = open("/home/javier/Desktop/planners/outPreprocess/all.groups", "w")
+    invariants_file = open("all.groups", "w")
     print("begin_groups", file=invariants_file)
     print(len(mutex_key), file=invariants_file)
     for group in mutex_key:
@@ -941,7 +941,7 @@ def write_mutex_key(mutex_key):
 def write_mutex_keys(mutex_keys):
     index = 0
     for mutex_key in mutex_keys:
-        invariants_file = open("/home/javier/Desktop/planners/outPreprocess/agent" + str(index) + ".groups", "w")
+        invariants_file = open("agent" + str(index) + ".groups", "w")
         print("begin_groups", file=invariants_file)
         print(len(mutex_key), file=invariants_file)
         for group in mutex_key:
@@ -1015,14 +1015,14 @@ if __name__ == "__main__":
 
     sas_task, agent_tasks, groups = pddl_to_sas(snap_task)
 
-    print("Files will be stored in: /home/javier/Desktop/planners/outPreprocess")
+    print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):
-        sas_task.output(open("/home/javier/Desktop/planners/outPreprocess/output.sas", "w"), groups)
+        sas_task.output(open("output.sas", "w"), groups)
 
         agent_index = 0
         for task in agent_tasks:
             name = "agent" + str(agent_index)
-            task.outputma(open("/home/javier/Desktop/planners/outPreprocess/output_agent" + str(agent_index) + ".sas",
+            task.outputma(open("output_agent" + str(agent_index) + ".sas",
                                "w"), name, groups, agent_index)
             agent_index = agent_index + 1
 
