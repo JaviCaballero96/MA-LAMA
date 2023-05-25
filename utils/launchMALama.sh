@@ -1,5 +1,7 @@
 #bin/bash
 
+echo "Usage: launchLama.sh domain_file problem_file"
+
 echo "removing past files"
 rm -f agent*.groups
 rm -f all.groups
