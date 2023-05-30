@@ -11,7 +11,7 @@ rm -f test.groups
 rm -f *.log
 
 echo "Launching Translate"
-python3 pddl2-sas+trasnslate/translate.py $1 $2 > translate.log
+python3 pddl2-SAS-translate/translate.py $1 $2 > translate.log
 
 echo "Launching Preprocess"
 for file in output_agent*.sas
