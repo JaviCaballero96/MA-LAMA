@@ -621,7 +621,7 @@ def pddl_to_sas(task):
         assert isinstance(item, pddl.Literal)
 
     with timers.timing("Computing fact groups", block=True):
-        groups, mutex_groups, translation_key, group_const_arg = fact_groups.compute_groups(
+        groups, mutex_groups, translation_key, group_const_arg, group_const_arg_aux = fact_groups.compute_groups(
             task, atoms, functions, reachable_action_params,
             partial_encoding=USE_PARTIAL_ENCODING)
 
@@ -691,14 +691,21 @@ def pddl_to_sas(task):
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
         deepcopy(propositional_casual_graph_type1_simple1))
+    propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
+        deepcopy(propositional_casual_graph_type1))
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
+    if not origin_nodes:
+        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
+    if not origin_nodes:
+        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple3)
 
     basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
     basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
-    joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups, group_const_arg)
+    joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
+                                                      group_const_arg_aux)
     free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
     functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
     agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,

@@ -840,9 +840,9 @@ def remove_three_way_cycles(casual_graph):
                             arcs_to_remove.append(first_arc)
                             arcs_to_remove.append(second_arc)
                             arcs_to_remove.append(third_arc)
-                            casual_graph.node_list[node_number].arcs.remove(first_arc)
-                            casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
-                            casual_graph.node_list[second_arc.end_state].arcs.remove(third_arc)
+                            #casual_graph.node_list[third_arc.end_state].arcs.remove(first_arc)
+                            #casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
+                            #casual_graph.node_list[second_arc.end_state].arcs.remove(third_arc)
 
     for remove_arc in arcs_to_remove:
         for end_arc in casual_graph.node_list[remove_arc.end_state].end_arcs[:]:
@@ -951,15 +951,15 @@ def assemble_basic_agents(basic_agents, group_const_arg):
                     if agent[0] != agent_2[0]:
                         for node_2 in agent_2:
                             for node_1 in agent:
-                                if node_1 < len(group_const_arg) and node_2 < len(group_const_arg) and \
-                                        group_const_arg[node_1] == group_const_arg[node_2]:
-                                    for node in agent_2:
-                                        agent_nodes.append(node)
-                                    do_not_agent.append(agent_2[0])
+                                if node_1 < len(group_const_arg) and node_2 < len(group_const_arg):
+                                    if group_const_arg[node_1][0] in group_const_arg[node_2]:
+                                        for node in agent_2:
+                                            agent_nodes.append(node)
+                                        do_not_agent.append(agent_2[0])
                 else:
                     if agent[0] != agent_2:
                         for node_1 in agent:
-                            if node_1 < len(group_const_arg) and group_const_arg[node_1] == group_const_arg[agent_2]:
+                            if node_1 < len(group_const_arg) and group_const_arg[node_1][0] in group_const_arg[agent_2]:
                                 agent_nodes.append(agent_2)
                                 do_not_agent.append(agent_2)
         else:
@@ -972,17 +972,19 @@ def assemble_basic_agents(basic_agents, group_const_arg):
                 if type(agent_2) is list:
                     if agent != agent_2[0]:
                         for node_2 in agent_2:
-                            if node_2 < len(group_const_arg) and group_const_arg[agent] == group_const_arg[node_2]:
+                            if node_2 < len(group_const_arg) and group_const_arg[agent][0] in group_const_arg[node_2]:
                                 for node in agent_2:
                                     agent_nodes.append(node)
                                 do_not_agent.append(agent_2[0])
                 else:
                     if agent != agent_2:
-                        if group_const_arg[agent] == group_const_arg[agent_2]:
+                        if group_const_arg[agent][0] in group_const_arg[agent_2]:
                             agent_nodes.append(agent_2)
                             do_not_agent.append(agent_2)
 
-        final_basic_agents.append(agent_nodes)
+        res = []
+        [res.append(x) for x in agent_nodes if x not in res]
+        final_basic_agents.append(res)
 
     return final_basic_agents
 
@@ -1171,7 +1173,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                     for node_2 in agent_2:
                         if node == node_2:
                             if node not in agent_common_nodes:
-                                agent_common_nodes[node] = [False, False, False]
+                                agent_common_nodes[node] = [False] * len(joint_agents)
                             agent_common_nodes[node][agent_index_2] = True
                             agent_common_nodes[node][agent_index] = True
                 agent_index_2 = agent_index_2 + 1

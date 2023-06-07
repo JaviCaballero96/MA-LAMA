@@ -82,6 +82,48 @@ def obtaing_const_args_funcs(groups, arguments):
     return arguments
 
 
+def obtaing_const_args_extra(groups, arguments, reachable_facts):
+    arguments_extra = []
+    arguments_extra_list = []
+    for group in groups:
+        if not isinstance(group[0].predicate, str):
+            arguments_extra.append([group[0].predicate.fluent.symbol])
+            continue
+        cands = {}
+        to_remove = []
+        for atom in group:
+            if atom.predicate not in cands.keys():
+                cands[atom.predicate] = []
+                for arg in atom.args:
+                    cands[atom.predicate].append(arg)
+            else:
+                arg_index = 0
+                for arg in atom.args:
+                    if cands[atom.predicate][arg_index] != arg:
+                        #if arg in cands[atom.predicate]:
+                        #    cands[atom.predicate].remove(arg)
+                        if [atom.predicate, cands[atom.predicate][arg_index]] not in to_remove:
+                            to_remove.append([atom.predicate, cands[atom.predicate][arg_index]])
+                    arg_index = arg_index + 1
+
+        for arg in to_remove:
+            if arg[1] in cands[arg[0]]:
+                cands[arg[0]].remove(arg[1])
+        arguments_extra.append(cands)
+
+    for arg_group in arguments_extra:
+        arg_list = []
+        if isinstance(arg_group, list):
+            arguments_extra_list.append(arg_group)
+            continue
+        for pred, args in arg_group.items():
+            for arg in args:
+                if arg not in arg_list:
+                    arg_list.append(arg)
+        arguments_extra_list.append(arg_list)
+
+    return arguments_extra_list
+
 def instantiate_groups(groups, task, reachable_facts):
     return [expand_group(group, task, reachable_facts) for group in groups]
 
@@ -225,8 +267,9 @@ def compute_groups(task, atoms, functions, reachable_action_params, partial_enco
         mutex_groups = collect_all_mutex_groups(groups, atoms, functions)
     with timers.timing("Choosing groups", block=True):
         groups, arguments = choose_groups(groups, atoms, functions, arguments, partial_encoding=partial_encoding)
+        arguments_ex = obtaing_const_args_extra(groups, arguments, atoms)
     with timers.timing("Removing redundant functional propositions"):
         remove_func_redundant(groups, mutex_groups)
     with timers.timing("Building translation key"):
         translation_key = build_translation_key(groups)
-    return groups, mutex_groups, translation_key, arguments
+    return groups, mutex_groups, translation_key, arguments_ex, arguments
