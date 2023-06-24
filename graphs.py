@@ -1115,6 +1115,19 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
                         joint_final_agents[agent_index].append(node)
             agent_index = agent_index + 1
 
+    remaining_nodes = []
+    index = 0
+    for node in groups:
+        if isinstance(node[0].predicate, str):
+            exists = False
+            for agent in joint_final_agents:
+                if index in agent:
+                    exists = True
+
+            if not exists:
+                remaining_nodes.append(index)
+        index = index + 1
+
     for agent in joint_final_agents:
         agent.sort()
 
@@ -1278,6 +1291,15 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                         agent_actions[index].append(pre)
 
                 index = index + 1
+    not_added_third = []
+    for ope in sas_task.operators:
+        found = False
+        for agent in agent_actions:
+            if not found and agent.count(ope) != 0:
+                found = True
+                break
+        if not found:
+            not_added_third.append(ope)
 
     # Remove redundant actions in agents
     agent_actions_final = []
