@@ -937,6 +937,7 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
 def assemble_basic_agents(basic_agents, group_const_arg):
     final_basic_agents = []
     do_not_agent = []
+    inherit = {}
     for agent in basic_agents:
         agent_nodes = []
         if type(agent) is list:
@@ -956,12 +957,20 @@ def assemble_basic_agents(basic_agents, group_const_arg):
                                         for node in agent_2:
                                             agent_nodes.append(node)
                                         do_not_agent.append(agent_2[0])
+                                        if agent[0] in inherit:
+                                            inherit[agent[0]].append(agent_2[0])
+                                        else:
+                                            inherit[agent[0]] = [agent_2[0]]
                 else:
                     if agent[0] != agent_2:
                         for node_1 in agent:
                             if node_1 < len(group_const_arg) and group_const_arg[node_1][0] in group_const_arg[agent_2]:
                                 agent_nodes.append(agent_2)
                                 do_not_agent.append(agent_2)
+                                if agent[0] in inherit:
+                                    inherit[agent[0]].append(agent_2)
+                                else:
+                                    inherit[agent[0]] = [agent_2]
         else:
 
             if agent in do_not_agent:
@@ -976,15 +985,30 @@ def assemble_basic_agents(basic_agents, group_const_arg):
                                 for node in agent_2:
                                     agent_nodes.append(node)
                                 do_not_agent.append(agent_2[0])
+                                if agent in inherit:
+                                    inherit[agent].append(agent_2[0])
+                                else:
+                                    inherit[agent] = [agent_2[0]]
                 else:
                     if agent != agent_2:
                         if group_const_arg[agent][0] in group_const_arg[agent_2]:
                             agent_nodes.append(agent_2)
                             do_not_agent.append(agent_2)
+                            if agent in inherit:
+                                inherit[agent].append(agent_2)
+                            else:
+                                inherit[agent] = [agent_2]
 
         res = []
         [res.append(x) for x in agent_nodes if x not in res]
         final_basic_agents.append(res)
+
+
+    for inh, out in inherit.items():
+        for out_elem in out:
+            for arg in group_const_arg[out_elem]:
+                if arg not in group_const_arg[inh]:
+                    group_const_arg[inh].append(arg)
 
     return final_basic_agents
 
