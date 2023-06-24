@@ -705,7 +705,7 @@ def pddl_to_sas(task):
     basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
     joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
-                                                      group_const_arg_aux)
+                                                      group_const_arg)
     free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
     functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
     agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,

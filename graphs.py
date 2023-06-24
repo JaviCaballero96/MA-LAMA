@@ -1086,8 +1086,9 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
         agent_index = 0
         for agent in joint_agents:
             if node < len(group_const_arg):
-                if group_const_arg[node] == group_const_arg[agent[0]]:
-                    joint_final_agents[agent_index].append(node)
+                for arg in group_const_arg[node]:
+                    if arg in group_const_arg[agent[0]]:
+                        joint_final_agents[agent_index].append(node)
             agent_index = agent_index + 1
 
     for agent in joint_final_agents:
