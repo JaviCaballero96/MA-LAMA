@@ -85,9 +85,11 @@ def obtaing_const_args_funcs(groups, arguments):
 def obtaing_const_args_extra(groups, arguments, reachable_facts):
     arguments_extra = []
     arguments_extra_list = []
+    to_remove_list = []
     for group in groups:
         if not isinstance(group[0].predicate, str):
             arguments_extra.append([group[0].predicate.fluent.symbol])
+            to_remove_list.append([])
             continue
         cands = {}
         to_remove = []
@@ -97,30 +99,45 @@ def obtaing_const_args_extra(groups, arguments, reachable_facts):
                 for arg in atom.args:
                     cands[atom.predicate].append(arg)
             else:
-                arg_index = 0
-                for arg in atom.args:
-                    if cands[atom.predicate][arg_index] != arg:
-                        #if arg in cands[atom.predicate]:
-                        #    cands[atom.predicate].remove(arg)
-                        if [atom.predicate, cands[atom.predicate][arg_index]] not in to_remove:
-                            to_remove.append([atom.predicate, cands[atom.predicate][arg_index]])
-                    arg_index = arg_index + 1
-
-        for arg in to_remove:
-            if arg[1] in cands[arg[0]]:
-                cands[arg[0]].remove(arg[1])
+                if "_curr" in atom.predicate:
+                    for arg in atom.args:
+                        if arg not in cands[atom.predicate]:
+                            cands[atom.predicate].append(arg)
+                else:
+                    arg_index = 0
+                    for arg in atom.args:
+                        if cands[atom.predicate][arg_index] != arg:
+                            #if arg in cands[atom.predicate]:
+                            #    cands[atom.predicate].remove(arg)
+                            exists = False
+                            for elem in to_remove:
+                                if elem[0] == atom.predicate and elem[1] == arg:
+                                    exists = True
+                            if not exists:
+                                to_remove.append([atom.predicate, cands[atom.predicate][arg_index]])
+                                to_remove.append([atom.predicate, arg])
+                        arg_index = arg_index + 1
         arguments_extra.append(cands)
+        to_remove_list.append(to_remove)
 
+    group_index = 0
     for arg_group in arguments_extra:
         arg_list = []
         if isinstance(arg_group, list):
             arguments_extra_list.append(arg_group)
+            group_index = group_index + 1
             continue
         for pred, args in arg_group.items():
             for arg in args:
                 if arg not in arg_list:
                     arg_list.append(arg)
+
+        for arg in to_remove_list[group_index]:
+            if arg[1] in arg_list:
+                arg_list.remove(arg[1])
+
         arguments_extra_list.append(arg_list)
+        group_index = group_index + 1
 
     return arguments_extra_list
 
