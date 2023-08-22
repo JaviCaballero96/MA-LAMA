@@ -35,8 +35,11 @@ class Action(object):
             parameters = []
             precondition_tag_opt = parameters_tag_opt
         if precondition_tag_opt == ":precondition":
-            precondition = conditions.parse_condition(next(iterator))
+            precondition, num_condition  = conditions.parse_condition(next(iterator))
             precondition = precondition.simplified()
+            num_condition_final = []
+            for num_cond in num_condition:
+                num_condition_final.append(("no", num_cond[1]))
             effect_tag = next(iterator)
         else:
             precondition = conditions.Conjunction([])
@@ -45,12 +48,12 @@ class Action(object):
         effect_list = next(iterator)
         eff = []
         try:
-            cost = Effects.parse_effects(effect_list, eff)
+            cost = Effects.parse_effects(effect_list, eff, "no duration")
         except ValueError as e:
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
-        return Action(name, parameters, precondition, eff, cost)
+        return Action(name, parameters, precondition, num_condition_final, eff, cost)
 
     parse = staticmethod(parse)
 

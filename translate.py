@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
+import copy
 from collections import defaultdict
 from copy import deepcopy
 
@@ -678,7 +677,7 @@ def pddl_to_sas(task):
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
-                                                                    SIMPLIFIED_CASUAL_GRAPH)
+                                                                    SIMPLIFIED_CASUAL_GRAPH, task.temp_task)
 
     graphs.create_gexf_casual_graph_files(casual_graph, 0)
     graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
@@ -706,7 +705,10 @@ def pddl_to_sas(task):
     joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
     joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
                                                       group_const_arg)
-    free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
+    if free_agent_index != -1:
+        free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
+    else:
+        free_joint_agents = copy.deepcopy(joint_final_agents)
     functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
     agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
                                                                               functional_agents, casual_graph,
@@ -1018,7 +1020,10 @@ if __name__ == "__main__":
     # psyco.full()
 
     # Translate durative task to snap actions task
-    snap_task = snap_actions.task_snap_translate(durative_task)
+    if durative_task.temp_task:
+        snap_task = snap_actions.task_snap_translate(durative_task)
+    else:
+        snap_task = durative_task
 
     sas_task, agent_tasks, groups = pddl_to_sas(snap_task)
 

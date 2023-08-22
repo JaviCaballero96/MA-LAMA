@@ -600,7 +600,7 @@ def create_gexf_transition_graphs_files(dtgs, groups):
             index = index + 1
 
 
-def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, simplify):
+def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, simplify, temp_task):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
@@ -752,7 +752,7 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                 operator_index2 = operator_index2 + 1
 
             # Check for arcs of type 1 from prevail array (precondition - effect)
-            if not end_action:
+            if not end_action or not temp_task:
                 for var_no2, pre_spec2 in op.prevail:
                     if simplify:
                         arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
@@ -1058,7 +1058,7 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
         for node in not_jointed:
 
             remove_node = True
-            if len(propositional_casual_graph.node_list[node].arcs) == 0:
+            if len(propositional_casual_graph.node_list[node].end_arcs) == 0:
                 to_remove.append(node)
                 continue
 

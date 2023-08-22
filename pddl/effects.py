@@ -35,16 +35,20 @@ def parse_effects(alist, result, duration):
     """Parse a PDDL effect (any combination of simple, conjunctive, conditional, and universal)."""
     tmp_effect = parse_effect(alist)
     normalized = tmp_effect.normalize()
-    tmp_info = parse_temp_info(alist)
-    cost_eff, rest_effect = normalized.extract_cost(tmp_info)
-    # Add total time effect
-    time_effect = pddl.effects.CostEffect(pddl.f_expression.parse_assignment(["increase", "total-time",
+    if "no duration" != duration:
+        tmp_info = parse_temp_info(alist)
+        cost_eff, rest_effect = normalized.extract_cost(tmp_info)
+        # Add total time effect
+        time_effect = pddl.effects.CostEffect(pddl.f_expression.parse_assignment(["increase", "total-time",
                                                                               duration.expression]))
-    time_effect.tmp = "end"
+        time_effect.tmp = "end"
 
-    cost_eff.append(time_effect)
+        cost_eff.append(time_effect)
 
-    add_effect(rest_effect, result)
+        add_effect(rest_effect, result, True)
+    else:
+        cost_eff, rest_effect = normalized.extract_cost_no_temp()
+        add_effect(rest_effect, result, False)
 
     # Add cost effects
     for cost_effect in cost_eff:
@@ -57,13 +61,13 @@ def parse_effects(alist, result, duration):
         return None
 
 
-def add_effect(tmp_effect, result):
+def add_effect(tmp_effect, result, temp_task):
     """tmp_effect has the following structure:
        [ConjunctiveEffect] [UniversalEffect] [ConditionalEffect] SimpleEffect."""
 
     if isinstance(tmp_effect, ConjunctiveEffect):
         for effect in tmp_effect.effects:
-            add_effect(effect, result)
+            add_effect(effect, result, temp_task)
         return
     else:
         parameters = []
@@ -88,7 +92,8 @@ def add_effect(tmp_effect, result):
         # Check for contradictory effects
         condition = condition.simplified()
         new_effect = Effect(parameters, condition, effect)
-        new_effect.tmp = tmp_effect.tmp
+        if temp_task:
+            new_effect.tmp = tmp_effect.tmp
         contradiction = Effect(parameters, condition, effect.negate())
         if not contradiction in result:
             result.append(new_effect)
@@ -96,8 +101,11 @@ def add_effect(tmp_effect, result):
             # We use add-after-delete semantics, keep positive effect
             if isinstance(contradiction.literal, conditions.NegatedAtom):
                 index = result.index(contradiction)
-                if result[index].tmp == new_effect.tmp:
-                    result.remove(contradiction)
+                if temp_task:
+                    if result[index].tmp == new_effect.tmp:
+                        result.remove(contradiction)
+                    else:
+                        result.remove(contradiction)
                 result.append(new_effect)
 
 
@@ -298,6 +306,18 @@ class ConjunctiveEffect(object):
         index = 0
         for effect in self.effects:
             effect.tmp = tmp_info[index]
+            if isinstance(effect, CostEffect):
+                cost_effects.append(effect)
+            else:
+                new_effects.append(effect)
+            index = index + 1
+        return cost_effects, ConjunctiveEffect(new_effects)
+
+    def extract_cost_no_temp(self):
+        new_effects = []
+        cost_effects = []
+        index = 0
+        for effect in self.effects:
             if isinstance(effect, CostEffect):
                 cost_effects.append(effect)
             else:

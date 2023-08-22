@@ -12,7 +12,7 @@ def parse_condition(alist):
     # (which would be a bug).
 
     condition.uniquify_variables({})
-    return condition
+    return condition, num_condition
 
 
 def parse_durative_condition(alist):
@@ -42,6 +42,8 @@ def parse_condition_aux(alist, negated):
             return pddl.f_expression.PrimitiveNumericExpression(alist[2][0], alist[2][1:])
         else:
             return Atom(alist[2][0], alist[2][1:])
+    elif tag in (">", "<", ">=", "<="):
+        return pddl.f_expression.PrimitiveNumericExpression(alist[0], alist[1:])
     elif tag in ("forall", "exists"):
         parameters = pddl_types.parse_typed_list(alist[1])
         args = alist[2:]

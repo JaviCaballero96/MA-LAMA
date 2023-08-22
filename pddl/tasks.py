@@ -1,4 +1,4 @@
-#from . import actions
+from . import actions
 from . import durative_actions
 from . import axioms
 from . import conditions
@@ -9,11 +9,12 @@ from . import f_expression
 
 class Task(object):
     FUNCTION_SYMBOLS = dict()
-    def __init__(self, domain_name, task_name, requirements,
+    def __init__(self, domain_name, task_name, requirements, temp_task,
                  types, objects, predicates, functions, init, goal, actions, axioms, metric):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
+        self.temp_task = temp_task
         self.types = types
         self.objects = objects
         self.predicates = predicates
@@ -34,14 +35,14 @@ class Task(object):
         return axiom
 
     def parse(domain_pddl, task_pddl):
-        domain_name, requirements, types, constants, predicates, functions, actions, axioms \
+        domain_name, requirements, temp_task, types, constants, predicates, functions, actions, axioms \
                      = parse_domain(domain_pddl)
         task_name, task_domain_name, objects, init, goal, use_metric = parse_task(task_pddl)
 
         assert domain_name == task_domain_name
         objects = constants + objects
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
-        return Task(domain_name, task_name, requirements, types, objects,
+        return Task(domain_name, task_name, requirements, temp_task, types, objects,
                     predicates, functions, init, goal, actions, axioms, use_metric)
     parse = staticmethod(parse)
 
@@ -102,6 +103,11 @@ def parse_domain(domain_pddl):
         yield Requirements([":strips"])
         opt_types = opt_requirements
 
+    temp_task = False
+    if ":durative-actions" in opt_requirements:
+        temp_task = True
+    yield temp_task
+
     the_types = [pddl_types.Type("object")]
     if opt_types[0] == ":types":
         the_types.extend(pddl_types.parse_typed_list(opt_types[1:],
@@ -136,9 +142,10 @@ def parse_domain(domain_pddl):
     if opt_functions[0] == ":functions":
         the_functions = pddl_types.parse_typed_list(opt_functions[1:],
                                                     constructor=functions.Function.parse_typed, functions=True)
-        # add total-time function
-        total_time_func = functions.Function.parse_typed(["total-time"], "number")
-        the_functions.append(total_time_func)
+        if temp_task:
+            # add total-time function
+            total_time_func = functions.Function.parse_typed(["total-time"], "number")
+            the_functions.append(total_time_func)
         for function in the_functions:
             Task.FUNCTION_SYMBOLS[function.name] = function.type
         yield the_functions
@@ -152,15 +159,25 @@ def parse_domain(domain_pddl):
     entries = [first_durative_action] + [entry for entry in iterator]
     the_axioms = []
     the_durative_actions = []
-    for entry in entries:
-        if entry[0] == ":derived":
-            axiom = axioms.Axiom.parse(entry)
-            the_axioms.append(axiom)
-        else:
-
-            durative_action = durative_actions.DurativeAction.parse(entry)
-            the_durative_actions.append(durative_action)
-    yield the_durative_actions
+    the_actions = []
+    if temp_task:
+        for entry in entries:
+            if entry[0] == ":derived":
+                axiom = axioms.Axiom.parse(entry)
+                the_axioms.append(axiom)
+            else:
+                durative_action = durative_actions.DurativeAction.parse(entry)
+                the_durative_actions.append(durative_action)
+        yield the_durative_actions
+    else:
+        for entry in entries:
+            if entry[0] == ":derived":
+                axiom = axioms.Axiom.parse(entry)
+                the_axioms.append(axiom)
+            else:
+                action = actions.Action.parse(entry)
+                the_actions.append(action)
+        yield the_actions
     yield the_axioms
 
     #entries = [first_action] + [entry for entry in iterator]
@@ -215,7 +232,8 @@ def parse_task(task_pddl):
 
     goal = next(iterator)
     assert goal[0] == ":goal" and len(goal) == 2
-    yield conditions.parse_condition(goal[1])
+    goal_aux = conditions.parse_condition(goal[1])
+    yield goal_aux[0]
 
     metric = []
     for entry in iterator:

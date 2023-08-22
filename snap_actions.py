@@ -22,7 +22,7 @@ def task_snap_translate(task):
     end_actions = obtain_end_snap_actions(task.actions)
     all_actions = start_actions + end_actions
 
-    return tasks.Task(task.domain_name, task.task_name, task.requirements, task.types, task.objects,
+    return tasks.Task(task.domain_name, task.task_name, task.requirements, task.temp_task, task.types, task.objects,
                       new_predicates, task.functions, task.init, task.goal, all_actions, task.axioms,
                       task.metric)
 
