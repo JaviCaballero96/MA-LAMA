@@ -694,56 +694,97 @@ def pddl_to_sas(task):
         deepcopy(propositional_casual_graph_type1))
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
-    origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
-    if not origin_nodes:
-        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
-    if not origin_nodes:
-        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple3)
+    agent_error = False
+    try:
+        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
+        if not origin_nodes:
+            origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
+        if not origin_nodes:
+            origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple3)
 
-    basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
-    basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
-    joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
-    joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
-                                                      group_const_arg)
-    if free_agent_index != -1:
-        free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
-    else:
-        free_joint_agents = copy.deepcopy(joint_final_agents)
-    functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
-    agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
-                                                                              functional_agents, casual_graph,
-                                                                              sas_task, groups)
-    agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
-    agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
-    agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
-                                            casual_graph, sas_task, groups)
+        basic_agents = []
+        if origin_nodes:
+            basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
+        else:
+            agent_error = True
+        if basic_agents:
+            basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
+        else:
+            agent_error = True
 
-    # Create new tasks
-    agent_tasks = []
-    agent_index = 0
-    for _ in basic_agents:
+        joint_agents = []
+        if basic_agents:
+            joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
+        else:
+            agent_error = True
 
-        if len(agents_goals[agent_index]) == 0:
-            agent_index = agent_index + 1
-            continue
+        joint_final_agents = []
+        if joint_agents:
+            joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
+                                                              group_const_arg)
+        else:
+            agent_error = True
 
-        axiom_layers = [-1] * len(functional_agents[agent_index])
-        vars = {}
-        for var in functional_agents[agent_index]:
-            vars[var] = len(groups[var])
-        variables = sas_tasks.SASVariables(vars, axiom_layers)
-        init = sas_tasks.SASInit(agents_init[agent_index])
-        goal = sas_tasks.SASGoal(agents_goals[agent_index])
+        free_joint_agents = []
+        if joint_final_agents:
+            if free_agent_index != -1:
+                free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
+            else:
+                free_joint_agents = copy.deepcopy(joint_final_agents)
+        else:
+            agent_error = True
 
-        new_task = sas_tasks.SASTask(variables, init,
-                                     goal, agents_actions[agent_index], [],
-                                     agents_metric[agent_index], shared_nodes)
+        functional_agents = []
+        if free_joint_agents:
+            functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
+        else:
+            agent_error = True
 
-        agent_tasks.append(new_task)
-        agent_index = agent_index + 1
+        if free_joint_agents:
+            agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
+                                                                                      functional_agents, casual_graph,
+                                                                                      sas_task, groups)
+            agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
+            agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
+            agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
+                                                    casual_graph, sas_task, groups)
 
-    mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, agent_tasks)
-    write_mutex_keys(mutex_keys)
+            # Create new tasks
+            agent_tasks = []
+            agent_index = 0
+            for _ in basic_agents:
+
+                if len(agents_goals[agent_index]) == 0:
+                    agent_index = agent_index + 1
+                    continue
+
+                axiom_layers = [-1] * len(functional_agents[agent_index])
+                vars = {}
+                for var in functional_agents[agent_index]:
+                    vars[var] = len(groups[var])
+                variables = sas_tasks.SASVariables(vars, axiom_layers)
+                init = sas_tasks.SASInit(agents_init[agent_index])
+                goal = sas_tasks.SASGoal(agents_goals[agent_index])
+
+                new_task = sas_tasks.SASTask(variables, init,
+                                             goal, agents_actions[agent_index], [],
+                                             agents_metric[agent_index], shared_nodes)
+
+                agent_tasks.append(new_task)
+                agent_index = agent_index + 1
+
+            mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, agent_tasks)
+            write_mutex_keys(mutex_keys)
+        else:
+            agent_error = True
+    except RuntimeError:
+        agent_error = True
+        pass
+
+    if agent_error:
+        mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, [sas_task])
+        write_mutex_keys(mutex_keys)
+        agent_tasks = []
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
     fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
@@ -818,6 +859,15 @@ def build_mutex_key(strips_to_sas, groups):
 def build_mutex_keys(strips_to_sas, groups, tasks):
     mutex_keys = []
     for task in tasks:
+
+        aux = {}
+        if isinstance(task.variables.ranges, list):
+            index = 0
+            for var in task.variables.ranges:
+                aux[index] = task.variables.ranges[index]
+                index = index + 1
+            task.variables.ranges = aux
+
         group_keys = []
         for group in groups:
             group_key = []
@@ -1026,6 +1076,9 @@ if __name__ == "__main__":
         snap_task = durative_task
 
     sas_task, agent_tasks, groups = pddl_to_sas(snap_task)
+
+    if not agent_tasks:
+        agent_tasks.append(sas_task)
 
     print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):

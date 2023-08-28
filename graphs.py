@@ -934,10 +934,20 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
     return full_agents_final
 
 
-def assemble_basic_agents(basic_agents, group_const_arg):
+def assemble_basic_agents(old_basic_agents, old_group_const_arg):
     final_basic_agents = []
     do_not_agent = []
     inherit = {}
+
+    basic_agents = []
+    group_const_arg = []
+    index = 0
+    for agent in old_basic_agents:
+        if old_group_const_arg[index]:
+            basic_agents.append(agent)
+            group_const_arg.append(old_group_const_arg[index])
+        index = index + 1
+
     for agent in basic_agents:
         agent_nodes = []
         if type(agent) is list:
