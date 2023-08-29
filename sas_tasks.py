@@ -43,8 +43,7 @@ class SASTask:
             for me in self.metric[1:]:
                 print(str(me) + " ", file=stream)
             print(")", file=stream)
-        else:
-            print("end", file=stream)
+        print("end", file=stream)
         print("end_metric", file=stream)
         self.variables.output(stream, groups)
         self.init.output(stream)
