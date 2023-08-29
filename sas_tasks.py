@@ -43,6 +43,8 @@ class SASTask:
             for me in self.metric[1:]:
                 print(str(me) + " ", file=stream)
             print(")", file=stream)
+        else:
+            print("end", file=stream)
         print("end_metric", file=stream)
         self.variables.output(stream, groups)
         self.init.output(stream)
@@ -62,6 +64,8 @@ class SASTask:
                         break
                     index = index + 1
                 print(str(me) + " " + str(index), file=stream)
+        else:
+            print("0", file=stream)
         print("end_shared", file=stream)
         print("begin_goal", file=stream)
         print(len(self.goal.pairs), file=stream)
