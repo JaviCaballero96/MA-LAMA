@@ -1027,6 +1027,10 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
     joint_agents = copy.deepcopy(basic_agents)
     not_jointed = []
 
+    # All nodes in the propositional graph are analyzed:
+    #   if a node is a child of a member of an agent, the node is added to that agent
+    #   before adding it, if that node already exists iin other agent, the node is not added to neither
+    #   and it will analyzed in next steps
     for _ in range(depth):
         for agent in joint_agents:
             agent_additions = []

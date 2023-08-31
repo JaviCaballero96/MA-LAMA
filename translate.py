@@ -722,6 +722,7 @@ def pddl_to_sas(task):
         if joint_agents:
             joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
                                                               group_const_arg)
+            joint_final_agents = [ele for ele in joint_final_agents if ele != []]
         else:
             agent_error = True
 
@@ -777,7 +778,7 @@ def pddl_to_sas(task):
             write_mutex_keys(mutex_keys)
         else:
             agent_error = True
-    except RuntimeError:
+    except Exception:
         agent_error = True
         pass
 
