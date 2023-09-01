@@ -1423,10 +1423,16 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     for _ in joint_agents:
         metric_total_agent.append(0)
 
+    correct_assignment = True
     for goal_estimations in estimations_agent_goals:
         min_vals = []
         agent_index = 0
+        goal_reachable = False
         for agent_estimations in goal_estimations:
+            if agent_estimations:
+                goal_reachable = True
+            else:
+                continue
             if not agent_estimations:
                 min_value = 99999
             else:
@@ -1436,6 +1442,10 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
                         min_value = node.estimated_metric
             min_vals.append(min_value)
             agent_index = agent_index + 1
+
+        if not goal_reachable:
+            correct_assignment = False
+            break
 
         # Assign goal
         estimations = []
@@ -1450,7 +1460,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
         goal_index = goal_index + 1
 
-    return agent_goals
+    return agent_goals, correct_assignment
 
 
 def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents, agents_actions, agents_metric,
