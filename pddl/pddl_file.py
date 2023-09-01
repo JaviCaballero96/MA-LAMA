@@ -20,13 +20,17 @@ def parse_pddl_file(filetype, filename):
 
 def open_pddl_file(task_filename=None, domain_filename=None):
     if task_filename is None:
-        if len(sys.argv) not in (2, 3):
+        if len(sys.argv) not in (2, 4):
             raise SystemExit("Error: Need exactly one or two command line arguments.\n"
-                             "Usage: %s [<domain.pddl>] <task.pddl>" % sys.argv[0])
+                             "Usage: %s [<domain.pddl>] <task.pddl> time_to_search" % sys.argv[0])
 
-        task_filename = sys.argv[-1]
-        if len(sys.argv) == 3:
+        time_value = 0
+        task_filename = sys.argv[-2]
+        if len(sys.argv) == 4:
             domain_filename = sys.argv[1]
+            time_value = sys.argv[3]
+        else:
+            time_value = sys.argv[2]
 
     if not domain_filename:
         dirname, basename = os.path.split(task_filename)
@@ -45,7 +49,7 @@ def open_pddl_file(task_filename=None, domain_filename=None):
 
     domain_pddl = parse_pddl_file("domain", domain_filename)
     task_pddl = parse_pddl_file("task", task_filename)
-    return tasks.Task.parse(domain_pddl, task_pddl)
+    return tasks.Task.parse(domain_pddl, task_pddl), time_value
 
 if __name__ == "__main__":
     open_pddl_file().dump()
