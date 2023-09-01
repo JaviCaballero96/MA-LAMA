@@ -1382,7 +1382,7 @@ def fill_agents_init(joint_agents, functional_agents, sas_task):
 
 
 def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init, casual_graph,
-                      sas_task, groups):
+                      sas_task, groups, time_value):
     agent_goals = []
     goals_to_analyze = []
 
@@ -1414,7 +1414,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
     estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, joint_agents, functional_agents,
                                                         agents_actions, agents_metric, agents_init, casual_graph,
-                                                        sas_task, groups)
+                                                        sas_task, groups, time_value)
 
     # Now the calculated objectives will be assigned
     goal_index = 0
@@ -1454,7 +1454,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
 
 def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents, agents_actions, agents_metric,
-                              agents_init, casual_graph, sas_task, groups):
+                              agents_init, casual_graph, sas_task, groups, time_value):
     analyzed_agent_goals = []
     goal_index = 0
 
@@ -1494,7 +1494,7 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
 
             max_cost = 9999999
 
-            while search_queue and time.time() < timeout_start + 1:
+            while search_queue and time.time() < timeout_start + int(time_value):
                 (node, h_node) = search_queue.pop(0)
 
                 # Check if the agent has a pending to start action

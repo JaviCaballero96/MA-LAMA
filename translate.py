@@ -603,7 +603,7 @@ def unsolvable_sas_task(msg):
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [])
 
 
-def pddl_to_sas(task):
+def pddl_to_sas(task, time_value):
     with timers.timing("Instantiating", block=True):
         (relaxed_reachable, atoms, functions, actions, axioms,
          reachable_action_params) = instantiate.explore(task)
@@ -748,7 +748,7 @@ def pddl_to_sas(task):
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
             agents_goals = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
-                                                    casual_graph, sas_task, groups)
+                                                    casual_graph, sas_task, groups, time_value)
 
             # Create new tasks
             agent_tasks = []
@@ -1064,7 +1064,7 @@ if __name__ == "__main__":
 
     timer = timers.Timer()
     with timers.timing("Parsing"):
-        durative_task = pddl.open_pddl_file()
+        durative_task, time_value = pddl.open_pddl_file()
 
     # EXPERIMENTAL!
     # import psyco
@@ -1076,7 +1076,7 @@ if __name__ == "__main__":
     else:
         snap_task = durative_task
 
-    sas_task, agent_tasks, groups = pddl_to_sas(snap_task)
+    sas_task, agent_tasks, groups = pddl_to_sas(snap_task, time_value)
 
     if not agent_tasks:
         agent_tasks.append(sas_task)
