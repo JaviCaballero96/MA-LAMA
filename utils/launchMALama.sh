@@ -1,6 +1,6 @@
 #bin/bash
 
-echo "Usage: launchLama.sh domain_file problem_file"
+echo "Usage: launchLama.sh domain_file problem_file time_search"
 
 echo "removing past files"
 rm -f agent*.groups
@@ -11,7 +11,7 @@ rm -f test.groups
 rm -f *.log
 
 echo "Launching Translate"
-python3 pddl2-SAS-translate/translate.py $1 $2 > translate.log
+python3 pddl2-SAS-translate/translate.py $1 $2 $3> translate.log
 
 echo "Launching Preprocess"
 for file in output_agent*.sas
