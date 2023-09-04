@@ -748,7 +748,7 @@ def pddl_to_sas(task, time_value):
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
             agents_goals, correct_assignment = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
-                                                    casual_graph, sas_task, groups, time_value)
+                                                    casual_graph, sas_task, groups, time_value, task.temp_task)
             agent_error = not correct_assignment
 
             # Create new tasks

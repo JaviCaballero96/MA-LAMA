@@ -962,8 +962,8 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                     if agent[0] != agent_2[0]:
                         for node_2 in agent_2:
                             for node_1 in agent:
-                                if node_1 < len(group_const_arg) and node_2 < len(group_const_arg):
-                                    if group_const_arg[node_1][0] in group_const_arg[node_2]:
+                                if node_1 < len(old_group_const_arg) and node_2 < len(old_group_const_arg):
+                                    if old_group_const_arg[node_1][0] in old_group_const_arg[node_2]:
                                         for node in agent_2:
                                             agent_nodes.append(node)
                                         do_not_agent.append(agent_2[0])
@@ -974,7 +974,7 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                 else:
                     if agent[0] != agent_2:
                         for node_1 in agent:
-                            if node_1 < len(group_const_arg) and group_const_arg[node_1][0] in group_const_arg[agent_2]:
+                            if node_1 < len(old_group_const_arg) and old_group_const_arg[node_1][0] in old_group_const_arg[agent_2]:
                                 agent_nodes.append(agent_2)
                                 do_not_agent.append(agent_2)
                                 if agent[0] in inherit:
@@ -991,7 +991,7 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                 if type(agent_2) is list:
                     if agent != agent_2[0]:
                         for node_2 in agent_2:
-                            if node_2 < len(group_const_arg) and group_const_arg[agent][0] in group_const_arg[node_2]:
+                            if node_2 < len(old_group_const_arg) and old_group_const_arg[agent][0] in old_group_const_arg[node_2]:
                                 for node in agent_2:
                                     agent_nodes.append(node)
                                 do_not_agent.append(agent_2[0])
@@ -1001,7 +1001,7 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                                     inherit[agent] = [agent_2[0]]
                 else:
                     if agent != agent_2:
-                        if group_const_arg[agent][0] in group_const_arg[agent_2]:
+                        if old_group_const_arg[agent][0] in old_group_const_arg[agent_2]:
                             agent_nodes.append(agent_2)
                             do_not_agent.append(agent_2)
                             if agent in inherit:
@@ -1016,9 +1016,9 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
 
     for inh, out in inherit.items():
         for out_elem in out:
-            for arg in group_const_arg[out_elem]:
-                if arg not in group_const_arg[inh]:
-                    group_const_arg[inh].append(arg)
+            for arg in old_group_const_arg[out_elem]:
+                if arg not in old_group_const_arg[inh]:
+                    old_group_const_arg[inh].append(arg)
 
     return final_basic_agents
 
@@ -1357,8 +1357,9 @@ def fill_agents_metric(joint_agents, functional_agents, sas_task):
                 agent_metrics[index].append(metr)
             index = index + 1
 
-    for agent in agent_metrics:
-        agent.insert(0, sas_task.metric[0])
+    if sas_task.metric:
+        for agent in agent_metrics:
+            agent.insert(0, sas_task.metric[0])
 
     return agent_metrics
 
@@ -1382,7 +1383,7 @@ def fill_agents_init(joint_agents, functional_agents, sas_task):
 
 
 def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init, casual_graph,
-                      sas_task, groups, time_value):
+                      sas_task, groups, time_value, temp_task):
     agent_goals = []
     goals_to_analyze = []
 
@@ -1412,9 +1413,9 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             un_goals_to_analyze.append(goal)
 
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
-    estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, joint_agents, functional_agents,
-                                                        agents_actions, agents_metric, agents_init, casual_graph,
-                                                        sas_task, groups, time_value)
+    estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, functional_agents,
+                                                        agents_actions, agents_metric, agents_init,
+                                                        sas_task, groups, time_value, temp_task)
 
     # Now the calculated objectives will be assigned
     goal_index = 0
@@ -1431,8 +1432,6 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
         for agent_estimations in goal_estimations:
             if agent_estimations:
                 goal_reachable = True
-            else:
-                continue
             if not agent_estimations:
                 min_value = 99999
             else:
@@ -1463,8 +1462,8 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     return agent_goals, correct_assignment
 
 
-def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents, agents_actions, agents_metric,
-                              agents_init, casual_graph, sas_task, groups, time_value):
+def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_actions, agents_metric,
+                              agents_init, sas_task, groups, time_value, temp_task):
     analyzed_agent_goals = []
     goal_index = 0
 
@@ -1489,13 +1488,14 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
 
             agent_sol_estimations.append([])
             agent_actions = agents_actions[agent_index]
-            agent_metric = agents_metric[agent_index]
-            agent_init = copy.deepcopy(agents_init[agent_index])
-            joint_agent = joint_agents[agent_index]
 
-            estimated_metric = 0
+            plan_length_metric = False
+            agent_metric = agents_metric[agent_index]
+            if not agent_metric:
+                plan_length_metric = True
+            agent_init = copy.deepcopy(agents_init[agent_index])
+
             search_queue = []
-            solutions = []
             init_node = EstimatedMetricNode([], agent_init, 0, [goal])
             search_queue.append((init_node, 0))
 
@@ -1508,26 +1508,29 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                 (node, h_node) = search_queue.pop(0)
 
                 # Check if the agent has a pending to start action
-                last_action_end = False
+                if temp_task:
+                    last_action_end = False
+                else:
+                    last_action_end = True
                 if node.app_actions:
                     last_action_name = node.app_actions[-1].name
-                    if "_end " in last_action_name:
+                    if temp_task and "_end " in last_action_name:
                         last_action_end = True
 
                 # Search actions that can set the state "node"
                 for action in agent_actions:
                     added = False
                     if node.app_actions:
-                        if last_action_end and "_end " in action.name:
+                        if temp_task and last_action_end and "_end " in action.name:
                             continue
-                        if not last_action_end and "_start " in action.name:
+                        if temp_task and not last_action_end and "_start " in action.name:
                             continue
                     for effect in action.pre_post:
                         for pending_subgoal in node.pending_additions:
                             if effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
 
-                                new_action_name = "_".join(
-                                    (((((action.name.split(" "))[0]).split("("))[1]).split("_"))[:-1])
+                                # new_action_name = "_".join(
+                                #    (((((action.name.split(" "))[0]).split("("))[1]).split("_"))[:-1])
 
                                 # Create new current state for the new nodes
                                 new_node_state = copy.deepcopy(node.curr_state)
@@ -1537,7 +1540,10 @@ def fill_complex_agents_goals(goals_to_analyze, joint_agents, functional_agents,
                                 # create a new state with all preconditions not met
                                 # and add it to the queue
 
-                                new_node_cost = copy.deepcopy(node.estimated_metric + action.cost)
+                                if plan_length_metric:
+                                    new_node_cost = copy.deepcopy(node.estimated_metric + 1)
+                                else:
+                                    new_node_cost = copy.deepcopy(node.estimated_metric + action.cost)
                                 new_node_actions = copy.deepcopy(node.app_actions)
                                 new_node_actions.append(action)
 
