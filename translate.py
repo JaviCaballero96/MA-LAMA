@@ -14,6 +14,9 @@ import timers
 import snap_actions
 import graphs
 import os
+import logging
+
+logger = logging.getLogger()
 
 # TODO: The translator may generate trivial derived variables which are always true,
 # for example if there ia a derived predicate in the input that only depends on
@@ -744,7 +747,7 @@ def pddl_to_sas(task, time_value):
         if free_joint_agents:
             agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
                                                                                       functional_agents, casual_graph,
-                                                                                      sas_task, groups)
+                                                                                      sas_task, groups, task.temp_task)
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
             agents_goals, correct_assignment = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
@@ -779,7 +782,8 @@ def pddl_to_sas(task, time_value):
             write_mutex_keys(mutex_keys)
         else:
             agent_error = True
-    except Exception:
+    except Exception as e:
+        logger.exception(str(e))
         agent_error = True
         pass
 

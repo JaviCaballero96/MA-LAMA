@@ -1203,7 +1203,7 @@ def fill_func_agents(joint_agents, casual_graph, depth):
     return functional_agents_final
 
 
-def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_graph, sas_task, groups):
+def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_graph, sas_task, groups, temp_task):
     agent_actions = []
     not_added = []
 
@@ -1264,7 +1264,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
             for agent in joint_agents:
                 added = False
                 for eff in ope.pre_post:
-                    if eff[0] == 0:
+                    if eff[0] == 0 and temp_task:
                         continue
                     if not added and agent.count(eff[0]) != 0:
                         added = True
@@ -1293,7 +1293,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
             for agent in full_func_agents:
                 added = False
                 for eff in ope.pre_post:
-                    if eff[0] == 0:
+                    if eff[0] == 0 and temp_task:
                         continue
                     if not added and agent.count(eff[0]) != 0:
                         added = True
@@ -1302,7 +1302,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                 for pre in ope.prevail:
                     if not added and agent.count(pre[0]) != 0:
                         added = True
-                        agent_actions[index].append(pre)
+                        agent_actions[index].append(ope)
 
                 index = index + 1
     not_added_third = []
@@ -1322,7 +1322,32 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         [agent_final.append(x) for x in agent if x not in agent_final]
         agent_actions_final.append(agent_final)
 
-    # cosas por determinar
+    # obtain invalid actions and remove them for each agent
+    actions_to_remove = []
+    agent_index = 0
+    for agent_ac in agent_actions_final:
+        agent_rem = []
+        for ope in agent_ac:
+            to_remove = False
+            for eff in ope.pre_post:
+                if not to_remove and full_func_agents[agent_index].count(eff[0]) == 0:
+                    to_remove = True
+                    agent_rem.append(ope)
+            for pre in ope.prevail:
+                if not to_remove and full_func_agents[agent_index].count(pre[0]) == 0:
+                    to_remove = True
+                    agent_rem.append(ope)
+        actions_to_remove.append(agent_rem)
+        agent_index = agent_index + 1
+
+    agent_index = 0
+    for acs_to_remove in actions_to_remove:
+        for ac_to_remove in acs_to_remove:
+            if ac_to_remove in agent_actions_final[agent_index]:
+                agent_actions_final[agent_index].remove(ac_to_remove)
+        agent_index = agent_index + 1
+
+    # actions that intersec between the agents
     for node, agents_com in agent_common_nodes.items():
         index = 0
         for exists_in_agent in agents_com:
