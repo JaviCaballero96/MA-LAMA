@@ -1083,12 +1083,16 @@ if __name__ == "__main__":
 
     sas_task, agent_tasks, groups = pddl_to_sas(snap_task, time_value)
 
-    if not agent_tasks:
-        agent_tasks.append(sas_task)
-
     print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):
         sas_task.output(open("output.sas", "w"), groups)
+
+        if not agent_tasks:
+            if sas_task.translated_metric:
+                agent_tasks.append(sas_task)
+                agent_tasks[0].metric = [agent_tasks[0].metric[0]]
+                for metr in sas_task.translated_metric:
+                    agent_tasks[0].metric.append(metr)
 
         agent_index = 0
         for task in agent_tasks:
