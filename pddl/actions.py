@@ -35,7 +35,7 @@ class Action(object):
             parameters = []
             precondition_tag_opt = parameters_tag_opt
         if precondition_tag_opt == ":precondition":
-            precondition, num_condition  = conditions.parse_condition(next(iterator))
+            precondition, num_condition = conditions.parse_condition(next(iterator))
             precondition = precondition.simplified()
             num_condition_final = []
             for num_cond in num_condition:

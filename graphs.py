@@ -1437,6 +1437,10 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
         if goal not in un_goals_to_analyze:
             un_goals_to_analyze.append(goal)
 
+    correct_assignment = True
+    if not un_goals_to_analyze:
+        correct_assignment = False
+
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
     estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, functional_agents,
                                                         agents_actions, agents_metric, agents_init,
@@ -1449,7 +1453,6 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     for _ in joint_agents:
         metric_total_agent.append(0)
 
-    correct_assignment = True
     for goal_estimations in estimations_agent_goals:
         min_vals = []
         agent_index = 0
