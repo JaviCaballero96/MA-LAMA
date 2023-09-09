@@ -1088,8 +1088,8 @@ if __name__ == "__main__":
         sas_task.output(open("output.sas", "w"), groups)
 
         if not agent_tasks:
+            agent_tasks.append(sas_task)
             if sas_task.translated_metric:
-                agent_tasks.append(sas_task)
                 agent_tasks[0].metric = [agent_tasks[0].metric[0]]
                 for metr in sas_task.translated_metric:
                     agent_tasks[0].metric.append(metr)
