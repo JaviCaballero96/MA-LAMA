@@ -195,9 +195,9 @@ class Rule:
 
     def rename_duplicate_variables(self):
         new_conditions = []
-        self.effect = self._rename_duplicate_variables(self.effect, new_conditions)
-        for condition in self.conditions:
-            condition = self._rename_duplicate_variables(condition, new_conditions)
+        # self.effect = self._rename_duplicate_variables(self.effect, new_conditions)
+        # for condition in self.conditions:
+        #    condition = self._rename_duplicate_variables(condition, new_conditions)
         self.conditions += new_conditions
         return bool(new_conditions)
 
