@@ -657,17 +657,19 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
         new_cost = ""
         runtime_cost = False
         for var, pre, post, cond in op.pre_post:
-            if isinstance(post, list) and isinstance(post[0], str):
+            if isinstance(post, list) and isinstance(post[0], str) and pre == -2:
                 for elem in metric:
                     if not isinstance(elem, str):
                         if elem.symbol == "*" or elem.symbol == "/" or elem.symbol == "+" or elem.symbol == "-":
-                            aux_obj = pddl.f_expression.PrimitiveNumericExpression(elem.args[1].name, [k.name for k in elem.args[1].args])
+                            aux_obj = pddl.f_expression.PrimitiveNumericExpression(elem.args[1].name,
+                                                                                   [k.name for k in elem.args[1].args])
                             flu_name = str(aux_obj)
                             if flu_name in dict_fluents_in_runtime:
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
                                     runtime_cost = True
-                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + post[0] + ")+" + new_cost
+                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" +\
+                                               post[0] + ")+" + new_cost
 
                         else:
                             flu_name = str(elem)
@@ -676,8 +678,25 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                                 if group_number == var:
                                     runtime_cost = True
                                     new_cost = post[0] + "+" + new_cost
-            elif isinstance(post, list):
-                new_cost = str(post[0]) + "+" + new_cost
+            elif isinstance(post, list) and pre == -2:
+                for elem in metric:
+                    if not isinstance(elem, str):
+                        if elem.symbol == "*" or elem.symbol == "/" or elem.symbol == "+" or elem.symbol == "-":
+                            aux_obj = pddl.f_expression.PrimitiveNumericExpression(elem.args[1].name,
+                                                                                   [k.name for k in elem.args[1].args])
+                            flu_name = str(aux_obj)
+                            if flu_name in dict_fluents_in_runtime:
+                                group_number = dict_fluents_in_runtime[flu_name]
+                                if group_number == var:
+                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" +\
+                                               str(post[0]) + ")+" + new_cost
+
+                        else:
+                            flu_name = str(elem)
+                            if flu_name in dict_fluents_in_runtime:
+                                group_number = dict_fluents_in_runtime[flu_name]
+                                if group_number == var:
+                                    new_cost = str(post[0]) + "+" + new_cost
 
         op.have_runtime_cost = runtime_cost
         op.runtime_cost = new_cost[:-1]
