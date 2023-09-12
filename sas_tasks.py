@@ -190,6 +190,12 @@ class SASOperator:
             else:
                 print(var, pre, post, file=stream)
         print(self.cost, file=stream)
+        if self.have_runtime_cost:
+            print("runtime", file=stream)
+            print(self.runtime_cost, file=stream)
+        else:
+            print("no-run", file=stream)
+            print("-", file=stream)
         print("end_operator", file=stream)
 
     def outputma(self, stream, ranges):
@@ -234,6 +240,12 @@ class SASOperator:
                     index = index + 1
                 print(index, pre, post, file=stream)
         print(self.cost, file=stream)
+        if self.have_runtime_cost:
+            print("runtime", file=stream)
+            print(self.runtime_cost, file=stream)
+        else:
+            print("no-run", file=stream)
+            print("-", file=stream)
         print("end_operator", file=stream)
 
 class SASAxiom:

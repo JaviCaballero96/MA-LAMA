@@ -170,7 +170,7 @@ def translate_strips_conditions(conditions, dictionary, ranges,
 
 
 def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ranges, implied_facts,
-                              aux_func_strips_to_sas, groups):
+                              aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime):
     conditions = translate_strips_conditions(operator.precondition, dictionary, ranges, mutex_dict, mutex_ranges)
     if conditions is None:
         return []
@@ -178,13 +178,15 @@ def translate_strips_operator(operator, dictionary, ranges, mutex_dict, mutex_ra
     for condition in conditions:
         op = translate_strips_operator_aux(operator, dictionary, ranges,
                                            mutex_dict, mutex_ranges,
-                                           implied_facts, condition, aux_func_strips_to_sas, groups)
+                                           implied_facts, condition, aux_func_strips_to_sas, groups, fluents_in_runtime,
+                                           dict_fluents_in_runtime)
         sas_operators.append(op)
     return sas_operators
 
 
 def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
-                                  mutex_ranges, implied_facts, condition, aux_func_strips_to_sas, groups):
+                                  mutex_ranges, implied_facts, condition, aux_func_strips_to_sas,
+                                  groups, fluents_in_runtime, dict_fluents_in_runtime):
     # NOTE: This function does not really deal with the intricacies of properly
     # encoding delete effects for grouped propositions in the presence of
     # conditional effects. It should work ok but will bail out in more
@@ -230,8 +232,14 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
 
         op_f = 0
         if isinstance(fact.expression, pddl.f_expression.PrimitiveNumericExpression):
-            fact_exp = str(get_new_expresison(fact.expression))
-            value = fact.expression.value
+            fact_exp, is_fluent_runtime = get_new_expresison(fact.expression, fluents_in_runtime, False)
+            fact_exp = str(fact_exp)
+
+            if not is_fluent_runtime:
+                value = fact.expression.value
+            else:
+                value = get_runtime_value(fact.expression, fluents_in_runtime, "", dict_fluents_in_runtime)
+
             if isinstance(fact, pddl.f_expression.Increase):
                 op_f = -2
             elif isinstance(fact, pddl.f_expression.Decrease):
@@ -243,8 +251,15 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
             elif isinstance(fact, pddl.f_expression.LessThan):
                 op_f = -6
         else:
-            fact_exp = str(fact.expression.fluent)
-            value = fact.expression.expression.value
+            is_fluent_runtime = False
+            fact_exp, is_fluent_runtime = get_new_expresison(fact.expression.fluent, fluents_in_runtime,
+                                                             is_fluent_runtime)
+            fact_exp = str(fact_exp)
+
+            if not is_fluent_runtime:
+                value = fact.expression.expression.value
+            else:
+                value = get_runtime_value(fact.expression.fluent, fluents_in_runtime, "", dict_fluents_in_runtime)
             if isinstance(fact, pddl.f_expression.Increase):
                 op_f = -2
             elif isinstance(fact, pddl.f_expression.Decrease):
@@ -388,31 +403,182 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
     return sas_tasks.SASOperator(operator.name, prevail, pre_post, operator.cost)
 
 
-def get_new_expresison(expression):
+def get_new_expresison(expression, fluents_in_runtime, is_fluent_runtime):
     if isinstance(expression, pddl.f_expression.Assign):
         if expression.fluent.symbol == "*" or expression.fluent.symbol == "/" or expression.fluent.symbol == "-" \
                 or expression.fluent.symbol == "+":
-            param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].name,
-                                                                                     expression.fluent.args[0].args))
-            param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].name,
-                                                                                     expression.fluent.args[1].args))
-            return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol, [param1, param2])
+            if isinstance(expression.fluent.args[0], pddl.f_expression.PrimitiveNumericExpression) \
+                    or isinstance(expression.fluent.args[1], pddl.f_expression.PrimitiveNumericExpression):
+
+                param1, is_fluent_runtime = \
+                    get_new_expresison(expression.fluent.args[0], fluents_in_runtime, is_fluent_runtime)
+                param2, is_fluent_runtime = \
+                    get_new_expresison(expression.fluent.args[1], fluents_in_runtime, is_fluent_runtime)
+
+                if (param1 in fluents_in_runtime) or (param2 in fluents_in_runtime):
+                    is_fluent_runtime = True
+            else:
+                param1, is_fluent_runtime = \
+                    get_new_expresison(
+                        pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].name,
+                                                                     expression.fluent.args[0].args),
+                        fluents_in_runtime,
+                        is_fluent_runtime)
+
+                param2, is_fluent_runtime = \
+                    get_new_expresison(
+                        pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].name,
+                                                                     expression.fluent.args[1].args),
+                        fluents_in_runtime,
+                        is_fluent_runtime)
+
+                if (param1 in fluents_in_runtime) or (param2 in fluents_in_runtime):
+                    is_fluent_runtime = True
+
+            return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol, [param1, param2]), \
+                   is_fluent_runtime
         else:
             return pddl.f_expression.PrimitiveNumericExpression(expression.fluent.symbol,
-                                                                expression.fluent.args)
+                                                                expression.fluent.args), is_fluent_runtime
     elif isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
         if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "-" \
                 or expression.symbol == "+":
-            param1 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
-                                                                                     expression.args[0].fluent.args))
-            param2 = get_new_expresison(pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
-                                                                                     expression.args[1].fluent.args))
-            return pddl.f_expression.PrimitiveNumericExpression(expression.symbol, [param1, param2])
+            if isinstance(expression.args[0], pddl.f_expression.PrimitiveNumericExpression) \
+                    or isinstance(expression.args[1], pddl.f_expression.PrimitiveNumericExpression):
+
+                param1, is_fluent_runtime = \
+                    get_new_expresison(expression.args[0], fluents_in_runtime, is_fluent_runtime)
+                param2, is_fluent_runtime = \
+                    get_new_expresison(expression.args[1], fluents_in_runtime, is_fluent_runtime)
+
+                if (compare_expressions(param1, fluents_in_runtime)) or \
+                        (compare_expressions(param2, fluents_in_runtime)):
+                    is_fluent_runtime = True
+            else:
+                param1, is_fluent_runtime = get_new_expresison(
+                    pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
+                                                                 expression.args[0].fluent.args),
+                    fluents_in_runtime,
+                    is_fluent_runtime)
+
+                param2, is_fluent_runtime = get_new_expresison(
+                    pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
+                                                                 expression.args[1].fluent.args),
+                    fluents_in_runtime,
+                    is_fluent_runtime)
+
+                if (compare_expressions(param1, fluents_in_runtime)) or \
+                        (compare_expressions(param2, fluents_in_runtime)):
+                    is_fluent_runtime = True
+
+            return pddl.f_expression.PrimitiveNumericExpression(expression.symbol, [param1, param2]), is_fluent_runtime
         else:
             return pddl.f_expression.PrimitiveNumericExpression(expression.symbol,
-                                                                expression.args)
+                                                                expression.args), is_fluent_runtime
     else:
-        return expression
+        return expression, is_fluent_runtime
+
+
+def compare_expressions(param, fluents_in_runtime):
+    if not isinstance(param, pddl.f_expression.PrimitiveNumericExpression):
+        return False
+
+    for exp in fluents_in_runtime:
+
+        if len(exp.args) != len(param.args):
+            continue
+
+        arg_eq = True
+        arg_index = 0
+        for arg in exp.args:
+            if arg.name != param.args[arg_index].name:
+                arg_eq = False
+            arg_index = arg_index + 1
+
+        if arg_eq and (exp.symbol == param.symbol):
+            return True
+
+    return False
+
+
+def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in_runtime):
+    if isinstance(expression, pddl.f_expression.Assign):
+        if expression.fluent.symbol == "*" or expression.fluent.symbol == "/" or expression.fluent.symbol == "-" \
+                or expression.fluent.symbol == "+":
+            if isinstance(expression.fluent.args[0], pddl.f_expression.PrimitiveNumericExpression) \
+                    or isinstance(expression.fluent.args[1], pddl.f_expression.PrimitiveNumericExpression):
+
+                value_str = get_runtime_value(expression.fluent.args[0], fluents_in_runtime, value_str,
+                                              dict_fluents_in_runtime)
+                value_str = get_runtime_value(expression.fluent.args[1], fluents_in_runtime, value_str,
+                                              dict_fluents_in_runtime)
+
+            else:
+                param1 = pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].fluent.symbol,
+                                                                 expression.fluent.args[0].fluent.args)
+                param2 = pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].fluent.symbol,
+                                                                 expression.fluent.args[1].fluent.args)
+
+                if compare_expressions(param1, fluents_in_runtime):
+                    value_str = value_str + "(_" + \
+                                str(dict_fluents_in_runtime[str(expression.fluent.args[0].fluent)]) + "_)"
+
+                else:
+                    value_str = value_str + "(" + str(expression.fluent.args[0].expression.value) + ")"
+
+                if compare_expressions(param2, fluents_in_runtime):
+                    value_str = value_str + "(_" + \
+                                str(dict_fluents_in_runtime[str(expression.fluent.args[1].fluent)]) + "_)"
+                else:
+                    value_str = value_str + "(" + str(expression.fluent.args[1].expression.value) + ")"
+
+            value_str = value_str + ")"
+            return value_str
+
+        else:
+            if compare_expressions(expression.fluent, fluents_in_runtime):
+                value_str = value_str + "(" + str(expression.fluent) + ")"
+            else:
+                value_str = value_str + "(" + str(expression.expression.value) + ")"
+
+            return value_str
+
+    elif isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
+        if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "-" \
+                or expression.symbol == "+":
+            value_str = value_str + "(" + expression.symbol
+            if isinstance(expression.args[0], pddl.f_expression.PrimitiveNumericExpression) \
+                    or isinstance(expression.args[1], pddl.f_expression.PrimitiveNumericExpression):
+
+                value_str = get_runtime_value(expression.args[0], fluents_in_runtime, value_str,
+                                              dict_fluents_in_runtime)
+                value_str = get_runtime_value(expression.args[1], fluents_in_runtime, value_str,
+                                              dict_fluents_in_runtime)
+
+            else:
+                param1 = pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
+                                                                 expression.args[0].fluent.args)
+                param2 = pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
+                                                                 expression.args[1].fluent.args)
+
+                if compare_expressions(param1, fluents_in_runtime):
+                    value_str = value_str + "(_" + \
+                                str(dict_fluents_in_runtime[str(expression.args[0].fluent)]) + "_)"
+                else:
+                    value_str = value_str + "(" + str(expression.args[0].expression.value) + ")"
+
+                if compare_expressions(param2, fluents_in_runtime):
+                    value_str = value_str + "(_" + \
+                                str(dict_fluents_in_runtime[str(expression.args[1].fluent)]) + "_)"
+                else:
+                    value_str = value_str + "(" + str(expression.args[1].expression.value) + ")"
+
+            value_str = value_str + ")"
+            return value_str
+    else:
+        return value_str
+
+    return value_str
 
 
 def prune_stupid_effect_conditions(var, val, conditions):
@@ -464,11 +630,11 @@ def translate_strips_axiom(axiom, dictionary, ranges, mutex_dict, mutex_ranges):
 
 
 def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                               aux_func_strips_to_sas, groups):
+                               aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime):
     result = []
     for action in actions:
         sas_ops = translate_strips_operator(action, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                                            aux_func_strips_to_sas, groups)
+                                            aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
         result.extend(sas_ops)
     return result
 
@@ -486,6 +652,39 @@ def duplicate_funct_effects(operators):
                                 op2.pre_post.append([n_var_no, n_pre_spec, n_post, n_cond])
 
 
+def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
+    for op in operators:
+        new_cost = ""
+        runtime_cost = False
+        for var, pre, post, cond in op.pre_post:
+            if isinstance(post, list) and isinstance(post[0], str):
+                for elem in metric:
+                    if not isinstance(elem, str):
+                        if elem.symbol == "*" or elem.symbol == "/" or elem.symbol == "+" or elem.symbol == "-":
+                            aux_obj = pddl.f_expression.PrimitiveNumericExpression(elem.args[1].name, [k.name for k in elem.args[1].args])
+                            flu_name = str(aux_obj)
+                            if flu_name in dict_fluents_in_runtime:
+                                group_number = dict_fluents_in_runtime[flu_name]
+                                if group_number == var:
+                                    runtime_cost = True
+                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + post[0] + ")+" + new_cost
+
+                        else:
+                            flu_name = str(elem)
+                            if flu_name in dict_fluents_in_runtime:
+                                group_number = dict_fluents_in_runtime[flu_name]
+                                if group_number == var:
+                                    runtime_cost = True
+                                    new_cost = post[0] + "+" + new_cost
+            elif isinstance(post, list):
+                new_cost = str(post[0]) + "+" + new_cost
+
+        op.have_runtime_cost = runtime_cost
+        op.runtime_cost = new_cost[:-1]
+
+
+
+
 def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges):
     result = []
     for axiom in axioms:
@@ -495,7 +694,8 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
-                   actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups):
+                   actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime,
+                   dict_fluents_in_runtime):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -526,7 +726,8 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     goal = sas_tasks.SASGoal(goal_pairs)
 
     operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
-                                           aux_func_strips_to_sas, groups)
+                                           aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
+    fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime)
     duplicate_funct_effects(operators)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
@@ -579,7 +780,7 @@ def obtain_metric_functions(groups, sas_task):
                             arg_index = arg_index + 1
                         if equal:
                             sas_task.translated_metric[gopup_index] = metric_elem.args[1]
-                            sas_task.translated_metric_vals[gopup_index] = 1/float(metric_elem.args[0].name)
+                            sas_task.translated_metric_vals[gopup_index] = 1 / float(metric_elem.args[0].name)
                 elif metric_elem.symbol == group[0].predicate.fluent.symbol:
                     arg_index = 0
                     equal = True
@@ -627,6 +828,8 @@ def pddl_to_sas(task, time_value):
             task, atoms, functions, reachable_action_params,
             partial_encoding=USE_PARTIAL_ENCODING)
 
+        fluents_in_runtime, dict_fluents_in_runtime = fact_groups.get_fluents_in_runtime(groups)
+
     with timers.timing("Building STRIPS to SAS dictionary"):
         ranges, strips_to_sas, aux_func_strips_to_sas = strips_to_sas_dictionary(
             groups, assert_partial=USE_PARTIAL_ENCODING)
@@ -645,7 +848,7 @@ def pddl_to_sas(task, time_value):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
-            implied_facts, aux_func_strips_to_sas, groups)
+            implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
@@ -750,8 +953,10 @@ def pddl_to_sas(task, time_value):
                                                                                       sas_task, groups, task.temp_task)
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
-            agents_goals, correct_assignment = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
-                                                    casual_graph, sas_task, groups, time_value, task.temp_task)
+            agents_goals, correct_assignment = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions,
+                                                                        agents_metric, agents_init,
+                                                                        casual_graph, sas_task, groups, time_value,
+                                                                        task.temp_task)
             agent_error = not correct_assignment
 
             # Create new tasks
@@ -843,9 +1048,6 @@ def set_func_init_value(sas_task, agent_tasks, task, groups):
 
                     if equal:
                         agent_task.init.values[init_sas_val_key] = init_val.expression.value
-
-
-
 
 
 def build_mutex_key(strips_to_sas, groups):

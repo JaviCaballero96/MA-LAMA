@@ -66,14 +66,15 @@ def obtaing_const_args(groups):
         const_args.append(const_group_args)
     return const_args
 
+
 def obtaing_const_args_funcs(groups, arguments):
     for group in groups:
         const_group_args = []
         if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
-            isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
-            isinstance(group[0].predicate, pddl.f_expression.Assign) or \
-            isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or \
-            isinstance(group[0].predicate, pddl.f_expression.LessThan):
+                isinstance(group[0].predicate, pddl.f_expression.Decrease) or \
+                isinstance(group[0].predicate, pddl.f_expression.Assign) or \
+                isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or \
+                isinstance(group[0].predicate, pddl.f_expression.LessThan):
             name = group[0].predicate.fluent.symbol
             for arg in group[0].predicate.fluent.args:
                 name = name + "-" + arg.name
@@ -107,7 +108,7 @@ def obtaing_const_args_extra(groups, arguments, reachable_facts):
                     arg_index = 0
                     for arg in atom.args:
                         if cands[atom.predicate][arg_index] != arg:
-                            #if arg in cands[atom.predicate]:
+                            # if arg in cands[atom.predicate]:
                             #    cands[atom.predicate].remove(arg)
                             exists = False
                             for elem in to_remove:
@@ -140,6 +141,7 @@ def obtaing_const_args_extra(groups, arguments, reachable_facts):
         group_index = group_index + 1
 
     return arguments_extra_list
+
 
 def instantiate_groups(groups, task, reachable_facts):
     return [expand_group(group, task, reachable_facts) for group in groups]
@@ -233,6 +235,7 @@ def choose_groups(groups, reachable_facts, functions, arguments, partial_encodin
     # result += [[func] for func in uncovered_funcs]
     return result, arguments_aux
 
+
 def remove_func_redundant(groups, mutex_groups):
     index = 0
     removed = 0
@@ -290,3 +293,20 @@ def compute_groups(task, atoms, functions, reachable_action_params, partial_enco
     with timers.timing("Building translation key"):
         translation_key = build_translation_key(groups)
     return groups, mutex_groups, translation_key, arguments_ex, arguments
+
+
+def get_fluents_in_runtime(groups):
+    fluents_in_runtime = []
+    dict_fluents_in_runtime = {}
+    index = 0
+    for group in groups:
+        for item in group:
+            if isinstance(item.predicate, pddl.f_expression.Increase) or \
+                    isinstance(item.predicate, pddl.f_expression.Decrease) or \
+                    isinstance(item.predicate, pddl.f_expression.Assign):
+                fluents_in_runtime.append(item.predicate.fluent)
+                dict_fluents_in_runtime[str(item.predicate.fluent)] = index
+                break
+        index = index + 1
+
+    return fluents_in_runtime, dict_fluents_in_runtime
