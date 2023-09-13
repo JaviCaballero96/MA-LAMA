@@ -546,12 +546,13 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
     elif isinstance(expression, pddl.f_expression.PrimitiveNumericExpression):
         if expression.symbol == "*" or expression.symbol == "/" or expression.symbol == "-" \
                 or expression.symbol == "+":
-            value_str = value_str + "(" + expression.symbol
+            value_str = value_str + "("
             if isinstance(expression.args[0], pddl.f_expression.PrimitiveNumericExpression) \
                     or isinstance(expression.args[1], pddl.f_expression.PrimitiveNumericExpression):
 
                 value_str = get_runtime_value(expression.args[0], fluents_in_runtime, value_str,
                                               dict_fluents_in_runtime)
+                value_str = value_str + expression.symbol
                 value_str = get_runtime_value(expression.args[1], fluents_in_runtime, value_str,
                                               dict_fluents_in_runtime)
 
@@ -566,6 +567,8 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
                                 str(dict_fluents_in_runtime[str(expression.args[0].fluent)]) + "_)"
                 else:
                     value_str = value_str + "(" + str(expression.args[0].expression.value) + ")"
+
+                value_str = value_str + expression.symbol
 
                 if compare_expressions(param2, fluents_in_runtime):
                     value_str = value_str + "(_" + \
