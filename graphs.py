@@ -1487,6 +1487,12 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
         goal_index = goal_index + 1
 
+    if correct_assignment:
+        a_index = 0
+        for agent_go in agent_goals:
+            print("Goals for agent " + str(a_index) + ": ")
+            print("     " + str(agent_go)[1:-1])
+            a_index = a_index + 1
     return agent_goals, correct_assignment
 
 

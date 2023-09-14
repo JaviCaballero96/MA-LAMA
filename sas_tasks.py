@@ -225,6 +225,21 @@ class SASOperator:
                 index_var = 0
                 for elem in post:
                     if index_var != 1:
+                        # Check if the element is a runtime cost
+                        if isinstance(elem, str) and "_" in elem:
+                            # Then we have to translate the variables
+                            aux = elem
+                            while "_" in elem:
+                                aux = aux[(aux.find("_") + 1):]
+                                run_var = aux[:aux.find("_")]
+                                aux = aux[(aux.find("_") + 1):]
+                                run_index = 0
+                                for vari, range in ranges.items():
+                                    if vari == int(run_var):
+                                        break
+                                    run_index = run_index + 1
+                                elem = elem.replace("_" + run_var + "_", "!" + str(run_index) + "!")
+
                         to_write = to_write + str(elem) + " "
                     else:
                         to_write = to_write + str(index) + " "
@@ -242,7 +257,21 @@ class SASOperator:
         print(self.cost, file=stream)
         if self.have_runtime_cost:
             print("runtime", file=stream)
-            print(self.runtime_cost, file=stream)
+            run_cost = self.runtime_cost
+            if isinstance(run_cost, str) and "_" in run_cost:
+                # Then we have to translate the variables
+                aux = run_cost
+                while "_" in run_cost:
+                    aux = aux[(aux.find("_") + 1):]
+                    run_var = aux[:aux.find("_")]
+                    aux = aux[(aux.find("_") + 1):]
+                    run_index = 0
+                    for vari, range in ranges.items():
+                        if vari == int(run_var):
+                            break
+                        run_index = run_index + 1
+                    run_cost = run_cost.replace("_" + run_var + "_", "!" + str(run_index) + "!")
+            print(self.run_cost, file=stream)
         else:
             print("no-run", file=stream)
             print("-", file=stream)
