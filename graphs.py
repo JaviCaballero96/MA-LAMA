@@ -116,7 +116,7 @@ def find_free_agent_index(groups):
             if state.predicate == "free_agent":
                 return index
         index = index + 1
-    return -1
+    return -10
 
 
 def create_groups_dtgs(task):
@@ -670,125 +670,128 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
             end_action = True
         operator_index1 = 0
         for var_no1, pre_spec1, post1, cond1 in op.pre_post:
-            operator_index2 = 0
-            # Check for arcs of type 2 (effect - effect) and type 1 (precondition)
-            for var_no2, pre_spec2, post2, cond2 in op.pre_post:
-                # Type 2 (only if it is a different effect)
-                if operator_index2 != operator_index1:
-                    if simplify:
-                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2 \
-                                and free_agent_index != var_no2 and free_agent_index != var_no1:
+            if pre_spec1 != -7 and pre_spec1 != -8:
+                operator_index2 = 0
+                # Check for arcs of type 2 (effect - effect) and type 1 (precondition)
+                for var_no2, pre_spec2, post2, cond2 in op.pre_post:
+                    # Type 2 (only if it is a different effect)
+                    if operator_index2 != operator_index1 and pre_spec2 != -7 and pre_spec2 != -8:
+                        if simplify:
+                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                            if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2 \
+                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
+                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                          2, arc_id)
+                                node_groups_list[var_no1].arcs.append(new_arc)
+                                node_groups_list[var_no2].end_arcs.append(new_arc)
+                                node_groups_list[var_no1].type2_arcs.append(arc_id)
+                                node_groups_list[var_no2].end_type2_arcs.append(arc_id)
+                                node_groups_list_type2[var_no1].arcs.append(new_arc)
+                                node_groups_list_type2[var_no2].end_arcs.append(new_arc)
+                                node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
+                                node_groups_list_type2[var_no2].end_type2_arcs.append(arc_id)
+                                if var_no2 in propositional_node_groups_list \
+                                        and var_no1 in propositional_node_groups_list:
+                                    propositional_node_groups[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups[var_no2].end_arcs.append(new_arc)
+                                    propositional_node_groups[var_no1].type2_arcs.append(arc_id)
+                                    propositional_node_groups[var_no2].end_type2_arcs.append(arc_id)
+                                    propositional_node_groups_type2[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups_type2[var_no2].end_arcs.append(new_arc)
+                                    propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
+                                    propositional_node_groups_type2[var_no2].end_type2_arcs.append(arc_id)
+                        else:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                      node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
-                                                      2, arc_id)
+                                                      node_groups_list[var_no2].name,
+                                                      (op.name.split(' ')[0])[1:], 2, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
-                            node_groups_list[var_no2].end_arcs.append(new_arc)
-                            node_groups_list[var_no1].type2_arcs.append(arc_id)
-                            node_groups_list[var_no2].end_type2_arcs.append(arc_id)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
-                            node_groups_list_type2[var_no2].end_arcs.append(new_arc)
-                            node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
-                            node_groups_list_type2[var_no2].end_type2_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
-                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
-                                propositional_node_groups[var_no1].type2_arcs.append(arc_id)
-                                propositional_node_groups[var_no2].end_type2_arcs.append(arc_id)
                                 propositional_node_groups_type2[var_no1].arcs.append(new_arc)
-                                propositional_node_groups_type2[var_no2].end_arcs.append(new_arc)
-                                propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
-                                propositional_node_groups_type2[var_no2].end_type2_arcs.append(arc_id)
-                    else:
-                        new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                  node_groups_list[var_no2].name,
-                                                  (op.name.split(' ')[0])[1:], 2, arc_id)
-                        node_groups_list[var_no1].arcs.append(new_arc)
-                        node_groups_list_type2[var_no1].arcs.append(new_arc)
-                        if var_no2 in propositional_node_groups_list \
-                                and var_no1 in propositional_node_groups_list:
-                            propositional_node_groups[var_no1].arcs.append(new_arc)
-                            propositional_node_groups_type2[var_no1].arcs.append(new_arc)
 
-                # Type 1 (only if a precondition exists)
-                if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4):
-                    if simplify:
-                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2 \
-                                and free_agent_index != var_no2 and free_agent_index != var_no1:
+                    # Type 1 (only if a precondition exists)
+                    if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4 and
+                                            pre_spec1 != -5 and pre_spec1 != -6 and
+                                            pre_spec1 != -7 and pre_spec1 != -8):
+                        if simplify:
+                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                            if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2 \
+                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
+                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
+                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                          1, arc_id)
+                                node_groups_list[var_no1].arcs.append(new_arc)
+                                node_groups_list[var_no2].end_arcs.append(new_arc)
+                                node_groups_list[var_no1].type1_arcs.append(arc_id)
+                                node_groups_list[var_no2].end_type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no1].arcs.append(new_arc)
+                                node_groups_list_type1[var_no2].end_arcs.append(new_arc)
+                                node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no2].end_type1_arcs.append(arc_id)
+                                if var_no2 in propositional_node_groups_list \
+                                        and var_no1 in propositional_node_groups_list:
+                                    propositional_node_groups[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups[var_no2].end_arcs.append(new_arc)
+                                    propositional_node_groups[var_no1].type1_arcs.append(arc_id)
+                                    propositional_node_groups[var_no2].end_type1_arcs.append(arc_id)
+                                    propositional_node_groups_type1[var_no1].arcs.append(new_arc)
+                                    propositional_node_groups_type1[var_no2].end_arcs.append(new_arc)
+                                    propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
+                                    propositional_node_groups_type1[var_no2].end_type1_arcs.append(arc_id)
+                        else:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
-                            node_groups_list[var_no2].end_arcs.append(new_arc)
-                            node_groups_list[var_no1].type1_arcs.append(arc_id)
-                            node_groups_list[var_no2].end_type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no1].arcs.append(new_arc)
-                            node_groups_list_type1[var_no2].end_arcs.append(new_arc)
-                            node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
-                            node_groups_list_type1[var_no2].end_type1_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
-                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
-                                propositional_node_groups[var_no1].type1_arcs.append(arc_id)
-                                propositional_node_groups[var_no2].end_type1_arcs.append(arc_id)
                                 propositional_node_groups_type1[var_no1].arcs.append(new_arc)
-                                propositional_node_groups_type1[var_no2].end_arcs.append(new_arc)
-                                propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
-                                propositional_node_groups_type1[var_no2].end_type1_arcs.append(arc_id)
-                    else:
-                        new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                  node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
-                                                  1, arc_id)
-                        node_groups_list[var_no1].arcs.append(new_arc)
-                        node_groups_list_type1[var_no1].arcs.append(new_arc)
-                        if var_no2 in propositional_node_groups_list \
-                                and var_no1 in propositional_node_groups_list:
-                            propositional_node_groups[var_no1].arcs.append(new_arc)
-                            propositional_node_groups_type1[var_no1].arcs.append(new_arc)
 
-                operator_index2 = operator_index2 + 1
+                    operator_index2 = operator_index2 + 1
 
-            # Check for arcs of type 1 from prevail array (precondition - effect)
-            if not end_action or not temp_task:
-                for var_no2, pre_spec2 in op.prevail:
-                    if simplify:
-                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
-                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2 \
-                                and free_agent_index != var_no2 and free_agent_index != var_no1:
+                # Check for arcs of type 1 from prevail array (precondition - effect)
+                if not end_action or not temp_task:
+                    for var_no2, pre_spec2 in op.prevail:
+                        if simplify:
+                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
+                            if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2 \
+                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
+                                new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
+                                                          node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
+                                                          1, arc_id)
+                                node_groups_list[var_no2].arcs.append(new_arc)
+                                node_groups_list[var_no1].end_arcs.append(new_arc)
+                                node_groups_list[var_no2].type1_arcs.append(arc_id)
+                                node_groups_list[var_no1].end_type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no2].arcs.append(new_arc)
+                                node_groups_list_type1[var_no1].end_arcs.append(new_arc)
+                                node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
+                                node_groups_list_type1[var_no1].end_type1_arcs.append(arc_id)
+                                if var_no2 in propositional_node_groups_list \
+                                        and var_no1 in propositional_node_groups_list:
+                                    propositional_node_groups[var_no2].arcs.append(new_arc)
+                                    propositional_node_groups[var_no1].end_arcs.append(new_arc)
+                                    propositional_node_groups[var_no2].type1_arcs.append(arc_id)
+                                    propositional_node_groups[var_no1].end_type1_arcs.append(arc_id)
+                                    propositional_node_groups_type1[var_no2].arcs.append(new_arc)
+                                    propositional_node_groups_type1[var_no1].end_arcs.append(new_arc)
+                                    propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
+                                    propositional_node_groups_type1[var_no1].end_type1_arcs.append(arc_id)
+                        else:
                             new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
-                                                      1, arc_id)
+                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
+                                                      arc_id)
                             node_groups_list[var_no2].arcs.append(new_arc)
-                            node_groups_list[var_no1].end_arcs.append(new_arc)
-                            node_groups_list[var_no2].type1_arcs.append(arc_id)
-                            node_groups_list[var_no1].end_type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no2].arcs.append(new_arc)
-                            node_groups_list_type1[var_no1].end_arcs.append(new_arc)
-                            node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
-                            node_groups_list_type1[var_no1].end_type1_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
-                                propositional_node_groups[var_no2].arcs.append(new_arc)
-                                propositional_node_groups[var_no1].end_arcs.append(new_arc)
-                                propositional_node_groups[var_no2].type1_arcs.append(arc_id)
-                                propositional_node_groups[var_no1].end_type1_arcs.append(arc_id)
+                                propositional_node_groups[var_no1].arcs.append(new_arc)
                                 propositional_node_groups_type1[var_no2].arcs.append(new_arc)
-                                propositional_node_groups_type1[var_no1].end_arcs.append(new_arc)
-                                propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
-                                propositional_node_groups_type1[var_no1].end_type1_arcs.append(arc_id)
-                    else:
-                        new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                                  node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
-                                                  arc_id)
-                        node_groups_list[var_no2].arcs.append(new_arc)
-                        node_groups_list_type1[var_no2].arcs.append(new_arc)
-                        if var_no2 in propositional_node_groups_list \
-                                and var_no1 in propositional_node_groups_list:
-                            propositional_node_groups[var_no1].arcs.append(new_arc)
-                            propositional_node_groups_type1[var_no2].arcs.append(new_arc)
 
             operator_index1 = operator_index1 + 1
 
@@ -1236,7 +1239,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         for agent in full_agents:
             added = False
             for eff in ope.pre_post:
-                if not added and agent.count(eff[0]) != 0:
+                if not added and agent.count(eff[0]) != 0 and eff[1] != -7 and eff[1] != -8:
                     added = True
                     agent_actions[index].append(ope)
 
@@ -1266,7 +1269,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                 for eff in ope.pre_post:
                     if eff[0] == 0 and temp_task:
                         continue
-                    if not added and agent.count(eff[0]) != 0:
+                    if not added and agent.count(eff[0]) != 0 and eff[1] != -7 and eff[1] != -8:
                         added = True
                         agent_actions[index].append(ope)
 
@@ -1295,7 +1298,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                 for eff in ope.pre_post:
                     if eff[0] == 0 and temp_task:
                         continue
-                    if not added and agent.count(eff[0]) != 0:
+                    if not added and agent.count(eff[0]) != 0 and eff[1] != -7 and eff[1] != -8:
                         added = True
                         agent_actions[index].append(ope)
 
@@ -1330,7 +1333,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         for ope in agent_ac:
             to_remove = False
             for eff in ope.pre_post:
-                if not to_remove and full_func_agents[agent_index].count(eff[0]) == 0:
+                if not to_remove and full_func_agents[agent_index].count(eff[0]) == 0 and eff[1] != -7 and eff[1] != -8:
                     to_remove = True
                     agent_rem.append(ope)
             for pre in ope.prevail:
@@ -1356,7 +1359,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                     added = False
                     if ope not in agent_actions_final[index]:
                         for eff in ope.pre_post:
-                            if not added and node == eff[0] != 0:
+                            if not added and node == eff[0] != 0 and eff[1] != -7 and eff[1] != -8:
                                 added = True
                                 extern_actions[index].append(ope)
 
@@ -1561,7 +1564,8 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
                             continue
                     for effect in action.pre_post:
                         for pending_subgoal in node.pending_additions:
-                            if effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
+                            if effect[1] != -7 and effect[1] != -8 and\
+                                    effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
 
                                 # new_action_name = "_".join(
                                 #    (((((action.name.split(" "))[0]).split("("))[1]).split("_"))[:-1])
@@ -1590,7 +1594,8 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
 
                                 for effect_2 in action.pre_post:
                                     if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4 and
-                                        effect_2[1] != -5 and effect_2[1] != -6) and \
+                                        effect_2[1] != -5 and effect_2[1] != -6 and
+                                        effect_2[1] != -7 and effect_2[1] != -8) and \
                                             effect_2[2] != -1 and \
                                             effect_2[1] != -1 and \
                                             agent_init[effect_2[0]] != effect_2[1]:

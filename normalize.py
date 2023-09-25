@@ -47,7 +47,7 @@ class EffectConditionProxy(ConditionProxy):
             rule_body = [get_action_predicate(self.action)]
             rule_body += condition_to_rule_body([], self.condition)
             rules.append((rule_body, rule_head))
-        else:
+        elif "block" not in self.owner.eff_type:
             effect = self.owner
             rule_head = effect.literal
             if not rule_head.negated:
@@ -129,7 +129,8 @@ def all_conditions(task):
     for action in task.actions:
         yield PreconditionProxy(action)
         for effect in action.effects:
-            yield EffectConditionProxy(action, effect)
+            if "block" not in effect.eff_type:
+                yield EffectConditionProxy(action, effect)
     for axiom in task.axioms:
         yield AxiomConditionProxy(axiom)
     yield GoalConditionProxy(task)

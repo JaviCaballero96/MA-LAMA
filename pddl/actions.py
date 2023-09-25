@@ -74,7 +74,7 @@ class Action(object):
         self.type_map = dict([(par.name, par.type) for par in self.parameters])
         self.precondition = self.precondition.uniquify_variables(self.type_map)
         for effect in self.effects:
-            if not isinstance(effect, Effects.CostEffect):
+            if not isinstance(effect, Effects.CostEffect) and "block" not in effect.eff_type:
                 effect.uniquify_variables(self.type_map)
 
     def unary_actions(self):
@@ -159,10 +159,13 @@ class Action(object):
                 args_ordered = [arg for arg in arg_list if arg in arg_used]
                 eff_aux.negated = False
                 eff_aux.parameters = args_ordered
+                eff_aux.eff_type = eff.eff_type
                 effects.append(([], eff_aux))
             else:
                 eff.instantiate(var_mapping, init_facts, fluent_facts,
                                 objects_by_type, effects)
+                if effects:
+                    effects[-1][1].eff_type = eff.eff_type
         cost = float(0)
         if effects:
             if not self.cost:

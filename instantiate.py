@@ -18,7 +18,7 @@ def get_fluent_facts(task, model):
         for effect in action.effects:
             if isinstance(effect, pddl.effects.CostEffect):
                 fluent_functions_aux.add(effect.effect.fluent.symbol)
-            else:
+            elif "block" not in effect.eff_type:
                 fluent_predicates.add(effect.literal.predicate)
     for axiom in task.axioms:
         fluent_predicates.add(axiom.name)

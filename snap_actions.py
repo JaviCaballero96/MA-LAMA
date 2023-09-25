@@ -9,6 +9,7 @@ import pddl.conditions as cond
 import pddl.tasks as tasks
 import pddl.predicates as pred
 import pddl.effects as eff
+import copy
 
 
 def task_snap_translate(task):
@@ -35,31 +36,65 @@ def obtain_start_snap_actions(all_actions):
         effects_list = []
         preconditions_list = []
         numeric_conditions = []
+        temporal_block_effects = []
         cost_list = []
 
         if isinstance(action.conditions, cond.Atom):
             if action.conditions.tmp == "start" or action.conditions.tmp == "all":
-                preconditions_list.append(action.conditions)
+                preconditions_list.append(copy.deepcopy(action.conditions))
         else:
             for condition in action.conditions.parts:
                 if condition.tmp == "start" or condition.tmp == "all":
-                    preconditions_list.append(condition)
+                    preconditions_list.append(copy.deepcopy(condition))
 
         for num_cond in action.num_condition:
             if num_cond[0] == "start" or num_cond[0] == "all":
                 num_cond[1].condition = pddl.conditions.Truth()
-                numeric_conditions.append(num_cond[1])
+                numeric_conditions.append(copy.deepcopy(num_cond[1]))
+                numeric_conditions[-1].eff_type = "cond num"
 
         if isinstance(action.effects, eff.Effect):
             if action.effects.tmp == "start":
-                effects_list.append(action.effects)
+                effects_list.append(copy.deepcopy(action.effects))
+                effects_list[-1].eff_type = "eff"
+            # elif action.effects.tmp == "end" and not isinstance(action.effects, pddl.effects.CostEffect):
+            #     temporal_block_effects.append(copy.deepcopy(action.effects))
+            #     temporal_block_effects[-1].eff_type = "block end"
         else:
             for effect in action.effects:
                 if effect.tmp == "start":
-                    effects_list.append(effect)
+                    effects_list.append(copy.deepcopy(effect))
+                    effects_list[-1].eff_type = "eff"
+                # elif effect.tmp == "end" and not isinstance(effect, pddl.effects.CostEffect):
+                #     temporal_block_effects.append(copy.deepcopy(effect))
+                #     temporal_block_effects[-1].eff_type = "block end"
+
+        # Obtain the temporal variables block
+        if isinstance(action.conditions, cond.Atom):
+            if action.conditions.tmp == "all":
+                temporal_block_effects.append(pddl.Effect([], pddl.conditions.Truth(),
+                                                          action.conditions))
+                temporal_block_effects[-1].eff_type = "block all"
+            elif action.conditions.tmp == "end":
+                temporal_block_effects.append(pddl.Effect([], pddl.conditions.Truth(),
+                                                          action.conditions))
+                temporal_block_effects[-1].eff_type = "block end"
+        else:
+            for condition in action.conditions.parts:
+                if condition.tmp == "all":
+                    temporal_block_effects.append(pddl.Effect([], pddl.conditions.Truth(),
+                                                              condition))
+                    temporal_block_effects[-1].eff_type = "block all"
+                elif condition.tmp == "end":
+                    temporal_block_effects.append(pddl.Effect([], pddl.conditions.Truth(),
+                                                              condition))
+                    temporal_block_effects[-1].eff_type = "block end"
 
         for num_c in numeric_conditions:
             effects_list.append(num_c)
+
+        for block_e in temporal_block_effects:
+            effects_list.append(block_e)
 
         add_start_eff_cond(preconditions_list, effects_list, action)
 
@@ -94,24 +129,33 @@ def obtain_end_snap_actions(all_actions):
 
         if isinstance(action.conditions, cond.Atom):
             if action.conditions.tmp == "end" or action.conditions.tmp == "end":
-                preconditions_list.append(action.conditions)
+                preconditions_list.append(copy.deepcopy(action.conditions))
         else:
             for condition in action.conditions.parts:
                 if condition.tmp == "end" or condition.tmp == "all":
-                    preconditions_list.append(condition)
+                    preconditions_list.append(copy.deepcopy(condition))
 
         for num_cond in action.num_condition:
             if num_cond[0] == "end" or num_cond[0] == "all":
                 num_cond[1].condition = pddl.conditions.Truth()
-                numeric_conditions.append(num_cond[1])
+                numeric_conditions.append(copy.deepcopy(num_cond[1]))
+                numeric_conditions[-1].eff_type = "eff num"
 
         if isinstance(action.effects, eff.Effect):
             if action.effects.tmp == "end":
-                effects_list.append(action.effects)
+                effects_list.append(copy.deepcopy(action.effects))
+                if isinstance(action.effects, eff.CostEffect):
+                    effects_list[-1].eff_type = "num eff"
+                else:
+                    effects_list[-1].eff_type = "eff"
         else:
             for effect in action.effects:
                 if effect.tmp == "end":
-                    effects_list.append(effect)
+                    effects_list.append(copy.deepcopy(effect))
+                    if isinstance(effect, eff.CostEffect):
+                        effects_list[-1].eff_type = "num eff"
+                    else:
+                        effects_list[-1].eff_type = "eff"
 
         for num_c in numeric_conditions:
             effects_list.append(num_c)
@@ -158,11 +202,17 @@ def add_start_eff_cond(preconditions_list, effects, action):
     # Add init action effect
     simple_effect = eff.SimpleEffect(cond.Atom(action.name + "_curr", plist))
     effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+    effects[-1].eff_type = "eff"
+    simple_effect = eff.SimpleEffect(cond.Atom(action.name + "_curr", plist))
+    effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+    # effects.append(eff.Effect([], cond.Truth(), "a"))
+    effects[-1].eff_type = "block all"
 
     # We assume all actions are agent actions, later on this will be checked
-    preconditions_list.append(cond.Atom("free_agent", []))
-    simple_effect = eff.SimpleEffect(cond.NegatedAtom("free_agent", []))
-    effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+    # We comment this for now
+    # preconditions_list.append(cond.Atom("free_agent", []))
+    # simple_effect = eff.SimpleEffect(cond.NegatedAtom("free_agent", []))
+    # effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
 
     return
 
@@ -180,9 +230,11 @@ def add_end_eff_cond(preconditions_list, effects, action):
     # Add end action negated effect
     simple_effect = eff.SimpleEffect(cond.NegatedAtom(action.name + "_curr", plist))
     effects.append(eff.Effect([], cond.Truth(), simple_effect.effect))
+    effects[-1].eff_type = "eff"
 
     # We assume all actions are agent actions, later on this will be checked
-    simple_effect2 = eff.SimpleEffect(cond.Atom("free_agent", []))
-    effects.append(eff.Effect([], cond.Truth(), simple_effect2.effect))
+    # We comment this for now
+    # simple_effect2 = eff.SimpleEffect(cond.Atom("free_agent", []))
+    # effects.append(eff.Effect([], cond.Truth(), simple_effect2.effect))
 
     return

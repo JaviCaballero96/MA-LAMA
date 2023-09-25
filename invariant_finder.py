@@ -21,8 +21,10 @@ class BalanceChecker(object):
             create_heavy_act = False
             heavy_act = action
             for eff in action.effects:
-                too_heavy_effects.append(eff)
+                if "block" in eff.eff_type:
+                    continue
                 if not isinstance(eff, pddl.effects.CostEffect):
+                    too_heavy_effects.append(eff)
                     if eff.parameters:  # universal effect
                         create_heavy_act = True
                         too_heavy_effects.append(eff.copy())
@@ -75,7 +77,7 @@ def get_fluents(task):
     fluent_names = set()
     for action in task.actions:
         for eff in action.effects:
-            if not isinstance(eff, pddl.effects.CostEffect):
+            if not isinstance(eff, pddl.effects.CostEffect) and "block" not in eff.eff_type:
                 fluent_names.add(eff.literal.predicate)
     return [pred for pred in task.predicates if pred.name in fluent_names]
 

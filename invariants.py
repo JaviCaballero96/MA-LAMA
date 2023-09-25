@@ -33,7 +33,7 @@ def find_unique_variables(action, invariant):
     # find unique names for invariant variables
     params = set([p.name for p in action.parameters])
     for eff in action.effects:
-        if not isinstance(eff, pddl.effects.CostEffect):
+        if not isinstance(eff, pddl.effects.CostEffect) and "block" not in eff.eff_type:
             params.update([p.name for p in eff.parameters])
     inv_vars = []
     counter = itertools.count()
@@ -243,7 +243,8 @@ class Invariant:
 
     def operator_too_heavy(self, h_action):
         add_effects = [eff for eff in h_action.effects
-                       if (not isinstance(eff, pddl.effects.CostEffect)) and (not eff.literal.negated) and
+                       if (not isinstance(eff, pddl.effects.CostEffect)) and "block" not in eff.eff_type
+                       and (not eff.literal.negated) and
                        self.predicate_to_part.get(eff.literal.predicate)]
         inv_vars = find_unique_variables(h_action, self)
 
@@ -271,7 +272,7 @@ class Invariant:
         #                 eff.literal.predicate in self.predicate_to_part]
         relevant_effs = []
         for eff in action.effects:
-            if not isinstance(eff, pddl.effects.CostEffect):
+            if not isinstance(eff, pddl.effects.CostEffect) and "block" not in eff.eff_type:
                 if eff.literal.predicate in self.predicate_to_part:
                     relevant_effs.append(eff)
 
@@ -335,8 +336,8 @@ class Invariant:
         """refines the candidate for an add effect that is unbalanced in the
            action and adds the refined one to the queue"""
         part = self.predicate_to_part[add_effect.literal.predicate]
-        for del_eff in [eff for eff in action.effects if not isinstance(eff, pddl.effects.CostEffect) and
-                                                         eff.literal.negated]:
+        for del_eff in [eff for eff in action.effects if not isinstance(eff, pddl.effects.CostEffect)
+                                                         and "block" not in eff.eff_type and eff.literal.negated]:
             if del_eff.literal.predicate not in self.predicate_to_part:
                 for match in part.possible_matches(add_effect.literal,
                                                    del_eff.literal):

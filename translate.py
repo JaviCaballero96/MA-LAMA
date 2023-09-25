@@ -37,6 +37,8 @@ SIMPLIFIED_CASUAL_GRAPH = True
 ## performance penalty due to weaker relevance analysis (see issue7).
 ADD_IMPLIED_PRECONDITIONS = False
 
+AGENT_DECOMPOSITION = True
+
 removed_implied_effect_counter = 0
 simplified_effect_condition_counter = 0
 added_implied_precondition_counter = 0
@@ -204,15 +206,21 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         eff_condition = [list(eff_cond.items())
                          for eff_cond in eff_condition_list]
         for var, val in dictionary[fact]:
-            if condition.get(var) == val:
+            if condition.get(var) == val and "block" not in fact.eff_type:
                 # Effect implied by precondition.
                 global removed_implied_effect_counter
                 removed_implied_effect_counter += 1
-                # print "Skipping effect of %s..." % operator.name
+                print("Skipping effect of %s..." % operator.name)
                 continue
-            effect_pair = effect.get(var)
+            if fact.eff_type == "eff":
+                effect_pair = effect.get(var)
+            else:
+                effect_pair = effect.get((var, fact.eff_type))
             if not effect_pair:
-                effect[var] = (val, eff_condition)
+                if fact.eff_type == "eff":
+                    effect[var] = (val, eff_condition)
+                else:
+                    effect[(var, fact.eff_type)] = (val, eff_condition)
             else:
                 other_val, eff_conditions = effect_pair
                 # Don't flag conflict just yet... the operator might be invalid
@@ -378,26 +386,37 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
 
     pre_post = []
     for var, (post, eff_condition_lists) in effect.items():
-        pre = condition.pop(var, -1)
-        if isinstance(post, list):
-            pre = post[3]
-            post = post[:-1]
-            # post = post[0]
+        if isinstance(var, tuple) and isinstance(var[1], str):
+            # a = 2
+            pre = condition.get(var[0], -1)
+            for eff_condition in eff_condition_lists:
+                if var[1] == "block all":
+                    # a = 2
+                    pre_post.append((var[0], -7, post, eff_condition))
+                elif var[1] == "block end":
+                    # a = 2
+                    pre_post.append((var[0], -8, post, eff_condition))
         else:
-            if ranges[var] == 2:
-                # Apply simplifications for binary variables.
-                if prune_stupid_effect_conditions(var, post, eff_condition_lists):
-                    global simplified_effect_condition_counter
-                    simplified_effect_condition_counter += 1
-                if (ADD_IMPLIED_PRECONDITIONS and
-                        pre == -1 and (var, 1 - post) in implied_precondition):
-                    global added_implied_precondition_counter
-                    added_implied_precondition_counter += 1
-                    pre = 1 - post
-                    # print "Added precondition (%d = %d) to %s" % (
-                    #     var, pre, operator.name)
-        for eff_condition in eff_condition_lists:
-            pre_post.append((var, pre, post, eff_condition))
+            pre = condition.pop(var, -1)
+            if isinstance(post, list):
+                pre = post[3]
+                post = post[:-1]
+                # post = post[0]
+            else:
+                if ranges[var] == 2:
+                    # Apply simplifications for binary variables.
+                    if prune_stupid_effect_conditions(var, post, eff_condition_lists):
+                        global simplified_effect_condition_counter
+                        simplified_effect_condition_counter += 1
+                    if (ADD_IMPLIED_PRECONDITIONS and
+                            pre == -1 and (var, 1 - post) in implied_precondition):
+                        global added_implied_precondition_counter
+                        added_implied_precondition_counter += 1
+                        pre = 1 - post
+                        # print "Added precondition (%d = %d) to %s" % (
+                        #     var, pre, operator.name)
+            for eff_condition in eff_condition_lists:
+                pre_post.append((var, pre, post, eff_condition))
     prevail = list(condition.items())
 
     return sas_tasks.SASOperator(operator.name, prevail, pre_post, operator.cost)
@@ -900,19 +919,19 @@ def pddl_to_sas(task, time_value):
     # agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
 
     free_agent_index = graphs.find_free_agent_index(groups)
-    dtgs = graphs.create_groups_dtgs(sas_task)
-    translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+    # dtgs = graphs.create_groups_dtgs(sas_task)
+    # translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
                                                                     SIMPLIFIED_CASUAL_GRAPH, task.temp_task)
 
-    graphs.create_gexf_casual_graph_files(casual_graph, 0)
-    graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
-    graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
+    # graphs.create_gexf_casual_graph_files(casual_graph, 0)
+    # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
+    # graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
+    # graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
+    # graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
 
     propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
@@ -922,32 +941,32 @@ def pddl_to_sas(task, time_value):
         deepcopy(propositional_casual_graph_type1))
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
-    agent_error = False
+    agent_error = not AGENT_DECOMPOSITION
     try:
         origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
-        if not origin_nodes:
+        if not origin_nodes and not agent_error:
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
         if not origin_nodes:
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple3)
 
         basic_agents = []
-        if origin_nodes:
+        if origin_nodes and not agent_error:
             basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
         else:
             agent_error = True
-        if basic_agents:
+        if basic_agents and not agent_error:
             basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
         else:
             agent_error = True
 
         joint_agents = []
-        if basic_agents:
+        if basic_agents and not agent_error:
             joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
         else:
             agent_error = True
 
         joint_final_agents = []
-        if joint_agents:
+        if joint_agents and not agent_error:
             joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
                                                               group_const_arg)
             joint_final_agents = [ele for ele in joint_final_agents if ele != []]
@@ -955,8 +974,8 @@ def pddl_to_sas(task, time_value):
             agent_error = True
 
         free_joint_agents = []
-        if joint_final_agents:
-            if free_agent_index != -1:
+        if joint_final_agents and not agent_error:
+            if free_agent_index != -10:
                 free_joint_agents = graphs.fill_free_agents(joint_final_agents, groups, free_agent_index)
             else:
                 free_joint_agents = copy.deepcopy(joint_final_agents)
@@ -964,12 +983,12 @@ def pddl_to_sas(task, time_value):
             agent_error = True
 
         functional_agents = []
-        if free_joint_agents:
+        if free_joint_agents and not agent_error:
             functional_agents = graphs.fill_func_agents(free_joint_agents, casual_graph, 2)
         else:
             agent_error = True
 
-        if free_joint_agents:
+        if free_joint_agents and not agent_error:
             agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
                                                                                       functional_agents, casual_graph,
                                                                                       sas_task, groups, task.temp_task)
@@ -979,7 +998,7 @@ def pddl_to_sas(task, time_value):
                                                                         agents_metric, agents_init,
                                                                         casual_graph, sas_task, groups, time_value,
                                                                         task.temp_task)
-            agent_error = not correct_assignment
+            agent_error = agent_error or not correct_assignment
 
             # Create new tasks
             agent_tasks = []
@@ -1019,17 +1038,17 @@ def pddl_to_sas(task, time_value):
         write_mutex_keys(mutex_keys)
         agent_tasks = []
 
-    fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
-    fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
-    fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
-    fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
+    # fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+    # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+    # fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
+    # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
 
-    graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
-    graphs.create_gexf_transition_functional_graphs_files(fdtgs)
-    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
-    graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric)
-    graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
+    # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+    # graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
+    # graphs.create_gexf_transition_functional_graphs_files(fdtgs)
+    # graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
+    # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric)
+    # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
