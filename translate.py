@@ -534,9 +534,9 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
 
             else:
                 param1 = pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[0].fluent.symbol,
-                                                                 expression.fluent.args[0].fluent.args)
+                                                                      expression.fluent.args[0].fluent.args)
                 param2 = pddl.f_expression.PrimitiveNumericExpression(expression.fluent.args[1].fluent.symbol,
-                                                                 expression.fluent.args[1].fluent.args)
+                                                                      expression.fluent.args[1].fluent.args)
 
                 if compare_expressions(param1, fluents_in_runtime):
                     value_str = value_str + "(_" + \
@@ -577,9 +577,9 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
 
             else:
                 param1 = pddl.f_expression.PrimitiveNumericExpression(expression.args[0].fluent.symbol,
-                                                                 expression.args[0].fluent.args)
+                                                                      expression.args[0].fluent.args)
                 param2 = pddl.f_expression.PrimitiveNumericExpression(expression.args[1].fluent.symbol,
-                                                                 expression.args[1].fluent.args)
+                                                                      expression.args[1].fluent.args)
 
                 if compare_expressions(param1, fluents_in_runtime):
                     value_str = value_str + "(_" + \
@@ -690,7 +690,7 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
                                     runtime_cost = True
-                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" +\
+                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + \
                                                post[0] + ")+" + new_cost
 
                         else:
@@ -710,7 +710,7 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                             if flu_name in dict_fluents_in_runtime:
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
-                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" +\
+                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + \
                                                str(post[0]) + ")+" + new_cost
 
                         else:
@@ -722,8 +722,6 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
 
         op.have_runtime_cost = runtime_cost
         op.runtime_cost = new_cost[:-1]
-
-
 
 
 def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges):
@@ -779,7 +777,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [])
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [])
 
 
 def set_function_values(operators, groups, mutex_groups):
@@ -924,7 +922,7 @@ def pddl_to_sas(task, time_value):
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
-                                                                    SIMPLIFIED_CASUAL_GRAPH, task.temp_task)
+                                                                    task.temp_task)
 
     # graphs.create_gexf_casual_graph_files(casual_graph, 0)
     # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
@@ -937,41 +935,118 @@ def pddl_to_sas(task, time_value):
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
         deepcopy(propositional_casual_graph_type1_simple1))
-    propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
-        deepcopy(propositional_casual_graph_type1))
+    # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
+    #     deepcopy(propositional_casual_graph_type1))
     graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     agent_error = not AGENT_DECOMPOSITION
     try:
-        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
-        if not origin_nodes and not agent_error:
+        or_level = 0
+        origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1)
+        if len(origin_nodes) < 2 and not agent_error:
+            or_level = 1
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
-        if not origin_nodes:
-            origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple3)
+        elif len(origin_nodes) < 2 and not agent_error:
+            or_level = 2
+            origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
 
-        basic_agents = []
+        print("origin nodes (found on level " + str(or_level) + "): ")
+        n_agent = 0
+        for ori in origin_nodes:
+            a_list = [(k.predicate, k.args) for k in groups[ori]]
+            print("Node " + str(n_agent) + " - " + str(group_const_arg[ori]))
+            print("- " + str(ori) + " _ " + str(a_list) + " -")
+            print("")
+            n_agent = n_agent + 1
+
+        assemble_agents = []
         if origin_nodes and not agent_error:
-            basic_agents = graphs.fill_basic_agents(origin_nodes, propositional_casual_graph)
+            assemble_agents = graphs.assemble_basic_agents(origin_nodes, group_const_arg)
+            # assemble_agents = [[k] for k in assemble_agents]
+
+            print("Assembled Agents detected: ")
+            n_agent = 0
+            for agent in assemble_agents:
+                print("Agent" + str(n_agent))
+                print(agent)
+                n_agent = n_agent + 1
+
         else:
             agent_error = True
-        if basic_agents and not agent_error:
-            basic_agents = graphs.assemble_basic_agents(basic_agents, group_const_arg)
+
+        basic_agents = []
+        if assemble_agents and not agent_error:
+            basic_agents, non_agent_nodes = graphs.fill_basic_agents(assemble_agents,
+                                                                     propositional_casual_graph_type1, groups)
+            print("Basic Agents detected: ")
+            n_agent = 0
+            for agent in basic_agents:
+                print("Agent" + str(n_agent))
+                print(agent)
+                n_agent = n_agent + 1
+
+            # print("")
+            # print("Variables still not assigned: ")
+            # print(non_agent_nodes)
+            # print("--------------------------")
+            # for var in non_agent_nodes:
+            #     for member in groups[var]:
+            #         print(member)
+            #     print("")
+            # print("--------------------------")
+
         else:
             agent_error = True
 
         joint_agents = []
         if basic_agents and not agent_error:
-            joint_agents = graphs.fill_joint_agents(basic_agents, propositional_casual_graph, 5)
+            joint_agents, simple_joint_agents, non_agent_nodes = graphs.fill_joint_agents(basic_agents,
+                                                                                          propositional_casual_graph, 5,
+                                                                                          groups)
         else:
             agent_error = True
 
-        joint_final_agents = []
+        simple_joint_agents = [k for k in simple_joint_agents if k != []]
+        joint_agents = [k for k in joint_agents if k != []]
+
+        print("Simple Joint Agents detected: ")
+        n_agent = 0
+        for agent in simple_joint_agents:
+            print("Agent" + str(n_agent))
+            print(agent)
+            n_agent = n_agent + 1
+
+        print("")
+        print("Variables still not assigned, these are considered public: ")
+        print(non_agent_nodes)
+        print("--------------------------")
+        for var in non_agent_nodes:
+            print(var)
+            for member in groups[var]:
+                print(member)
+            print("")
+        print("--------------------------")
+
         if joint_agents and not agent_error:
-            joint_final_agents = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph, groups,
-                                                              group_const_arg)
+            joint_final_agents, non_agent_nodes = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph,
+                                                                               groups, group_const_arg)
             joint_final_agents = [ele for ele in joint_final_agents if ele != []]
+            joint_final_agents_final = []
+            for agent_nodes in joint_final_agents:
+                agent_node_non = []
+                [agent_node_non.append(k) for k in agent_nodes if k not in agent_node_non]
+                joint_final_agents_final.append(agent_node_non)
+            joint_final_agents = joint_final_agents_final
+
         else:
-            agent_error = True
+           agent_error = True
+
+        print("Rem Joint Agents detected: ")
+        n_agent = 0
+        for agent in joint_final_agents:
+            print("Agent" + str(n_agent))
+            print(agent)
+            n_agent = n_agent + 1
 
         free_joint_agents = []
         if joint_final_agents and not agent_error:
@@ -989,21 +1064,73 @@ def pddl_to_sas(task, time_value):
             agent_error = True
 
         if free_joint_agents and not agent_error:
-            agents_actions, extern_actions, shared_nodes = graphs.fill_agents_actions(basic_agents, joint_final_agents,
-                                                                                      functional_agents, casual_graph,
-                                                                                      sas_task, groups, task.temp_task)
+
+            print("Final Agents detected: ")
+            n_agent = 0
+            for agent in free_joint_agents:
+                print("Agent" + str(n_agent))
+                print(simple_joint_agents[n_agent])
+                print("-  " + str(agent) + "  -")
+                print("\n")
+                n_agent = n_agent + 1
+
+            agents_actions, extern_actions, shared_nodes, out_var_actions = \
+                graphs.fill_agents_actions(
+                    simple_joint_agents,
+                    joint_final_agents,
+                    functional_agents, sas_task,
+                    groups, task.temp_task)
+
+            print("Shared variables between agents are: ")
+            for node in shared_nodes:
+                for member in groups[node]:
+                    print(member)
+                if node in [k[0] for k in sas_task.goal.pairs]:
+                    print("This var is a goal too (" + str(node) + ")")
+                else:
+                    print("(" + str(node) + ")")
+                print("")
+
+            print("Total actions in task: " + str(len(sas_task.operators)))
+
+            # n_agent = 0
+            # for op_list in agents_actions:
+            #     print("\nInternal actions for agent " + str(n_agent) + ":")
+            #     for op in op_list:
+            #         if op not in extern_actions[n_agent]:
+            #             print(op.name)
+            #     n_agent = n_agent + 1
+
+            # n_agent = 0
+            # for op_list in extern_actions:
+            #     print("\nActions that depend on shared variables for agent " + str(n_agent) + ": " +
+            #           str(len(extern_actions[n_agent])) + " out of " + str(len(agents_actions[n_agent])))
+            #     for op in op_list:
+            #         print(op.name)
+            #     n_agent = n_agent + 1
+
+            # n_agent = 0
+            # for op_list in out_var_actions:
+            #     print("\nActions that depend on other agents variables " + str(n_agent) + ": " +
+            #           str(len(out_var_actions[n_agent])) + " out of " + str(len(agents_actions[n_agent])))
+            #     for op in op_list:
+            #         print(op.name)
+            #     n_agent = n_agent + 1
+
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
-            agents_goals, correct_assignment = graphs.fill_agents_goals(joint_agents, functional_agents, agents_actions,
-                                                                        agents_metric, agents_init,
-                                                                        casual_graph, sas_task, groups, time_value,
-                                                                        task.temp_task)
+            agents_goals, agent_coop_goals, general_goals, correct_assignment = \
+                graphs.fill_agents_goals(joint_agents,
+                                         functional_agents, agents_actions,
+                                         agents_metric, agents_init,
+                                         casual_graph, sas_task, groups, time_value,
+                                         task.temp_task)
             agent_error = agent_error or not correct_assignment
 
             # Create new tasks
             agent_tasks = []
             agent_index = 0
-            for _ in basic_agents:
+            for _ in joint_agents:
 
                 if len(agents_goals[agent_index]) == 0:
                     agent_index = agent_index + 1
@@ -1016,10 +1143,11 @@ def pddl_to_sas(task, time_value):
                 variables = sas_tasks.SASVariables(vars, axiom_layers)
                 init = sas_tasks.SASInit(agents_init[agent_index])
                 goal = sas_tasks.SASGoal(agents_goals[agent_index])
+                coop_goal = agent_coop_goals[agent_index]
 
                 new_task = sas_tasks.SASTask(variables, init,
                                              goal, agents_actions[agent_index], [],
-                                             agents_metric[agent_index], shared_nodes)
+                                             agents_metric[agent_index], shared_nodes, coop_goal)
 
                 agent_tasks.append(new_task)
                 agent_index = agent_index + 1
@@ -1052,7 +1180,7 @@ def pddl_to_sas(task, time_value):
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
-    return sas_task, agent_tasks, groups
+    return sas_task, agent_tasks, groups, general_goals
 
 
 def set_func_init_value(sas_task, agent_tasks, task, groups):
@@ -1318,13 +1446,17 @@ if __name__ == "__main__":
     # import psyco
     # psyco.full()
 
+    os.system("rm -f *groups")
+    os.system("rm -f output.sas")
+    os.system("rm -rf step_*")
+
     # Translate durative task to snap actions task
     if durative_task.temp_task:
         snap_task = snap_actions.task_snap_translate(durative_task)
     else:
         snap_task = durative_task
 
-    sas_task, agent_tasks, groups = pddl_to_sas(snap_task, time_value)
+    sas_task, agent_tasks, groups, general_goals = pddl_to_sas(snap_task, time_value)
 
     print("Files will be stored in: " + os.getcwd())
     with timers.timing("Writing output"):
@@ -1338,10 +1470,40 @@ if __name__ == "__main__":
                     agent_tasks[0].metric.append(metr)
 
         agent_index = 0
+        os.mkdir("step_0")
         for task in agent_tasks:
             name = "agent" + str(agent_index)
-            task.outputma(open("output_agent" + str(agent_index) + ".sas",
+            task.outputma(open("step_0/output_agent" + str(agent_index) + ".sas",
                                "w"), name, groups, agent_index)
             agent_index = agent_index + 1
+
+        if agent_index > 0:
+            coop_goal_index = 0
+            for coop_goal in agent_tasks[0].coop_goals:
+                agent_index = 0
+                os.mkdir("step_" + str(coop_goal_index + 1))
+                for task in agent_tasks:
+                    if task.coop_goals[coop_goal_index][0] != -1:
+                        name = "agent" + str(agent_index)
+                        task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
+                                                str(task.coop_goals[coop_goal_index][0]) +
+                                           "_output_agent" + str(agent_index) + ".sas", "w"),
+                                           name, groups, agent_index, task.coop_goals[coop_goal_index])
+                        agent_index = agent_index + 1
+                coop_goal_index = coop_goal_index + 1
+
+        if general_goals:
+            general_goals = sas_tasks.SASGoal(general_goals)
+            os.mkdir("step_" + str(coop_goal_index + 1))
+            name = "general"
+            task = sas_task
+            if task.translated_metric:
+                task.metric = [task.metric[0]]
+                for metr in task.translated_metric:
+                    task.metric.append(metr)
+            task.goal = general_goals
+            task.outputma(open("step_" + str(coop_goal_index + 1) + "/" +
+                               "output_general.sas", "w"),
+                          name, groups, -1)
 
     print("Done! %s" % timer)

@@ -1,5 +1,5 @@
 class SASTask:
-    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes):
+    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals):
         self.variables = variables
         self.init = init
         self.goal = goal
@@ -7,6 +7,8 @@ class SASTask:
         self.axioms = axioms
         self.metric = metric
         self.shared_nodes = shared_nodes
+        self.coop_goals = coop_goals
+
     def output(self, stream, groups):
         print("gen", file=stream)
         print("begin_metric", file=stream)
@@ -49,7 +51,7 @@ class SASTask:
         self.init.output(stream)
         print("begin_shared", file=stream)
         shared_number = 0
-        if self.shared_nodes:
+        if self.shared_nodes or agent_index != -1:
             for me, is_agent in self.shared_nodes.items():
                 if is_agent[agent_index]:
                     shared_number = shared_number + 1
@@ -84,10 +86,72 @@ class SASTask:
         print(len(self.axioms), file=stream)
         for axiom in self.axioms:
             axiom.output(stream)
+
+    def outputma_coop(self, stream, name, groups, agent_index, coop_goal):
+        aux = {}
+        if isinstance(self.variables.ranges, list):
+            index = 0
+            for var in self.variables.ranges:
+                aux[index] = self.variables.ranges[index]
+                index = index + 1
+            self.variables.ranges = aux
+
+        print(name, file=stream)
+        print("begin_metric", file=stream)
+        if self.metric:
+            print("(" + self.metric[0], file=stream)
+            for me in self.metric[1:]:
+                print(str(me) + " ", file=stream)
+            print(")", file=stream)
+        print("end", file=stream)
+        print("end_metric", file=stream)
+        self.variables.output(stream, groups)
+        self.init.output(stream)
+        print("begin_shared", file=stream)
+        shared_number = 0
+        if self.shared_nodes:
+            for me, is_agent in self.shared_nodes.items():
+                if is_agent[agent_index]:
+                    shared_number = shared_number + 1
+            print(shared_number, file=stream)
+            for me, is_agent in self.shared_nodes.items():
+                if not is_agent[agent_index]:
+                    continue
+                index = 0
+                for vari, range in self.variables.ranges.items():
+                    if vari == me:
+                        break
+                    index = index + 1
+                print(str(me) + " " + str(index), file=stream)
+        else:
+            print("0", file=stream)
+        print("end_shared", file=stream)
+        print("begin_goal", file=stream)
+        print(1, file=stream)
+        var = coop_goal[1][0]
+        val = coop_goal[1][1]
+        index = 0
+        for vari, range in self.variables.ranges.items():
+            if vari == var:
+                break
+            index = index + 1
+        print(index, val, file=stream)
+        print("end_goal", file=stream)
+
+        # self.goal.output(stream)
+        print(len(self.operators), file=stream)
+        for op in self.operators:
+            op.outputma(stream, self.variables.ranges)
+        print(len(self.axioms), file=stream)
+        for axiom in self.axioms:
+            axiom.output(stream)
+
+
 class SASVariables:
     def __init__(self, ranges, axiom_layers):
         self.ranges = ranges
         self.axiom_layers = axiom_layers
+
     def dump(self):
         for var, (rang, axiom_layer) in enumerate(zip(self.ranges, self.axiom_layers)):
             if axiom_layer != -1:
@@ -95,6 +159,7 @@ class SASVariables:
             else:
                 axiom_str = ""
             print("v%d in {%s}%s" % (var, list(range(rang)), axiom_str))
+
     def output(self, stream, groups):
         print("begin_variables", file=stream)
         print(len(self.ranges), file=stream)
@@ -116,13 +181,16 @@ class SASVariables:
                 print("var%d %d %d %d" % (var, rang + 1, -1, time), file=stream)
         print("end_variables", file=stream)
 
+
 class SASInit:
     def __init__(self, values):
         self.values = values
+
     def dump(self):
         for var, val in enumerate(self.values):
             if val != -1:
                 print("v%d: %d" % (var, val))
+
     def output(self, stream):
         print("begin_state", file=stream)
         if type(self.values) is not dict:
@@ -139,12 +207,15 @@ class SASInit:
                     print(val, file=stream)
         print("end_state", file=stream)
 
+
 class SASGoal:
     def __init__(self, pairs):
         self.pairs = sorted(pairs)
+
     def dump(self):
         for var, val in self.pairs:
             print("v%d: %d" % (var, val))
+
     def output(self, stream):
         print("begin_goal", file=stream)
         print(len(self.pairs), file=stream)
@@ -152,12 +223,14 @@ class SASGoal:
             print(var, val, file=stream)
         print("end_goal", file=stream)
 
+
 class SASOperator:
     def __init__(self, name, prevail, pre_post, cost):
         self.name = name
         self.prevail = sorted(prevail)
         self.pre_post = sorted(pre_post)
         self.cost = cost
+
     def dump(self):
         print(self.name)
         print("Prevail:")
@@ -170,6 +243,7 @@ class SASOperator:
             else:
                 cond_str = ""
             print("  v%d: %d -> %d%s" % (var, pre, post, cond_str))
+
     def output(self, stream):
         print("begin_operator", file=stream)
         print(self.name[1:-1], file=stream)
@@ -271,11 +345,12 @@ class SASOperator:
                             break
                         run_index = run_index + 1
                     run_cost = run_cost.replace("_" + run_var + "_", "!" + str(run_index) + "!")
-            print(self.run_cost, file=stream)
+            print(run_cost, file=stream)
         else:
             print("no-run", file=stream)
             print("-", file=stream)
         print("end_operator", file=stream)
+
 
 class SASAxiom:
     def __init__(self, condition, effect):
@@ -285,6 +360,7 @@ class SASAxiom:
 
         for _, val in condition:
             assert val >= 0, condition
+
     def dump(self):
         print("Condition:")
         for var, val in self.condition:
@@ -292,6 +368,7 @@ class SASAxiom:
         print("Effect:")
         var, val = self.effect
         print("  v%d: %d" % (var, val))
+
     def output(self, stream):
         print("begin_rule", file=stream)
         print(len(self.condition), file=stream)

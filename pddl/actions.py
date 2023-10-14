@@ -53,6 +53,12 @@ class Action(object):
             raise SystemExit("Error in Action %s\nReason: %s." % (name, e))
         for rest in iterator:
             assert False, rest
+
+        for effect in eff:
+            effect.eff_type = "eff"
+        for cost in eff:
+            cost.eff_type = "eff"
+
         return Action(name, parameters, precondition, num_condition_final, eff, cost)
 
     parse = staticmethod(parse)

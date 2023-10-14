@@ -60,11 +60,12 @@ class DomainCasualGraph:
 
 
 class EstimatedMetricNode:
-    def __init__(self, app_actions, curr_state, estimated_metric, pending_additions):
+    def __init__(self, app_actions, curr_state, estimated_metric, pending_additions, achieved_subgoals):
         self.app_actions = app_actions
         self.curr_state = curr_state
         self.estimated_metric = estimated_metric
         self.pending_additions = pending_additions
+        self.achieved_subgoals = achieved_subgoals
 
 
 def get_agent_elements(task, strips_to_sas):
@@ -324,7 +325,7 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
                 if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or
-                        n_pre_spec == -5 or n_pre_spec == -6) and n_var_no in sas_task.translated_metric:
+                    n_pre_spec == -5 or n_pre_spec == -6) and n_var_no in sas_task.translated_metric:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
                         if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and
@@ -600,7 +601,7 @@ def create_gexf_transition_graphs_files(dtgs, groups):
             index = index + 1
 
 
-def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, simplify, temp_task):
+def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, temp_task):
     node_groups_list = []
     node_groups_list_type1 = []
     node_groups_list_type2 = []
@@ -675,123 +676,91 @@ def create_casual_graph(sas_task, groups, group_const_arg, free_agent_index, sim
                 # Check for arcs of type 2 (effect - effect) and type 1 (precondition)
                 for var_no2, pre_spec2, post2, cond2 in op.pre_post:
                     # Type 2 (only if it is a different effect)
-                    if operator_index2 != operator_index1 and pre_spec2 != -7 and pre_spec2 != -8:
-                        if simplify:
-                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                            if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2 \
-                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
-                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
-                                                          2, arc_id)
-                                node_groups_list[var_no1].arcs.append(new_arc)
-                                node_groups_list[var_no2].end_arcs.append(new_arc)
-                                node_groups_list[var_no1].type2_arcs.append(arc_id)
-                                node_groups_list[var_no2].end_type2_arcs.append(arc_id)
-                                node_groups_list_type2[var_no1].arcs.append(new_arc)
-                                node_groups_list_type2[var_no2].end_arcs.append(new_arc)
-                                node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
-                                node_groups_list_type2[var_no2].end_type2_arcs.append(arc_id)
-                                if var_no2 in propositional_node_groups_list \
-                                        and var_no1 in propositional_node_groups_list:
-                                    propositional_node_groups[var_no1].arcs.append(new_arc)
-                                    propositional_node_groups[var_no2].end_arcs.append(new_arc)
-                                    propositional_node_groups[var_no1].type2_arcs.append(arc_id)
-                                    propositional_node_groups[var_no2].end_type2_arcs.append(arc_id)
-                                    propositional_node_groups_type2[var_no1].arcs.append(new_arc)
-                                    propositional_node_groups_type2[var_no2].end_arcs.append(new_arc)
-                                    propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
-                                    propositional_node_groups_type2[var_no2].end_type2_arcs.append(arc_id)
-                        else:
+                    # We do not use type2 arcs
+                    if False and operator_index2 != operator_index1 and pre_spec2 != -7 and pre_spec2 != -8:
+                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                        if arc_id not in node_groups_list[var_no1].type2_arcs and var_no1 != var_no2 \
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                      node_groups_list[var_no2].name,
-                                                      (op.name.split(' ')[0])[1:], 2, arc_id)
+                                                      node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
+                                                      2, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list[var_no2].end_arcs.append(new_arc)
+                            node_groups_list[var_no1].type2_arcs.append(arc_id)
+                            node_groups_list[var_no2].end_type2_arcs.append(arc_id)
                             node_groups_list_type2[var_no1].arcs.append(new_arc)
+                            node_groups_list_type2[var_no2].end_arcs.append(new_arc)
+                            node_groups_list_type2[var_no1].type2_arcs.append(arc_id)
+                            node_groups_list_type2[var_no2].end_type2_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
+                                propositional_node_groups[var_no1].type2_arcs.append(arc_id)
+                                propositional_node_groups[var_no2].end_type2_arcs.append(arc_id)
                                 propositional_node_groups_type2[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type2[var_no2].end_arcs.append(new_arc)
+                                propositional_node_groups_type2[var_no1].type2_arcs.append(arc_id)
+                                propositional_node_groups_type2[var_no2].end_type2_arcs.append(arc_id)
 
                     # Type 1 (only if a precondition exists)
                     if pre_spec1 != -1 and (pre_spec1 != -2 and pre_spec1 != -3 and pre_spec1 != -4 and
                                             pre_spec1 != -5 and pre_spec1 != -6 and
                                             pre_spec1 != -7 and pre_spec1 != -8):
-                        if simplify:
-                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
-                            if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2 \
-                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
-                                new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
-                                                          node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
-                                                          1, arc_id)
-                                node_groups_list[var_no1].arcs.append(new_arc)
-                                node_groups_list[var_no2].end_arcs.append(new_arc)
-                                node_groups_list[var_no1].type1_arcs.append(arc_id)
-                                node_groups_list[var_no2].end_type1_arcs.append(arc_id)
-                                node_groups_list_type1[var_no1].arcs.append(new_arc)
-                                node_groups_list_type1[var_no2].end_arcs.append(new_arc)
-                                node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
-                                node_groups_list_type1[var_no2].end_type1_arcs.append(arc_id)
-                                if var_no2 in propositional_node_groups_list \
-                                        and var_no1 in propositional_node_groups_list:
-                                    propositional_node_groups[var_no1].arcs.append(new_arc)
-                                    propositional_node_groups[var_no2].end_arcs.append(new_arc)
-                                    propositional_node_groups[var_no1].type1_arcs.append(arc_id)
-                                    propositional_node_groups[var_no2].end_type1_arcs.append(arc_id)
-                                    propositional_node_groups_type1[var_no1].arcs.append(new_arc)
-                                    propositional_node_groups_type1[var_no2].end_arcs.append(new_arc)
-                                    propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
-                                    propositional_node_groups_type1[var_no2].end_type1_arcs.append(arc_id)
-                        else:
+                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no1) + "_" + str(var_no2)
+                        if arc_id not in node_groups_list[var_no1].type1_arcs and var_no1 != var_no2 \
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no1, var_no2, node_groups_list[var_no1].name,
                                                       node_groups_list[var_no2].name, (op.name.split(' ')[0])[1:],
                                                       1, arc_id)
                             node_groups_list[var_no1].arcs.append(new_arc)
+                            node_groups_list[var_no2].end_arcs.append(new_arc)
+                            node_groups_list[var_no1].type1_arcs.append(arc_id)
+                            node_groups_list[var_no2].end_type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no1].arcs.append(new_arc)
+                            node_groups_list_type1[var_no2].end_arcs.append(new_arc)
+                            node_groups_list_type1[var_no1].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no2].end_type1_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
                                 propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].end_arcs.append(new_arc)
+                                propositional_node_groups[var_no1].type1_arcs.append(arc_id)
+                                propositional_node_groups[var_no2].end_type1_arcs.append(arc_id)
                                 propositional_node_groups_type1[var_no1].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no2].end_arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no1].type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no2].end_type1_arcs.append(arc_id)
 
                     operator_index2 = operator_index2 + 1
 
                 # Check for arcs of type 1 from prevail array (precondition - effect)
                 if not end_action or not temp_task:
                     for var_no2, pre_spec2 in op.prevail:
-                        if simplify:
-                            arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
-                            if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2 \
-                                    and free_agent_index != var_no2 and free_agent_index != var_no1:
-                                new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                                          node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
-                                                          1, arc_id)
-                                node_groups_list[var_no2].arcs.append(new_arc)
-                                node_groups_list[var_no1].end_arcs.append(new_arc)
-                                node_groups_list[var_no2].type1_arcs.append(arc_id)
-                                node_groups_list[var_no1].end_type1_arcs.append(arc_id)
-                                node_groups_list_type1[var_no2].arcs.append(new_arc)
-                                node_groups_list_type1[var_no1].end_arcs.append(new_arc)
-                                node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
-                                node_groups_list_type1[var_no1].end_type1_arcs.append(arc_id)
-                                if var_no2 in propositional_node_groups_list \
-                                        and var_no1 in propositional_node_groups_list:
-                                    propositional_node_groups[var_no2].arcs.append(new_arc)
-                                    propositional_node_groups[var_no1].end_arcs.append(new_arc)
-                                    propositional_node_groups[var_no2].type1_arcs.append(arc_id)
-                                    propositional_node_groups[var_no1].end_type1_arcs.append(arc_id)
-                                    propositional_node_groups_type1[var_no2].arcs.append(new_arc)
-                                    propositional_node_groups_type1[var_no1].end_arcs.append(new_arc)
-                                    propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
-                                    propositional_node_groups_type1[var_no1].end_type1_arcs.append(arc_id)
-                        else:
+                        arc_id = (op.name.split(' ')[0])[1:] + "-" + str(var_no2) + "_" + str(var_no1)
+                        if arc_id not in node_groups_list[var_no2].type1_arcs and var_no1 != var_no2 \
+                                and free_agent_index != var_no2 and free_agent_index != var_no1:
                             new_arc = DomainCasualArc(var_no2, var_no1, node_groups_list[var_no2].name,
-                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:], 1,
-                                                      arc_id)
+                                                      node_groups_list[var_no1].name, (op.name.split(' ')[0])[1:],
+                                                      1, arc_id)
                             node_groups_list[var_no2].arcs.append(new_arc)
+                            node_groups_list[var_no1].end_arcs.append(new_arc)
+                            node_groups_list[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list[var_no1].end_type1_arcs.append(arc_id)
                             node_groups_list_type1[var_no2].arcs.append(new_arc)
+                            node_groups_list_type1[var_no1].end_arcs.append(new_arc)
+                            node_groups_list_type1[var_no2].type1_arcs.append(arc_id)
+                            node_groups_list_type1[var_no1].end_type1_arcs.append(arc_id)
                             if var_no2 in propositional_node_groups_list \
                                     and var_no1 in propositional_node_groups_list:
-                                propositional_node_groups[var_no1].arcs.append(new_arc)
+                                propositional_node_groups[var_no2].arcs.append(new_arc)
+                                propositional_node_groups[var_no1].end_arcs.append(new_arc)
+                                propositional_node_groups[var_no2].type1_arcs.append(arc_id)
+                                propositional_node_groups[var_no1].end_type1_arcs.append(arc_id)
                                 propositional_node_groups_type1[var_no2].arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no1].end_arcs.append(new_arc)
+                                propositional_node_groups_type1[var_no2].type1_arcs.append(arc_id)
+                                propositional_node_groups_type1[var_no1].end_type1_arcs.append(arc_id)
 
             operator_index1 = operator_index1 + 1
 
@@ -843,9 +812,9 @@ def remove_three_way_cycles(casual_graph):
                             arcs_to_remove.append(first_arc)
                             arcs_to_remove.append(second_arc)
                             arcs_to_remove.append(third_arc)
-                            #casual_graph.node_list[third_arc.end_state].arcs.remove(first_arc)
-                            #casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
-                            #casual_graph.node_list[second_arc.end_state].arcs.remove(third_arc)
+                            # casual_graph.node_list[third_arc.end_state].arcs.remove(first_arc)
+                            # casual_graph.node_list[first_arc.end_state].arcs.remove(second_arc)
+                            # casual_graph.node_list[second_arc.end_state].arcs.remove(third_arc)
 
     for remove_arc in arcs_to_remove:
         for end_arc in casual_graph.node_list[remove_arc.end_state].end_arcs[:]:
@@ -858,13 +827,16 @@ def remove_three_way_cycles(casual_graph):
 def obtain_origin_nodes(casual_graph):
     origin_nodes = {}
     for node_number in casual_graph.node_list:
-        if not casual_graph.node_list[node_number].end_arcs and casual_graph.node_list[node_number].arcs:
-            origin_nodes[node_number] = casual_graph.node_list[node_number]
+        if not casual_graph.node_list[node_number].end_arcs:
+            for arc in casual_graph.node_list[node_number].arcs:
+                if arc.arc_type == 1:
+                    origin_nodes[node_number] = casual_graph.node_list[node_number]
+                    break
 
     return origin_nodes
 
 
-def fill_basic_agents(origin_nodes, propositional_casual_graph):
+def fill_basic_agents(origin_nodes, propositional_casual_graph, groups):
     full_agents = []
     redundant_agents = []
     or_agent_nodes = [or_node_number for or_node_number in origin_nodes]
@@ -872,19 +844,18 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
         search_queue = []
         already_visited = []
 
-        for node_app in propositional_casual_graph.node_list[agent].arcs:
-            if node_app.arc_type == 1:
-                search_queue.append(node_app.end_state)
+        for a_node in agent:
+            for node_app in propositional_casual_graph.node_list[a_node].arcs:
+                if node_app.arc_type == 1 and node_app.end_state not in search_queue and \
+                        node_app.end_state not in agent:
+                    search_queue.append(node_app.end_state)
+                    already_visited.append(node_app.end_state)
 
-        for node_app in propositional_casual_graph.node_list[agent].arcs:
-            if node_app.arc_type == 1:
-                already_visited.append(node_app.end_state)
-
-        full_agents.append([agent])
+        full_agents.append(agent)
         while search_queue:
             node = search_queue.pop(0)
 
-            # Check if all predecesors are in V
+            # Check if all predecessors are in V
             bool_all = True
             curr_arc = False
             for node_arc in propositional_casual_graph.node_list[node].end_arcs:
@@ -913,28 +884,106 @@ def fill_basic_agents(origin_nodes, propositional_casual_graph):
                         search_queue.append(arc_app.end_state)
                         already_visited.append(arc_app.end_state)
 
-    # Remove redundant agents
-    to_remove = []
-    for agent in full_agents[:]:
-        for agent2 in full_agents[:]:
-            if agent[0] != agent2[0] and agent[0] not in to_remove:
-                for agent_state in agent[:]:
-                    if agent_state == agent2[0] and agent_state != agent[0]:
-                        full_agents.remove(agent2)
-                        to_remove.append(agent2[0])
-                        break
+    while (True):
 
-    # Remove redundant states in agents
-    full_agents_final = []
-    for agent in full_agents:
-        agent_final = []
-        [agent_final.append(x) for x in agent if x not in agent_final]
-        full_agents_final.append(agent_final)
+        # Remove redundant agents
+        agents_removed = True
+        out = []
+        l = full_agents
+        while len(l) > 0:
+            first, *rest = l
+            first = set(first)
+            lf = -1
+            while len(first) > lf:
+                lf = len(first)
+                rest2 = []
+                for r in rest:
+                    if len(first.intersection(set(r))) > 0:
+                        first |= set(r)
+                    else:
+                        rest2.append(r)
+                rest = rest2
+            out.append(first)
+            l = rest
+
+        agents_removed = len(full_agents) != len(out)
+        full_agents = out
+
+        # Remove redundant states in agents
+        index = 0
+        for agent in full_agents[:]:
+            aux = []
+            [aux.append(x) for x in agent if x not in aux]
+            full_agents[index] = aux
+            index = index + 1
+
+        if agents_removed:
+            # Expand agents again
+            f_agents_index = 0
+            for agent in full_agents[:]:
+                search_queue = []
+                already_visited = []
+
+                for a_node in agent:
+                    for node_app in propositional_casual_graph.node_list[a_node].arcs:
+                        if node_app.arc_type == 1 and node_app.end_state not in search_queue and \
+                                node_app.end_state not in agent:
+                            search_queue.append(node_app.end_state)
+                            already_visited.append(node_app.end_state)
+
+                while search_queue:
+                    node = search_queue.pop(0)
+
+                    # Check if all predecessors are in V
+                    bool_all = True
+                    curr_arc = False
+                    for node_arc in propositional_casual_graph.node_list[node].end_arcs:
+                        if node_app.arc_type == 1 and (node_arc.origin_state not in full_agents[f_agents_index]):
+                            # Check if the arc found is part of a 1 level loop
+                            if len(propositional_casual_graph.node_list[node_arc.origin_state].end_type1_arcs) == 1:
+                                if "_curr_" in propositional_casual_graph.node_list[node].name:
+                                    continue
+                            elif "_curr_" in propositional_casual_graph.node_list[node].name:
+                                if not curr_arc:
+                                    curr_arc = True
+                                    continue
+
+                            bool_all = False
+                            break
+
+                    if bool_all:
+                        full_agents[f_agents_index].append(node)
+
+                        # Check if the new variable of the agent was considered a separated agent
+                        if node in or_agent_nodes:
+                            redundant_agents.append(node)
+
+                        for arc_app in propositional_casual_graph.node_list[node].arcs:
+                            if arc_app.arc_type == 1 and arc_app.end_state not in already_visited:
+                                search_queue.append(arc_app.end_state)
+                                already_visited.append(arc_app.end_state)
+
+                f_agents_index = f_agents_index + 1
+        else:
+            break
+
+    non_agent_nodes = []
+    index = 0
+    for node in groups:
+        found = False
+        for agent in full_agents:
+            if not found and index in agent:
+                found = True
+
+        if not found and isinstance(node[0].predicate, str):
+            non_agent_nodes.append(index)
+
+        index = index + 1
 
     # for agent in full_agents_final:
     #    agent.sort()
 
-    return full_agents_final
+    return full_agents, non_agent_nodes
 
 
 def assemble_basic_agents(old_basic_agents, old_group_const_arg):
@@ -977,7 +1026,8 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                 else:
                     if agent[0] != agent_2:
                         for node_1 in agent:
-                            if node_1 < len(old_group_const_arg) and old_group_const_arg[node_1][0] in old_group_const_arg[agent_2]:
+                            if node_1 < len(old_group_const_arg) and old_group_const_arg[node_1][0] in \
+                                    old_group_const_arg[agent_2]:
                                 agent_nodes.append(agent_2)
                                 do_not_agent.append(agent_2)
                                 if agent[0] in inherit:
@@ -994,7 +1044,8 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                 if type(agent_2) is list:
                     if agent != agent_2[0]:
                         for node_2 in agent_2:
-                            if node_2 < len(old_group_const_arg) and old_group_const_arg[agent][0] in old_group_const_arg[node_2]:
+                            if node_2 < len(old_group_const_arg) and old_group_const_arg[agent][0] in \
+                                    old_group_const_arg[node_2]:
                                 for node in agent_2:
                                     agent_nodes.append(node)
                                 do_not_agent.append(agent_2[0])
@@ -1016,7 +1067,6 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
         [res.append(x) for x in agent_nodes if x not in res]
         final_basic_agents.append(res)
 
-
     for inh, out in inherit.items():
         for out_elem in out:
             for arg in old_group_const_arg[out_elem]:
@@ -1026,13 +1076,13 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
     return final_basic_agents
 
 
-def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
+def fill_joint_agents(basic_agents, propositional_casual_graph, depth, groups):
     joint_agents = copy.deepcopy(basic_agents)
     not_jointed = []
 
     # All nodes in the propositional graph are analyzed:
-    #   if a node is a child of a member of an agent, the node is added to that agent
-    #   before adding it, if that node already exists iin other agent, the node is not added to neither
+    #   if a node is a child of a member of an agent, the node is added to that agent but
+    #   before adding it, if that node already exists in other agent, the node is not added to neither
     #   and it will analyzed in next steps
     for _ in range(depth):
         for agent in joint_agents:
@@ -1041,6 +1091,31 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
                 if node not in agent:
                     for arc in propositional_casual_graph.node_list[node].end_arcs:
                         if arc.arc_type == 1 and agent.count(arc.origin_state) != 0:
+                            add = True
+                            if node not in not_jointed:
+                                for agent2 in joint_agents:
+                                    if agent != agent2 and node in agent2:
+                                        agent2.remove(node)
+                                        if node not in not_jointed:
+                                            not_jointed.append(node)
+                                        add = False
+                            else:
+                                add = False
+
+                            if add:
+                                agent_additions.append(node)
+                                break
+            for addin in agent_additions:
+                agent.append(addin)
+
+    # Same but for parents
+    for _ in range(depth):
+        for agent in joint_agents:
+            agent_additions = []
+            for node in propositional_casual_graph.node_list:
+                if node not in agent:
+                    for arc in propositional_casual_graph.node_list[node].arcs:
+                        if arc.arc_type == 1 and agent.count(arc.end_state) != 0:
                             add = True
                             if node not in not_jointed:
                                 for agent2 in joint_agents:
@@ -1070,7 +1145,24 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
         if not found and node not in not_jointed and propositional_casual_graph.node_list[node].name != "free_agent":
             not_jointed.append(node)
 
-    while len(not_jointed) != 0:
+    non_agent_nodes = []
+    index = 0
+    for node in groups:
+        found = False
+        for agent in joint_agents:
+            if not found and index in agent:
+                found = True
+
+        if not found and isinstance(node[0].predicate, str):
+            non_agent_nodes.append(index)
+        index = index + 1
+
+    simple_joint_agents = copy.deepcopy(joint_agents)
+
+    # For each non added node, a backward search is launched in the casual graph (using end arcs)
+    # in order to check if they can be applied by just one agent
+    times = 10
+    while len(not_jointed) != 0 and times != 0:
         to_remove = []
         for node in not_jointed:
 
@@ -1099,11 +1191,18 @@ def fill_joint_agents(basic_agents, propositional_casual_graph, depth):
             if added_node:
                 to_remove.append(node)
 
-        for node_rem in to_remove:
-            if node_rem in not_jointed:
-                not_jointed.remove(node_rem)
+        # for node_rem in to_remove:
+        #     if node_rem in not_jointed:
+        #         not_jointed.remove(node_rem)
 
-    return joint_agents
+        times = times - 1
+
+    print("We could not find an agent for the nodes: " + str(not_jointed))
+    # for node in not_jointed:
+    #     for agent in joint_agents:
+    #         agent.append(node)
+
+    return joint_agents, simple_joint_agents, non_agent_nodes
 
 
 def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, group_const_arg):
@@ -1128,7 +1227,7 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
         for agent in joint_agents:
             if node < len(group_const_arg):
                 for arg in group_const_arg[node]:
-                    if arg in group_const_arg[agent[0]]:
+                    if arg in group_const_arg[agent[0]] and node not in joint_final_agents[agent_index]:
                         joint_final_agents[agent_index].append(node)
             agent_index = agent_index + 1
 
@@ -1153,7 +1252,7 @@ def fill_remaining_agents(joint_agents, propositional_casual_graph, groups, grou
     # for agent in joint_final_agents_return:
     #    agent.sort()
 
-    return joint_final_agents
+    return joint_final_agents, remaining_nodes
 
 
 def fill_free_agents(joint_agents, groups, free_agent_index):
@@ -1206,17 +1305,13 @@ def fill_func_agents(joint_agents, casual_graph, depth):
     return functional_agents_final
 
 
-def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_graph, sas_task, groups, temp_task):
+def fill_agents_actions(simple_joint_agents, joint_agents, full_func_agents, sas_task, groups, temp_task):
     agent_actions = []
     not_added = []
 
-    for _ in full_agents:
+    for _ in joint_agents:
         agent_actions.append([])
 
-    # Get common actions
-    extern_actions = []
-    for _ in full_agents:
-        extern_actions.append([])
     # Obtain common nodes between agents
     agent_common_nodes = {}
     agent_index = 0
@@ -1236,7 +1331,7 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
 
     for ope in sas_task.operators:
         index = 0
-        for agent in full_agents:
+        for agent in simple_joint_agents:
             added = False
             for eff in ope.pre_post:
                 if not added and agent.count(eff[0]) != 0 and eff[1] != -7 and eff[1] != -8:
@@ -1249,6 +1344,9 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
                     agent_actions[index].append(ope)
 
             index = index + 1
+
+    internal_agents_actions = copy.deepcopy(agent_actions)
+    # print(len(internal_agents_actions[0]))
 
     for ope in sas_task.operators:
         found = False
@@ -1325,51 +1423,79 @@ def fill_agents_actions(full_agents, joint_agents, full_func_agents, casual_grap
         [agent_final.append(x) for x in agent if x not in agent_final]
         agent_actions_final.append(agent_final)
 
-    # obtain invalid actions and remove them for each agent
-    actions_to_remove = []
-    agent_index = 0
-    for agent_ac in agent_actions_final:
-        agent_rem = []
-        for ope in agent_ac:
-            to_remove = False
-            for eff in ope.pre_post:
-                if not to_remove and full_func_agents[agent_index].count(eff[0]) == 0 and eff[1] != -7 and eff[1] != -8:
-                    to_remove = True
-                    agent_rem.append(ope)
-            for pre in ope.prevail:
-                if not to_remove and full_func_agents[agent_index].count(pre[0]) == 0:
-                    to_remove = True
-                    agent_rem.append(ope)
-        actions_to_remove.append(agent_rem)
-        agent_index = agent_index + 1
+    # remove the shared nodes if no agent acts upon them
+    print("Fix shared nodes...")
+    for node, agents_com in agent_common_nodes.items():
+        a_index = 0
+        for exists_in_agent in agents_com[:]:
+            if exists_in_agent:
+                node_changes = False
+                for ope in agent_actions_final[a_index]:
+                    if not node_changes:
+                        for eff in ope.pre_post:
+                            if eff[0] == node and eff[1] != -2 and eff[1] != -3 \
+                                    and eff[1] != -4 and eff[1] != -7 and eff[1] != -8 and eff[2] != -1:
+                                node_changes = True
+                    else:
+                        break
 
-    agent_index = 0
-    for acs_to_remove in actions_to_remove:
-        for ac_to_remove in acs_to_remove:
-            if ac_to_remove in agent_actions_final[agent_index]:
-                agent_actions_final[agent_index].remove(ac_to_remove)
-        agent_index = agent_index + 1
+                if not node_changes:
+                    agents_com[a_index] = False
+            a_index = a_index + 1
 
+    for node in list(agent_common_nodes):
+        if True not in agent_common_nodes[node]:
+            agent_common_nodes.pop(node)
+
+    # Get common actions
+    extern_actions = []
+    for _ in joint_agents:
+        extern_actions.append([])
     # actions that intersec between the agents
+    print("Obtain intersection in agents actions...")
     for node, agents_com in agent_common_nodes.items():
         index = 0
         for exists_in_agent in agents_com:
             if exists_in_agent:
-                for ope in sas_task.operators:
+                for ope in agent_actions_final[index]:
                     added = False
-                    if ope not in agent_actions_final[index]:
-                        for eff in ope.pre_post:
-                            if not added and node == eff[0] != 0 and eff[1] != -7 and eff[1] != -8:
-                                added = True
-                                extern_actions[index].append(ope)
-
-                        for pre in ope.prevail:
-                            if not added and node == pre[0] != 0:
-                                added = True
-                                extern_actions[index].append(ope)
+                    # if ope not in agent_actions_final[index]:
+                    for eff in ope.pre_post:
+                        if not added and node == eff[0] and eff[1] != -1 and eff[1] != -2 and eff[1] != -3 \
+                                and eff[1] != -4 and eff[1] != -7 and eff[1] != -8:
+                            added = True
+                            extern_actions[index].append(ope)
+                    for pre in ope.prevail:
+                        if not added and node == pre[0]:
+                            added = True
+                            extern_actions[index].append(ope)
             index = index + 1
 
-    return agent_actions_final, extern_actions, agent_common_nodes
+    extern_actions_final = []
+    for agent in extern_actions:
+        agent_ex_final = []
+        [agent_ex_final.append(x) for x in agent if x not in agent_ex_final]
+        extern_actions_final.append(agent_ex_final)
+
+    # obtain invalid actions and remove them for each agent
+    out_var_actions = []
+    agent_index = 0
+    for agent_ac in agent_actions_final:
+        agent_rem = []
+        for ope in agent_ac:
+            added = False
+            for eff in ope.pre_post:
+                if not not_added and eff[0] not in full_func_agents[agent_index] and eff[1] != -7 and eff[1] != -8:
+                    not_added = True
+                    agent_rem.append(ope)
+            for pre in ope.prevail:
+                if not not_added and pre[0] not in full_func_agents[agent_index]:
+                    not_added = True
+                    agent_rem.append(ope)
+        out_var_actions.append(agent_rem)
+        agent_index = agent_index + 1
+
+    return agent_actions_final, extern_actions_final, agent_common_nodes, out_var_actions
 
 
 def fill_agents_metric(joint_agents, functional_agents, sas_task):
@@ -1413,26 +1539,21 @@ def fill_agents_init(joint_agents, functional_agents, sas_task):
 def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init, casual_graph,
                       sas_task, groups, time_value, temp_task):
     agent_goals = []
+    agent_coop_goals = []
     goals_to_analyze = []
 
     for _ in joint_agents:
         agent_goals.append([])
+        agent_coop_goals.append([])
 
+    # If there are goals_to_analyze, we have to assign them by analyzing the problem
+    agents_possible_transitions, agents_possible_transitions_dict, agents_possible_transition_origins_dict = \
+        get_agents_possible_transitions(agents_actions, functional_agents)
+    agents_necessary_conditions, agents_necessary_conditions_dict = get_agents_necessary_conditions(agents_actions,
+                                                                                                    functional_agents)
     # First find if there are goals that belong only to one agent
     for goal in sas_task.goal.pairs:
-        n_agent_found = -1
-        direct_goal = True
-        index = -1
-        for agent in joint_agents:
-            if agent.count(goal[0]) != 0:
-                if n_agent_found != -1:
-                    direct_goal = False
-                    goals_to_analyze.append(goal)
-                else:
-                    n_agent_found = index + 1
-            index = index + 1
-        if direct_goal:
-            agent_goals[n_agent_found].append(goal)
+        goals_to_analyze.append([goal[0], goal[1]])
 
     un_goals_to_analyze = []
 
@@ -1444,18 +1565,53 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     if not un_goals_to_analyze:
         correct_assignment = False
 
+    # agents_impossible_to_attain = []
+    # index = 0
+    # for agent_necessary_conditions in agents_necessary_conditions:
+    #     agents_impossible_to_attain.append(
+    #         [k for k in agent_necessary_conditions if k not in agents_possible_transitions[index]])
+    #     index = index + 1
+
+    # index = 0
+    # for imp in agents_impossible_to_attain:
+    #     print("Predicates impossible to attain by agent " + str(index) + ":")
+    #     print(str(imp))
+    #     for elem in imp:
+    #        print(str(groups[elem[0]][elem[1]]))
+    #    index = index + 1
+
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
-    estimations_agent_goals = fill_complex_agents_goals(un_goals_to_analyze, functional_agents,
+    estimations_agent_goals, cooperation_goals_estimations = fill_complex_agents_goals(
+                                                        un_goals_to_analyze, functional_agents,
                                                         agents_actions, agents_metric, agents_init,
-                                                        sas_task, groups, time_value, temp_task)
+                                                        sas_task, groups, time_value, temp_task,
+                                                        agents_possible_transitions_dict,
+                                                        agents_possible_transition_origins_dict,
+                                                        agents_necessary_conditions_dict)
+
+    # goal_index = 0
+    # goals_to_reanalyze = []
+    # for goal_estimations in estimations_agent_goals:
+    #     if len(goal_estimations) == goal_estimations.count([]):
+    #         print("Goal " + str(un_goals_to_analyze[goal_index]) + " -- " + str(
+    #             groups[un_goals_to_analyze[goal_index][0]][
+    #                un_goals_to_analyze[goal_index][1]]) + " cannot be achieved by any single agent.")
+    #       goals_to_reanalyze.append((un_goals_to_analyze[goal_index], goal_index))
+    #   goal_index = goal_index + 1
+
+    # If there are goals_to_analyze, we have to assign them by analyzing the problem
+    # estimations_agent_goals = fill_complex_joint_agents_goals(goals_to_reanalyze, functional_agents,
+    #                                                           agents_actions, agents_metric, agents_init,
+    #                                                           sas_task, groups, time_value, temp_task,
+    #                                                           estimations_agent_goals)
 
     # Now the calculated objectives will be assigned
-    goal_index = 0
     metric_total_agent = []
 
     for _ in joint_agents:
         metric_total_agent.append(0)
 
+    goal_index = 0
     for goal_estimations in estimations_agent_goals:
         min_vals = []
         agent_index = 0
@@ -1473,41 +1629,102 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             min_vals.append(min_value)
             agent_index = agent_index + 1
 
-        if not goal_reachable:
-            correct_assignment = False
-            break
+        # Check if the min value for this
+        # Deal with cooperation goals:
+        already_assigned = False
+        for coop_goal in cooperation_goals_estimations[:]:
+            a_order = coop_goal[0][0]
+            subgoals = coop_goal[0][1]
+            if un_goals_to_analyze[goal_index] == subgoals[0]:
+                # If the goal has both coordination and non-coordination estimations, pick the cheapest
+                if min(min_vals) > coop_goal[1].estimated_metric:
+                    subgoal_index = 0
+                    max_len = 0
+                    for goal in subgoals:
+                        agent_coop_goals[a_order[subgoal_index]].append([len(a_order) - subgoal_index - 1, goal,
+                                                                         subgoals[0]])
+                        max_len = len(agent_coop_goals[a_order[subgoal_index]])
+                        subgoal_index = subgoal_index + 1
+                        already_assigned = True
+
+                    for coop_goals in agent_coop_goals:
+                        if len(coop_goals) < max_len:
+                            coop_goals.append([-1, [], subgoals[0]])
+
+                    cooperation_goals_estimations.remove(coop_goal)
+                else:
+                    cooperation_goals_estimations.remove(coop_goal)
+                    break
 
         # Assign goal
-        estimations = []
-        agent_analysis_index = 0
-        for agent_analysis in min_vals:
-            estimations.append(metric_total_agent[agent_analysis_index] + agent_analysis)
-            agent_analysis_index = agent_analysis_index + 1
-        agent_index_chosen = estimations.index(min(estimations))
+        if goal_reachable and not already_assigned:
+            estimations = []
+            agent_analysis_index = 0
+            for agent_analysis in min_vals:
+                estimations.append(metric_total_agent[agent_analysis_index] + agent_analysis)
+                agent_analysis_index = agent_analysis_index + 1
+            agent_index_chosen = estimations.index(min(estimations))
 
-        agent_goals[agent_index_chosen].append(un_goals_to_analyze[goal_index])
-        metric_total_agent[agent_index_chosen] = min(estimations)
+            agent_goals[agent_index_chosen].append(un_goals_to_analyze[goal_index])
+            metric_total_agent[agent_index_chosen] = metric_total_agent[agent_index_chosen] + min(estimations)
 
         goal_index = goal_index + 1
+
+    # Deal with remaining cooperation goals:
+    for coop_goal in cooperation_goals_estimations[:]:
+        a_order = coop_goal[0][0]
+        subgoals = coop_goal[0][1]
+        subgoal_index = 0
+        max_len = 0
+        for goal in subgoals:
+            agent_coop_goals[a_order[subgoal_index]].append([len(a_order) - subgoal_index - 1, goal, subgoals[0]])
+            max_len = len(agent_coop_goals[a_order[subgoal_index]])
+            subgoal_index = subgoal_index + 1
+
+        for coop_goals in agent_coop_goals:
+            if len(coop_goals) < max_len:
+                coop_goals.append([-1, [], subgoals[0]])
 
     if correct_assignment:
         a_index = 0
         for agent_go in agent_goals:
-            print("Goals for agent " + str(a_index) + ": ")
+            print("Non-coop goals for agent " + str(a_index) + ": ")
             print("     " + str(agent_go)[1:-1])
             a_index = a_index + 1
-    return agent_goals, correct_assignment
+            for go in agent_go:
+                if go in goals_to_analyze:
+                    goals_to_analyze.remove(go)
+
+        if goals_to_analyze:
+            a_index = 0
+            for agent_go in agent_coop_goals:
+                print("Coop goals for agent " + str(a_index) + ": ")
+                print("     " + str(agent_go)[1:-1])
+                a_index = a_index + 1
+                for go in agent_go:
+                    if go[0] != -1 and go[2] in goals_to_analyze:
+                        goals_to_analyze.remove(go[2])
+
+        if goals_to_analyze:
+            print("Goals without agent assigned: " + str(goals_to_analyze))
+
+    return agent_goals, agent_coop_goals, goals_to_analyze, correct_assignment
 
 
 def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_actions, agents_metric,
-                              agents_init, sas_task, groups, time_value, temp_task):
+                              agents_init, sas_task, groups, time_value, temp_task, agents_possible_transitions_dict,
+                              agents_possible_transition_origins_dict, agents_necessary_conditions_dict):
     analyzed_agent_goals = []
+    cooperation_goals_estimations = []
     goal_index = 0
 
     # We have to do a backward search from the goals to the init state
     for goal in goals_to_analyze:
-        print("The goal " + str(goal[0]) + ":" + str(goal[1]) + " ... launching non delete search")
+        print("The goal " + str(goal[0]) + ":" + str(goal[1]) + " -- " + str(
+            groups[goal[0]][goal[1]]) + " ... launching non delete search")
+        continue_analysis = True
 
+        goal = [goal[0], goal[1]]
         # Go backwards searching for necessary init states
         agent_index = 0
         agent_sol_estimations = []
@@ -1515,13 +1732,14 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
         for agent in functional_agents:
 
             # Checkm if the agent can achieve the goal
-            if goal[0] not in agent:
-                print(
-                    "The goal " + str(goal[0]) + ":" + str(goal[1]) +
-                    " cannot be achieved by agent " + str(agent_index) + ", no search will be launched.")
-                agent_sol_estimations.append([])
-                agent_index = agent_index + 1
-                continue
+            if goal[0] in agents_possible_transitions_dict[agent_index]:
+                if goal[1] not in agents_possible_transitions_dict[agent_index][goal[0]]:
+                    print(
+                        "The goal " + str(goal[0]) + ":" + str(goal[1]) +
+                        " cannot be achieved by agent " + str(agent_index) + ", no search will be launched.")
+                    agent_sol_estimations.append([])
+                    agent_index = agent_index + 1
+                    continue
 
             agent_sol_estimations.append([])
             agent_actions = agents_actions[agent_index]
@@ -1533,16 +1751,26 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
             agent_init = copy.deepcopy(agents_init[agent_index])
 
             search_queue = []
-            init_node = EstimatedMetricNode([], agent_init, 0, [goal])
+            init_node = EstimatedMetricNode([], agent_init, 0, [goal], [])
             search_queue.append((init_node, 0))
+            visited_states = []
+            coordination_points = {}
+            g_index = 0
+            for _ in groups:
+                coordination_points[g_index] = []
+                g_index = g_index + 1
 
             # Set a time limit for each goal and agent
             timeout_start = time.time()
 
             max_cost = 9999999
+            coordination_points_found = False
 
+            # min_heur_node = (init_node, -1)
             while search_queue and time.time() < timeout_start + int(time_value):
                 (node, h_node) = search_queue.pop(0)
+                # if min_heur_node[1] > h_node or min_heur_node[1] == -1:
+                #     min_heur_node = (node, h_node)
 
                 # Check if the agent has a pending to start action
                 if temp_task:
@@ -1564,7 +1792,7 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
                             continue
                     for effect in action.pre_post:
                         for pending_subgoal in node.pending_additions:
-                            if effect[1] != -7 and effect[1] != -8 and\
+                            if effect[1] != -7 and effect[1] != -8 and \
                                     effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
 
                                 # new_action_name = "_".join(
@@ -1585,31 +1813,62 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
                                 new_node_actions = copy.deepcopy(node.app_actions)
                                 new_node_actions.append(action)
 
+                                last_subgoal_attained = []
+
                                 new_node_subgoals = copy.deepcopy(node.pending_additions)
                                 new_node_subgoals.remove(pending_subgoal)
+                                last_subgoal_attained.append(pending_subgoal)
+                                # Check if the action removes other pending goals too
+                                for effect_2 in action.pre_post:
+                                    if [effect_2[0], effect_2[2]] in new_node_subgoals:
+                                        new_node_subgoals.remove([effect_2[0], effect_2[2]])
+                                        last_subgoal_attained.append([effect_2[0], effect_2[2]])
+
+                                new_node_actions[-1].last_subgoal_attained = last_subgoal_attained
+                                new_node_achieved_subgoals = copy.deepcopy(node.achieved_subgoals)
+                                # new_node_achieved_subgoals.append(pending_subgoal)
 
                                 for pre in action.prevail:
-                                    if agent_init[pre[0]] != pre[1] and new_node_subgoals.count([pre[0], pre[1]]) == 0:
+                                    if agent_init[pre[0]] != pre[1] and \
+                                            new_node_subgoals.count([pre[0], pre[1]]) == 0 and \
+                                            new_node_achieved_subgoals.count([pre[0], pre[1]]) == 0:
                                         new_node_subgoals.append([pre[0], pre[1]])
+
+                                        # Check if the new subgoal is a coordination point
+                                        if agent_init[pre[0]] not in \
+                                                agents_possible_transition_origins_dict[agent_index][pre[0]] and \
+                                                pre[1] not in coordination_points[pre[0]]:
+                                            # print("The atom " + str(groups[pre[0]][pre[1]]) + "is a coordination point")
+                                            coordination_points_found = True
+                                            coordination_points[pre[0]].append(pre[1])
 
                                 for effect_2 in action.pre_post:
                                     if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4 and
                                         effect_2[1] != -5 and effect_2[1] != -6 and
                                         effect_2[1] != -7 and effect_2[1] != -8) and \
-                                            effect_2[2] != -1 and \
                                             effect_2[1] != -1 and \
                                             agent_init[effect_2[0]] != effect_2[1]:
-                                        if new_node_subgoals.count([effect_2[0], effect_2[1]]) == 0:
+                                        if new_node_subgoals.count([effect_2[0], effect_2[1]]) == 0 and \
+                                                new_node_achieved_subgoals.count([effect_2[0], effect_2[1]]) == 0:
                                             new_node_subgoals.append([effect_2[0], effect_2[1]])
+                                            # Check if the new subgoal is a coordination point
+                                            if agent_init[effect_2[0]] not in \
+                                                    agents_possible_transition_origins_dict[agent_index][effect_2[0]] \
+                                                    and effect_2[1] not in coordination_points[effect_2[0]]:
+                                                # print("The atom " +
+                                                #       str(groups[effect_2[0]][effect_2[1]]) + "is a coordination point")
+                                                coordination_points_found = True
+                                                coordination_points[effect_2[0]].append(effect_2[1])
 
                                 new_node = EstimatedMetricNode(new_node_actions, new_node_state, new_node_cost,
-                                                               new_node_subgoals)
+                                                               new_node_subgoals, new_node_achieved_subgoals)
 
                                 added = True
 
-                                if not new_node_subgoals:
-
-                                    if new_node.estimated_metric < max_cost:
+                                if len(new_node_subgoals) == 0:
+                                    # start_act = len([k for k in new_node.app_actions if "_start" in k.name])
+                                    # end_act = len([k for k in new_node.app_actions if "_end" in k.name])
+                                    if new_node.estimated_metric < max_cost:  # and start_act == end_act:
                                         print(
                                             "The goal " + str(goal[0]) + ":" + str(goal[1]) +
                                             " has solution for agent (" + str(agent_index) + ") -- estimation -> " +
@@ -1620,23 +1879,282 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
                                         agent_sol_estimations[agent_index].append(new_node)
                                 else:
                                     if new_node.estimated_metric < max_cost:
-                                        if last_action_end:
-                                            search_queue.append((new_node, calculate_heuristic(new_node)))
-                                        else:
-                                            search_queue.append((new_node, h_node))
-                                        search_queue.sort(key=take_second)
+                                        if (new_node.curr_state, new_node.pending_additions) not in visited_states:
+                                            visited_states.append((new_node.curr_state, new_node.pending_additions))
+                                            if last_action_end:
+                                                search_queue.append((new_node, calculate_heuristic(new_node)))
+                                            else:
+                                                search_queue.append((new_node, h_node))
+                                            search_queue.sort(key=take_second)
                                         # search_queue.insert(0, new_node)
 
+            if len(search_queue) == 0:
+                print("Completly explored search space!")
+            if not agent_sol_estimations[agent_index]:
+                print("No solution was found for agent " + str(agent_index))
+                if coordination_points_found and continue_analysis:
+                    print("But it seems like there are some coordination points")
+                    # print(str(coordination_points))
+                    a_order, solution = deal_with_coordination_points_for_goal(
+                                           coordination_points, agents_possible_transition_origins_dict, goal,
+                                           functional_agents, agents_actions, sas_task, groups, time_value, temp_task)
+
+                    if a_order[0]:
+                        print("A solution was found, this goal is considered to be analyzed:")
+                        print("Agents used: " + str(a_order[0]))
+                        print("Subgoals " + str(a_order[1]))
+
+                        continue_analysis = False
+                        # agent_sol_estimations[a_order[0]].append(solution)
+                        cooperation_goals_estimations.append((a_order, solution))
+
             agent_index = agent_index + 1
+
         analyzed_agent_goals.append(agent_sol_estimations)
 
         goal_index = goal_index + 1
 
-    return analyzed_agent_goals
+    return analyzed_agent_goals, cooperation_goals_estimations
+
+
+def deal_with_coordination_points_for_goal(coordination_points, agents_possible_transition_origins_dict, goal,
+                                           functional_agents, agents_actions, sas_task, groups, time_value, temp_task):
+    result = [[], []]
+    obtained_solutions = []
+    print("The goal " + str(goal[0]) + ":" + str(goal[1]) + " -- " + str(
+        groups[goal[0]][goal[1]]) + " ... launching non delete search with the full SAS task.")
+
+    actions = sas_task.operators
+
+    plan_length_metric = False
+    metric = sas_task.translated_metric
+    if not metric:
+        plan_length_metric = True
+    init = {}
+    index = 0
+    # print(str(sas_task.init.values))
+    for init_val in sas_task.init.values:
+        init[index] = init_val
+        index = index + 1
+    # print(str(init))
+
+    search_queue = []
+    init_node = EstimatedMetricNode([], init, 0, [goal], [])
+    search_queue.append((init_node, 0))
+    visited_states = []
+    coordination_points = {}
+    g_index = 0
+    for _ in groups:
+        coordination_points[g_index] = []
+        g_index = g_index + 1
+
+    # Set a time limit for each goal and agent
+    timeout_start = time.time()
+
+    max_cost = 9999999
+
+    # min_heur_node = (init_node, -1)
+    while search_queue and time.time() < timeout_start + (int(time_value) * len(functional_agents)):
+        (node, h_node) = search_queue.pop(0)
+        # if min_heur_node[1] > h_node or min_heur_node[1] == -1:
+        #     min_heur_node = (node, h_node)
+
+        # Check if the agent has a pending to start action
+        if temp_task:
+            last_action_end = False
+        else:
+            last_action_end = True
+        if node.app_actions:
+            last_action_name = node.app_actions[-1].name
+            if temp_task and "_end " in last_action_name:
+                last_action_end = True
+
+        # Search actions that can set the state "node"
+        for action in actions:
+            added = False
+            if node.app_actions:
+                if temp_task and last_action_end and "_end " in action.name:
+                    continue
+                if temp_task and not last_action_end and "_start " in action.name:
+                    continue
+            for effect in action.pre_post:
+                for pending_subgoal in node.pending_additions:
+                    if effect[1] != -7 and effect[1] != -8 and \
+                            effect[0] == pending_subgoal[0] and effect[2] == pending_subgoal[1] and not added:
+
+                        # new_action_name = "_".join(
+                        #    (((((action.name.split(" "))[0]).split("("))[1]).split("_"))[:-1])
+
+                        # Create new current state for the new nodes
+                        new_node_state = copy.deepcopy(node.curr_state)
+                        new_node_state[effect[0]] = effect[2]
+
+                        # If an action that can set the effect is found
+                        # create a new state with all preconditions not met
+                        # and add it to the queue
+
+                        if plan_length_metric:
+                            new_node_cost = copy.deepcopy(node.estimated_metric + 1)
+                        else:
+                            new_node_cost = copy.deepcopy(node.estimated_metric + action.cost)
+                        new_node_actions = copy.deepcopy(node.app_actions)
+                        new_node_actions.append(action)
+
+                        last_subgoal_attained = []
+
+                        new_node_subgoals = copy.deepcopy(node.pending_additions)
+                        new_node_subgoals.remove(pending_subgoal)
+                        last_subgoal_attained.append(pending_subgoal)
+                        # Check if the action removes other pending goals too
+                        for effect_2 in action.pre_post:
+                            if [effect_2[0], effect_2[2]] in new_node_subgoals:
+                                new_node_subgoals.remove([effect_2[0], effect_2[2]])
+                                last_subgoal_attained.append([effect_2[0], effect_2[2]])
+
+                        new_node_actions[-1].last_subgoal_attained = last_subgoal_attained
+                        new_node_achieved_subgoals = copy.deepcopy(node.achieved_subgoals)
+                        # new_node_achieved_subgoals.append(pending_subgoal)
+
+                        for pre in action.prevail:
+                            if init[pre[0]] != pre[1] and \
+                                    new_node_subgoals.count([pre[0], pre[1]]) == 0 and \
+                                    new_node_achieved_subgoals.count([pre[0], pre[1]]) == 0:
+                                new_node_subgoals.append([pre[0], pre[1]])
+
+                        for effect_2 in action.pre_post:
+                            if (effect_2[1] != -2 and effect_2[1] != -3 and effect_2[1] != -4 and
+                                effect_2[1] != -5 and effect_2[1] != -6 and
+                                effect_2[1] != -7 and effect_2[1] != -8) and \
+                                    effect_2[1] != -1 and \
+                                    init[effect_2[0]] != effect_2[1]:
+                                if new_node_subgoals.count([effect_2[0], effect_2[1]]) == 0 and \
+                                        new_node_achieved_subgoals.count([effect_2[0], effect_2[1]]) == 0:
+                                    new_node_subgoals.append([effect_2[0], effect_2[1]])
+
+                        new_node = EstimatedMetricNode(new_node_actions, new_node_state, new_node_cost,
+                                                       new_node_subgoals, new_node_achieved_subgoals)
+
+                        added = True
+
+                        if len(new_node_subgoals) == 0:
+                            if new_node.estimated_metric < max_cost:  # and start_act == end_act:
+                                print(
+                                    "The goal " + str(goal[0]) + ":" + str(goal[1]) +
+                                    " has solution for relaxed SAS task -- estimation -> " +
+                                    str(new_node.estimated_metric) + " < " + str(max_cost))
+
+                                max_cost = new_node.estimated_metric
+
+                                obtained_solutions.append(new_node)
+                        else:
+                            if new_node.estimated_metric < max_cost:
+                                if (new_node.curr_state, new_node.pending_additions) not in visited_states:
+                                    visited_states.append((new_node.curr_state, new_node.pending_additions))
+                                    if last_action_end:
+                                        search_queue.append((new_node, calculate_heuristic(new_node)))
+                                    else:
+                                        search_queue.append((new_node, h_node))
+                                    search_queue.sort(key=take_second)
+                                # search_queue.insert(0, new_node)
+
+    order = []
+    if obtained_solutions:
+        # print(str(groups[goal[0]][init[goal[0]]]))
+        for act in obtained_solutions[-1].app_actions:
+            # print(act.name)
+            agents_found = []
+            for agent_act in agents_actions:
+                found = False
+                for op in agent_act:
+                    if op.name == act.name:
+                        found = True
+                agents_found.append(found)
+            # print(str(agents_found))
+            order.append(agents_found.index(True))
+        # print(str(groups[goal[0]][goal[1]]))
+        # print("Agents order: " + str(order))
+
+    subgoals = []
+    subgoals.append(goal)
+    last = -1
+    index = 0
+    for elem in order:
+        if elem != last:
+            last = elem
+            result[0].append(elem)
+            if index != 0:
+                for l_goal in obtained_solutions[-1].app_actions[index].last_subgoal_attained:
+                    subgoals.append(l_goal)
+        index = index + 1
+
+    result[1] = subgoals
+    if obtained_solutions:
+        obtained_solution = obtained_solutions[-1]
+    else:
+        obtained_solution = []
+
+    # print("Agents order: " + str(result[0]))
+    # print("Subgoals for echa agent: " + str(subgoals))
+    # for subgoal in subgoals:
+        # for subgo in subgoal:
+    #     print(str(groups[subgoal[0]][subgoal[1]]))
+    return result, obtained_solution
+def get_agents_possible_transitions(agents_actions, functional_agents):
+    agents_possible_transitions = []
+    agents_possible_transitions_dict = []
+    agents_possible_transition_origins_dict = []
+
+    index = 0
+    for agent_actions in agents_actions:
+        agent_possible_transitions = []
+        agent_possible_transitions_dict = {}
+        agent_possible_transition_origins_dict = {}
+        for node in functional_agents[index]:
+            agent_possible_transitions_dict[node] = []
+            agent_possible_transition_origins_dict[node] = []
+        for op in agent_actions:
+            for effect in op.pre_post:
+                if effect[1] != -2 and effect[1] != -3 and effect[1] != -4 and \
+                        effect[1] != -5 and effect[1] != -6 and \
+                        effect[1] != -7 and effect[1] != -8 and \
+                        [effect[0], effect[2]] not in agent_possible_transitions:
+                    agent_possible_transitions.append([effect[0], effect[2]])
+                    agent_possible_transitions_dict[effect[0]].append(effect[2])
+                    agent_possible_transition_origins_dict[effect[0]].append(effect[1])
+
+        agents_possible_transitions.append(agent_possible_transitions)
+        agents_possible_transitions_dict.append(agent_possible_transitions_dict)
+        agents_possible_transition_origins_dict.append(agent_possible_transition_origins_dict)
+        index = index + 1
+
+    return agents_possible_transitions, agents_possible_transitions_dict, agents_possible_transition_origins_dict
+
+
+def get_agents_necessary_conditions(agents_actions, functional_agents):
+    agents_necessary_conditions = []
+    agents_necessary_conditions_dict = []
+
+    index = 0
+    for agent_actions in agents_actions:
+        agent_necessary_conditions = []
+        agent_necessary_conditions_dict = {}
+        for node in functional_agents[index]:
+            agent_necessary_conditions_dict[node] = []
+        for op in agent_actions:
+            for pre in op.prevail:
+                if pre[1] != -1 and \
+                        [pre[0], pre[1]] not in agent_necessary_conditions:
+                    agent_necessary_conditions.append([pre[0], pre[1]])
+                    agent_necessary_conditions_dict[pre[0]].append(pre[1])
+
+        agents_necessary_conditions.append(agent_necessary_conditions)
+        agents_necessary_conditions_dict.append(agent_necessary_conditions_dict)
+        index = index + 1
+    return agents_necessary_conditions, agents_necessary_conditions_dict
 
 
 def calculate_heuristic(node):
-    h_value = len(node.pending_additions) - (len(node.app_actions) / 2)
+    h_value = len(node.pending_additions) - (len(node.app_actions) / 100)
     return h_value
 
 
