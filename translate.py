@@ -1477,20 +1477,19 @@ if __name__ == "__main__":
                                "w"), name, groups, agent_index)
             agent_index = agent_index + 1
 
-        if agent_index > 0:
-            coop_goal_index = 0
-            for coop_goal in agent_tasks[0].coop_goals:
-                agent_index = 0
-                os.mkdir("step_" + str(coop_goal_index + 1))
-                for task in agent_tasks:
-                    if task.coop_goals[coop_goal_index][0] != -1:
-                        name = "agent" + str(agent_index)
-                        task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
-                                                str(task.coop_goals[coop_goal_index][0]) +
-                                           "_output_agent" + str(agent_index) + ".sas", "w"),
-                                           name, groups, agent_index, task.coop_goals[coop_goal_index])
-                        agent_index = agent_index + 1
-                coop_goal_index = coop_goal_index + 1
+        coop_goal_index = 0
+        for coop_goal in agent_tasks[0].coop_goals:
+            agent_index = 0
+            os.mkdir("step_" + str(coop_goal_index + 1))
+            for task in agent_tasks:
+                if task.coop_goals[coop_goal_index][0] != -1:
+                    name = "agent" + str(agent_index)
+                    task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
+                                            str(task.coop_goals[coop_goal_index][0]) +
+                                       "_output_agent" + str(agent_index) + ".sas", "w"),
+                                       name, groups, agent_index, task.coop_goals[coop_goal_index])
+                    agent_index = agent_index + 1
+            coop_goal_index = coop_goal_index + 1
 
         if general_goals:
             general_goals = sas_tasks.SASGoal(general_goals)
