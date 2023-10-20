@@ -7,7 +7,7 @@ import pddl
 import timers
 
 
-def expand_group(group, task, reachable_facts):
+def expand_group(group, task, reachable_facts, dict_reachable_facts):
     result = []
     for fact in group:
         try:
@@ -19,6 +19,13 @@ def expand_group(group, task, reachable_facts):
             #       type, or by using a unifier which directly generates the
             #       applicable objects. It is not worth optimizing this at this stage,
             #       though.
+
+            imp_args = []
+            for arg in fact.args:
+                if arg == "?X":
+                    imp_args.append("")
+                else:
+                    imp_args.append(arg)
 
             if len([a for a in fact.args if a == "?X"]) > 1:
                 for pred in task.predicates:
@@ -40,10 +47,22 @@ def expand_group(group, task, reachable_facts):
 
                 all_possible_args = list(itertools.product(*arg_instanciated_obj))
 
-                for newargs in all_possible_args:
-                    atom = pddl.Atom(fact.predicate, newargs)
-                    if atom in reachable_facts:
-                        result.append(atom)
+                if len(all_possible_args) < len(dict_reachable_facts[fact.predicate]):
+                    for newargs in all_possible_args:
+                        atom = pddl.Atom(fact.predicate, newargs)
+                        if atom in reachable_facts:
+                            result.append(atom)
+                else:
+                    for d_fact in dict_reachable_facts[fact.predicate]:
+                        all_ok = True
+                        arg_index = 0
+                        for arg in d_fact.args:
+                            if arg != "" and arg != imp_args[arg_index]:
+                                all_ok = False
+                                break
+                            arg_index = arg_index + 1
+                        if all_ok:
+                            result.append(d_fact)
 
             else:
                 for obj in task.objects:
@@ -143,8 +162,8 @@ def obtaing_const_args_extra(groups, arguments, reachable_facts):
     return arguments_extra_list
 
 
-def instantiate_groups(groups, task, reachable_facts):
-    return [expand_group(group, task, reachable_facts) for group in groups]
+def instantiate_groups(groups, task, reachable_facts, dict_reachable_facts):
+    return [expand_group(group, task, reachable_facts, dict_reachable_facts) for group in groups]
 
 
 def instantiate_function_groups(groups, task, functions):
@@ -276,11 +295,22 @@ def collect_all_mutex_groups(groups, atoms, functions):
     return all_groups
 
 
+def get_dict_reachable_facts(reachable_facts):
+    dict = {}
+
+    for fact in reachable_facts:
+        if fact.predicate not in dict.keys():
+            dict[fact.predicate] = []
+        dict[fact.predicate].append(fact)
+
+    return dict
+
 def compute_groups(task, atoms, functions, reachable_action_params, partial_encoding=False):
     groups = invariant_finder.get_groups(task, reachable_action_params)
     with timers.timing("Instantiating groups"):
         arguments = obtaing_const_args(groups)
-        groups = instantiate_groups(groups, task, atoms)
+        dict_reachable_facts = get_dict_reachable_facts(atoms)
+        groups = instantiate_groups(groups, task, atoms, dict_reachable_facts)
     with timers.timing("Instantiating function groups"):
         groups = instantiate_function_groups(groups, task, functions)
         arguments = obtaing_const_args_funcs(groups, arguments)

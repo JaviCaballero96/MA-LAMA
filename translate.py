@@ -296,10 +296,10 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         for var, val in dictionary[new_atom]:
             effect_pair = effect.get(var)
             if not effect_pair:
-                effect[var] = ([value, var, val, op_f], eff_condition)
+                effect[var] = ([[value, var, val, op_f]], eff_condition)
             else:
                 if isinstance(effect_pair[0], list):
-                    effect_pair[0].append(fact.expression.expression.value)
+                    effect_pair[0].append([value, var, val, op_f])
 
     for conditions, fact in operator.del_effects:
         eff_condition_list = translate_strips_conditions(conditions, dictionary, ranges, mutex_dict, mutex_ranges)
@@ -387,7 +387,6 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
     pre_post = []
     for var, (post, eff_condition_lists) in effect.items():
         if isinstance(var, tuple) and isinstance(var[1], str):
-            # a = 2
             pre = condition.get(var[0], -1)
             for eff_condition in eff_condition_lists:
                 if var[1] == "block all":
@@ -399,8 +398,11 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         else:
             pre = condition.pop(var, -1)
             if isinstance(post, list):
-                pre = post[3]
-                post = post[:-1]
+                for pp in post:
+                    pre = pp[3]
+                    post = pp[:-1]
+                    for eff_condition in eff_condition_lists:
+                        pre_post.append((var, pre, post, eff_condition))
                 # post = post[0]
             else:
                 if ranges[var] == 2:
@@ -415,8 +417,8 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                         pre = 1 - post
                         # print "Added precondition (%d = %d) to %s" % (
                         #     var, pre, operator.name)
-            for eff_condition in eff_condition_lists:
-                pre_post.append((var, pre, post, eff_condition))
+                for eff_condition in eff_condition_lists:
+                    pre_post.append((var, pre, post, eff_condition))
     prevail = list(condition.items())
 
     return sas_tasks.SASOperator(operator.name, prevail, pre_post, operator.cost)
@@ -943,7 +945,7 @@ def pddl_to_sas(task, time_value):
     try:
         or_level = 0
         origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1)
-        if len(origin_nodes) < 2 and not agent_error:
+        if True or len(origin_nodes) < 2 and not agent_error:
             or_level = 1
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
         elif len(origin_nodes) < 2 and not agent_error:

@@ -104,8 +104,6 @@ def add_effect(tmp_effect, result, temp_task):
                 if temp_task:
                     if result[index].tmp == new_effect.tmp:
                         result.remove(contradiction)
-                    else:
-                        result.remove(contradiction)
                 result.append(new_effect)
 
 

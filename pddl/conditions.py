@@ -65,9 +65,9 @@ def parse_condition_aux(alist, negated):
         for part in parts.copy():
             if not isinstance(part, Atom):
                 op, head, exp = pddl.f_expression.parse_comparation(part)
-                if op == ">":
+                if op == ">" or op == ">=":
                     num_conditions.append((pos, pddl.effects.CostEffect(pddl.f_expression.GreaterThan(head, exp))))
-                elif op == "<":
+                elif op == "<" or op == "<=":
                     num_conditions.append((pos, pddl.effects.CostEffect(pddl.f_expression.LessThan(head, exp))))
                 parts.pop(pos)
             pos = pos + 1
