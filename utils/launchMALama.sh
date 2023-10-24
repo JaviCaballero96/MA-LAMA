@@ -1,6 +1,6 @@
 #bin/bash
 
-echo "Usage: launchLama.sh domain_file problem_file time_search"
+echo "Usage: launchLama.sh domain_file problem_file time_search (h)"
 
 echo "removing past files"
 rm -rf step_*
@@ -16,6 +16,13 @@ rm -f *.log
 
 echo "Launching Translate"
 python3 pddl2-SAS-translate/translate.py $1 $2 $3> translate.log
+
+if [ "$4" = "h" ]; then
+  echo "Launching with HARD temporal constraints"
+  HARD_CONST=h
+else
+  echo "Launching with SOFT temporal constraints"
+fi
 
 echo "Launching Preprocess"
 for folder in step_*
@@ -50,13 +57,13 @@ do
 
 			else
 				echo "Launching search WITH constraints WITHOUT init state for $file"
-				timeout 10s search/search cwlFi $file >> search_"$folder"_"$n_search"_l.log
+				timeout 10s search/search cwlFi$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
 				FILE="$folder/"output_preproagent$n_search.1
                                 if test -f "$FILE"; then
 				    echo "Solution found!!"
 				else
             echo "No solution found, trying FF heuristic."
-	          timeout 10s search/search cwfFi $file >> search_"$folder"_"$n_search"_f.log
+	          timeout 10s search/search cwfFi$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
 				fi
 			fi
 			n_search=`expr $n_search + 1`
