@@ -14,15 +14,15 @@ rm -f all.groups
 rm -f test.groups
 rm -f *.log
 
-echo "Launching Translate"
-python3 pddl2-SAS-translate/translate.py $1 $2 $3> translate.log
-
 if [ "$4" = "h" ]; then
   echo "Launching with HARD temporal constraints"
   HARD_CONST=h
 else
   echo "Launching with SOFT temporal constraints"
 fi
+
+echo "Launching Translate"
+python3 pddl2-SAS-translate/translate.py $1 $2 $3> translate.log
 
 echo "Launching Preprocess"
 for folder in step_*
@@ -86,7 +86,7 @@ do
 			echo "Launching search WITHOUT constraints WITH init state for $file"
 			timeout 10s search/search swlFi $file >> search_"$folder"_l.log
 
-			FILE="$folder/"$file.1
+			FILE=$file.1
 			if test -f "$FILE"; then
 			    echo "Solution found!!!"
 			else
