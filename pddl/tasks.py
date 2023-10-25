@@ -244,6 +244,8 @@ def parse_task(task_pddl):
             elif entry[2][0] == "+":
                 for pne in entry[2][1:]:
                     metric.append(f_expression.parse_expression(pne))
+            elif len(entry[2]) == 1:
+                metric.append(f_expression.parse_expression(entry[2][0]))
             else:
                 metric.append(entry[2][0])
     yield metric
