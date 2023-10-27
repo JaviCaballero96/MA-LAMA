@@ -1134,9 +1134,9 @@ def pddl_to_sas(task, time_value):
             agent_index = 0
             for _ in joint_agents:
 
-                if len(agents_goals[agent_index]) == 0:
-                    agent_index = agent_index + 1
-                    continue
+                # if len(agents_goals[agent_index]) == 0:
+                #     agent_index = agent_index + 1
+                #    continue
 
                 axiom_layers = [-1] * len(functional_agents[agent_index])
                 vars = {}
@@ -1145,11 +1145,13 @@ def pddl_to_sas(task, time_value):
                 variables = sas_tasks.SASVariables(vars, axiom_layers)
                 init = sas_tasks.SASInit(agents_init[agent_index])
                 goal = sas_tasks.SASGoal(agents_goals[agent_index])
-                coop_goal = agent_coop_goals[agent_index]
+                a_coop_goal = agent_coop_goals[agent_index]
+
+                # print("Agent " + str(agent_index) + ": " + str(a_coop_goal))
 
                 new_task = sas_tasks.SASTask(variables, init,
                                              goal, agents_actions[agent_index], [],
-                                             agents_metric[agent_index], shared_nodes, coop_goal)
+                                             agents_metric[agent_index], shared_nodes, a_coop_goal)
 
                 agent_tasks.append(new_task)
                 agent_index = agent_index + 1
@@ -1483,14 +1485,16 @@ if __name__ == "__main__":
         for coop_goal in agent_tasks[0].coop_goals:
             agent_index = 0
             os.mkdir("step_" + str(coop_goal_index + 1))
-            for task in agent_tasks:
-                if task.coop_goals[coop_goal_index][0] != -1:
+            for a_task in agent_tasks:
+                # print("Coop goal step " + str(a_task.coop_goals[coop_goal_index]))
+                if a_task.coop_goals[coop_goal_index][0] != -1:
                     name = "agent" + str(agent_index)
-                    task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
-                                            str(task.coop_goals[coop_goal_index][0]) +
+                    # print(name + " task for goal: " + str(a_task.coop_goals[coop_goal_index][0]))
+                    a_task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
+                                            str(a_task.coop_goals[coop_goal_index][0]) +
                                        "_output_agent" + str(agent_index) + ".sas", "w"),
-                                       name, groups, agent_index, task.coop_goals[coop_goal_index])
-                    agent_index = agent_index + 1
+                                       name, groups, agent_index, a_task.coop_goals[coop_goal_index])
+                agent_index = agent_index + 1
             coop_goal_index = coop_goal_index + 1
 
         if general_goals:
