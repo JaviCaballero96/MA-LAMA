@@ -51,7 +51,7 @@ class SASTask:
         self.init.output(stream)
         print("begin_shared", file=stream)
         shared_number = 0
-        if self.shared_nodes or agent_index != -1:
+        if (self.shared_nodes or agent_index != -1) and self.shared_nodes != []:
             for me, is_agent in self.shared_nodes.items():
                 if is_agent[agent_index]:
                     shared_number = shared_number + 1

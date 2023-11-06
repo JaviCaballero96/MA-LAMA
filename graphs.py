@@ -995,9 +995,9 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
     group_const_arg = []
     index = 0
     for agent in old_basic_agents:
-        if old_group_const_arg[index]:
-            basic_agents.append(agent)
-            group_const_arg.append(old_group_const_arg[index])
+        # if old_group_const_arg[index]:
+        basic_agents.append(agent)
+        group_const_arg.append(old_group_const_arg[index])
         index = index + 1
 
     for agent in basic_agents:
@@ -1055,7 +1055,8 @@ def assemble_basic_agents(old_basic_agents, old_group_const_arg):
                                     inherit[agent] = [agent_2[0]]
                 else:
                     if agent != agent_2:
-                        if old_group_const_arg[agent][0] in old_group_const_arg[agent_2]:
+                        if old_group_const_arg[agent] and \
+                                (old_group_const_arg[agent][0] in old_group_const_arg[agent_2]):
                             agent_nodes.append(agent_2)
                             do_not_agent.append(agent_2)
                             if agent in inherit:
@@ -1549,8 +1550,8 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
     agents_possible_transitions, agents_possible_transitions_dict, agents_possible_transition_origins_dict = \
         get_agents_possible_transitions(agents_actions, functional_agents)
-    agents_necessary_conditions, agents_necessary_conditions_dict = get_agents_necessary_conditions(agents_actions,
-                                                                                                    functional_agents)
+    # agents_necessary_conditions, agents_necessary_conditions_dict = get_agents_necessary_conditions(agents_actions,
+    #                                                                                                 functional_agents)
     # First find if there are goals that belong only to one agent
     for goal in sas_task.goal.pairs:
         goals_to_analyze.append([goal[0], goal[1]])
@@ -1586,8 +1587,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
                                                         agents_actions, agents_metric, agents_init,
                                                         sas_task, groups, time_value, temp_task,
                                                         agents_possible_transitions_dict,
-                                                        agents_possible_transition_origins_dict,
-                                                        agents_necessary_conditions_dict)
+                                                        agents_possible_transition_origins_dict)
 
     # goal_index = 0
     # goals_to_reanalyze = []
@@ -1637,7 +1637,8 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             subgoals = coop_goal[0][1]
             if un_goals_to_analyze[goal_index] == subgoals[0]:
                 # If the goal has both coordination and non-coordination estimations, pick the cheapest
-                if min(min_vals) > coop_goal[1].estimated_metric:
+                # if min(min_vals) > coop_goal[1].estimated_metric:
+                if False:
                     subgoal_index = 0
                     max_len = 0
                     for goal in subgoals:
@@ -1713,7 +1714,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
 def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_actions, agents_metric,
                               agents_init, sas_task, groups, time_value, temp_task, agents_possible_transitions_dict,
-                              agents_possible_transition_origins_dict, agents_necessary_conditions_dict):
+                              agents_possible_transition_origins_dict):
     analyzed_agent_goals = []
     cooperation_goals_estimations = []
     goal_index = 0

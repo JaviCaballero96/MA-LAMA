@@ -24,7 +24,9 @@ def parse_durative_condition(alist):
 def parse_condition_aux(alist, negated):
     """Parse a PDDL condition. The condition is translated into NNF on the fly."""
     tag = alist[0]
-    tag_2 = alist[1]
+    tag_2 = []
+    if len(alist) > 1:
+        tag_2 = alist[1]
     if tag in ("and", "or", "not", "imply"):
         args = alist[1:]
         if tag == "imply":

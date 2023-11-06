@@ -948,9 +948,16 @@ def pddl_to_sas(task, time_value):
         if True or len(origin_nodes) < 2 and not agent_error:
             or_level = 1
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple1)
-        elif len(origin_nodes) < 2 and not agent_error:
+        elif True or len(origin_nodes) < 2 and not agent_error:
             or_level = 2
             origin_nodes = graphs.obtain_origin_nodes(propositional_casual_graph_type1_simple2)
+        to_remove = []
+        for or_node in origin_nodes:
+            if len(groups[or_node]) < 2:
+                to_remove.append(or_node)
+
+        for node in to_remove:
+            del origin_nodes[node]
 
         print("origin nodes (found on level " + str(or_level) + "): ")
         n_agent = 0
@@ -977,6 +984,7 @@ def pddl_to_sas(task, time_value):
             agent_error = True
 
         basic_agents = []
+        general_goals = []
         if assemble_agents and not agent_error:
             basic_agents, non_agent_nodes = graphs.fill_basic_agents(assemble_agents,
                                                                      propositional_casual_graph_type1, groups)
@@ -1001,34 +1009,35 @@ def pddl_to_sas(task, time_value):
             agent_error = True
 
         joint_agents = []
+        general_goals = []
         if basic_agents and not agent_error:
             joint_agents, simple_joint_agents, non_agent_nodes = graphs.fill_joint_agents(basic_agents,
                                                                                           propositional_casual_graph, 5,
                                                                                           groups)
+            simple_joint_agents = [k for k in simple_joint_agents if k != []]
+            joint_agents = [k for k in joint_agents if k != []]
+
+            print("Simple Joint Agents detected: ")
+            n_agent = 0
+            for agent in simple_joint_agents:
+                print("Agent" + str(n_agent))
+                print(agent)
+                n_agent = n_agent + 1
+
+            print("")
+            print("Variables still not assigned, these are considered public: ")
+            print(non_agent_nodes)
+            print("--------------------------")
+            for var in non_agent_nodes:
+                print(var)
+                for member in groups[var]:
+                    print(member)
+                print("")
+            print("--------------------------")
         else:
             agent_error = True
 
-        simple_joint_agents = [k for k in simple_joint_agents if k != []]
-        joint_agents = [k for k in joint_agents if k != []]
-
-        print("Simple Joint Agents detected: ")
-        n_agent = 0
-        for agent in simple_joint_agents:
-            print("Agent" + str(n_agent))
-            print(agent)
-            n_agent = n_agent + 1
-
-        print("")
-        print("Variables still not assigned, these are considered public: ")
-        print(non_agent_nodes)
-        print("--------------------------")
-        for var in non_agent_nodes:
-            print(var)
-            for member in groups[var]:
-                print(member)
-            print("")
-        print("--------------------------")
-
+        joint_final_agents = []
         if joint_agents and not agent_error:
             joint_final_agents, non_agent_nodes = graphs.fill_remaining_agents(joint_agents, propositional_casual_graph,
                                                                                groups, group_const_arg)
@@ -1040,15 +1049,14 @@ def pddl_to_sas(task, time_value):
                 joint_final_agents_final.append(agent_node_non)
             joint_final_agents = joint_final_agents_final
 
+            print("Rem Joint Agents detected: ")
+            n_agent = 0
+            for agent in joint_final_agents:
+                print("Agent" + str(n_agent))
+                print(agent)
+                n_agent = n_agent + 1
         else:
            agent_error = True
-
-        print("Rem Joint Agents detected: ")
-        n_agent = 0
-        for agent in joint_final_agents:
-            print("Agent" + str(n_agent))
-            print(agent)
-            n_agent = n_agent + 1
 
         free_joint_agents = []
         if joint_final_agents and not agent_error:
@@ -1466,7 +1474,9 @@ if __name__ == "__main__":
     with timers.timing("Writing output"):
         sas_task.output(open("output.sas", "w"), groups)
 
+        carry_out_next_steps = True
         if not agent_tasks:
+            carry_out_next_steps = False
             agent_tasks.append(sas_task)
             if sas_task.translated_metric:
                 agent_tasks[0].metric = [agent_tasks[0].metric[0]]
@@ -1481,34 +1491,35 @@ if __name__ == "__main__":
                                "w"), name, groups, agent_index)
             agent_index = agent_index + 1
 
-        coop_goal_index = 0
-        for coop_goal in agent_tasks[0].coop_goals:
-            agent_index = 0
-            os.mkdir("step_" + str(coop_goal_index + 1))
-            for a_task in agent_tasks:
-                # print("Coop goal step " + str(a_task.coop_goals[coop_goal_index]))
-                if a_task.coop_goals[coop_goal_index][0] != -1:
-                    name = "agent" + str(agent_index)
-                    # print(name + " task for goal: " + str(a_task.coop_goals[coop_goal_index][0]))
-                    a_task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
-                                            str(a_task.coop_goals[coop_goal_index][0]) +
-                                       "_output_agent" + str(agent_index) + ".sas", "w"),
-                                       name, groups, agent_index, a_task.coop_goals[coop_goal_index])
-                agent_index = agent_index + 1
-            coop_goal_index = coop_goal_index + 1
+        if carry_out_next_steps:
+            coop_goal_index = 0
+            for coop_goal in agent_tasks[0].coop_goals:
+                agent_index = 0
+                os.mkdir("step_" + str(coop_goal_index + 1))
+                for a_task in agent_tasks:
+                    # print("Coop goal step " + str(a_task.coop_goals[coop_goal_index]))
+                    if a_task.coop_goals[coop_goal_index][0] != -1:
+                        name = "agent" + str(agent_index)
+                        # print(name + " task for goal: " + str(a_task.coop_goals[coop_goal_index][0]))
+                        a_task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
+                                                str(a_task.coop_goals[coop_goal_index][0]) +
+                                           "_output_agent" + str(agent_index) + ".sas", "w"),
+                                           name, groups, agent_index, a_task.coop_goals[coop_goal_index])
+                    agent_index = agent_index + 1
+                coop_goal_index = coop_goal_index + 1
 
-        if general_goals:
-            general_goals = sas_tasks.SASGoal(general_goals)
-            os.mkdir("step_" + str(coop_goal_index + 1))
-            name = "general"
-            task = sas_task
-            if task.translated_metric:
-                task.metric = [task.metric[0]]
-                for metr in task.translated_metric:
-                    task.metric.append(metr)
-            task.goal = general_goals
-            task.outputma(open("step_" + str(coop_goal_index + 1) + "/" +
-                               "output_general.sas", "w"),
-                          name, groups, -1)
+            if general_goals:
+                general_goals = sas_tasks.SASGoal(general_goals)
+                os.mkdir("step_" + str(coop_goal_index + 1))
+                name = "general"
+                task = sas_task
+                if task.translated_metric:
+                    task.metric = [task.metric[0]]
+                    for metr in task.translated_metric:
+                        task.metric.append(metr)
+                task.goal = general_goals
+                task.outputma(open("step_" + str(coop_goal_index + 1) + "/" +
+                                   "output_general.sas", "w"),
+                              name, groups, -1)
 
     print("Done! %s" % timer)
