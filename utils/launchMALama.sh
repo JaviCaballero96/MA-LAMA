@@ -106,8 +106,13 @@ python3 unify_temp_magent/main.py > unify.log
 end=`date +%s.%N`
 
 runtime=$( echo "$end - $start" | bc -l )
-echo "Time spent: $runtime"
 
 grep Expanded step_*/*
+grep Cost step*/*
+grep "Search time" step*/*
+grep Cost final_plan.txt
+grep Makespan final_plan.txt
+
+echo "Time spent: $runtime"
 
 echo "end"
