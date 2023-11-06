@@ -14,6 +14,9 @@ rm -f all.groups
 rm -f test.groups
 rm -f *.log
 
+
+start=`date +%s.%N`
+
 if [ "$4" = "h" ]; then
   echo "Launching with HARD temporal constraints"
   HARD_CONST=h
@@ -99,5 +102,12 @@ done
 
 echo "Launching unify"
 python3 unify_temp_magent/main.py > unify.log
+
+end=`date +%s.%N`
+
+runtime=$( echo "$end - $start" | bc -l )
+echo "Time spent: $runtime"
+
+grep Expanded step_*/*
 
 echo "end"
