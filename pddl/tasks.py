@@ -240,7 +240,8 @@ def parse_task(task_pddl):
         if entry[0] == ":metric":
             metric.append(entry[1])
             if entry[2][0] == "total-cost":
-                metric = "total-cost"
+                #metric = "total-cost"
+                metric.append(f_expression.parse_expression(entry[2][:]))
             elif entry[2][0] == "+":
                 for pne in entry[2][1:]:
                     metric.append(f_expression.parse_expression(pne))

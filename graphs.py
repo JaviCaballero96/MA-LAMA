@@ -1629,6 +1629,8 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             min_vals.append(min_value)
             agent_index = agent_index + 1
 
+        # print("min vals: " + str(min_vals))
+
         # Check if the min value for this
         # Deal with cooperation goals:
         already_assigned = False
@@ -1664,10 +1666,14 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             for agent_analysis in min_vals:
                 estimations.append(metric_total_agent[agent_analysis_index] + agent_analysis)
                 agent_analysis_index = agent_analysis_index + 1
+            # print(str(metric_total_agent))
+            # print(str(estimations))
             agent_index_chosen = estimations.index(min(estimations))
+            # print("goal " + str(un_goals_to_analyze[goal_index]) + " to index " + str(agent_index_chosen))
 
             agent_goals[agent_index_chosen].append(un_goals_to_analyze[goal_index])
-            metric_total_agent[agent_index_chosen] = metric_total_agent[agent_index_chosen] + min(estimations)
+            # metric_total_agent[agent_index_chosen] = metric_total_agent[agent_index_chosen] + min(estimations)
+            metric_total_agent[agent_index_chosen] = min(estimations)
 
         goal_index = goal_index + 1
 
