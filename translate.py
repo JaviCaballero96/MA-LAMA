@@ -692,7 +692,7 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
                                     runtime_cost = True
-                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + \
+                                    new_cost = "((" + elem.args[0].name + ")" + elem.symbol +  \
                                                post[0] + ")+" + new_cost
 
                         else:
@@ -712,7 +712,7 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                             if flu_name in dict_fluents_in_runtime:
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
-                                    new_cost = "(" + elem.symbol + "(" + elem.args[0].name + ")" + \
+                                    new_cost = "(" + "(" + elem.args[0].name + ")" + elem.symbol + \
                                                str(post[0]) + ")+" + new_cost
 
                         else:
