@@ -14,7 +14,9 @@ The final plan is stored as final_plan.txt
 This project composes the phase THREE of the MA-LAMA planner, it is only meant to be downloaded separately for developement purposes.
 This phase aims to build a complete translator from temporal pddl2.1 to SAS+ tasks (inherited from the LAMA planner). Additionally, it also comprises the Agent Decomposition and Goal Classification and Assignment algoriothms, that divide the full task into local problems and assign the goals in terms of cost optimization.
 
-To launch: python3 translate.py domain.pddl problem.pddl agent_local_relaxed_search_time agent_decomp?(y/n)
+To launch:
+
+python3 translate.py domain.pddl problem.pddl agent_local_relaxed_search_time agent_decomp?(y/n)
 
 The translator generates the followwing files in its root directory:
   - agent[n_agent].groups: one for each task agent found, contains the variables(invariants) definition of each agent.
