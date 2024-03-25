@@ -4,7 +4,7 @@ Multi-Agent Temporal Task Solving and Plan Optimization: https://openreview.net/
 ## --- If you want to use MA-LAMA ---
 
 Then you just need the utils/MA-LAMA_Deploy.sh script.
-Just execute in a clean directory and execute MA-LAMA with the command: 
+Just execute in a clean directory, it will download all modules and compile the ones coded in C. Then MA-LAMA can be launched by executing the command: 
 ### launchLama.sh domain_file problem_file time_relaxed_search(s) agent_decomp?(y/n) launch_hard_temp_constraints?(h)
 
 The final plan is stored as final_plan.txt
