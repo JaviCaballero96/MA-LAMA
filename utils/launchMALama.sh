@@ -1,6 +1,6 @@
 #bin/bash
 
-echo "Usage: launchLama.sh domain_file problem_file time_search (h)"
+echo "Usage: launchLama.sh domain_file problem_file time_relaxed_search(s) agent_decomp(y/n)"
 
 echo "removing past files"
 rm -rf step_*
@@ -25,7 +25,7 @@ else
 fi
 
 echo "Launching Translate"
-python3 pddl2-SAS-translate/translate.py $1 $2 $3> translate.log
+python3 pddl2-SAS-translate/translate.py $1 $2 $3 $4> translate.log
 
 echo "Launching Preprocess"
 for folder in step_*
