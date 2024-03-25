@@ -7,6 +7,8 @@ Then you just need the utils/MA-LAMA_Deploy.sh script.
 Just execute in a clean directory and execute MA-LAMA with the command: 
 ### launchLama.sh domain_file problem_file time_relaxed_search(s) agent_decomp(y/n)
 
+The final plan is stored as final_plan.txt
+
 ## --- If you want to develop over the MA-LAMA translate module ---
 
 This project composes the phase THREE of the MA-LAMA planner, it is only meant to be downloaded separately for developement purposes.
