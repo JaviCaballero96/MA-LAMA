@@ -1,6 +1,6 @@
 #bin/bash
 
-echo "Usage: launchLama.sh domain_file problem_file time_relaxed_search(s) agent_decomp(y/n)"
+echo "Usage: launchLama.sh domain_file problem_file time_relaxed_search(s) agent_decomp?(y/n) launch_hard_temp_constraints?(h)"
 
 echo "removing past files"
 rm -rf step_*
@@ -17,7 +17,7 @@ rm -f *.log
 
 start=`date +%s.%N`
 
-if [ "$4" = "h" ]; then
+if [ "$5" = "h" ]; then
   echo "Launching with HARD temporal constraints"
   HARD_CONST=h
 else
