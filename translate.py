@@ -1454,7 +1454,7 @@ if __name__ == "__main__":
 
     timer = timers.Timer()
     with timers.timing("Parsing"):
-        durative_task, time_value = pddl.open_pddl_file()
+        durative_task, time_value, AGENT_DECOMPOSITION = pddl.open_pddl_file()
 
     # EXPERIMENTAL!
     # import psyco
