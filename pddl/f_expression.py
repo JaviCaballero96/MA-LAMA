@@ -115,7 +115,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
         args = [conditions.ObjectTerm(var_mapping.get(arg.name, arg.name))
                 for arg in self.args]
         pne = PrimitiveNumericExpression(self.symbol, args)
-        assert not self.symbol == "total-cost"
+        # assert not self.symbol == "total-cost"
         # We know this expression is constant. Substitute it by corresponding
         # initialization from task.
         # TODO: Currently, complex metric operations are no permited

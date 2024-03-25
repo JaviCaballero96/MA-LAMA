@@ -1446,6 +1446,8 @@ def write_mutex_keys(mutex_keys):
         invariants_file.close()
         index = index + 1
 
+def number_of_coordination_goals(e):
+    return len(e.goal.pairs)
 
 if __name__ == "__main__":
     import pddl
@@ -1482,6 +1484,9 @@ if __name__ == "__main__":
                 agent_tasks[0].metric = [agent_tasks[0].metric[0]]
                 for metr in sas_task.translated_metric:
                     agent_tasks[0].metric.append(metr)
+
+        agent_tasks.sort(key=number_of_coordination_goals)
+        agent_tasks.reverse()
 
         agent_index = 0
         os.mkdir("step_0")

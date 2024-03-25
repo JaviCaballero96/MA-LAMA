@@ -47,22 +47,23 @@ def expand_group(group, task, reachable_facts, dict_reachable_facts):
 
                 all_possible_args = list(itertools.product(*arg_instanciated_obj))
 
-                if len(all_possible_args) < len(dict_reachable_facts[fact.predicate]):
-                    for newargs in all_possible_args:
-                        atom = pddl.Atom(fact.predicate, newargs)
-                        if atom in reachable_facts:
-                            result.append(atom)
-                else:
-                    for d_fact in dict_reachable_facts[fact.predicate]:
-                        all_ok = True
-                        arg_index = 0
-                        for arg in d_fact.args:
-                            if arg != "" and arg != imp_args[arg_index]:
-                                all_ok = False
-                                break
-                            arg_index = arg_index + 1
-                        if all_ok:
-                            result.append(d_fact)
+                if fact.predicate in dict_reachable_facts:
+                    if len(all_possible_args) < len(dict_reachable_facts[fact.predicate]):
+                        for newargs in all_possible_args:
+                            atom = pddl.Atom(fact.predicate, newargs)
+                            if atom in reachable_facts:
+                                result.append(atom)
+                    else:
+                        for d_fact in dict_reachable_facts[fact.predicate]:
+                            all_ok = True
+                            arg_index = 0
+                            for arg in d_fact.args:
+                                if arg != "" and arg != imp_args[arg_index]:
+                                    all_ok = False
+                                    break
+                                arg_index = arg_index + 1
+                            if all_ok:
+                                result.append(d_fact)
 
             else:
                 for obj in task.objects:

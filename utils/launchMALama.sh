@@ -48,26 +48,57 @@ do
 		do
 			if [ "0" -eq "$n_search" ]; then
 				echo "Launching search WITHOUT constraints WITHOUT init state for $file"
-				timeout 10s search/search wlFi $file >> search_"$folder"_"$n_search"_l.log
+				timeout 30s search/search wlFi $file >> search_"$folder"_"$n_search"_l.log
 
 				FILE=step_0/output_preproagent0.1
-				if test -f "$FILE"; then
-				    echo "Solution found!!"
-				else
-				    echo "No solution found, trying FF heuristic."
-				    timeout 10s search/search wfFi $file >> search_"$folder"_"$n_search"_f.log
-				fi
+        if test -f "$FILE"; then
+            echo "Solution found!!"
+        else
+            echo "No solution found, trying FF heuristic."
+            timeout 30s search/search wfFi $file >> search_"$folder"_"$n_search"_f.log
 
+            FILE=step_0/output_preproagent0.1
+            if test -f "$FILE"; then
+                echo "Solution found!!"
+            else
+                echo "No solution found, trying long landmark heuristic."
+                timeout 400s search/search wlFi $file >> search_"$folder"_"$n_search"_l_long.log
+
+			          FILE="$folder/"output_preproagent$n_search.1
+            	  if test -f "$FILE"; then
+                    echo "Solution found!!"
+                else
+                    echo "No solution found, trying long FF heuristic."
+                    timeout 400s search/search wfFi $file >> search_"$folder"_"$n_search"_f_long.log
+                fi
+            fi
+        fi
 			else
 				echo "Launching search WITH constraints WITHOUT init state for $file"
-				timeout 10s search/search cwlFi$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
+				timeout 30s search/search cwlFi$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
 				FILE="$folder/"output_preproagent$n_search.1
                                 if test -f "$FILE"; then
 				    echo "Solution found!!"
 				else
-            echo "No solution found, trying FF heuristic."
-	          timeout 10s search/search cwfFi$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
-				fi
+           	echo "No solution found, trying FF heuristic."
+			    	timeout 30s search/search cwfFi$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
+
+				    FILE="$folder/"output_preproagent$n_search.1
+            if test -f "$FILE"; then
+                echo "Solution found!!"
+            else
+                echo "No solution found, trying long landmark heuristic."
+                timeout 400s search/search cwlFi$HARD_CONST $file >> search_"$folder"_"$n_search"_l_long.log
+
+				        FILE="$folder/"output_preproagent$n_search.1
+                if test -f "$FILE"; then
+                    echo "Solution found!!"
+ 	              else
+            	      echo "No solution found, trying long FF heuristic."
+                    timeout 400s search/search cwfFi$HARD_CONST $file >> search_"$folder"_"$n_search"_f_long.log
+                fi
+            fi
+				 fi
 			fi
 			n_search=`expr $n_search + 1`
 		done

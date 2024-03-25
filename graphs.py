@@ -1665,6 +1665,7 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
             agent_analysis_index = 0
             for agent_analysis in min_vals:
                 estimations.append(metric_total_agent[agent_analysis_index] + agent_analysis)
+                #  estimations.append(agent_analysis)
                 agent_analysis_index = agent_analysis_index + 1
             # print(str(metric_total_agent))
             # print(str(estimations))
@@ -1711,6 +1712,11 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
                 for go in agent_go:
                     if go[0] != -1 and go[2] in goals_to_analyze:
                         goals_to_analyze.remove(go[2])
+
+        if len(joint_agents) == 1:
+            for gen_goal in goals_to_analyze:
+                agent_goals[0].append(gen_goal)
+            goals_to_analyze = []
 
         if goals_to_analyze:
             print("Goals without agent assigned: " + str(goals_to_analyze))
