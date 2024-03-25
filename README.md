@@ -18,7 +18,7 @@ To launch:
 
 python3 translate.py domain.pddl problem.pddl agent_local_relaxed_search_time agent_decomp?(y/n)
 
-The translator generates the followwing files in its root directory:
+The translator generates the following files in its root directory:
   - agent[n_agent].groups: one for each task agent found, contains the variables(invariants) definition of each agent.
   - output.sas: contains the full task metric, variables, initial state, shared variables, goals and operators.
   - test.groups: contains the full task variables(invariants).
