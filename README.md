@@ -24,5 +24,5 @@ The translator generates the following files in its root directory:
   - test.groups: contains the full task variables(invariants).
   - all.groups: contains the full task variables(invariants).
 
-Additionally, it generates one folder <step_[n_SearchPhase]> for each Search Phase, additionally, each Search Phase contains the following files:
+Additionally, it generates one folder <step_[n_SearchPhase]> for each Search Phase, which contains the following files:
   - output_agent[n_agent].sas: one for each agent that particiapes in the Search Phase, contains each agent metric, variables, initial state, shared variables, goals and operators.
