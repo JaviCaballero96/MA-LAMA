@@ -11,7 +11,7 @@ The final plan is stored as final_plan.txt
 
 ## --- If you want to develop over the MA-LAMA translate module ---
 
-This project composes the phase THREE of the MA-LAMA planner, it is only meant to be downloaded separately for developement purposes.
+This project composes the phase ONE of the MA-LAMA planner, it is only meant to be downloaded separately for developement purposes.
 This phase aims to build a complete translator from temporal pddl2.1 to SAS+ tasks (inherited from the LAMA planner). Additionally, it also comprises the Agent Decomposition and Goal Classification and Assignment algoriothms, that divide the full task into local problems and assign the goals in terms of cost optimization.
 
 To launch:
