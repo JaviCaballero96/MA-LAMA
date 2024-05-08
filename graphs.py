@@ -141,7 +141,8 @@ def create_groups_dtgs(task):
 
     for op in task.operators:
         for var_no, pre_spec, post, cond in op.pre_post:
-            add_arc(var_no, pre_spec, post, op)
+            if pre_spec != -7 and pre_spec != -8:
+                add_arc(var_no, pre_spec, post, op)
     for axiom in task.axioms:
         var_no, val = axiom.effect
         add_arc(var_no, -1, val, op)
@@ -187,22 +188,32 @@ def create_functional_dtgs(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or n_pre_spec == -6) \
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) \
                         and n_var_no == index:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
-                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4
-                                                           and n_pre_spec != -5 and n_pre_spec != -6):
+                        if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3 and pre_spec != -4
+                                                           and pre_spec != -5 and pre_spec != -6
+                                                           and pre_spec != -7 and pre_spec != -8):
                             if translation_key[var_no][pre_spec] != '<none of those>':
-                                if translation_key[var_no][pre_spec] not in node_names:
-                                    node_dict[translation_key[var_no][pre_spec]] = []
-                                    node_names.append(translation_key[var_no][pre_spec])
-                                if translation_key[var_no][post] not in node_names:
-                                    node_dict[translation_key[var_no][post]] = []
-                                    node_names.append(translation_key[var_no][post])
+                                arc_pre_name = translation_key[var_no][pre_spec]
+                                arc_pre_name = arc_pre_name.replace("<", "--")
+                                arc_post_name = translation_key[var_no][post]
+                                arc_post_name = arc_post_name.replace("<", "--")
+
+                                if arc_pre_name not in node_names:
+                                    node_dict[arc_pre_name] = []
+                                    node_names.append(arc_pre_name)
+                                if arc_post_name not in node_names:
+                                    node_dict[arc_post_name] = []
+                                    node_names.append(arc_post_name)
+
+                                arc_act_name = translation_key[n_var_no][n_post[2]]
+                                arc_act_name = arc_act_name.replace("<", "--")
+                                arc_act_name = arc_act_name.replace(">", "--")
                                 node_dict[translation_key[var_no][pre_spec]].append(
-                                    DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
-                                              translation_key[n_var_no][n_post[2]]))
+                                    DomainArc(arc_pre_name, arc_post_name,
+                                              arc_act_name))
                         eff_index_2 = eff_index_2 + 1
                 eff_index_1 = eff_index_1 + 1
 
@@ -219,7 +230,7 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
     for invariant in groups:
 
         # Check if the group is propositional
-        if not (isinstance(invariant[0].predicate, pddl.f_expression.Increase) or
+        if (isinstance(invariant[0].predicate, pddl.f_expression.Increase) or
                 isinstance(invariant[0].predicate, pddl.f_expression.Assign) or
                 isinstance(invariant[0].predicate, pddl.f_expression.Decrease) or
                 isinstance(invariant[0].predicate, pddl.f_expression.GreaterThan) or
@@ -246,23 +257,32 @@ def create_functional_dtgs_per_invariant(sas_task, translation_key, groups):
             for op in sas_task.operators:
                 eff_index_1 = 0
                 for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                    if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or
-                        n_pre_spec == -6) and n_var_no == index2:
+                    if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) and n_var_no == index2:
                         eff_index_2 = 0
                         for var_no, pre_spec, post, cond in op.pre_post:
-                            if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3
-                                                               and n_pre_spec != -4 and n_pre_spec != -5 and
-                                                               n_pre_spec != -6) and var_no == index:
+                            if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3
+                                                               and pre_spec != -4 and pre_spec != -5
+                                                               and pre_spec != -6 and pre_spec != -7
+                                                               and pre_spec != 8) and var_no == index:
                                 if translation_key[var_no][pre_spec] != '<none of those>':
-                                    if translation_key[var_no][pre_spec] not in node_names:
-                                        node_dict[translation_key[var_no][pre_spec]] = []
-                                        node_names.append(translation_key[var_no][pre_spec])
-                                    if translation_key[var_no][post] not in node_names:
-                                        node_dict[translation_key[var_no][post]] = []
-                                        node_names.append(translation_key[var_no][post])
+                                    arc_pre_name = translation_key[var_no][pre_spec]
+                                    arc_pre_name = arc_pre_name.replace("<", "--")
+                                    arc_post_name = translation_key[var_no][post]
+                                    arc_post_name = arc_post_name.replace("<", "--")
+
+                                    if arc_pre_name not in node_names:
+                                        node_dict[arc_pre_name] = []
+                                        node_names.append(arc_pre_name)
+                                    if arc_post_name not in node_names:
+                                        node_dict[arc_post_name] = []
+                                        node_names.append(arc_post_name)
+
+                                    arc_act_name = translation_key[n_var_no][n_post[2]]
+                                    arc_act_name = arc_act_name.replace("<", "--")
+                                    arc_act_name = arc_act_name.replace(">", "--")
                                     node_dict[translation_key[var_no][pre_spec]].append(
-                                        DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
-                                                  translation_key[n_var_no][n_post[2]]))
+                                        DomainArc(arc_pre_name, arc_post_name,
+                                                  arc_act_name))
                             eff_index_2 = eff_index_2 + 1
                     eff_index_1 = eff_index_1 + 1
             fdtgs_per_invariant[fdtg_index].append(DomainTransGraph(0, index2, node_dict))
@@ -282,23 +302,32 @@ def create_functional_dtg_metric(sas_task, translation_key, groups):
     for op in sas_task.operators:
         eff_index_1 = 0
         for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or n_pre_spec == -5 or
-                n_pre_spec == -6) \
+            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) \
                     and n_var_no in sas_task.translated_metric:
                 eff_index_2 = 0
                 for var_no, pre_spec, post, cond in op.pre_post:
-                    if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and n_pre_spec != -4 and
-                                                       n_pre_spec != -5 and n_pre_spec != -6):
+                    if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3 and pre_spec != -4
+                                                       and pre_spec != -5 and pre_spec != -6 and pre_spec != -7
+                                                       and pre_spec != -8):
                         if translation_key[var_no][pre_spec] != '<none of those>':
-                            if translation_key[var_no][pre_spec] not in node_names:
-                                node_dict[translation_key[var_no][pre_spec]] = []
-                                node_names.append(translation_key[var_no][pre_spec])
-                            if translation_key[var_no][post] not in node_names:
-                                node_dict[translation_key[var_no][post]] = []
-                                node_names.append(translation_key[var_no][post])
+                            arc_pre_name = translation_key[var_no][pre_spec]
+                            arc_pre_name = arc_pre_name.replace("<", "--")
+                            arc_post_name = translation_key[var_no][post]
+                            arc_post_name = arc_post_name.replace("<", "--")
+
+                            if arc_pre_name not in node_names:
+                                node_dict[arc_pre_name] = []
+                                node_names.append(arc_pre_name)
+                            if arc_post_name not in node_names:
+                                node_dict[arc_post_name] = []
+                                node_names.append(arc_post_name)
+
+                            arc_act_name = translation_key[n_var_no][n_post[2]]
+                            arc_act_name = arc_act_name.replace("<", "--")
+                            arc_act_name = arc_act_name.replace(">", "--")
                             node_dict[translation_key[var_no][pre_spec]].append(
-                                DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
-                                          translation_key[n_var_no][n_post[2]]))
+                                DomainArc(arc_pre_name, arc_post_name,
+                                          arc_act_name))
                     eff_index_2 = eff_index_2 + 1
             eff_index_1 = eff_index_1 + 1
 
@@ -311,7 +340,7 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
     for group in groups:
 
         # Check if the group is propositional
-        if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
+        if (isinstance(group[0].predicate, pddl.f_expression.Increase) or
                 isinstance(group[0].predicate, pddl.f_expression.Assign) or
                 isinstance(group[0].predicate, pddl.f_expression.Decrease) or
                 isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or
@@ -324,23 +353,33 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
         for op in sas_task.operators:
             eff_index_1 = 0
             for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
-                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4 or
-                    n_pre_spec == -5 or n_pre_spec == -6) and n_var_no in sas_task.translated_metric:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) \
+                        and n_var_no in sas_task.translated_metric:
                     eff_index_2 = 0
                     for var_no, pre_spec, post, cond in op.pre_post:
-                        if eff_index_1 != eff_index_2 and (n_pre_spec != -2 and n_pre_spec != -3 and
-                                                           n_pre_spec != -4 and n_pre_spec != -5 and
-                                                           n_pre_spec != -6) and var_no == index:
+                        if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3 and
+                                                           pre_spec != -4 and pre_spec != -5 and
+                                                           pre_spec != -6 and pre_spec != -7 and
+                                                           pre_spec != -8) and var_no == index:
                             if translation_key[var_no][pre_spec] != '<none of those>':
-                                if translation_key[var_no][pre_spec] not in node_names:
-                                    node_dict[translation_key[var_no][pre_spec]] = []
-                                    node_names.append(translation_key[var_no][pre_spec])
-                                if translation_key[var_no][post] not in node_names:
-                                    node_dict[translation_key[var_no][post]] = []
-                                    node_names.append(translation_key[var_no][post])
+                                arc_pre_name = translation_key[var_no][pre_spec]
+                                arc_pre_name = arc_pre_name.replace("<", "--")
+                                arc_post_name = translation_key[var_no][post]
+                                arc_post_name = arc_post_name.replace("<", "--")
+
+                                if arc_pre_name not in node_names:
+                                    node_dict[arc_pre_name] = []
+                                    node_names.append(arc_pre_name)
+                                if arc_post_name not in node_names:
+                                    node_dict[arc_post_name] = []
+                                    node_names.append(arc_post_name)
+
+                                arc_act_name = translation_key[n_var_no][n_post[2]]
+                                arc_act_name = arc_act_name.replace("<", "--")
+                                arc_act_name = arc_act_name.replace(">", "--")
                                 node_dict[translation_key[var_no][pre_spec]].append(
-                                    DomainArc(translation_key[var_no][pre_spec], translation_key[var_no][post],
-                                              translation_key[n_var_no][n_post[2]]))
+                                    DomainArc(arc_pre_name, arc_post_name,
+                                              arc_act_name))
                         eff_index_2 = eff_index_2 + 1
                 eff_index_1 = eff_index_1 + 1
 
@@ -350,7 +389,61 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
     return metric_fdtgs
 
 
-def create_gexf_transition_functional_graphs_files(fdtgs):
+def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        save_path = "graphs"
+
+    for graph in dtgs:
+
+        # Check if the group is functional
+        if isinstance(groups[index][0].predicate, pddl.f_expression.Increase) or \
+                isinstance(groups[index][0].predicate, pddl.f_expression.Decrease) or \
+                isinstance(groups[index][0].predicate, pddl.f_expression.Assign) or \
+                isinstance(groups[index][0].predicate, pddl.f_expression.LessThan) or \
+                isinstance(groups[index][0].predicate, pddl.f_expression.GreaterThan):
+            index = index + 1
+            continue
+
+        if len(graph.var_group) > 2:
+            graph_name = groups[index][0].predicate + "-" + '-'.join(group_const_arg[index])
+            file_name = "dtg_" + str(index) + "_" + graph_name + ".gexf"
+            full_name = os.path.join(save_path, file_name)
+            f = open(full_name, "w")
+            f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+            f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
+            f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+            f.write("\t\t<creator>Javier Caballero</creator>\n")
+            f.write("\t\t<description>graph_" + str(index) + "</description>\n")
+            f.write("\t</meta>\n")
+            f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+            f.write("\t\t<nodes>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    f.write("\t\t\t<node id=\"" + node.state + "\" label=\"" + node.state + "\" />\n")
+            f.write("\t\t</nodes>\n")
+
+            f.write("\t\t<edges>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    for arc in node.arcs:
+                        if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                            f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
+                                    node.state + "\" target=\"" + arc.end_state + "\" />\n")
+            f.write("\t\t</edges>\n")
+            f.write("\t</graph>\n")
+            f.write("</gexf>\n")
+
+            f.close()
+            index = index + 1
+
+
+def create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -361,11 +454,12 @@ def create_gexf_transition_functional_graphs_files(fdtgs):
         save_path = "graphs"
 
     for graph in fdtgs:
-        file_name = "functional_graph_" + str(index) + ".gexf"
+        graph_name = '-'.join(group_const_arg[graph.var_group])
+        file_name = "functional_dtg_" + str(graph.var_group) + "_" + graph_name + ".gexf"
         full_name = os.path.join(save_path, file_name)
         f = open(full_name, "w")
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-        f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+        f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
         f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
         f.write("\t\t<creator>Javier Caballero</creator>\n")
         f.write("\t\t<description>functional_graph_" + str(index) + "</description>\n")
@@ -405,7 +499,7 @@ def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
     full_name = os.path.join(save_path, file_name)
     f = open(full_name, "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-    f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+    f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
     f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
     f.write("\t\t<creator>Javier Caballero</creator>\n")
     f.write("\t\t<description>functional_metric_graph</description>\n")
@@ -431,7 +525,7 @@ def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
     f.close()
 
 
-def create_gexf_transition_functional_metric_graphs_files(fdtgs):
+def create_gexf_transition_functional_metric_graphs_files(fdtgs, groups, group_const_arg):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -446,7 +540,7 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs):
         full_name = os.path.join(save_path, file_name)
         f = open(full_name, "w")
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-        f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+        f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
         f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
         f.write("\t\t<creator>Javier Caballero</creator>\n")
         f.write("\t\t<description>functional_metric_graph_" + str(graph.var_group) + "</description>\n")
@@ -473,7 +567,7 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs):
         index = index + 1
 
 
-def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
+def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, groups, group_const_arg):
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
 
@@ -493,7 +587,7 @@ def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant):
                 full_name = os.path.join(save_path, file_name)
                 f = open(full_name, "w")
                 f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-                f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
+                f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
                 f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
                 f.write("\t\t<creator>Javier Caballero</creator>\n")
                 f.write(
@@ -548,55 +642,6 @@ def create_csv_transition_graphs_files(dtgs, groups):
                         f.write(";")
                         f.write(arc.end_state)
                     f.write("\n")
-            f.close()
-            index = index + 1
-
-
-def create_gexf_transition_graphs_files(dtgs, groups):
-    index = 0
-    today = date.today()
-    d1 = today.strftime("%d/%m/%Y")
-
-    if WINDOWS:
-        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
-    else:
-        save_path = "graphs"
-
-    for graph in dtgs:
-
-        # Check if the group is functional
-        if isinstance(groups[index][0].predicate, pddl.f_expression.Increase):
-            index = index + 1
-            continue
-
-        if len(graph.var_group) > 2:
-            file_name = "graph_" + str(index) + ".gexf"
-            full_name = os.path.join(save_path, file_name)
-            f = open(full_name, "w")
-            f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-            f.write("<gexf xmlns=\"http://www.gexf.net/1.2draft\" version=\"1.2\">\n")
-            f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
-            f.write("\t\t<creator>Javier Caballero</creator>\n")
-            f.write("\t\t<description>graph_" + str(index) + "</description>\n")
-            f.write("\t</meta>\n")
-            f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
-            f.write("\t\t<nodes>\n")
-            for node in graph.node_list:
-                if node.state != '<none of those>':
-                    f.write("\t\t\t<node id=\"" + node.state + "\" label=\"" + node.state + "\" />\n")
-            f.write("\t\t</nodes>\n")
-
-            f.write("\t\t<edges>\n")
-            for node in graph.node_list:
-                if node.state != '<none of those>':
-                    for arc in node.arcs:
-                        if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
-                            f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
-                                    node.state + "\" target=\"" + arc.end_state + "\" />\n")
-            f.write("\t\t</edges>\n")
-            f.write("\t</graph>\n")
-            f.write("</gexf>\n")
-
             f.close()
             index = index + 1
 
@@ -1583,11 +1628,11 @@ def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_me
 
     # If there are goals_to_analyze, we have to assign them by analyzing the problem
     estimations_agent_goals, cooperation_goals_estimations = fill_complex_agents_goals(
-                                                        un_goals_to_analyze, functional_agents,
-                                                        agents_actions, agents_metric, agents_init,
-                                                        sas_task, groups, time_value, temp_task,
-                                                        agents_possible_transitions_dict,
-                                                        agents_possible_transition_origins_dict)
+        un_goals_to_analyze, functional_agents,
+        agents_actions, agents_metric, agents_init,
+        sas_task, groups, time_value, temp_task,
+        agents_possible_transitions_dict,
+        agents_possible_transition_origins_dict)
 
     # goal_index = 0
     # goals_to_reanalyze = []
@@ -1909,8 +1954,8 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
                     print("But it seems like there are some coordination points")
                     # print(str(coordination_points))
                     a_order, solution = deal_with_coordination_points_for_goal(
-                                           coordination_points, agents_possible_transition_origins_dict, goal,
-                                           functional_agents, agents_actions, sas_task, groups, time_value, temp_task)
+                        coordination_points, agents_possible_transition_origins_dict, goal,
+                        functional_agents, agents_actions, sas_task, groups, time_value, temp_task)
 
                     if a_order[0]:
                         print("A solution was found, this goal is considered to be analyzed:")
@@ -2064,7 +2109,9 @@ def deal_with_coordination_points_for_goal(coordination_points, agents_possible_
                                 if (new_node.curr_state, new_node.pending_additions) not in visited_states:
                                     visited_states.append((new_node.curr_state, new_node.pending_additions))
                                     if last_action_end:
-                                        search_queue.append((new_node, calculate_heuristic(new_node)))
+                                        search_queue.append((new_node,
+                                                             calculate_heuristic_full_task(new_node,
+                                                                                           coordination_points)))
                                     else:
                                         search_queue.append((new_node, h_node))
                                     search_queue.sort(key=take_second)
@@ -2109,9 +2156,11 @@ def deal_with_coordination_points_for_goal(coordination_points, agents_possible_
     # print("Agents order: " + str(result[0]))
     # print("Subgoals for echa agent: " + str(subgoals))
     # for subgoal in subgoals:
-        # for subgo in subgoal:
+    # for subgo in subgoal:
     #     print(str(groups[subgoal[0]][subgoal[1]]))
     return result, obtained_solution
+
+
 def get_agents_possible_transitions(agents_actions, functional_agents):
     agents_possible_transitions = []
     agents_possible_transitions_dict = []
@@ -2168,6 +2217,16 @@ def get_agents_necessary_conditions(agents_actions, functional_agents):
 
 def calculate_heuristic(node):
     h_value = len(node.pending_additions) - (len(node.app_actions) / 100)
+    return h_value
+
+
+def calculate_heuristic_full_task(node, coordination_points):
+    achieved_coor = 0
+    for coor_p in coordination_points:
+        if coor_p in coordination_points:
+            achieved_coor = achieved_coor + 1
+
+    h_value = len(node.pending_additions) - (len(node.app_actions) / 100) - (achieved_coor / 10)
     return h_value
 
 

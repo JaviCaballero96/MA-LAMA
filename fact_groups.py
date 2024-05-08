@@ -110,6 +110,8 @@ def obtaing_const_args_extra(groups, arguments, reachable_facts):
     for group in groups:
         if not isinstance(group[0].predicate, str):
             arguments_extra.append([group[0].predicate.fluent.symbol])
+            for arg in group[0].predicate.fluent.args:
+                arguments_extra[-1].append(arg.name)
             to_remove_list.append([])
             continue
         cands = {}
