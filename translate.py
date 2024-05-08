@@ -919,8 +919,24 @@ def pddl_to_sas(task, time_value):
     # agent_minimal_vars = graphs.get_agents_minimal_variables(agents_pred)
 
     free_agent_index = graphs.find_free_agent_index(groups)
-    # dtgs = graphs.create_groups_dtgs(sas_task)
-    # translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+
+    dtgs = graphs.create_groups_dtgs(sas_task)
+    translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+
+    fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+    fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+    fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
+    fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
+
+    # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg)
+    graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg)
+    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
+    graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, groups, group_const_arg)
+    graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, groups, group_const_arg)
+
+
+
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
@@ -1177,18 +1193,6 @@ def pddl_to_sas(task, time_value):
         mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, [sas_task])
         write_mutex_keys(mutex_keys)
         agent_tasks = []
-
-    # fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
-    # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
-    # fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
-    # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
-
-    # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-    # graphs.create_gexf_transition_graphs_files(translated_dtgs, groups)
-    # graphs.create_gexf_transition_functional_graphs_files(fdtgs)
-    # graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
-    # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric)
-    # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant)
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
