@@ -150,6 +150,41 @@ def create_groups_dtgs(task):
     return dtgs
 
 
+def create_groups_dtgs_per_agent(task):
+    init_vals = task.init.values
+    sizes = task.variables.ranges
+    # dtgs = [DomainTransitionGraph(init, size)
+    #        for (init, size) in zip(init_vals, sizes)]
+    
+    dtgs = {}
+    for init_val_key in list(init_vals.keys()):
+        dtgs[init_val_key] = DomainTransitionGraph(init_vals[init_val_key], sizes[init_val_key])
+
+    def add_arc(var_no, pre_spec, post, op):
+        if pre_spec == -1:
+            pre_values = set(range(sizes[var_no])).difference([post])
+        else:
+            pre_values = [pre_spec]
+        for pre in pre_values:
+            if isinstance(post, list):
+                dtgs[var_no].add_arc(pre, post[2])
+                dtgs[var_no].add_named_arc(pre, post[2], op)
+            else:
+                dtgs[var_no].add_arc(pre, post)
+                dtgs[var_no].add_named_arc(pre, post, op)
+
+    for op in task.operators:
+        for var_no, pre_spec, post, cond in op.pre_post:
+            if var_no in list(init_vals.keys()) and pre_spec != -7 and pre_spec != -8:
+                add_arc(var_no, pre_spec, post, op)
+    for axiom in task.axioms:
+        var_no, val = axiom.effect
+        if var_no in list(init_vals.keys()):
+            add_arc(var_no, -1, val, op)
+
+    return dtgs
+
+
 def translate_groups_dtgs(dtgs, translation_key):
     translated_dtgs = []
     index = 0
@@ -169,10 +204,88 @@ def translate_groups_dtgs(dtgs, translation_key):
     return translated_dtgs
 
 
+def translate_groups_dtgs_per_agent(dtgs, translation_key):
+    translated_dtgs = {}
+    index = 0
+    for dtg_key, dtg in dtgs.items():
+        graph = DomainTransGraph(translation_key[dtg_key][dtg.init], translation_key[dtg_key], [])
+        var_index = 0
+        for var in translation_key[dtg_key]:
+            node = DomainNode(var, [])
+            for arc in dtg.named_arcs[var_index]:
+                node.arcs.append(DomainArc(translation_key[dtg_key][var_index], translation_key[dtg_key][arc.end_state],
+                                           arc.action.name))
+            var_index = var_index + 1
+            graph.node_list.append(node)
+        translated_dtgs[dtg_key] = graph
+        index = index + 1
+
+    return translated_dtgs
+
+
 def create_functional_dtgs(sas_task, translation_key, groups):
     fdtgs = []
     index = 0
     for group in groups:
+
+        # Check if the group is functional
+        if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
+                isinstance(group[0].predicate, pddl.f_expression.Assign) or
+                isinstance(group[0].predicate, pddl.f_expression.Decrease) or
+                isinstance(group[0].predicate, pddl.f_expression.GreaterThan) or
+                isinstance(group[0].predicate, pddl.f_expression.LessThan)):
+            index = index + 1
+            continue
+
+        node_dict = {}
+        node_names = []
+        for op in sas_task.operators:
+            eff_index_1 = 0
+            for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+                if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) \
+                        and n_var_no == index:
+                    eff_index_2 = 0
+                    for var_no, pre_spec, post, cond in op.pre_post:
+                        if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3 and pre_spec != -4
+                                                           and pre_spec != -5 and pre_spec != -6
+                                                           and pre_spec != -7 and pre_spec != -8):
+                            if translation_key[var_no][pre_spec] != '<none of those>':
+                                arc_pre_name = translation_key[var_no][pre_spec]
+                                arc_pre_name = arc_pre_name.replace("<", "--")
+                                arc_post_name = translation_key[var_no][post]
+                                arc_post_name = arc_post_name.replace("<", "--")
+
+                                if arc_pre_name not in node_names:
+                                    node_dict[arc_pre_name] = []
+                                    node_names.append(arc_pre_name)
+                                if arc_post_name not in node_names:
+                                    node_dict[arc_post_name] = []
+                                    node_names.append(arc_post_name)
+
+                                arc_act_name = translation_key[n_var_no][n_post[2]]
+                                arc_act_name = arc_act_name.replace("<", "--")
+                                arc_act_name = arc_act_name.replace(">", "--")
+                                node_dict[translation_key[var_no][pre_spec]].append(
+                                    DomainArc(arc_pre_name, arc_post_name,
+                                              arc_act_name))
+                        eff_index_2 = eff_index_2 + 1
+                eff_index_1 = eff_index_1 + 1
+
+        fdtgs.append(DomainTransGraph(0, index, node_dict))
+        index = index + 1
+
+    return fdtgs
+
+
+def create_functional_dtgs_per_agent(sas_task, translation_key, groups):
+    fdtgs = []
+    index = 0
+    for group in groups:
+
+        if index not in list(sas_task.init.values.keys()):
+            index = index + 1
+            continue
+
 
         # Check if the group is functional
         if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
@@ -334,6 +447,46 @@ def create_functional_dtg_metric(sas_task, translation_key, groups):
     return DomainTransGraph(0, 0, node_dict)
 
 
+def create_functional_dtg_metric_per_agent(sas_task, translation_key, groups):
+    node_dict = {}
+    node_names = []
+
+    for op in sas_task.operators:
+        eff_index_1 = 0
+        for n_var_no, n_pre_spec, n_post, n_cond in op.pre_post:
+            if (n_pre_spec == -2 or n_pre_spec == -3 or n_pre_spec == -4) \
+                    and n_var_no in sas_task.metric[1:]:
+                eff_index_2 = 0
+                for var_no, pre_spec, post, cond in op.pre_post:
+                    if eff_index_1 != eff_index_2 and (pre_spec != -2 and pre_spec != -3 and pre_spec != -4
+                                                       and pre_spec != -5 and pre_spec != -6 and pre_spec != -7
+                                                       and pre_spec != -8):
+                        if translation_key[var_no][pre_spec] != '<none of those>':
+                            arc_pre_name = translation_key[var_no][pre_spec]
+                            arc_pre_name = arc_pre_name.replace("<", "--")
+                            arc_post_name = translation_key[var_no][post]
+                            arc_post_name = arc_post_name.replace("<", "--")
+
+                            if arc_pre_name not in node_names:
+                                node_dict[arc_pre_name] = []
+                                node_names.append(arc_pre_name)
+                            if arc_post_name not in node_names:
+                                node_dict[arc_post_name] = []
+                                node_names.append(arc_post_name)
+
+                            arc_act_name = translation_key[n_var_no][n_post[2]]
+                            arc_act_name = arc_act_name.replace("<", "--")
+                            arc_act_name = arc_act_name.replace(">", "--")
+                            node_dict[translation_key[var_no][pre_spec]].append(
+                                DomainArc(arc_pre_name, arc_post_name,
+                                          arc_act_name))
+                    eff_index_2 = eff_index_2 + 1
+            eff_index_1 = eff_index_1 + 1
+
+    return DomainTransGraph(0, 0, node_dict)
+
+
+
 def create_functional_dtgs_metric(sas_task, translation_key, groups):
     metric_fdtgs = []
     index = 0
@@ -389,7 +542,7 @@ def create_functional_dtgs_metric(sas_task, translation_key, groups):
     return metric_fdtgs
 
 
-def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg):
+def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg, n_agent):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -397,7 +550,10 @@ def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "graphs"
+        if n_agent == 0:
+            save_path = "graphs"
+        else:
+            save_path = "graphs/per_agent"
 
     for graph in dtgs:
 
@@ -412,7 +568,10 @@ def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg):
 
         if len(graph.var_group) > 2:
             graph_name = groups[index][0].predicate + "-" + '-'.join(group_const_arg[index])
-            file_name = "dtg_" + str(index) + "_" + graph_name + ".gexf"
+            if n_agent != 0:
+                file_name = "agent_" + str(n_agent) + "_dtg_" + str(index) + "_" + graph_name + ".gexf"
+            else:
+                file_name = "dtg_" + str(index) + "_" + graph_name + ".gexf"
             full_name = os.path.join(save_path, file_name)
             f = open(full_name, "w")
             f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
@@ -443,7 +602,7 @@ def create_gexf_transition_graphs_files(dtgs, groups, group_const_arg):
             index = index + 1
 
 
-def create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg):
+def create_gexf_transition_graphs_files_per_agent(dtgs, groups, group_const_arg, n_agent):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -451,11 +610,78 @@ def create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg):
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
     else:
-        save_path = "graphs"
+        if n_agent == 0:
+            save_path = "graphs"
+        else:
+            save_path = "graphs/per_agent"
+
+    for key, graph in dtgs.items():
+
+        # Check if the group is functional
+        if isinstance(groups[key][0].predicate, pddl.f_expression.Increase) or \
+                isinstance(groups[key][0].predicate, pddl.f_expression.Decrease) or \
+                isinstance(groups[key][0].predicate, pddl.f_expression.Assign) or \
+                isinstance(groups[key][0].predicate, pddl.f_expression.LessThan) or \
+                isinstance(groups[key][0].predicate, pddl.f_expression.GreaterThan):
+            index = index + 1
+            continue
+
+        if len(graph.var_group) > 2:
+            graph_name = groups[key][0].predicate + "-" + '-'.join(group_const_arg[key])
+            if n_agent != 0:
+                file_name = "agent_" + str(n_agent) + "_dtg_" + str(key) + "_" + graph_name + ".gexf"
+            else:
+                file_name = "dtg_" + str(key) + "_" + graph_name + ".gexf"
+            full_name = os.path.join(save_path, file_name)
+            f = open(full_name, "w")
+            f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+            f.write("<gexf xmlns=\"http://www.gexf.net/1.3draft\" version=\"1.3\">\n")
+            f.write("\t<meta lastmodifieddate=\"" + d1 + "\">\n")
+            f.write("\t\t<creator>Javier Caballero</creator>\n")
+            f.write("\t\t<description>graph_" + str(key) + "</description>\n")
+            f.write("\t</meta>\n")
+            f.write("\t<graph mode=\"static\" defaultedgetype=\"directed\">\n")
+            f.write("\t\t<nodes>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    f.write("\t\t\t<node id=\"" + node.state + "\" label=\"" + node.state + "\" />\n")
+            f.write("\t\t</nodes>\n")
+
+            f.write("\t\t<edges>\n")
+            for node in graph.node_list:
+                if node.state != '<none of those>':
+                    for arc in node.arcs:
+                        if arc.origin_state != "<none of those>" and arc.end_state != "<none of those>":
+                            f.write("\t\t\t<edge id=\"" + arc.action + "\" label=\"" + arc.action + "\" source=\"" +
+                                    node.state + "\" target=\"" + arc.end_state + "\" />\n")
+            f.write("\t\t</edges>\n")
+            f.write("\t</graph>\n")
+            f.write("</gexf>\n")
+
+            f.close()
+            index = index + 1
+
+
+def create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, n_agent):
+    index = 0
+    today = date.today()
+    d1 = today.strftime("%d/%m/%Y")
+
+    if WINDOWS:
+        save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs"
+    else:
+        if n_agent == 0:
+            save_path = "graphs"
+        else:
+            save_path = "graphs/per_agent"
 
     for graph in fdtgs:
         graph_name = '-'.join(group_const_arg[graph.var_group])
-        file_name = "functional_dtg_" + str(graph.var_group) + "_" + graph_name + ".gexf"
+        if n_agent != 0:
+            file_name = "agent_" + str(n_agent) + "_functional_dtg_" + str(graph.var_group) + "_" + graph_name + ".gexf"
+        else:
+            file_name = "functional_dtg_" + str(graph.var_group) + "_" + graph_name + ".gexf"
+
         full_name = os.path.join(save_path, file_name)
         f = open(full_name, "w")
         f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
@@ -486,16 +712,22 @@ def create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg):
         index = index + 1
 
 
-def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
+def create_gexf_transition_functional_metric_graph_files(fdtg_metric, n_agent):
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
 
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
     else:
-        save_path = "graphs/metric"
+        if n_agent == 0:
+            save_path = "graphs/metric"
+        else:
+            save_path = "graphs/per_agent/metric"
 
-    file_name = "functional_metric_graph.gexf"
+    if n_agent != 0:
+        file_name = "agent_" + str(n_agent) + "_functional_metric_graph.gexf"
+    else:
+        file_name = "functional_metric_graph.gexf"
     full_name = os.path.join(save_path, file_name)
     f = open(full_name, "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
@@ -525,7 +757,7 @@ def create_gexf_transition_functional_metric_graph_files(fdtg_metric):
     f.close()
 
 
-def create_gexf_transition_functional_metric_graphs_files(fdtgs, groups, group_const_arg):
+def create_gexf_transition_functional_metric_graphs_files(fdtgs, n_agent):
     index = 0
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
@@ -533,7 +765,10 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs, groups, group_c
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\metric"
     else:
-        save_path = "graphs/metric"
+        if n_agent == 0:
+            save_path = "graphs/metric"
+        else:
+            save_path = "graphs/per_agent/metric"
 
     for graph in fdtgs:
         file_name = "functional_metric_graph_" + str(graph.var_group) + ".gexf"
@@ -567,14 +802,17 @@ def create_gexf_transition_functional_metric_graphs_files(fdtgs, groups, group_c
         index = index + 1
 
 
-def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, groups, group_const_arg):
+def create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, n_agent):
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
 
     if WINDOWS:
         save_path = "C:\\Users\\JavCa\\PycharmProjects\\pddl2-SAS-translate2\\graphs\\functional_graphs_inv"
     else:
-        save_path = "graphs/functional_graphs_inv"
+        if n_agent == 0:
+            save_path = "graphs/functional_graphs_inv"
+        else:
+            save_path = "graphs/per_agent/functional_graphs_inv"
 
     n_invariant = 0
     for invariant in fdtgs_per_invariant:

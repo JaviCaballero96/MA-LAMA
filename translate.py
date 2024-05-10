@@ -15,6 +15,8 @@ import snap_actions
 import graphs
 import os
 import logging
+import glob
+import shutil
 
 logger = logging.getLogger()
 
@@ -692,7 +694,7 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                                 group_number = dict_fluents_in_runtime[flu_name]
                                 if group_number == var:
                                     runtime_cost = True
-                                    new_cost = "((" + elem.args[0].name + ")" + elem.symbol +  \
+                                    new_cost = "((" + elem.args[0].name + ")" + elem.symbol + \
                                                post[0] + ")+" + new_cost
 
                         else:
@@ -920,22 +922,37 @@ def pddl_to_sas(task, time_value):
 
     free_agent_index = graphs.find_free_agent_index(groups)
 
+    graph_folder = 'graphs/'
+    for filename in os.listdir(graph_folder):
+        file_path = os.path.join(graph_folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+    os.mkdir("graphs/metric")
+    os.mkdir("graphs/functional_graphs_inv")
+    os.mkdir("graphs/per_agent")
+    os.mkdir("graphs/per_agent/metric")
+    os.mkdir("graphs/per_agent/functional_graphs_inv")
+
     dtgs = graphs.create_groups_dtgs(sas_task)
     translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
 
     fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
-    fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+    # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
     fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
-    fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
+    # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
 
     # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg)
-    graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg)
-    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric)
-    graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, groups, group_const_arg)
-    graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, groups, group_const_arg)
-
-
+    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg, 0)
+    graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, 0)
+    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric, 0)
+    # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, 0)
+    # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, 0)
 
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
@@ -1072,7 +1089,7 @@ def pddl_to_sas(task, time_value):
                 print(agent)
                 n_agent = n_agent + 1
         else:
-           agent_error = True
+            agent_error = True
 
         free_joint_agents = []
         if joint_final_agents and not agent_error:
@@ -1193,6 +1210,28 @@ def pddl_to_sas(task, time_value):
         mutex_keys = build_mutex_keys(strips_to_sas, mutex_groups, [sas_task])
         write_mutex_keys(mutex_keys)
         agent_tasks = []
+    else:
+        # Generate per agent dtgs
+        ag_index = 0
+        for agent_task in agent_tasks:
+            agent_dtgs = graphs.create_groups_dtgs_per_agent(agent_task)
+            agent_translated_dtgs = graphs.translate_groups_dtgs_per_agent(agent_dtgs, translation_key)
+
+            agent_fdtgs = graphs.create_functional_dtgs_per_agent(agent_task, translation_key, groups)
+            # agent_fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(agent_task, translation_key, groups)
+            agent_fdtg_metric = graphs.create_functional_dtg_metric_per_agent(agent_task, translation_key, groups)
+            # agent_fdtgs_metric = graphs.create_functional_dtgs_metric(agent_task, translation_key, groups)
+
+            # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+            graphs.create_gexf_transition_graphs_files_per_agent(agent_translated_dtgs, groups, group_const_arg, ag_index + 1)
+            graphs.create_gexf_transition_functional_graphs_files(agent_fdtgs, group_const_arg, ag_index + 1)
+            graphs.create_gexf_transition_functional_metric_graph_files(agent_fdtg_metric, ag_index + 1)
+            # graphs.create_gexf_transition_functional_metric_graphs_files(agent_fdtgs_metric, groups,
+            #                                                            group_const_arg, ag_index + 1)
+            # graphs.create_gexf_transition_functional_per_inv_graphs_files(agent_fdtgs_per_invariant, groups
+            #                                                              , group_const_arg, ag_index + 1)
+
+            ag_index = ag_index + 1
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
@@ -1450,8 +1489,10 @@ def write_mutex_keys(mutex_keys):
         invariants_file.close()
         index = index + 1
 
+
 def number_of_coordination_goals(e):
     return len(e.goal.pairs)
+
 
 if __name__ == "__main__":
     import pddl
@@ -1511,9 +1552,9 @@ if __name__ == "__main__":
                         name = "agent" + str(agent_index)
                         # print(name + " task for goal: " + str(a_task.coop_goals[coop_goal_index][0]))
                         a_task.outputma_coop(open("step_" + str(coop_goal_index + 1) + "/" +
-                                                str(a_task.coop_goals[coop_goal_index][0]) +
-                                           "_output_agent" + str(agent_index) + ".sas", "w"),
-                                           name, groups, agent_index, a_task.coop_goals[coop_goal_index])
+                                                  str(a_task.coop_goals[coop_goal_index][0]) +
+                                                  "_output_agent" + str(agent_index) + ".sas", "w"),
+                                             name, groups, agent_index, a_task.coop_goals[coop_goal_index])
                     agent_index = agent_index + 1
                 coop_goal_index = coop_goal_index + 1
 
