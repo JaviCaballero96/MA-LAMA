@@ -155,7 +155,7 @@ def create_groups_dtgs_per_agent(task):
     sizes = task.variables.ranges
     # dtgs = [DomainTransitionGraph(init, size)
     #        for (init, size) in zip(init_vals, sizes)]
-    
+
     dtgs = {}
     for init_val_key in list(init_vals.keys()):
         dtgs[init_val_key] = DomainTransitionGraph(init_vals[init_val_key], sizes[init_val_key])
@@ -285,7 +285,6 @@ def create_functional_dtgs_per_agent(sas_task, translation_key, groups):
         if index not in list(sas_task.init.values.keys()):
             index = index + 1
             continue
-
 
         # Check if the group is functional
         if not (isinstance(group[0].predicate, pddl.f_expression.Increase) or
@@ -484,7 +483,6 @@ def create_functional_dtg_metric_per_agent(sas_task, translation_key, groups):
             eff_index_1 = eff_index_1 + 1
 
     return DomainTransGraph(0, 0, node_dict)
-
 
 
 def create_functional_dtgs_metric(sas_task, translation_key, groups):
@@ -2553,3 +2551,155 @@ def create_gexf_casual_graph_files(casual_graph, type):
     f.write("\t</graph>\n")
     f.write("</gexf>\n")
     f.close()
+
+
+# This function will rely on symmetries and other characteristics to check
+# how many agent types there are in a given problem
+def calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph, groups):
+    agent_types = []
+
+    # [number of single graphs in total-time and metric,
+    # number of root nodes and degrees in agent causal graph]
+    agent_types_characteristics = []
+    agent_index = 0
+    for agent_fdtgs in agents_fdtgs:
+
+        agent_characteristics = []
+
+        root_nodes_time, n_root_nodes_time = count_root_nodes(agent_fdtgs[0])
+        root_nodes_metric, n_root_nodes_metric = count_root_nodes(agents_fdtg_metric[agent_index])
+        # print("Number of root nodes for agent " + str(agent_index) + " and total-time: " + str(len(root_nodes_time)))
+        # print("Number of root nodes for agent " + str(agent_index) + " and metric: " + str(len(root_nodes_metric)))
+
+        single_graphs_time = count_single_graphs(agent_fdtgs[0])
+        single_graphs_metric = count_single_graphs(agents_fdtg_metric[agent_index])
+        print("Number of single graphs for agent " + str(agent_index) + " and total-time: " + str(
+            len(single_graphs_time)))
+        print(
+            "Number of single graphs for agent " + str(agent_index) + " and metric: " + str(len(single_graphs_metric)))
+
+        agent_characteristics.append([len(single_graphs_time), len(single_graphs_metric)])
+
+        agent_origin_nodes = obtain_origin_nodes(agents_causal_graph[agent_index])
+        agent_to_remove = []
+        for or_node in agent_origin_nodes:
+            if len(groups[or_node]) < 2:
+                agent_to_remove.append(or_node)
+        for node in agent_to_remove:
+            del agent_origin_nodes[node]
+
+        print("Number of origin nodes for agent " + str(agent_index) + ": " + str(len(agent_origin_nodes)))
+
+        agent_characteristics.append(len(agent_origin_nodes))
+
+        agent_types_characteristics.append(agent_characteristics)
+
+        agent_index = agent_index + 1
+
+    agent_index = 0
+    for agent_charac in agent_types_characteristics:
+        type_match = False
+        for type in agent_types:
+            if agent_charac[0] == type[0][0] and agent_charac[1] == type[0][1]:
+                type_match = True
+                type[1].append(agent_index)
+                break
+
+        if not type_match:
+            agent_types.append([agent_charac, [agent_index]])
+
+        agent_index = agent_index + 1
+
+    return agent_types
+
+
+def count_root_nodes(graph):
+    agent_types = []
+    types = 0
+
+    already_explored = []
+    current_node_list = []
+
+    def explore_node(node_name, arcs):
+        if node_name not in already_explored:
+            current_node_list.append(node_name)
+            already_explored.append(node_name)
+            for arc in arcs:
+                explore_node(arc.end_state, graph.node_list[arc.end_state])
+
+    for node_name, arcs in graph.node_list.items():
+        if node_name not in already_explored:
+            explore_node(node_name, arcs)
+            agent_types.append(copy.deepcopy(current_node_list))
+            current_node_list = []
+            types = types + 1
+
+    return agent_types, types
+
+
+def count_single_graphs(graph):
+    agent_types = []
+
+    for node_name, arcs in graph.node_list.items():
+        found = False
+        node_list_type_index = 0
+        for node_list_type in agent_types:
+            if not found and node_name in node_list_type:
+                agent_types[node_list_type_index].append(node_name)
+                found = True
+                break
+            node_list_type_index = node_list_type_index + 1
+
+        if not found:
+            for arc in arcs:
+                node_list_type_index = 0
+                for node_list_type in agent_types:
+                    if not found and arc.end_state in node_list_type:
+                        agent_types[node_list_type_index].append(node_name)
+                        found = True
+                        break
+                    node_list_type_index = node_list_type_index + 1
+
+        if not found:
+            agent_types.append([])
+            agent_types[-1].append(node_name)
+
+    # Refinement
+    refined = True
+    while refined:
+        refined = False
+
+        index_1 = 0
+        for agent_type_1 in agent_types:
+            index_2 = 0
+            for agent_type_2 in agent_types:
+                if not refined and index_1 != index_2:
+                    for node_2 in agent_type_2:
+                        if not refined and node_2 in agent_type_1:
+                            refined = True
+                            # Merge two groups
+                            to_merge = copy.deepcopy(agent_type_2)
+                            for node in to_merge:
+                                if node not in agent_types[index_1]:
+                                    agent_types[index_1].append(node)
+                            del agent_types[index_2]
+                            break
+
+                        if not refined:
+                            for arc in graph.node_list[node_2]:
+                                if arc.end_state in agent_type_1:
+                                    refined = True
+                                    # Merge two groups
+                                    to_merge = copy.deepcopy(agent_type_2)
+                                    for node in to_merge:
+                                        if node not in agent_types[index_1]:
+                                            agent_types[index_1].append(node)
+                                    del agent_types[index_2]
+                                    break
+                if refined:
+                    break
+                index_2 = index_2 + 1
+            if refined:
+                break
+            index_1 = index_1 + 1
+    return agent_types

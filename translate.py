@@ -1213,17 +1213,37 @@ def pddl_to_sas(task, time_value):
     else:
         # Generate per agent dtgs
         ag_index = 0
+        agents_fdtgs = []
+        agents_fdtg_metric = []
+        agents_causal_graph_no_cycles = []
         for agent_task in agent_tasks:
+
+            (agent_casual_graph, agent_casual_graph_type1, agent_casual_graph_type2,
+             agent_propositional_casual_graph, agent_propositional_casual_graph_type1,
+             agent_propositional_casual_graph_type2) = graphs.create_casual_graph(agent_task, groups, group_const_arg,
+                                                                                  free_agent_index,
+                                                                                  task.temp_task)
+
+            agent_propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(
+                deepcopy(agent_propositional_casual_graph_type1))
+            agent_propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
+                deepcopy(agent_propositional_casual_graph_type1_simple1))
+
+            agents_causal_graph_no_cycles.append(agent_propositional_casual_graph_type1_simple2)
+
             agent_dtgs = graphs.create_groups_dtgs_per_agent(agent_task)
             agent_translated_dtgs = graphs.translate_groups_dtgs_per_agent(agent_dtgs, translation_key)
 
             agent_fdtgs = graphs.create_functional_dtgs_per_agent(agent_task, translation_key, groups)
+            agents_fdtgs.append(agent_fdtgs)
             # agent_fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(agent_task, translation_key, groups)
             agent_fdtg_metric = graphs.create_functional_dtg_metric_per_agent(agent_task, translation_key, groups)
+            agents_fdtg_metric.append(agent_fdtg_metric)
             # agent_fdtgs_metric = graphs.create_functional_dtgs_metric(agent_task, translation_key, groups)
 
             # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-            graphs.create_gexf_transition_graphs_files_per_agent(agent_translated_dtgs, groups, group_const_arg, ag_index + 1)
+            graphs.create_gexf_transition_graphs_files_per_agent(agent_translated_dtgs, groups, group_const_arg,
+                                                                 ag_index + 1)
             graphs.create_gexf_transition_functional_graphs_files(agent_fdtgs, group_const_arg, ag_index + 1)
             graphs.create_gexf_transition_functional_metric_graph_files(agent_fdtg_metric, ag_index + 1)
             # graphs.create_gexf_transition_functional_metric_graphs_files(agent_fdtgs_metric, groups,
@@ -1232,6 +1252,12 @@ def pddl_to_sas(task, time_value):
             #                                                              , group_const_arg, ag_index + 1)
 
             ag_index = ag_index + 1
+
+        # Check how many agent types there are
+        agent_types = graphs.calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph_no_cycles,
+                                                   groups)
+
+        print("Types of agents found: " + str(len(agent_types)) + " --> " + str(agent_types))
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
