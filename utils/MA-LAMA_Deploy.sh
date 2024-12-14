@@ -8,8 +8,8 @@ echo "  translate..."
 gh repo clone JaviCaballero96/MA-LAMA
 cp MA-LAMA/utils/* .
 mv MA-LAMA translate
-chmod -R +x MA-LAMA/*
-chmod +x launchLama.sh
+chmod -R +x translate/*
+chmod +x launchMALama.sh
 
 echo "  preprocess..."
 gh repo clone MA-LAMA_preprocess
@@ -23,8 +23,8 @@ rm -rf MA-LAMA_search
 
 echo "  unify..."
 gh repo clone MA-LAMA_unify
-mv -rf MA-LAMA_unify unify
-chmod -R +x MA-LAMA_unify/*
+mv MA-LAMA_unify unify
+chmod -R +x unify
 
 mkdir graphs
 mkdir graphs/metric
@@ -52,5 +52,5 @@ echo ""
 echo "---- Deploy completed!! ----"
 echo ""
 echo ""
-echo "Usage: launchLama.sh domain_file problem_file relaxed_search_time agent_decomp?(y/n)"
+echo "Usage: launchMALama.sh domain_file problem_file relaxed_search_time agent_decomp?(y/n)"
 echo "Output: final_plan.txt, see Readme.txt for a full description of all outputs."
