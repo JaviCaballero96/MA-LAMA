@@ -8,7 +8,7 @@ echo "  translate..."
 gh repo clone JaviCaballero96/MA-LAMA
 cp MA-LAMA/utils/* .
 mv MA-LAMA translate
-chmod -R +x MA-LAMA/*
+chmod -R +x translate/*
 chmod +x launchLama.sh
 
 echo "  preprocess..."
@@ -23,8 +23,8 @@ rm -rf MA-LAMA_search
 
 echo "  unify..."
 gh repo clone MA-LAMA_unify
-mv -rf MA-LAMA_unify unify
-chmod -R +x MA-LAMA_unify/*
+mv MA-LAMA_unify unify
+chmod -R +x unify
 
 mkdir graphs
 mkdir graphs/metric
