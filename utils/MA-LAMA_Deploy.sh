@@ -5,24 +5,26 @@ sleep 2
 echo "Downloading all modules from git..."
 
 echo "  translate..."
-gh repo clone JaviCaballero96/pddl2-SAS-translate
-cp pddl2-SAS-translate/utils/* .
-chmod -R +x pddl2-SAS-translate/*
+gh repo clone JaviCaballero96/MA-LAMA
+cp MA-LAMA/utils/* .
+mv MA-LAMA translate
+chmod -R +x MA-LAMA/*
 chmod +x launchLama.sh
 
 echo "  preprocess..."
-gh repo clone JaviCaballero96/preprocess_temp_magent
-mv preprocess_temp_magent/preprocess preprocess
-rm -rf preprocess_temp_magent
+gh repo clone MA-LAMA_preprocess
+mv MA-LAMA_preprocess/preprocess preprocess
+rm -rf MA-LAMA_preprocess
 
 echo "  search..."
-gh repo clone JaviCaballero96/search_temp_magent
-mv search_temp_magent/search search
-rm -rf search_temp_magent
+gh repo clone MA-LAMA_search
+mv MA-LAMA_search/search search
+rm -rf MA-LAMA_search
 
 echo "  unify..."
-gh repo clone JaviCaballero96/unify_temp_magent
-chmod -R +x unify_temp_magent/*
+gh repo clone MA-LAMA_unify
+mv -rf MA-LAMA_unify unify
+chmod -R +x MA-LAMA_unify/*
 
 mkdir graphs
 mkdir graphs/metric
