@@ -1,5 +1,5 @@
 class SASTask:
-    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals):
+    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals, timed_goals_list):
         self.variables = variables
         self.init = init
         self.goal = goal
@@ -8,6 +8,7 @@ class SASTask:
         self.metric = metric
         self.shared_nodes = shared_nodes
         self.coop_goals = coop_goals
+        self.timed_goals_list = timed_goals_list
 
     def output(self, stream, groups):
         print("gen", file=stream)

@@ -37,7 +37,7 @@ class DurativeAction(object):
             parameters = []
             duration_tag_opt = parameters_tag_opt
         if duration_tag_opt == ":duration":
-            print("Reading duration")
+            #print("Reading duration")
             duration_list = next(iterator)
             duration_t = parse_duration(duration_list)
             precondition_tag_opt = next(iterator)

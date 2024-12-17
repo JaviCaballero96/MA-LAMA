@@ -738,7 +738,7 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
                    actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime,
-                   dict_fluents_in_runtime):
+                   dict_fluents_in_runtime, timed_goals_list):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -781,7 +781,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [])
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], timed_goals_list)
 
 
 def set_function_values(operators, groups, mutex_groups):
@@ -855,8 +855,107 @@ def pddl_to_sas(task, time_value):
         (relaxed_reachable, atoms, functions, actions, axioms,
          reachable_action_params) = instantiate.explore(task)
 
+    timed_goals_list = []
     if not relaxed_reachable:
-        return unsolvable_sas_task("No relaxed solution")
+
+        # If the task is unsolvable, the timed literals must be checked
+        if task.init_temp:
+            single_goal_tasks = []
+            for goal in task.goal.parts:
+                aux_task = copy.deepcopy(task)
+                aux_task.goal = pddl.Conjunction([goal])
+                single_goal_tasks.append(copy.deepcopy(aux_task))
+
+            print("Task is unsolvable, checking timed literals")
+            achieved_goals = {}
+            single_goal_tasks_solvable = copy.deepcopy(single_goal_tasks)
+            index = 0
+            for single_task in single_goal_tasks:
+                aux_init = copy.deepcopy(single_task.init)
+                for timed_atom in task.init_temp:
+                    if isinstance(timed_atom, pddl.Atom):
+                        single_task.init = copy.deepcopy(aux_init)
+                        single_task.init.append(timed_atom)
+                        # Check if the goal is now achievable
+                        relaxed_reachable_single = instantiate.explore(single_task)
+
+                        if relaxed_reachable_single[0]:
+                            if single_task.goal.parts[0] in achieved_goals.keys():
+                                achieved_goals[single_task.goal.parts[0]].append = [timed_atom]
+                            else:
+                                achieved_goals[single_task.goal.parts[0]] = [timed_atom]
+                            single_goal_tasks_solvable[index].init.append(timed_atom)
+                        single_task.init = copy.deepcopy(aux_init)
+                index = index + 1
+
+            # Check if all goals have been solved
+            if len(task.goal.parts) == len(achieved_goals.keys()):
+
+                # Add the timed literals to the init state of the original task
+                for key, atom_list in achieved_goals.items():
+                    for atom_element in atom_list:
+                        found = False
+                        for init_element in task.init:
+                            if isinstance(init_element, pddl.Atom) and atom_element == init_element:
+                                found = True
+                                break
+
+                        if not found:
+                            task.init.append(atom_element)
+                        # print("The goal " + str(key) + " can be achieved after " +
+                        #       atom_element.at + ", because of the timed literal: " + str(atom_element))
+                print("The whole task is solvable with the timed literals")
+                (relaxed_reachable, atoms, functions, actions, axioms,
+                 reachable_action_params) = instantiate.explore(task)
+                timed_goals_list = achieved_goals
+                assert relaxed_reachable
+
+                # Now check the negated atoms to see if the goals have timed windows
+                timed_negated_goals_list = {}
+                for neg_atom in task.init_temp:
+                    if isinstance(neg_atom, pddl.NegatedAtom):
+                        aux_single_goal_tasks_solvable = copy.deepcopy(single_goal_tasks_solvable)
+                        for single_goal_task in aux_single_goal_tasks_solvable:
+                            task_ready = False
+                            init_index = 0
+                            for init_item in single_goal_task.init:
+                                if not task_ready and isinstance(init_item, pddl.Atom):
+                                    if not task_ready and\
+                                            init_item.predicate == neg_atom.predicate and\
+                                            init_item.args == neg_atom.args:
+                                        single_goal_task.init.pop(init_index)
+                                        task_ready = True
+                                init_index = init_index + 1
+                            if task_ready:
+                                relaxed_reachable_single = instantiate.explore(single_goal_task)
+
+                                if not relaxed_reachable_single[0]:
+                                    if single_goal_task.goal.parts[0] in timed_negated_goals_list.keys():
+                                        timed_negated_goals_list[single_goal_task.goal.parts[0]].append = [neg_atom]
+                                    else:
+                                        timed_negated_goals_list[single_goal_task.goal.parts[0]] = [neg_atom]
+                                    # print("The atom " + str(neg_atom) + "denies the goal " +
+                                    #       str(single_goal_task.goal.parts[0]) + " at " + neg_atom.at)
+
+                for timed_goal in task.goal.parts:
+                    print("Goal " + str(goal))
+                    if timed_goal in achieved_goals.keys():
+                        print("    Can only be achieved after:")
+                        for timed_atom in achieved_goals[timed_goal]:
+                            print("        " + str(timed_atom) + " at " + timed_atom.at)
+
+                    if timed_goal in timed_negated_goals_list.keys():
+                        print("    Can no longer be achieved after:")
+                        for timed_atom in timed_negated_goals_list[timed_goal]:
+                            print("        " + str(timed_atom) + " at " + timed_atom.at)
+
+
+            else:
+                print("Task is still not solvable with timed literals")
+                return unsolvable_sas_task("No relaxed solution")
+
+        else:
+            return unsolvable_sas_task("No relaxed solution")
 
     # HACK! Goals should be treated differently.
     if isinstance(task.goal, pddl.Conjunction):
@@ -891,7 +990,8 @@ def pddl_to_sas(task, time_value):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
-            implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
+            implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime,
+            timed_goals_list)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
