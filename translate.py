@@ -738,7 +738,7 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
                    actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime,
-                   dict_fluents_in_runtime, timed_goals_list):
+                   dict_fluents_in_runtime, timed_goals_list, timed_negated_goals_list):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -781,8 +781,36 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], timed_goals_list)
+    translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas, ranges)
 
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], translated_timed_goals_list)
+
+
+def translate_timed_goals(timed_goals_list, timed_negated_goals_list, dictionary, ranges):
+    translated_timed_goals_list = {}
+
+    for key, constraints in timed_goals_list.items():
+        goal_translated = translate_strips_conditions_aux([key], dictionary, ranges)
+        for var, val in goal_translated[0].items():
+            translated_timed_goals_list[(var, val)] = []
+
+            for timed_atom in constraints:
+                atom_translated = translate_strips_conditions_aux([timed_atom], dictionary, ranges)
+                for var2, val2 in atom_translated[0].items():
+                    translated_timed_goals_list[(var, val)].append([var2, val2, timed_atom.at])
+
+    for key, constraints in timed_negated_goals_list.items():
+        goal_translated = translate_strips_conditions_aux([key], dictionary, ranges)
+        for var, val in goal_translated[0].items():
+            if (var, val) not in translated_timed_goals_list.keys():
+                translated_timed_goals_list[(var, val)] = []
+
+            for timed_atom in constraints:
+                atom_translated = translate_strips_conditions_aux([timed_atom], dictionary, ranges)
+                for var2, val2 in atom_translated[0].items():
+                    translated_timed_goals_list[(var, val)].append([var2, val2, timed_atom.at])
+
+    return translated_timed_goals_list
 
 def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
@@ -991,7 +1019,7 @@ def pddl_to_sas(task, time_value):
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
             implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime,
-            timed_goals_list)
+            timed_goals_list, timed_negated_goals_list)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)

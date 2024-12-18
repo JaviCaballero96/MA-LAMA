@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: latin-1 -*-
-
-
+import copy
 from collections import defaultdict
 
 import build_model
@@ -20,6 +19,28 @@ def get_fluent_facts(task, model):
                 fluent_functions_aux.add(effect.effect.fluent.symbol)
             elif "block" not in effect.eff_type:
                 fluent_predicates.add(effect.literal.predicate)
+
+    # We have to take into account that timed literals come from outside rules
+    # add them if they have not been at this point
+    for timed_atom in task.init_temp:
+        if isinstance(timed_atom, pddl.Atom):
+            found = False
+            for fluent in fluent_predicates:
+                if fluent == timed_atom.predicate:
+                    found = True
+                    break
+            if not found:
+                fluent_predicates.add(timed_atom.predicate)
+        else:
+            aux_atom = pddl.Atom(timed_atom.predicate, timed_atom.args)
+            found = False
+            for fluent in fluent_predicates:
+                if fluent == aux_atom.predicate:
+                    found = True
+                    break
+            if not found:
+                fluent_predicates.add(aux_atom.predicate)
+
     for axiom in task.axioms:
         fluent_predicates.add(axiom.name)
 
