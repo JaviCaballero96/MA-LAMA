@@ -1316,11 +1316,18 @@ def pddl_to_sas(task, time_value):
                 goal = sas_tasks.SASGoal(agents_goals[agent_index])
                 a_coop_goal = agent_coop_goals[agent_index]
 
+                a_timed_goals = {}
+                for coop_goal in agents_goals[agent_index]:
+                    for timed_goal, timed_facts in sas_task.timed_goals_list.items():
+                        if coop_goal[0] == timed_goal[0] and coop_goal[1] == timed_goal[1]:
+                            a_timed_goals[timed_goal] = timed_facts
+
+
                 # print("Agent " + str(agent_index) + ": " + str(a_coop_goal))
 
                 new_task = sas_tasks.SASTask(variables, init,
                                              goal, agents_actions[agent_index], [],
-                                             agents_metric[agent_index], shared_nodes, a_coop_goal)
+                                             agents_metric[agent_index], shared_nodes, a_coop_goal, a_timed_goals)
 
                 agent_tasks.append(new_task)
                 agent_index = agent_index + 1
