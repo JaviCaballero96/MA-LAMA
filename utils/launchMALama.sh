@@ -1,6 +1,6 @@
 #bin/bash
 
-echo "Usage: launchLama.sh domain_file problem_file time_relaxed_search(s)"
+echo "Usage: launchLama.sh domain_file problem_file time_relaxed_search(s) timed_goal_assigment(y/n)"
 
 echo "removing past files"
 rm -rf step_*
@@ -20,7 +20,7 @@ start=`date +%s.%N`
 echo "Launching with SOFT temporal constraints"
 
 echo "Launching Translate"
-python3 translate/translate.py $1 $2 $3 y > translate.log
+python3 translate/translate.py $1 $2 $3 y $4 > translate.log
 
 echo "Launching Preprocess"
 folder=step_0

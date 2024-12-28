@@ -20,25 +20,24 @@ def parse_pddl_file(filetype, filename):
 
 def open_pddl_file(task_filename=None, domain_filename=None):
     if task_filename is None:
-        if len(sys.argv) != 5:
-            raise SystemExit("Error: Need exactly four command line arguments.\n"
-                             "Usage: %s <domain.pddl> <task.pddl> <time_to_search> <agent_decomp(y/n)>" % sys.argv[0])
+        if len(sys.argv) != 6:
+            raise SystemExit("Error: Need exactly five command line arguments.\n"
+                             "Usage: %s <domain.pddl> <task.pddl> <time_to_search> <agent_decomp(y/n)> "
+                             "<goal_assigment_by_timed_goals(y/n)>" % sys.argv[0])
 
-        task_filename = sys.argv[-3]
+        task_filename = sys.argv[-4]
         print("\n" + task_filename + "\n")
-        if len(sys.argv) == 5:
-            domain_filename = sys.argv[1]
-            time_value = sys.argv[3]
-            if sys.argv[4] == "y":
-                agent_decomp = True
-            else:
-                agent_decomp = False
+
+        time_value = sys.argv[3]
+        if sys.argv[4] == "y":
+            agent_decomp = True
         else:
-            time_value = sys.argv[2]
-            if sys.argv[3] == "y":
-                agent_decomp = True
-            else:
-                agent_decomp = False
+            agent_decomp = False
+
+        if sys.argv[5] == "y":
+            assignment_by_timed_goals = True
+        else:
+            assignment_by_timed_goals = False
 
     if not domain_filename:
         dirname, basename = os.path.split(task_filename)
@@ -57,7 +56,7 @@ def open_pddl_file(task_filename=None, domain_filename=None):
 
     domain_pddl = parse_pddl_file("domain", domain_filename)
     task_pddl = parse_pddl_file("task", task_filename)
-    return tasks.Task.parse(domain_pddl, task_pddl), time_value, agent_decomp
+    return tasks.Task.parse(domain_pddl, task_pddl), time_value, agent_decomp, assignment_by_timed_goals
 
 if __name__ == "__main__":
     open_pddl_file().dump()

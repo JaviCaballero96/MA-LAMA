@@ -40,6 +40,7 @@ SIMPLIFIED_CASUAL_GRAPH = True
 ADD_IMPLIED_PRECONDITIONS = False
 
 AGENT_DECOMPOSITION = True
+ASSIGNMENT_BY_TIMED_GOALS = False
 
 removed_implied_effect_counter = 0
 simplified_effect_condition_counter = 0
@@ -1290,13 +1291,24 @@ def pddl_to_sas(task, time_value):
 
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
-            agents_goals, agent_coop_goals, general_goals, correct_assignment = \
-                graphs.fill_agents_goals(joint_agents,
-                                         functional_agents, agents_actions,
-                                         agents_metric, agents_init,
-                                         casual_graph, sas_task, groups, time_value,
-                                         task.temp_task)
-            agent_error = agent_error or not correct_assignment
+
+            # Perform the goal assignment only taking into account the optimal time for timed literals and timed goals
+            if ASSIGNMENT_BY_TIMED_GOALS and len(sas_task.goal.pairs) == len(sas_task.timed_goals_list):
+                print("Not yet implemented")
+                agents_goals, agent_coop_goals, general_goals, correct_assignment = \
+                    graphs.fill_agents_goals_timed_facts(joint_agents,
+                                             functional_agents, agents_actions,
+                                             agents_metric, agents_init,
+                                             casual_graph, sas_task, groups, time_value,
+                                             task.temp_task)
+            else:
+                agents_goals, agent_coop_goals, general_goals, correct_assignment = \
+                    graphs.fill_agents_goals(joint_agents,
+                                             functional_agents, agents_actions,
+                                             agents_metric, agents_init,
+                                             casual_graph, sas_task, groups, time_value,
+                                             task.temp_task)
+                agent_error = agent_error or not correct_assignment
 
             # Create new tasks
             agent_tasks = []
@@ -1660,7 +1672,7 @@ if __name__ == "__main__":
 
     timer = timers.Timer()
     with timers.timing("Parsing"):
-        durative_task, time_value, AGENT_DECOMPOSITION = pddl.open_pddl_file()
+        durative_task, time_value, AGENT_DECOMPOSITION, ASSIGNMENT_BY_TIMED_GOALS = pddl.open_pddl_file()
 
     # EXPERIMENTAL!
     # import psyco
