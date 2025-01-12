@@ -30,6 +30,7 @@ logger = logging.getLogger()
 # derived variable is synonymous with another variable (derived or
 # non-derived).
 
+CREATE_DTGS = False
 ALLOW_CONFLICTING_EFFECTS = True
 USE_PARTIAL_ENCODING = False
 DETECT_UNREACHABLE = True
@@ -1068,40 +1069,43 @@ def pddl_to_sas(task, time_value):
     os.mkdir("graphs/per_agent/metric")
     os.mkdir("graphs/per_agent/functional_graphs_inv")
 
-    dtgs = graphs.create_groups_dtgs(sas_task)
-    translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+    if CREATE_DTGS:
+        dtgs = graphs.create_groups_dtgs(sas_task)
+        translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
 
-    fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
-    # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
-    fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
-    # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
+        fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+        # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+        fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
+        # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
 
-    # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg, 0)
-    graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, 0)
-    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric, 0)
-    # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, 0)
-    # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, 0)
+        # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+        graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg, 0)
+        graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, 0)
+        graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric, 0)
+        # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, 0)
+        # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, 0)
 
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
                                                                     task.temp_task)
-
-    # graphs.create_gexf_casual_graph_files(casual_graph, 0)
-    # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
-    # graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
-    # graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
-    # graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
+    if CREATE_DTGS:
+        # graphs.create_gexf_casual_graph_files(casual_graph, 0)
+        # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
+        # graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
+        # graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
+        # graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
 
     propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
+    if CREATE_DTGS:
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
-        deepcopy(propositional_casual_graph_type1_simple1))
-    # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
-    #     deepcopy(propositional_casual_graph_type1))
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
+            deepcopy(propositional_casual_graph_type1_simple1))
+    if CREATE_DTGS:
+        # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
+        #     deepcopy(propositional_casual_graph_type1))
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     agent_error = not AGENT_DECOMPOSITION
     try:
@@ -1294,7 +1298,6 @@ def pddl_to_sas(task, time_value):
 
             # Perform the goal assignment only taking into account the optimal time for timed literals and timed goals
             if ASSIGNMENT_BY_TIMED_GOALS and len(sas_task.goal.pairs) == len(sas_task.timed_goals_list):
-                print("Not yet implemented")
                 agents_goals, agent_coop_goals, general_goals, correct_assignment = \
                     graphs.fill_agents_goals_timed_facts(joint_agents,
                                              functional_agents, agents_actions,
@@ -1400,11 +1403,11 @@ def pddl_to_sas(task, time_value):
 
             ag_index = ag_index + 1
 
-        # Check how many agent types there are
-        agent_types = graphs.calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph_no_cycles,
-                                                   groups)
-
-        print("Types of agents found: " + str(len(agent_types)) + " --> " + str(agent_types))
+        if CREATE_DTGS:
+            # Check how many agent types there are
+            agent_types = graphs.calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph_no_cycles,
+                                                       groups)
+            print("Types of agents found: " + str(len(agent_types)) + " --> " + str(agent_types))
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
