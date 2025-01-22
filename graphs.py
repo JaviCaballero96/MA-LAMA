@@ -1818,6 +1818,64 @@ def fill_agents_init(joint_agents, functional_agents, sas_task):
     return agent_init
 
 
+def fill_agents_goals_timed_facts(joint_agents, functional_agents, agents_actions, agents_metric, agents_init,
+                                  casual_graph,
+                                  sas_task, groups, time_value, temp_task):
+    agent_goals = []
+    agent_coop_goals = []
+    goals_to_analyze = []
+    time_clock_per_agent = []
+
+    for _ in joint_agents:
+        agent_goals.append([])
+        agent_coop_goals.append([])
+        time_clock_per_agent.append(0.0)
+
+    goals_added = []
+    print(sas_task.timed_goals_list)
+    while len(goals_added) != len(sas_task.timed_goals_list.items()):
+        min_time_value = -1.0
+        index_min_time_value = -1
+        index = 0
+        # get goal with min timed fact
+        for timed_goal, timed_facts in sas_task.timed_goals_list.items():
+            if timed_goal in goals_added:
+                pass
+            else:
+                for timed_fact in timed_facts:
+                    if timed_fact[1] != -1:
+                        if min_time_value == -1.0 or min_time_value > float(timed_fact[2]):
+                            min_time_value = float(timed_fact[2])
+                            index_min_time_value = index
+                            min_timed_goal = timed_goal
+            index = index + 1
+
+        if index_min_time_value == -1:
+            print("Error in the timed goal assignment")
+            return False
+        # get agent with min internal clock
+        agent_index = 0
+        min_agent_index = 0
+        min_agent_clock = -1.0
+        for agent_clock in time_clock_per_agent:
+            if agent_clock < min_agent_clock or min_agent_clock == -1.0:
+                min_agent_clock = agent_clock
+                min_agent_index = agent_index
+            agent_index = agent_index + 1
+
+        time_clock_per_agent[min_agent_index] = time_clock_per_agent[min_agent_index] + min_time_value
+        agent_goals[min_agent_index].append(min_timed_goal)
+        goals_added.append(min_timed_goal)
+
+        print(agent_goals)
+        print(index_min_time_value)
+        print(goals_added)
+        print(min_time_value)
+        print(time_clock_per_agent)
+
+    return agent_goals, agent_coop_goals, goals_to_analyze, True
+
+
 def fill_agents_goals(joint_agents, functional_agents, agents_actions, agents_metric, agents_init, casual_graph,
                       sas_task, groups, time_value, temp_task):
     agent_goals = []

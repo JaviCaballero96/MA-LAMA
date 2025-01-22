@@ -30,6 +30,7 @@ logger = logging.getLogger()
 # derived variable is synonymous with another variable (derived or
 # non-derived).
 
+CREATE_DTGS = False
 ALLOW_CONFLICTING_EFFECTS = True
 USE_PARTIAL_ENCODING = False
 DETECT_UNREACHABLE = True
@@ -40,6 +41,7 @@ SIMPLIFIED_CASUAL_GRAPH = True
 ADD_IMPLIED_PRECONDITIONS = False
 
 AGENT_DECOMPOSITION = True
+ASSIGNMENT_BY_TIMED_GOALS = False
 
 removed_implied_effect_counter = 0
 simplified_effect_condition_counter = 0
@@ -738,7 +740,7 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
                    actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime,
-                   dict_fluents_in_runtime):
+                   dict_fluents_in_runtime, timed_goals_list, timed_negated_goals_list):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -781,8 +783,36 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [])
+    translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas, ranges)
 
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], translated_timed_goals_list)
+
+
+def translate_timed_goals(timed_goals_list, timed_negated_goals_list, dictionary, ranges):
+    translated_timed_goals_list = {}
+
+    for key, constraints in timed_goals_list.items():
+        goal_translated = translate_strips_conditions_aux([key], dictionary, ranges)
+        for var, val in goal_translated[0].items():
+            translated_timed_goals_list[(var, val)] = []
+
+            for timed_atom in constraints:
+                atom_translated = translate_strips_conditions_aux([timed_atom], dictionary, ranges)
+                for var2, val2 in atom_translated[0].items():
+                    translated_timed_goals_list[(var, val)].append([var2, val2, timed_atom.at])
+
+    for key, constraints in timed_negated_goals_list.items():
+        goal_translated = translate_strips_conditions_aux([key], dictionary, ranges)
+        for var, val in goal_translated[0].items():
+            if (var, val) not in translated_timed_goals_list.keys():
+                translated_timed_goals_list[(var, val)] = []
+
+            for timed_atom in constraints:
+                atom_translated = translate_strips_conditions_aux([timed_atom], dictionary, ranges)
+                for var2, val2 in atom_translated[0].items():
+                    translated_timed_goals_list[(var, val)].append([var2, val2, timed_atom.at])
+
+    return translated_timed_goals_list
 
 def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
@@ -855,8 +885,107 @@ def pddl_to_sas(task, time_value):
         (relaxed_reachable, atoms, functions, actions, axioms,
          reachable_action_params) = instantiate.explore(task)
 
+    timed_goals_list = []
     if not relaxed_reachable:
-        return unsolvable_sas_task("No relaxed solution")
+
+        # If the task is unsolvable, the timed literals must be checked
+        if task.init_temp:
+            single_goal_tasks = []
+            for goal in task.goal.parts:
+                aux_task = copy.deepcopy(task)
+                aux_task.goal = pddl.Conjunction([goal])
+                single_goal_tasks.append(copy.deepcopy(aux_task))
+
+            print("Task is unsolvable, checking timed literals")
+            achieved_goals = {}
+            single_goal_tasks_solvable = copy.deepcopy(single_goal_tasks)
+            index = 0
+            for single_task in single_goal_tasks:
+                aux_init = copy.deepcopy(single_task.init)
+                for timed_atom in task.init_temp:
+                    if isinstance(timed_atom, pddl.Atom):
+                        single_task.init = copy.deepcopy(aux_init)
+                        single_task.init.append(timed_atom)
+                        # Check if the goal is now achievable
+                        relaxed_reachable_single = instantiate.explore(single_task)
+
+                        if relaxed_reachable_single[0]:
+                            if single_task.goal.parts[0] in achieved_goals.keys():
+                                achieved_goals[single_task.goal.parts[0]].append = [timed_atom]
+                            else:
+                                achieved_goals[single_task.goal.parts[0]] = [timed_atom]
+                            single_goal_tasks_solvable[index].init.append(timed_atom)
+                        single_task.init = copy.deepcopy(aux_init)
+                index = index + 1
+
+            # Check if all goals have been solved
+            if len(task.goal.parts) == len(achieved_goals.keys()):
+
+                # Add the timed literals to the init state of the original task
+                for key, atom_list in achieved_goals.items():
+                    for atom_element in atom_list:
+                        found = False
+                        for init_element in task.init:
+                            if isinstance(init_element, pddl.Atom) and atom_element == init_element:
+                                found = True
+                                break
+
+                        if not found:
+                            task.init.append(atom_element)
+                        # print("The goal " + str(key) + " can be achieved after " +
+                        #       atom_element.at + ", because of the timed literal: " + str(atom_element))
+                print("The whole task is solvable with the timed literals")
+                (relaxed_reachable, atoms, functions, actions, axioms,
+                 reachable_action_params) = instantiate.explore(task)
+                timed_goals_list = achieved_goals
+                assert relaxed_reachable
+
+                # Now check the negated atoms to see if the goals have timed windows
+                timed_negated_goals_list = {}
+                for neg_atom in task.init_temp:
+                    if isinstance(neg_atom, pddl.NegatedAtom):
+                        aux_single_goal_tasks_solvable = copy.deepcopy(single_goal_tasks_solvable)
+                        for single_goal_task in aux_single_goal_tasks_solvable:
+                            task_ready = False
+                            init_index = 0
+                            for init_item in single_goal_task.init:
+                                if not task_ready and isinstance(init_item, pddl.Atom):
+                                    if not task_ready and\
+                                            init_item.predicate == neg_atom.predicate and\
+                                            init_item.args == neg_atom.args:
+                                        single_goal_task.init.pop(init_index)
+                                        task_ready = True
+                                init_index = init_index + 1
+                            if task_ready:
+                                relaxed_reachable_single = instantiate.explore(single_goal_task)
+
+                                if not relaxed_reachable_single[0]:
+                                    if single_goal_task.goal.parts[0] in timed_negated_goals_list.keys():
+                                        timed_negated_goals_list[single_goal_task.goal.parts[0]].append = [neg_atom]
+                                    else:
+                                        timed_negated_goals_list[single_goal_task.goal.parts[0]] = [neg_atom]
+                                    # print("The atom " + str(neg_atom) + "denies the goal " +
+                                    #       str(single_goal_task.goal.parts[0]) + " at " + neg_atom.at)
+
+                for timed_goal in task.goal.parts:
+                    print("Goal " + str(goal))
+                    if timed_goal in achieved_goals.keys():
+                        print("    Can only be achieved after:")
+                        for timed_atom in achieved_goals[timed_goal]:
+                            print("        " + str(timed_atom) + " at " + timed_atom.at)
+
+                    if timed_goal in timed_negated_goals_list.keys():
+                        print("    Can no longer be achieved after:")
+                        for timed_atom in timed_negated_goals_list[timed_goal]:
+                            print("        " + str(timed_atom) + " at " + timed_atom.at)
+
+
+            else:
+                print("Task is still not solvable with timed literals")
+                return unsolvable_sas_task("No relaxed solution")
+
+        else:
+            return unsolvable_sas_task("No relaxed solution")
 
     # HACK! Goals should be treated differently.
     if isinstance(task.goal, pddl.Conjunction):
@@ -891,7 +1020,8 @@ def pddl_to_sas(task, time_value):
         sas_task = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
-            implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
+            implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime,
+            timed_goals_list, timed_negated_goals_list)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
@@ -939,40 +1069,43 @@ def pddl_to_sas(task, time_value):
     os.mkdir("graphs/per_agent/metric")
     os.mkdir("graphs/per_agent/functional_graphs_inv")
 
-    dtgs = graphs.create_groups_dtgs(sas_task)
-    translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
+    if CREATE_DTGS:
+        dtgs = graphs.create_groups_dtgs(sas_task)
+        translated_dtgs = graphs.translate_groups_dtgs(dtgs, translation_key)
 
-    fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
-    # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
-    fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
-    # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
+        fdtgs = graphs.create_functional_dtgs(sas_task, translation_key, groups)
+        # fdtgs_per_invariant = graphs.create_functional_dtgs_per_invariant(sas_task, translation_key, groups)
+        fdtg_metric = graphs.create_functional_dtg_metric(sas_task, translation_key, groups)
+        # fdtgs_metric = graphs.create_functional_dtgs_metric(sas_task, translation_key, groups)
 
-    # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
-    graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg, 0)
-    graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, 0)
-    graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric, 0)
-    # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, 0)
-    # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, 0)
+        # graphs.create_csv_transition_graphs_files(translated_dtgs, groups)
+        graphs.create_gexf_transition_graphs_files(translated_dtgs, groups, group_const_arg, 0)
+        graphs.create_gexf_transition_functional_graphs_files(fdtgs, group_const_arg, 0)
+        graphs.create_gexf_transition_functional_metric_graph_files(fdtg_metric, 0)
+        # graphs.create_gexf_transition_functional_metric_graphs_files(fdtgs_metric, 0)
+        # graphs.create_gexf_transition_functional_per_inv_graphs_files(fdtgs_per_invariant, 0)
 
     (casual_graph, casual_graph_type1, casual_graph_type2,
      propositional_casual_graph, propositional_casual_graph_type1,
      propositional_casual_graph_type2) = graphs.create_casual_graph(sas_task, groups, group_const_arg, free_agent_index,
                                                                     task.temp_task)
-
-    # graphs.create_gexf_casual_graph_files(casual_graph, 0)
-    # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
-    # graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
-    # graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
-    # graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
+    if CREATE_DTGS:
+        # graphs.create_gexf_casual_graph_files(casual_graph, 0)
+        # graphs.create_gexf_casual_graph_files(casual_graph_type1, 1)
+        # graphs.create_gexf_casual_graph_files(casual_graph_type2, 2)
+        # graphs.create_gexf_casual_graph_files(propositional_casual_graph, 3)
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1, 4)
+        # graphs.create_gexf_casual_graph_files(propositional_casual_graph_type2, 5)
 
     propositional_casual_graph_type1_simple1 = graphs.remove_two_way_cycles(deepcopy(propositional_casual_graph_type1))
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
+    if CREATE_DTGS:
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
-        deepcopy(propositional_casual_graph_type1_simple1))
-    # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
-    #     deepcopy(propositional_casual_graph_type1))
-    graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
+            deepcopy(propositional_casual_graph_type1_simple1))
+    if CREATE_DTGS:
+        # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
+        #     deepcopy(propositional_casual_graph_type1))
+        graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple2, 7)
 
     agent_error = not AGENT_DECOMPOSITION
     try:
@@ -1162,13 +1295,23 @@ def pddl_to_sas(task, time_value):
 
             agents_metric = graphs.fill_agents_metric(joint_agents, functional_agents, sas_task)
             agents_init = graphs.fill_agents_init(joint_agents, functional_agents, sas_task)
-            agents_goals, agent_coop_goals, general_goals, correct_assignment = \
-                graphs.fill_agents_goals(joint_agents,
-                                         functional_agents, agents_actions,
-                                         agents_metric, agents_init,
-                                         casual_graph, sas_task, groups, time_value,
-                                         task.temp_task)
-            agent_error = agent_error or not correct_assignment
+
+            # Perform the goal assignment only taking into account the optimal time for timed literals and timed goals
+            if ASSIGNMENT_BY_TIMED_GOALS and len(sas_task.goal.pairs) == len(sas_task.timed_goals_list):
+                agents_goals, agent_coop_goals, general_goals, correct_assignment = \
+                    graphs.fill_agents_goals_timed_facts(joint_agents,
+                                             functional_agents, agents_actions,
+                                             agents_metric, agents_init,
+                                             casual_graph, sas_task, groups, time_value,
+                                             task.temp_task)
+            else:
+                agents_goals, agent_coop_goals, general_goals, correct_assignment = \
+                    graphs.fill_agents_goals(joint_agents,
+                                             functional_agents, agents_actions,
+                                             agents_metric, agents_init,
+                                             casual_graph, sas_task, groups, time_value,
+                                             task.temp_task)
+                agent_error = agent_error or not correct_assignment
 
             # Create new tasks
             agent_tasks = []
@@ -1188,11 +1331,18 @@ def pddl_to_sas(task, time_value):
                 goal = sas_tasks.SASGoal(agents_goals[agent_index])
                 a_coop_goal = agent_coop_goals[agent_index]
 
+                a_timed_goals = {}
+                for coop_goal in agents_goals[agent_index]:
+                    for timed_goal, timed_facts in sas_task.timed_goals_list.items():
+                        if coop_goal[0] == timed_goal[0] and coop_goal[1] == timed_goal[1]:
+                            a_timed_goals[timed_goal] = timed_facts
+
+
                 # print("Agent " + str(agent_index) + ": " + str(a_coop_goal))
 
                 new_task = sas_tasks.SASTask(variables, init,
                                              goal, agents_actions[agent_index], [],
-                                             agents_metric[agent_index], shared_nodes, a_coop_goal)
+                                             agents_metric[agent_index], shared_nodes, a_coop_goal, a_timed_goals)
 
                 agent_tasks.append(new_task)
                 agent_index = agent_index + 1
@@ -1253,11 +1403,11 @@ def pddl_to_sas(task, time_value):
 
             ag_index = ag_index + 1
 
-        # Check how many agent types there are
-        agent_types = graphs.calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph_no_cycles,
-                                                   groups)
-
-        print("Types of agents found: " + str(len(agent_types)) + " --> " + str(agent_types))
+        if CREATE_DTGS:
+            # Check how many agent types there are
+            agent_types = graphs.calculate_agent_types(agents_fdtgs, agents_fdtg_metric, agents_causal_graph_no_cycles,
+                                                       groups)
+            print("Types of agents found: " + str(len(agent_types)) + " --> " + str(agent_types))
 
     set_func_init_value(sas_task, agent_tasks, task, groups)
 
@@ -1525,7 +1675,7 @@ if __name__ == "__main__":
 
     timer = timers.Timer()
     with timers.timing("Parsing"):
-        durative_task, time_value, AGENT_DECOMPOSITION = pddl.open_pddl_file()
+        durative_task, time_value, AGENT_DECOMPOSITION, ASSIGNMENT_BY_TIMED_GOALS = pddl.open_pddl_file()
 
     # EXPERIMENTAL!
     # import psyco

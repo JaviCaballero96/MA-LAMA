@@ -1,5 +1,5 @@
 class SASTask:
-    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals):
+    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals, timed_goals_list):
         self.variables = variables
         self.init = init
         self.goal = goal
@@ -8,6 +8,7 @@ class SASTask:
         self.metric = metric
         self.shared_nodes = shared_nodes
         self.coop_goals = coop_goals
+        self.timed_goals_list = timed_goals_list
 
     def output(self, stream, groups):
         print("gen", file=stream)
@@ -21,6 +22,23 @@ class SASTask:
         self.variables.output(stream, groups)
         self.init.output(stream)
         self.goal.output(stream)
+
+        print("begin_timed_goal", file=stream)
+        print(len(self.timed_goals_list), file=stream)
+        for goal, timed_facts in self.timed_goals_list.items():
+            timed_goal_s = ""
+            print(str(goal[0]) + " " + str(goal[1]), file=stream)
+            # timed_goal_s = timed_goal_s + str(goal[0]) + " " + str(goal[1]) + " - "
+
+            print(len(timed_facts), file=stream)
+            for timed_fact in timed_facts:
+                # timed_goal_s = timed_goal_s + str(timed_fact[0]) + " " + str(timed_fact[1]) + " " + \
+                #                str(timed_fact[2]) + " "
+                print(str(timed_fact[0]) + " " + str(timed_fact[1]) + " " + str(timed_fact[2]), file=stream)
+
+            # print(timed_goal_s, file=stream)
+        print("end_timed_goal", file=stream)
+
         print(len(self.operators), file=stream)
         for op in self.operators:
             op.output(stream)
@@ -78,6 +96,32 @@ class SASTask:
                 index = index + 1
             print(index, val, file=stream)
         print("end_goal", file=stream)
+
+        print("begin_timed_goal", file=stream)
+        print(len(self.timed_goals_list), file=stream)
+        for goal, timed_facts in self.timed_goals_list.items():
+            index = 0
+            for vari, range in self.variables.ranges.items():
+                if vari == goal[0]:
+                    break
+                index = index + 1
+
+            print(str(index) + " " + str(goal[1]), file=stream)
+            # timed_goal_s = timed_goal_s + str(index) + " " + str(goal[1]) + " - "
+
+            print(len(timed_facts), file=stream)
+            for timed_fact in timed_facts:
+                index = 0
+                for vari, range in self.variables.ranges.items():
+                    if vari == timed_fact[0]:
+                        break
+                    index = index + 1
+
+                print(str(index) + " " + str(timed_fact[1]) + " " + str(timed_fact[2]), file=stream)
+                # timed_goal_s = timed_goal_s + str(index) + " " + str(timed_fact[1]) + " " + str(timed_fact[2]) + " "
+
+            # print(timed_goal_s, file=stream)
+        print("end_timed_goal", file=stream)
 
         # self.goal.output(stream)
         print(len(self.operators), file=stream)

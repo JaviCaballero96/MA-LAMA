@@ -10,7 +10,7 @@ from . import f_expression
 class Task(object):
     FUNCTION_SYMBOLS = dict()
     def __init__(self, domain_name, task_name, requirements, temp_task,
-                 types, objects, predicates, functions, init, goal, actions, axioms, metric):
+                 types, objects, predicates, functions, init, init_temp, goal, actions, axioms, metric):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -20,6 +20,7 @@ class Task(object):
         self.predicates = predicates
         self.functions = functions
         self.init = init
+        self.init_temp = init_temp
         self.goal = goal
         self.actions = actions
         self.axioms = axioms
@@ -37,13 +38,13 @@ class Task(object):
     def parse(domain_pddl, task_pddl):
         domain_name, requirements, temp_task, types, constants, predicates, functions, actions, axioms \
                      = parse_domain(domain_pddl)
-        task_name, task_domain_name, objects, init, goal, use_metric = parse_task(task_pddl)
+        task_name, task_domain_name, objects, init, init_temp, goal, use_metric = parse_task(task_pddl)
 
         assert domain_name == task_domain_name
         objects = constants + objects
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
         return Task(domain_name, task_name, requirements, temp_task, types, objects,
-                    predicates, functions, init, goal, actions, axioms, use_metric)
+                    predicates, functions, init, init_temp, goal, actions, axioms, use_metric)
     parse = staticmethod(parse)
 
     def dump(self):
@@ -83,7 +84,8 @@ class Requirements(object):
               ":negative-preconditions", ":disjunctive-preconditions",
               ":quantified-preconditions", ":conditional-effects",
               ":derived-predicates", ":action-costs", ":requirements",
-              ":fluents", ":durative-actions", ":preferences", ":constraints"), req
+              ":fluents", ":durative-actions", ":preferences", ":constraints",
+              ":numeric-fluents", ":timed-initial-literals"), req
     def __str__(self):
         return ", ".join(self.requirements)
 
@@ -214,6 +216,7 @@ def parse_task(task_pddl):
 
     assert init[0] == ":init"
     initial = []
+    initial_temp = []
     for fact in init[1:]:
         if fact[0] == "=":
             try:
@@ -222,13 +225,22 @@ def parse_task(task_pddl):
                 raise SystemExit("Error in initial state specification\n" +
                                  "Reason: %s." %  e)
         else:
-            initial.append(conditions.Atom(fact[0], fact[1:]))
+            if fact[0] == "at":
+                if fact[2][0] == "not":
+                    initial_temp.append(conditions.NegatedAtom(fact[2][1][0], fact[2][1][1:]))
+                else:
+                    initial_temp.append(conditions.Atom(fact[2][0], fact[2][1:]))
+                initial_temp[-1].at = fact[1]
+            else:
+                initial.append(conditions.Atom(fact[0], fact[1:]))
+                initial[-1].at = 0
 
     # Append initial state of free_agent()
-    initial.append(conditions.Atom("free_agent", []))
+    # initial.append(conditions.Atom("free_agent", []))
 
     initial.append(f_expression.parse_assignment(["=", "total-time", "0"]))
     yield initial
+    yield initial_temp
 
     goal = next(iterator)
     assert goal[0] == ":goal" and len(goal) == 2
