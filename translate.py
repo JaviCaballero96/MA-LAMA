@@ -968,7 +968,7 @@ def pddl_to_sas(task, time_value):
                                     #       str(single_goal_task.goal.parts[0]) + " at " + neg_atom.at)
 
                 for timed_goal in task.goal.parts:
-                    print("Goal " + str(goal))
+                    print("Goal " + str(timed_goal))
                     if timed_goal in achieved_goals.keys():
                         print("    Can only be achieved after:")
                         for timed_atom in achieved_goals[timed_goal]:

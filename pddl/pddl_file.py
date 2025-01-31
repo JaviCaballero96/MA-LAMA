@@ -39,6 +39,8 @@ def open_pddl_file(task_filename=None, domain_filename=None):
         else:
             assignment_by_timed_goals = False
 
+    domain_filename = sys.argv[1]
+
     if not domain_filename:
         dirname, basename = os.path.split(task_filename)
         domain_filename = os.path.join(dirname, "domain.pddl")
