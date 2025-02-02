@@ -9,10 +9,13 @@ rm -f current_constraints
 rm -f agent*.groups
 rm -f all.groups
 rm -f final_plan.txt
+rm -f GMV*.txt
 rm -f output.sas
 rm -f all.groups
 rm -f test.groups
 rm -f *.log
+rm -f plan_*.txt
+
 
 
 start=`date +%s.%N`
@@ -42,28 +45,28 @@ for file in $files_dir_search
 do
 	if [ "0" -eq "$n_search" ]; then
 		echo "Launching search WITHOUT constraints WITHOUT init state for $file"
-		timeout 1s search/search wlF $file >> search_"$folder"_"$n_search"_l.log
+		timeout 1s search/search wilF $file >> search_"$folder"_"$n_search"_l.log
 
 		FILE=step_0/output_preproagent0.p1
 	    if test -f "$FILE"; then
 	        echo "Solution found!!"
 	    else
 	        echo "No solution found, trying FF heuristic."
-	        timeout 1s search/search wfF $file >> search_"$folder"_"$n_search"_f.log
+	        timeout 1s search/search wifF $file >> search_"$folder"_"$n_search"_f.log
 
 	        FILE=step_0/output_preproagent0.p1
 	        if test -f "$FILE"; then
 	            echo "Solution found!!"
 	        else
 	            echo "No solution found, trying long landmark heuristic."
-	            timeout 10s search/search wlF $file >> search_"$folder"_"$n_search"_l_long.log
+	            timeout 10s search/search wilF $file >> search_"$folder"_"$n_search"_l_long.log
 
 			          FILE="$folder/"output_preproagent$n_search.1
 	        	if test -f "$FILE"; then
 	                echo "Solution found!!"
 	            else
 	                echo "No solution found, trying long FF heuristic."
-	                timeout 10s search/search wfF $file >> search_"$folder"_"$n_search"_f_long.log
+	                timeout 10s search/search wifF $file >> search_"$folder"_"$n_search"_f_long.log
 	            fi
 	        fi
 	    fi
