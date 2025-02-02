@@ -1685,11 +1685,14 @@ if __name__ == "__main__":
     os.system("rm -f output.sas")
     os.system("rm -rf step_*")
 
+    # Manually transform the domain and problem to remove direct negative preconditions
+    transformed_durative_task = pddl.remove_negative_preconditions(durative_task)
+
     # Translate durative task to snap actions task
-    if durative_task.temp_task:
-        snap_task = snap_actions.task_snap_translate(durative_task)
+    if transformed_durative_task.temp_task:
+        snap_task = snap_actions.task_snap_translate(transformed_durative_task)
     else:
-        snap_task = durative_task
+        snap_task = transformed_durative_task
 
     sas_task, agent_tasks, groups, general_goals = pddl_to_sas(snap_task, time_value)
 

@@ -85,7 +85,7 @@ class Requirements(object):
               ":quantified-preconditions", ":conditional-effects",
               ":derived-predicates", ":action-costs", ":requirements",
               ":fluents", ":durative-actions", ":preferences", ":constraints",
-              ":numeric-fluents", ":timed-initial-literals"), req
+              ":numeric-fluents", ":timed-initial-literals", ":external-functions"), req
     def __str__(self):
         return ", ".join(self.requirements)
 
