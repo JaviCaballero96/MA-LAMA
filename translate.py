@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 import copy
+import sys
 from collections import defaultdict
 from copy import deepcopy
 
@@ -967,6 +968,7 @@ def pddl_to_sas(task, time_value):
                                     # print("The atom " + str(neg_atom) + "denies the goal " +
                                     #       str(single_goal_task.goal.parts[0]) + " at " + neg_atom.at)
 
+                min_valid_time_windows = []
                 for timed_goal in task.goal.parts:
                     print("Goal " + str(timed_goal))
                     if timed_goal in achieved_goals.keys():
@@ -978,7 +980,17 @@ def pddl_to_sas(task, time_value):
                         print("    Can no longer be achieved after:")
                         for timed_atom in timed_negated_goals_list[timed_goal]:
                             print("        " + str(timed_atom) + " at " + timed_atom.at)
+                            if float(timed_atom.at) not in min_valid_time_windows:
+                                min_valid_time_windows.append(float(timed_atom.at))
 
+                if min_valid_time_windows:
+                    min_valid_time_windows = sorted(min_valid_time_windows, key=float, reverse=False)
+                    print("The task needs to be completed before " + str(min_valid_time_windows))
+                    f = open("unify_info.txt", "a")
+                    f.write("Unify Data\n")
+                    for elem in min_valid_time_windows:
+                        f.write(str(elem) + "\n")
+                    f.close()
 
             else:
                 print("Task is still not solvable with timed literals")

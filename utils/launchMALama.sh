@@ -15,6 +15,7 @@ rm -f all.groups
 rm -f test.groups
 rm -f *.log
 rm -f plan_*.txt
+rm -f unify_info.txt
 
 
 
