@@ -784,7 +784,10 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
         axiom_layers[var] = layer
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
-    translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas, ranges)
+    if timed_negated_goals_list:
+        translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas, ranges)
+    else:
+        translated_timed_goals_list = []
 
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], translated_timed_goals_list)
 
@@ -888,7 +891,6 @@ def pddl_to_sas(task, time_value):
 
     timed_goals_list = []
     if not relaxed_reachable:
-
         # If the task is unsolvable, the timed literals must be checked
         if task.init_temp:
             single_goal_tasks = []
@@ -998,6 +1000,8 @@ def pddl_to_sas(task, time_value):
 
         else:
             return unsolvable_sas_task("No relaxed solution")
+    else:
+        timed_negated_goals_list = {}
 
     # HACK! Goals should be treated differently.
     if isinstance(task.goal, pddl.Conjunction):
@@ -1345,9 +1349,10 @@ def pddl_to_sas(task, time_value):
 
                 a_timed_goals = {}
                 for coop_goal in agents_goals[agent_index]:
-                    for timed_goal, timed_facts in sas_task.timed_goals_list.items():
-                        if coop_goal[0] == timed_goal[0] and coop_goal[1] == timed_goal[1]:
-                            a_timed_goals[timed_goal] = timed_facts
+                    if sas_task.timed_goals_list:
+                        for timed_goal, timed_facts in sas_task.timed_goals_list.items():
+                            if coop_goal[0] == timed_goal[0] and coop_goal[1] == timed_goal[1]:
+                                a_timed_goals[timed_goal] = timed_facts
 
 
                 # print("Agent " + str(agent_index) + ": " + str(a_coop_goal))

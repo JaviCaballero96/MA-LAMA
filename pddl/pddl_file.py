@@ -35,13 +35,15 @@ def open_pddl_file(task_filename=None, domain_filename=None):
         time_value = sys.argv[3]
         if sys.argv[4] == "y":
             agent_decomp = True
+            if sys.argv[5] == "y":
+                assignment_by_timed_goals = True
+            else:
+                assignment_by_timed_goals = False
         else:
             agent_decomp = False
-
-        if sys.argv[5] == "y":
-            assignment_by_timed_goals = True
-        else:
             assignment_by_timed_goals = False
+
+
 
     domain_filename = sys.argv[1]
 
