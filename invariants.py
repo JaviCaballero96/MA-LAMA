@@ -130,8 +130,11 @@ class InvariantPart:
         return len(self.order)
 
     def get_assignment(self, parameters, literal):
-        equalities = [(arg, literal.args[argpos])
-                      for arg, argpos in zip(parameters, self.order)]
+        if literal.args:
+            equalities = [(arg, literal.args[argpos])
+                          for arg, argpos in zip(parameters, self.order)]
+        else:
+            equalities = []
         return constraints.Assignment(equalities)
 
     def get_parameters(self, literal):

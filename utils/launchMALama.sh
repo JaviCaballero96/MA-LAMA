@@ -9,7 +9,7 @@ rm -f current_constraints
 rm -f agent*.groups
 rm -f all.groups
 rm -f final_plan.txt
-rm -f GMV*.txt
+rm -f final_plan_time.txt
 rm -f output.sas
 rm -f all.groups
 rm -f test.groups
