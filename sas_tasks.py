@@ -1,5 +1,6 @@
 class SASTask:
-    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals, timed_goals_list):
+    def __init__(self, variables, init, goal, operators, axioms, metric, shared_nodes, coop_goals, timed_goals_list,
+                 modules):
         self.variables = variables
         self.init = init
         self.goal = goal
@@ -9,6 +10,7 @@ class SASTask:
         self.shared_nodes = shared_nodes
         self.coop_goals = coop_goals
         self.timed_goals_list = timed_goals_list
+        self.modules = modules
 
     def output(self, stream, groups):
         print("gen", file=stream)
@@ -39,6 +41,18 @@ class SASTask:
 
                 # print(timed_goal_s, file=stream)
         print("end_timed_goal", file=stream)
+
+        print("begin_modules", file=stream)
+        print(len(self.modules), file=stream)
+        for module in self.modules:
+            print(module[0], file=stream)
+            print(len(module[1]), file=stream)
+            for function in module[1]:
+                print(str(function.name), file=stream)
+                print(str(len(function.arguments)), file=stream)
+                for arg in function.arguments:
+                    print(arg.name + " " + arg.type, file=stream)
+        print("end_modules", file=stream)
 
         print(len(self.operators), file=stream)
         for op in self.operators:
@@ -125,6 +139,18 @@ class SASTask:
 
                 # print(timed_goal_s, file=stream)
         print("end_timed_goal", file=stream)
+
+        print("begin_modules", file=stream)
+        print(len(self.modules), file=stream)
+        for module in self.modules:
+            print(module[0], file=stream)
+            print(len(module[1]), file=stream)
+            for function in module[1]:
+                print(str(function.name), file=stream)
+                print(str(len(function.arguments)), file=stream)
+                for arg in function.arguments:
+                    print(arg.name + " " + arg.type, file=stream)
+        print("end_modules", file=stream)
 
         # self.goal.output(stream)
         print(len(self.operators), file=stream)
@@ -314,6 +340,9 @@ class SASOperator:
         if self.have_runtime_cost:
             print("runtime", file=stream)
             print(self.runtime_cost, file=stream)
+        elif self.have_module_cost:
+            print("modulefunc", file=stream)
+            print(self.runtime_cost, file=stream)
         else:
             print("no-run", file=stream)
             print("-", file=stream)
@@ -346,20 +375,23 @@ class SASOperator:
                 index_var = 0
                 for elem in post:
                     if index_var != 1:
+                        # Check if it is a module function
+                        # if isinstance(elem, str) and "modulefunc--" in elem:
+                        #    to_write = to_write + str(elem) + " "
                         # Check if the element is a runtime cost
-                        if isinstance(elem, str) and "_" in elem:
+                        if isinstance(elem, str) and "$" in elem:
                             # Then we have to translate the variables
                             aux = elem
-                            while "_" in elem:
-                                aux = aux[(aux.find("_") + 1):]
-                                run_var = aux[:aux.find("_")]
-                                aux = aux[(aux.find("_") + 1):]
+                            while "$" in elem:
+                                aux = aux[(aux.find("$") + 1):]
+                                run_var = aux[:aux.find("$")]
+                                aux = aux[(aux.find("$") + 1):]
                                 run_index = 0
                                 for vari, range in ranges.items():
                                     if vari == int(run_var):
                                         break
                                     run_index = run_index + 1
-                                elem = elem.replace("_" + run_var + "_", "!" + str(run_index) + "!")
+                                elem = elem.replace("$" + run_var + "$", "!" + str(run_index) + "!")
 
                         to_write = to_write + str(elem) + " "
                     else:
@@ -376,22 +408,25 @@ class SASOperator:
                     index = index + 1
                 print(index, pre, post, file=stream)
         print(self.cost, file=stream)
-        if self.have_runtime_cost:
+        if self.have_module_cost:
+            print("modulefunc", file=stream)
+            print(self.runtime_cost, file=stream)
+        elif self.have_runtime_cost:
             print("runtime", file=stream)
             run_cost = self.runtime_cost
-            if isinstance(run_cost, str) and "_" in run_cost:
+            if isinstance(run_cost, str) and "$" in run_cost:
                 # Then we have to translate the variables
                 aux = run_cost
                 while "_" in run_cost:
-                    aux = aux[(aux.find("_") + 1):]
-                    run_var = aux[:aux.find("_")]
-                    aux = aux[(aux.find("_") + 1):]
+                    aux = aux[(aux.find("$") + 1):]
+                    run_var = aux[:aux.find("$")]
+                    aux = aux[(aux.find("$") + 1):]
                     run_index = 0
                     for vari, range in ranges.items():
                         if vari == int(run_var):
                             break
                         run_index = run_index + 1
-                    run_cost = run_cost.replace("_" + run_var + "_", "!" + str(run_index) + "!")
+                    run_cost = run_cost.replace("$" + run_var + "$", "!" + str(run_index) + "!")
             print(run_cost, file=stream)
         else:
             print("no-run", file=stream)
