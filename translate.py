@@ -243,16 +243,10 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         eff_condition = [list(eff_cond.items())
                          for eff_cond in eff_condition_list]
 
-        op_f = 0
-        if isinstance(fact.expression, pddl.f_expression.PrimitiveNumericExpression):
+        if fact.is_mod_function:
             fact_exp, is_fluent_runtime = get_new_expresison(fact.expression, fluents_in_runtime, False)
             fact_exp = str(fact_exp)
-
-            if not is_fluent_runtime:
-                value = fact.expression.value
-            else:
-                value = get_runtime_value(fact.expression, fluents_in_runtime, "", dict_fluents_in_runtime)
-
+            value = "modulefunc--" + "".join(str(fact.expression)[3:].split())
             if isinstance(fact, pddl.f_expression.Increase):
                 op_f = -2
             elif isinstance(fact, pddl.f_expression.Decrease):
@@ -264,25 +258,45 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
             elif isinstance(fact, pddl.f_expression.LessThan):
                 op_f = -6
         else:
-            is_fluent_runtime = False
-            fact_exp, is_fluent_runtime = get_new_expresison(fact.expression.fluent, fluents_in_runtime,
-                                                             is_fluent_runtime)
-            fact_exp = str(fact_exp)
+            if isinstance(fact.expression, pddl.f_expression.PrimitiveNumericExpression):
+                fact_exp, is_fluent_runtime = get_new_expresison(fact.expression, fluents_in_runtime, False)
+                fact_exp = str(fact_exp)
 
-            if not is_fluent_runtime:
-                value = fact.expression.expression.value
+                if not is_fluent_runtime:
+                    value = fact.expression.value
+                else:
+                    value = get_runtime_value(fact.expression, fluents_in_runtime, "", dict_fluents_in_runtime)
+
+                if isinstance(fact, pddl.f_expression.Increase):
+                    op_f = -2
+                elif isinstance(fact, pddl.f_expression.Decrease):
+                    op_f = -3
+                elif isinstance(fact, pddl.f_expression.Assign):
+                    op_f = -4
+                elif isinstance(fact, pddl.f_expression.GreaterThan):
+                    op_f = -5
+                elif isinstance(fact, pddl.f_expression.LessThan):
+                    op_f = -6
             else:
-                value = get_runtime_value(fact.expression.fluent, fluents_in_runtime, "", dict_fluents_in_runtime)
-            if isinstance(fact, pddl.f_expression.Increase):
-                op_f = -2
-            elif isinstance(fact, pddl.f_expression.Decrease):
-                op_f = -3
-            elif isinstance(fact, pddl.f_expression.Assign):
-                op_f = -4
-            elif isinstance(fact, pddl.f_expression.GreaterThan):
-                op_f = -5
-            elif isinstance(fact, pddl.f_expression.LessThan):
-                op_f = -6
+                is_fluent_runtime = False
+                fact_exp, is_fluent_runtime = get_new_expresison(fact.expression.fluent, fluents_in_runtime,
+                                                                 is_fluent_runtime)
+                fact_exp = str(fact_exp)
+
+                if not is_fluent_runtime:
+                    value = fact.expression.expression.value
+                else:
+                    value = get_runtime_value(fact.expression.fluent, fluents_in_runtime, "", dict_fluents_in_runtime)
+                if isinstance(fact, pddl.f_expression.Increase):
+                    op_f = -2
+                elif isinstance(fact, pddl.f_expression.Decrease):
+                    op_f = -3
+                elif isinstance(fact, pddl.f_expression.Assign):
+                    op_f = -4
+                elif isinstance(fact, pddl.f_expression.GreaterThan):
+                    op_f = -5
+                elif isinstance(fact, pddl.f_expression.LessThan):
+                    op_f = -6
         fact_fluent = str(fact.fluent.fluent)
         fact_str = fact.__class__.__name__ + " " + fact_fluent + " " + fact_exp
         new_atom = aux_func_strips_to_sas[fact_str]
@@ -546,15 +560,15 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
                                                                       expression.fluent.args[1].fluent.args)
 
                 if compare_expressions(param1, fluents_in_runtime):
-                    value_str = value_str + "(_" + \
-                                str(dict_fluents_in_runtime[str(expression.fluent.args[0].fluent)]) + "_)"
+                    value_str = value_str + "($" + \
+                                str(dict_fluents_in_runtime[str(expression.fluent.args[0].fluent)]) + "$)"
 
                 else:
                     value_str = value_str + "(" + str(expression.fluent.args[0].expression.value) + ")"
 
                 if compare_expressions(param2, fluents_in_runtime):
-                    value_str = value_str + "(_" + \
-                                str(dict_fluents_in_runtime[str(expression.fluent.args[1].fluent)]) + "_)"
+                    value_str = value_str + "($" + \
+                                str(dict_fluents_in_runtime[str(expression.fluent.args[1].fluent)]) + "$)"
                 else:
                     value_str = value_str + "(" + str(expression.fluent.args[1].expression.value) + ")"
 
@@ -589,16 +603,16 @@ def get_runtime_value(expression, fluents_in_runtime, value_str, dict_fluents_in
                                                                       expression.args[1].fluent.args)
 
                 if compare_expressions(param1, fluents_in_runtime):
-                    value_str = value_str + "(_" + \
-                                str(dict_fluents_in_runtime[str(expression.args[0].fluent)]) + "_)"
+                    value_str = value_str + "($" + \
+                                str(dict_fluents_in_runtime[str(expression.args[0].fluent)]) + "$)"
                 else:
                     value_str = value_str + "(" + str(expression.args[0].expression.value) + ")"
 
                 value_str = value_str + expression.symbol
 
                 if compare_expressions(param2, fluents_in_runtime):
-                    value_str = value_str + "(_" + \
-                                str(dict_fluents_in_runtime[str(expression.args[1].fluent)]) + "_)"
+                    value_str = value_str + "($" + \
+                                str(dict_fluents_in_runtime[str(expression.args[1].fluent)]) + "$)"
                 else:
                     value_str = value_str + "(" + str(expression.args[1].expression.value) + ")"
 
@@ -681,12 +695,19 @@ def duplicate_funct_effects(operators):
                                 op2.pre_post.append([n_var_no, n_pre_spec, n_post, n_cond])
 
 
-def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
+def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime, translated_metric):
     for op in operators:
         new_cost = ""
+        module_cost = False
         runtime_cost = False
         for var, pre, post, cond in op.pre_post:
-            if isinstance(post, list) and isinstance(post[0], str) and pre == -2:
+            # First check if external function
+            if isinstance(post, list) and isinstance(post[0], str) and "modulefunc--" in post[0] and pre == -2:
+                for key, elem_name in translated_metric.items():
+                    if var == key:
+                        module_cost = True
+                        new_cost = post[0][len("modulefunc--"):] + "+"
+            elif isinstance(post, list) and isinstance(post[0], str) and pre == -2:
                 for elem in metric:
                     if not isinstance(elem, str):
                         if elem.symbol == "*" or elem.symbol == "/" or elem.symbol == "+" or elem.symbol == "-":
@@ -727,6 +748,9 @@ def fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime):
                                 if group_number == var:
                                     new_cost = str(post[0]) + "+" + new_cost
 
+        # Runtime costs and module functions are not
+        assert module_cost != runtime_cost or False == module_cost
+        op.have_module_cost = module_cost
         op.have_runtime_cost = runtime_cost
         op.runtime_cost = new_cost[:-1]
 
@@ -741,7 +765,7 @@ def translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ran
 
 def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
                    actions, axioms, metric, implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime,
-                   dict_fluents_in_runtime, timed_goals_list, timed_negated_goals_list):
+                   dict_fluents_in_runtime, timed_goals_list, timed_negated_goals_list, modules):
     with timers.timing("Processing axioms", block=True):
         axioms, axiom_init, axiom_layer_dict = axiom_rules.handle_axioms(
             actions, axioms, goals)
@@ -773,7 +797,10 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
 
     operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts,
                                            aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime)
-    fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime)
+
+    translated_metric, translated_metric_vals = obtain_metric_functions(groups, metric)
+
+    fix_runtime_metric_costs(operators, metric, dict_fluents_in_runtime, translated_metric)
     duplicate_funct_effects(operators)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
@@ -785,11 +812,14 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     variables = sas_tasks.SASVariables(ranges, axiom_layers)
 
     if timed_negated_goals_list:
-        translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas, ranges)
+        translated_timed_goals_list = translate_timed_goals(timed_goals_list, timed_negated_goals_list, strips_to_sas,
+                                                            ranges)
     else:
         translated_timed_goals_list = []
 
-    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], translated_timed_goals_list)
+    return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric, [], [], translated_timed_goals_list,
+                             modules), \
+           translated_metric_vals, translated_metric_vals
 
 
 def translate_timed_goals(timed_goals_list, timed_negated_goals_list, dictionary, ranges):
@@ -818,6 +848,7 @@ def translate_timed_goals(timed_goals_list, timed_negated_goals_list, dictionary
 
     return translated_timed_goals_list
 
+
 def set_function_values(operators, groups, mutex_groups):
     for operator in operators:
         for effect in operator.pre_post:
@@ -827,10 +858,10 @@ def set_function_values(operators, groups, mutex_groups):
     return
 
 
-def obtain_metric_functions(groups, sas_task):
-    sas_task.translated_metric = {}
-    sas_task.translated_metric_vals = {}
-    for metric_elem in sas_task.metric[1:]:
+def obtain_metric_functions(groups, metric):
+    translated_metric = {}
+    translated_metric_vals = {}
+    for metric_elem in metric[1:]:
         gopup_index = 0
         for group in groups:
             if isinstance(group[0].predicate, pddl.f_expression.Increase) or \
@@ -845,8 +876,8 @@ def obtain_metric_functions(groups, sas_task):
                                 equal = False
                             arg_index = arg_index + 1
                         if equal:
-                            sas_task.translated_metric[gopup_index] = metric_elem.args[1]
-                            sas_task.translated_metric_vals[gopup_index] = float(metric_elem.args[0].name)
+                            translated_metric[gopup_index] = metric_elem.args[1]
+                            translated_metric_vals[gopup_index] = float(metric_elem.args[0].name)
                 elif metric_elem.symbol == "/":
                     if metric_elem.args[1].name == group[0].predicate.fluent.symbol:
                         arg_index = 0
@@ -856,8 +887,8 @@ def obtain_metric_functions(groups, sas_task):
                                 equal = False
                             arg_index = arg_index + 1
                         if equal:
-                            sas_task.translated_metric[gopup_index] = metric_elem.args[1]
-                            sas_task.translated_metric_vals[gopup_index] = 1 / float(metric_elem.args[0].name)
+                            translated_metric[gopup_index] = metric_elem.args[1]
+                            translated_metric_vals[gopup_index] = 1 / float(metric_elem.args[0].name)
                 elif metric_elem.symbol == group[0].predicate.fluent.symbol:
                     arg_index = 0
                     equal = True
@@ -866,9 +897,11 @@ def obtain_metric_functions(groups, sas_task):
                             equal = False
                         arg_index = arg_index + 1
                     if equal:
-                        sas_task.translated_metric[gopup_index] = metric_elem
-                        sas_task.translated_metric_vals[gopup_index] = 1
+                        translated_metric[gopup_index] = metric_elem
+                        translated_metric_vals[gopup_index] = 1
             gopup_index = gopup_index + 1
+
+    return translated_metric, translated_metric_vals
 
 
 def unsolvable_sas_task(msg):
@@ -953,8 +986,8 @@ def pddl_to_sas(task, time_value):
                             init_index = 0
                             for init_item in single_goal_task.init:
                                 if not task_ready and isinstance(init_item, pddl.Atom):
-                                    if not task_ready and\
-                                            init_item.predicate == neg_atom.predicate and\
+                                    if not task_ready and \
+                                            init_item.predicate == neg_atom.predicate and \
                                             init_item.args == neg_atom.args:
                                         single_goal_task.init.pop(init_index)
                                         task_ready = True
@@ -1033,17 +1066,18 @@ def pddl_to_sas(task, time_value):
         implied_facts = {}
 
     with timers.timing("Translating task", block=True):
-        sas_task = translate_task(
+        sas_task, translated_metric, translated_metric_vals = translate_task(
             strips_to_sas, ranges, mutex_dict, mutex_ranges,
             task.init, goal_list, actions, axioms, task.metric,
             implied_facts, aux_func_strips_to_sas, groups, fluents_in_runtime, dict_fluents_in_runtime,
-            timed_goals_list, timed_negated_goals_list)
+            timed_goals_list, timed_negated_goals_list, task.modules)
 
     print("%d implied effects removed" % removed_implied_effect_counter)
     print("%d effect conditions simplified" % simplified_effect_condition_counter)
     print("%d implied preconditions added" % added_implied_precondition_counter)
 
-    obtain_metric_functions(groups, sas_task)
+    sas_task.translated_metric_vals = translated_metric_vals
+    sas_task.translated_metric = translated_metric
     set_function_values(sas_task.operators, groups, mutex_groups)
 
     with timers.timing("Building mutex information", block=True):
@@ -1117,7 +1151,7 @@ def pddl_to_sas(task, time_value):
     if CREATE_DTGS:
         graphs.create_gexf_casual_graph_files(propositional_casual_graph_type1_simple1, 6)
     propositional_casual_graph_type1_simple2 = graphs.remove_three_way_cycles(
-            deepcopy(propositional_casual_graph_type1_simple1))
+        deepcopy(propositional_casual_graph_type1_simple1))
     if CREATE_DTGS:
         # propositional_casual_graph_type1_simple3 = graphs.remove_three_way_cycles(
         #     deepcopy(propositional_casual_graph_type1))
@@ -1316,10 +1350,10 @@ def pddl_to_sas(task, time_value):
             if ASSIGNMENT_BY_TIMED_GOALS and len(sas_task.goal.pairs) == len(sas_task.timed_goals_list):
                 agents_goals, agent_coop_goals, general_goals, correct_assignment = \
                     graphs.fill_agents_goals_timed_facts(joint_agents,
-                                             functional_agents, agents_actions,
-                                             agents_metric, agents_init,
-                                             casual_graph, sas_task, groups, time_value,
-                                             task.temp_task)
+                                                         functional_agents, agents_actions,
+                                                         agents_metric, agents_init,
+                                                         casual_graph, sas_task, groups, time_value,
+                                                         task.temp_task)
             else:
                 agents_goals, agent_coop_goals, general_goals, correct_assignment = \
                     graphs.fill_agents_goals(joint_agents,
@@ -1354,12 +1388,12 @@ def pddl_to_sas(task, time_value):
                             if coop_goal[0] == timed_goal[0] and coop_goal[1] == timed_goal[1]:
                                 a_timed_goals[timed_goal] = timed_facts
 
-
                 # print("Agent " + str(agent_index) + ": " + str(a_coop_goal))
 
                 new_task = sas_tasks.SASTask(variables, init,
                                              goal, agents_actions[agent_index], [],
-                                             agents_metric[agent_index], shared_nodes, a_coop_goal, a_timed_goals)
+                                             agents_metric[agent_index], shared_nodes, a_coop_goal, a_timed_goals,
+                                             sas_task.modules)
 
                 agent_tasks.append(new_task)
                 agent_index = agent_index + 1
@@ -1384,7 +1418,6 @@ def pddl_to_sas(task, time_value):
         agents_fdtg_metric = []
         agents_causal_graph_no_cycles = []
         for agent_task in agent_tasks:
-
             (agent_casual_graph, agent_casual_graph_type1, agent_casual_graph_type2,
              agent_propositional_casual_graph, agent_propositional_casual_graph_type1,
              agent_propositional_casual_graph_type2) = graphs.create_casual_graph(agent_task, groups, group_const_arg,

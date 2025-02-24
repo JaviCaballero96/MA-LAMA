@@ -17,7 +17,7 @@ rm -f *.log
 rm -f plan_*.txt
 rm -f unify_info.txt
 
-
+export EF_PATH=`pwd`/search/external_functions
 
 start=`date +%s.%N`
 

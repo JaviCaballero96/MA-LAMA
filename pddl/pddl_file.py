@@ -182,7 +182,7 @@ def remove_negative_preconditions(durative_task):
                      durative_task.temp_task, durative_task.types, durative_task.objects,
                      new_predicates, durative_task.functions, new_init, durative_task.init_temp,
                      durative_task.goal, new_durative_actions, durative_task.axioms,
-                     durative_task.metric)
+                     durative_task.metric, durative_task.modules)
 
 
 if __name__ == "__main__":

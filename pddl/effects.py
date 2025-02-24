@@ -352,16 +352,20 @@ class CostEffect(object):
         return self, None  # this would only happen if
         # an action has no effect apart from the cost effect
 
-    def inst_cost_effect(self, cost_eff, var_mapping, init_facts, arg_used):
+    def inst_cost_effect(self, cost_eff, var_mapping, init_facts, arg_used, modules, objects_by_type):
         if cost_eff.symbol == "*":
             new_expression_1 = f_expression.PrimitiveNumericExpression(cost_eff.args[0].name,
                                                                        cost_eff.args[0].args)
             new_expression_2 = f_expression.PrimitiveNumericExpression(cost_eff.args[1].name,
                                                                        cost_eff.args[1].args)
             inc_ins_1 = self.inst_cost_effect(new_expression_1, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
             inc_ins_2 = self.inst_cost_effect(new_expression_2, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
+            if isinstance(inc_ins_1, tuple):
+                inc_ins_1 = inc_ins_1[0]
+            if isinstance(inc_ins_2, tuple):
+                inc_ins_2 = inc_ins_2[0]
 
             if isinstance(inc_ins_1, pddl.f_expression.FunctionAssignment):
                 value_1 = inc_ins_1.expression.value
@@ -382,9 +386,15 @@ class CostEffect(object):
             new_expression_2 = f_expression.PrimitiveNumericExpression(cost_eff.args[1].name,
                                                                        cost_eff.args[1].args)
             inc_ins_1 = self.inst_cost_effect(new_expression_1, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
             inc_ins_2 = self.inst_cost_effect(new_expression_2, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
+
+            if isinstance(inc_ins_1, tuple):
+                inc_ins_1 = inc_ins_1[0]
+            if isinstance(inc_ins_2, tuple):
+                inc_ins_2 = inc_ins_2[0]
+
             if isinstance(inc_ins_1, pddl.f_expression.FunctionAssignment):
                 value_1 = inc_ins_1.expression.value
             else:
@@ -404,9 +414,15 @@ class CostEffect(object):
             new_expression_2 = f_expression.PrimitiveNumericExpression(cost_eff.args[1].name,
                                                                        cost_eff.args[1].args)
             inc_ins_1 = self.inst_cost_effect(new_expression_1, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
             inc_ins_2 = self.inst_cost_effect(new_expression_2, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
+
+            if isinstance(inc_ins_1, tuple):
+                inc_ins_1 = inc_ins_1[0]
+            if isinstance(inc_ins_2, tuple):
+                inc_ins_2 = inc_ins_2[0]
+
             if isinstance(inc_ins_1, pddl.f_expression.FunctionAssignment):
                 value_1 = inc_ins_1.expression.value
             else:
@@ -426,9 +442,9 @@ class CostEffect(object):
             new_expression_2 = f_expression.PrimitiveNumericExpression(cost_eff.args[1].name,
                                                                        cost_eff.args[1].args)
             inc_ins_1 = self.inst_cost_effect(new_expression_1, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
             inc_ins_2 = self.inst_cost_effect(new_expression_2, var_mapping,
-                                              init_facts, arg_used)
+                                              init_facts, arg_used, modules, objects_by_type)
             if isinstance(inc_ins_1, pddl.f_expression.FunctionAssignment):
                 value_1 = inc_ins_1.expression.value
             else:
@@ -445,4 +461,4 @@ class CostEffect(object):
         else:
             for arg in cost_eff.args:
                 arg_used.append(var_mapping.get(arg.name, arg.name))
-            return cost_eff.instantiate(var_mapping, init_facts)
+            return cost_eff.instantiate(var_mapping, init_facts, modules, objects_by_type)
