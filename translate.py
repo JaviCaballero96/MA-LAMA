@@ -1759,8 +1759,19 @@ if __name__ == "__main__":
                 for metr in sas_task.translated_metric:
                     agent_tasks[0].metric.append(metr)
 
+        # Short the agents in the cooperation step storing the original shared variables information
+        index = 0
+        ori_index = []
+        for a_task in agent_tasks:
+            a_task.ori_index = index
+            index = index + 1
+
         agent_tasks.sort(key=number_of_coordination_goals)
         agent_tasks.reverse()
+
+        new_indexes = []
+        for a_task in agent_tasks:
+            a_task.shared_index = a_task.ori_index
 
         agent_index = 0
         os.mkdir("step_0")

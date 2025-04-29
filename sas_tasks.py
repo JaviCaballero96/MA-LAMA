@@ -86,11 +86,11 @@ class SASTask:
         shared_number = 0
         if (self.shared_nodes or agent_index != -1) and self.shared_nodes != []:
             for me, is_agent in self.shared_nodes.items():
-                if is_agent[agent_index]:
+                if is_agent[self.shared_index]:
                     shared_number = shared_number + 1
             print(shared_number, file=stream)
             for me, is_agent in self.shared_nodes.items():
-                if not is_agent[agent_index]:
+                if not is_agent[self.shared_index]:
                     continue
                 index = 0
                 for vari, range in self.variables.ranges.items():

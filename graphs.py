@@ -2119,7 +2119,7 @@ def fill_complex_agents_goals(goals_to_analyze, functional_agents, agents_action
             coordination_points_found = False
 
             # min_heur_node = (init_node, -1)
-            while search_queue and time.time() < timeout_start + int(time_value):
+            while search_queue and time.time() < timeout_start + (int(time_value) / 1000):
                 (node, h_node) = search_queue.pop(0)
                 # if min_heur_node[1] > h_node or min_heur_node[1] == -1:
                 #     min_heur_node = (node, h_node)
@@ -2306,7 +2306,7 @@ def deal_with_coordination_points_for_goal(coordination_points, agents_possible_
     max_cost = 9999999
 
     # min_heur_node = (init_node, -1)
-    while search_queue and time.time() < timeout_start + (int(time_value) * len(functional_agents)):
+    while search_queue and time.time() < timeout_start + ((int(time_value)/1000) * len(functional_agents)):
         (node, h_node) = search_queue.pop(0)
         # if min_heur_node[1] > h_node or min_heur_node[1] == -1:
         #     min_heur_node = (node, h_node)
