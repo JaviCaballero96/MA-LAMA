@@ -127,7 +127,7 @@ class Action(object):
         return [par.to_untyped_strips() for par in self.parameters] + \
                self.precondition.to_untyped_strips()
 
-    def instantiate(self, var_mapping, init_facts, fluent_facts, objects_by_type, metric):
+    def instantiate(self, var_mapping, init_facts, fluent_facts, objects_by_type, metric, modules):
         """Return a PropositionalAction which corresponds to the instantiation of
         this action with the arguments in var_mapping. Only fluent parts of the
         conditions (those in fluent_facts) are included. init_facts are evaluated
@@ -158,14 +158,23 @@ class Action(object):
                 elif isinstance(eff.effect, pddl.f_expression.LessThan):
                     eff_aux = f_expression.LessThan("", "")
 
-                eff_aux.fluent = eff.effect.fluent.instantiate(var_mapping, init_facts)
+                eff_aux.fluent, is_mod_function = eff.effect.fluent.instantiate(var_mapping, init_facts, modules,
+                                                                                objects_by_type)
                 arg_used = [var_mapping.get(arg.name, arg.name) for arg in eff.effect.fluent.args]
 
-                eff_aux.expression = eff.inst_cost_effect(eff.effect.expression, var_mapping, init_facts, arg_used)
+                eff_aux.expression= eff.inst_cost_effect(eff.effect.expression, var_mapping,
+                                                                           init_facts, arg_used, modules,
+                                                                           objects_by_type)
+
+                if isinstance(eff_aux.expression, tuple):
+                    is_mod_function = eff_aux.expression[1]
+                    eff_aux.expression = eff_aux.expression[0]
+
                 args_ordered = [arg for arg in arg_list if arg in arg_used]
                 eff_aux.negated = False
                 eff_aux.parameters = args_ordered
                 eff_aux.eff_type = eff.eff_type
+                eff_aux.is_mod_function = is_mod_function
                 effects.append(([], eff_aux))
             else:
                 eff.instantiate(var_mapping, init_facts, fluent_facts,
@@ -178,6 +187,8 @@ class Action(object):
                 cost = float(0)
             else:
                 for cond, cost_eff in effects:
+                    if cost_eff.eff_type == "num eff" and cost_eff.is_mod_function:
+                        continue
                     if isinstance(cost_eff, pddl.f_expression.Increase):
                         for m_elem in metric:
                             if not isinstance(m_elem, str):

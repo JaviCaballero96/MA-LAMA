@@ -38,12 +38,18 @@ def parse_condition_aux(alist, negated):
         if alist[2][0] in (">", "<", ">=", "<="):
             return pddl.f_expression.PrimitiveNumericExpression(alist[2][0], alist[2][1:])
         else:
-            return Atom(alist[2][0], alist[2][1:])
+            if alist[2][0] == "not":
+                return NegatedAtom(alist[2][1][0], alist[2][1][1:])
+            else:
+                return Atom(alist[2][0], alist[2][1:])
     elif (tag in "at" and tag_2 in "end") or (tag in "at" and tag_2 in "start"):
         if alist[2][0] in (">", "<", ">=", "<="):
             return pddl.f_expression.PrimitiveNumericExpression(alist[2][0], alist[2][1:])
         else:
-            return Atom(alist[2][0], alist[2][1:])
+            if alist[2][0] == "not":
+                return NegatedAtom(alist[2][1][0], alist[2][1][1:])
+            else:
+                return Atom(alist[2][0], alist[2][1:])
     elif tag in (">", "<", ">=", "<="):
         return pddl.f_expression.PrimitiveNumericExpression(alist[0], alist[1:])
     elif tag in ("forall", "exists"):
@@ -65,7 +71,7 @@ def parse_condition_aux(alist, negated):
         num_conditions = []
         pos = 0
         for part in parts.copy():
-            if not isinstance(part, Atom):
+            if not isinstance(part, Atom) and not isinstance(part, NegatedAtom):
                 op, head, exp = pddl.f_expression.parse_comparation(part)
                 if op == ">" or op == ">=":
                     num_conditions.append((pos, pddl.effects.CostEffect(pddl.f_expression.GreaterThan(head, exp))))

@@ -1,4 +1,5 @@
 from .pddl_file import open_pddl_file
+from .pddl_file import remove_negative_preconditions
 
 from .parser import ParseError
 

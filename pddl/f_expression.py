@@ -111,7 +111,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
     def _dump(self):
         return str(self)
 
-    def instantiate(self, var_mapping, init_facts):
+    def instantiate(self, var_mapping, init_facts, modules, objects_by_type):
         args = [conditions.ObjectTerm(var_mapping.get(arg.name, arg.name))
                 for arg in self.args]
         pne = PrimitiveNumericExpression(self.symbol, args)
@@ -122,7 +122,27 @@ class PrimitiveNumericExpression(FunctionalExpression):
         for fact in init_facts:
             if isinstance(fact, FunctionAssignment):
                 if fact.fluent == pne:
-                    return fact
+                    return fact, False
+
+        # Check if the pne is a function from a module
+        # These PNEs will not be resolved until the search phase
+        # Return them as PrimitiveNumericExpression and deal with them correctly
+        for module in modules:
+            for func in module[1]:
+                if func.name == pne.symbol:
+                    if len(pne.args) == len(func.arguments):
+                        equal_args = True
+                        arg_index = 0
+                        for arg in func.arguments:
+                            if not (pne.args[arg_index].name in objects_by_type[arg.type]):
+                                equal_args = False
+                                break
+                            arg_index = arg_index + 1
+
+                        if equal_args:
+                            # The PNE is a function from a module, deal with it later
+                            return pne, True
+
         assert False, "Could not find instantiation for PNE!"
 
 

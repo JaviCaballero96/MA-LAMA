@@ -1,3 +1,4 @@
+import pddl.functions
 from . import actions
 from . import durative_actions
 from . import axioms
@@ -7,10 +8,12 @@ from . import pddl_types
 from . import functions
 from . import f_expression
 
+
 class Task(object):
     FUNCTION_SYMBOLS = dict()
+
     def __init__(self, domain_name, task_name, requirements, temp_task,
-                 types, objects, predicates, functions, init, init_temp, goal, actions, axioms, metric):
+                 types, objects, predicates, functions, init, init_temp, goal, actions, axioms, metric, modules):
         self.domain_name = domain_name
         self.task_name = task_name
         self.requirements = requirements
@@ -26,6 +29,7 @@ class Task(object):
         self.axioms = axioms
         self.axiom_counter = 0
         self.metric = metric
+        self.modules = modules
 
     def add_axiom(self, parameters, condition):
         name = "new-axiom@%d" % self.axiom_counter
@@ -36,15 +40,16 @@ class Task(object):
         return axiom
 
     def parse(domain_pddl, task_pddl):
-        domain_name, requirements, temp_task, types, constants, predicates, functions, actions, axioms \
-                     = parse_domain(domain_pddl)
+        domain_name, requirements, temp_task, types, constants, predicates, modules, functions, actions, axioms \
+            = parse_domain(domain_pddl)
         task_name, task_domain_name, objects, init, init_temp, goal, use_metric = parse_task(task_pddl)
 
         assert domain_name == task_domain_name
         objects = constants + objects
         init += [conditions.Atom("=", (obj.name, obj.name)) for obj in objects]
         return Task(domain_name, task_name, requirements, temp_task, types, objects,
-                    predicates, functions, init, init_temp, goal, actions, axioms, use_metric)
+                    predicates, functions, init, init_temp, goal, actions, axioms, use_metric, modules)
+
     parse = staticmethod(parse)
 
     def dump(self):
@@ -75,19 +80,22 @@ class Task(object):
             for axiom in self.axioms:
                 axiom.dump()
 
+
 class Requirements(object):
     def __init__(self, requirements):
         self.requirements = requirements
         for req in requirements:
             assert req in (
-              ":strips", ":adl", ":typing", ":negation", ":equality",
-              ":negative-preconditions", ":disjunctive-preconditions",
-              ":quantified-preconditions", ":conditional-effects",
-              ":derived-predicates", ":action-costs", ":requirements",
-              ":fluents", ":durative-actions", ":preferences", ":constraints",
-              ":numeric-fluents", ":timed-initial-literals"), req
+                ":strips", ":adl", ":typing", ":negation", ":equality",
+                ":negative-preconditions", ":disjunctive-preconditions",
+                ":quantified-preconditions", ":conditional-effects",
+                ":derived-predicates", ":action-costs", ":requirements",
+                ":fluents", ":durative-actions", ":preferences", ":constraints",
+                ":numeric-fluents", ":timed-initial-literals", ":external-functions"), req
+
     def __str__(self):
         return ", ".join(self.requirements)
+
 
 def parse_domain(domain_pddl):
     iterator = iter(domain_pddl)
@@ -132,15 +140,39 @@ def parse_domain(domain_pddl):
     assert pred[0] == ":predicates"
 
     the_predicates = [predicates.Predicate.parse(entry) for entry in pred[1:]] + [predicates.Predicate("=",
-                                 [pddl_types.TypedObject("?x", "object"),
-                                  pddl_types.TypedObject("?y", "object")])]
+                                                                                                       [
+                                                                                                           pddl_types.TypedObject(
+                                                                                                               "?x",
+                                                                                                               "object"),
+                                                                                                           pddl_types.TypedObject(
+                                                                                                               "?y",
+                                                                                                               "object")])]
 
     yield the_predicates
 
-    # create a new parameter to control each agent state in the search phase
-    the_predicates.append(predicates.Predicate("free_agent", []))
+    modules = []
+    opt_modules = next(iterator)
+    if opt_modules[0] == ":modules":
+        print("Reading modules...")
 
-    opt_functions = next(iterator) #action costs enable restrictive version of fluents
+        for module_elem in opt_modules[1:]:
+            assert module_elem[0] == ":module"
+            module = []
+
+            module.append(module_elem[1])
+            module.append([])
+            for func_elem in module_elem[2:]:
+                assert func_elem[0] == ":function"
+                module[1].append(pddl.functions.Function.parse(func_elem[1]))
+
+            modules.append(module)
+
+        yield modules
+        opt_functions = next(iterator)
+    else:
+        yield []
+        opt_functions = opt_modules
+
     if opt_functions[0] == ":functions":
         the_functions = pddl_types.parse_typed_list(opt_functions[1:],
                                                     constructor=functions.Function.parse_typed, functions=True)
@@ -152,11 +184,11 @@ def parse_domain(domain_pddl):
             Task.FUNCTION_SYMBOLS[function.name] = function.type
         yield the_functions
         first_durative_action = next(iterator)
-        #first_action = next(iterator)
+        # first_action = next(iterator)
     else:
         yield []
         first_durative_action = opt_functions
-        #first_action = opt_functions
+        # first_action = opt_functions
 
     entries = [first_durative_action] + [entry for entry in iterator]
     the_axioms = []
@@ -182,18 +214,19 @@ def parse_domain(domain_pddl):
         yield the_actions
     yield the_axioms
 
-    #entries = [first_action] + [entry for entry in iterator]
-    #the_axioms = []
-    #the_actions = []
-    #for entry in entries:
+    # entries = [first_action] + [entry for entry in iterator]
+    # the_axioms = []
+    # the_actions = []
+    # for entry in entries:
     #    if entry[0] == ":derived":
     #        axiom = axioms.Axiom.parse(entry)
     #        the_axioms.append(axiom)
     #    else:
     #        action = actions.Action.parse(entry)
     #        the_actions.append(action)
-    #yield the_actions
-    #yield the_axioms
+    # yield the_actions
+    # yield the_axioms
+
 
 def parse_task(task_pddl):
     iterator = iter(task_pddl)
@@ -223,7 +256,7 @@ def parse_task(task_pddl):
                 initial.append(f_expression.parse_assignment(fact))
             except ValueError as e:
                 raise SystemExit("Error in initial state specification\n" +
-                                 "Reason: %s." %  e)
+                                 "Reason: %s." % e)
         else:
             if fact[0] == "at":
                 if fact[2][0] == "not":
@@ -252,7 +285,7 @@ def parse_task(task_pddl):
         if entry[0] == ":metric":
             metric.append(entry[1])
             if entry[2][0] == "total-cost":
-                #metric = "total-cost"
+                # metric = "total-cost"
                 metric.append(f_expression.parse_expression(entry[2][:]))
             elif entry[2][0] == "+":
                 for pne in entry[2][1:]:

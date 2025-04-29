@@ -25,7 +25,7 @@ def task_snap_translate(task):
 
     return tasks.Task(task.domain_name, task.task_name, task.requirements, task.temp_task, task.types, task.objects,
                       new_predicates, task.functions, task.init, task.init_temp, task.goal, all_actions, task.axioms,
-                      task.metric)
+                      task.metric, task.modules)
 
 
 def obtain_start_snap_actions(all_actions):
