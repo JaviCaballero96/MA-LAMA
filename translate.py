@@ -947,7 +947,7 @@ def pddl_to_sas(task, time_value):
 
                         if relaxed_reachable_single[0]:
                             if single_task.goal.parts[0] in achieved_goals.keys():
-                                achieved_goals[single_task.goal.parts[0]].append = [timed_atom]
+                                achieved_goals[single_task.goal.parts[0]].append(timed_atom)
                             else:
                                 achieved_goals[single_task.goal.parts[0]] = [timed_atom]
                             single_goal_tasks_solvable[index].init.append(timed_atom)
