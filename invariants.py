@@ -220,6 +220,8 @@ class Invariant:
         return next(iter(self.parts)).arity()
 
     def get_parameters(self, atom):
+        if len(literal.args) == 0:
+            return []
         return self.predicate_to_part[atom.predicate].get_parameters(atom)
 
     def instantiate(self, parameters):
