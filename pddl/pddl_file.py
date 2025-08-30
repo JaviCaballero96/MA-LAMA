@@ -169,8 +169,9 @@ def remove_negative_preconditions(durative_task):
                             equal_args = False
                             break
 
-                        if equal_args:
-                            # Remove arg combination
+                    if equal_args:
+                        # Remove arg combination
+                        if arg_comb in possible_args_combinations:
                             possible_args_combinations.remove(arg_comb)
                         arg_index = arg_index + 1
 
