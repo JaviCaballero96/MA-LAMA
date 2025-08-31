@@ -10,6 +10,7 @@ cp MA-LAMA/utils/* .
 mv MA-LAMA translate
 chmod -R +x translate/*
 chmod +x launchMALama.sh
+cp -rf translate/domains .
 
 echo "  preprocess..."
 git clone -b GMV https://github.com/JaviCaballero96/MA-LAMA_preprocess.git
