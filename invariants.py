@@ -138,6 +138,8 @@ class InvariantPart:
         return constraints.Assignment(equalities)
 
     def get_parameters(self, literal):
+        if len(literal.args) == 0:
+            return []
         return [literal.args[pos] for pos in self.order]
 
     def instantiate(self, parameters):
@@ -220,8 +222,6 @@ class Invariant:
         return next(iter(self.parts)).arity()
 
     def get_parameters(self, atom):
-        if len(literal.args) == 0:
-            return []
         return self.predicate_to_part[atom.predicate].get_parameters(atom)
 
     def instantiate(self, parameters):
