@@ -29,7 +29,7 @@ else
 fi
 
 echo "Launching Translate"
-python3 translate/translate.py $1 $2 $3 $4 $5 > translate.log
+/usr/bin/time -v python3 translate/translate.py $1 $2 $3 $4 $5 > translate.log
 
 
 echo "Launching Preprocess"
@@ -46,7 +46,7 @@ do
 		done
 
 		command="mv output_preproagent* $folder"
-		`$command`
+	`$command`
 
 		files_dir_search="step_0/"output_preproagent*
     n_search=0
@@ -54,55 +54,56 @@ do
     do
       if [ "0" -eq "$n_search" ]; then
         echo "Launching search WITHOUT constraints WITHOUT init state for $file"
-        timeout 1s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
+        # /usr/bin/time -v timeout 1s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
+	/usr/bin/time -v timeout 1s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
 
-        FILE=step_0/output_preproagent0.p1
+        FILE=step_0/output_preproagent"$n_search".p1
         if test -f "$FILE"; then
           echo "Solution found!!"
         else
           echo "No solution found, trying FF heuristic."
-          timeout 1s search/search wifF$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
+          /usr/bin/time -v timeout 1s search/search wifF$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
 
-          FILE=step_0/output_preproagent0.p1
+          FILE=step_0/output_preproagent"$n_search".p1
           if test -f "$FILE"; then
             echo "Solution found!!"
           else
             echo "No solution found, trying long landmark heuristic."
-            timeout 10s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l_long.log
+            /usr/bin/time -v timeout 10s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l_long.log
 
-            FILE=step_0/output_preproagent0.p1
+            FILE=step_0/output_preproagent"$n_search".p1
             if test -f "$FILE"; then
               echo "Solution found!!"
             else
               echo "No solution found, trying long FF heuristic."
-              timeout 10s search/search wifF$HARD_CONST $file >> search_"$folder"_"$n_search"_f_long.log
+              /usr/bin/time -v timeout 10s search/search wifF$HARD_CONST $file >> search_"$folder"_"$n_search"_f_long.log
             fi
           fi
         fi
       else
         echo "Launching search WITH constraints WITHOUT init state for $file"
-        timeout 1s search/search wlF $file$HARD_CONST >> search_"$folder"_"$n_search"_l.log
+        /usr/bin/time -v timeout 1s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l.log
 
         FILE=step_0/output_preproagent"$n_search".p1
         if test -f "$FILE"; then
           echo "Solution found!!"
         else
           echo "No solution found, trying FF heuristic WITH constraints."
-          timeout 1s search/search wfF $file$HARD_CONST >> search_"$folder"_"$n_search"_f.log
+          /usr/bin/time -v timeout 1s search/search wifF$HARD_CONST $file >> search_"$folder"_"$n_search"_f.log
 
-          FILE=step_0/output_preproagent0.p1
+          FILE=step_0/output_preproagent"$n_search".p1
           if test -f "$FILE"; then
             echo "Solution found!!"
           else
             echo "No solution found, trying long landmark heuristic WITH constraints."
-            timeout 10s search/search wlF $file$HARD_CONST >> search_"$folder"_"$n_search"_l_long.log
+            /usr/bin/time -v timeout 10s search/search wilF$HARD_CONST $file >> search_"$folder"_"$n_search"_l_long.log
 
             FILE="$folder/"output_preproagent$n_search.p1
             if test -f "$FILE"; then
               echo "Solution found!!"
             else
               echo "No solution found, trying long FF heuristic WITH constraints."
-              timeout 10s search/search wfF $file$HARD_CONST >> search_"$folder"_"$n_search"_f_long.log
+              /usr/bin/time -v timeout 10s search/search wifF$HARD_CONS $file >> search_"$folder"_"$n_search"_f_long.log
             fi
           fi
         fi
@@ -125,14 +126,14 @@ do
 		for file in $files_dir_search
 		do
 			echo "Launching search WITHOUT constraints WITH init state for $file"
-			timeout 10s search/search swlFi $file >> search_"$folder"_l.log
+			/usr/bin/time -v timeout 10s search/search swlFi $file >> search_"$folder"_l.log
 
 			FILE=$file.p1
 			if test -f "$FILE"; then
 			    echo "Solution found!!!"
 			else
           echo "No solution found, trying FF heuristic."
-          timeout 10s search/search cwfFi $file >> search_"$folder"_f.log
+          /usr/bin/time -v timeout 10s search/search cwfFi $file >> search_"$folder"_f.log
       fi
 		done
 	fi
@@ -146,10 +147,21 @@ end=`date +%s.%N`
 runtime=$( echo "$end - $start" | bc -l )
 
 grep Expanded step_*/*
+sum=$(grep "Expanded nodes:" step*/* | awk -F': ' '{sum += $2} END {print sum}')
+echo "Total Expanded Nodes: $sum"
 grep Cost step*/*
 grep "Search time" step*/*
 grep Cost final_plan.txt
 grep Makespan final_plan.txt
+
+# echo "Creating output for ergo"
+
+# rm -f global_plan
+# echo "execute_plans [0.001, 5991.998, 2.000]" > global_plan
+# rm -f lamarrplan
+# rm -f maeplan
+# grep lamarr final_plan_time.txt > lamarrplan
+# grep mae final_plan_time.txt > maeplan
 
 echo "Time spent: $runtime"
 
