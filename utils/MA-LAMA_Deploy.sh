@@ -1,6 +1,6 @@
 #/bin/bash
 
-echo "LAMA_Magent is going to be deployed :)"
+echo "MA-LAMA is going to be deployed :)"
 sleep 2
 echo "Downloading all modules from git..."
 
