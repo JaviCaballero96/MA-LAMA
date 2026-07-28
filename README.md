@@ -15,16 +15,6 @@ Once built, MA-LAMA can be launched by executing the command:
 
 The final plan is stored as final_plan.txt (and final_plan_time.txt, with per-action timing).
 
-## --- If you want to validate a generated plan ---
-
-validate_plan.py is a generic, domain-independent temporal-plan validator. It parses a PDDL domain + problem together with a MA-LAMA-style plan file (final_plan.txt) and simulates it as a discrete-event system driven directly by the domain's own :condition/:effect declarations, so it needs no per-domain configuration -- shared/contested variables and mutual-exclusion violations fall out of the simulation itself.
-
-To launch:
-
-python3 validate_plan.py domain.pddl problem.pddl final_plan.txt [--actor-type TYPE] [-q]
-
-Exit code: 0 if the plan is valid, 1 otherwise.
-
 ## --- Project structure ---
 
 MA-LAMA is composed of four phases, each in its own subfolder with its own README describing its module-specific usage and generated files:
