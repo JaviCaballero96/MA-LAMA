@@ -1,7 +1,4 @@
-
-## --- If you want to use MA-LAMA, please refer to the MA-LAMA repository ---
-
-This project composes the phase FOUR of the MA-LAMA planner, it is only meant to be downloaded separately for developement purposes.
+This project composes the phase FOUR of the MA-LAMA planner.
 More precisely, this module assembles all the partial plans generated in each Search phase execution and generates the final temporal plan.
 
 To launch, it takes as an input the output.sas file(s) from the preprocess module and the all.groups from the translate module:
