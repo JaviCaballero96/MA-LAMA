@@ -11,7 +11,7 @@ Clone this repository, then build the two C++ modules from the root directory:
 
 Once built, MA-LAMA can be launched by executing the command:
 
-### launchMALama.sh domain_file problem_file time_relaxed_search(s) agent_decomp?(y/n) launch_hard_temp_constraints?(h)
+### launchMALama.sh domain_file problem_file time_relaxed_search(s) agent_decomp?(y/n) fast_goal_assignment?(y/n) launch_hard_temp_constraints?(h)
 
 The final plan is stored as final_plan.txt (and final_plan_time.txt, with per-action timing).
 
