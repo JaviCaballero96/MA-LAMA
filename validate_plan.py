@@ -61,7 +61,12 @@ ROUNDING_SLACK = 0.0015
 
 def tokenize(text):
     text = re.sub(r";.*", "", text)  # strip PDDL line comments
-    return re.findall(r"\(|\)|[^\s()]+", text)
+    # PDDL identifiers (types, predicates, objects, action names, ...) are
+    # case-insensitive per the spec, and MA-LAMA's plan output normalizes
+    # every name to lowercase. Lowercasing domain/problem tokens here keeps
+    # them matching that convention instead of failing lookups whenever a
+    # problem file spells an object with any uppercase letters.
+    return [tok.lower() for tok in re.findall(r"\(|\)|[^\s()]+", text)]
 
 
 def parse_sexpr_stream(tokens):
@@ -706,7 +711,7 @@ def main():
 
     domain = parse_domain(args.domain)
     if args.actor_type:
-        domain.actor_type = args.actor_type
+        domain.actor_type = args.actor_type.lower()
         for name, schema in domain.actions.items():
             for varname, typ in schema.params:
                 if _type_matches(typ, domain.actor_type, domain.types):
